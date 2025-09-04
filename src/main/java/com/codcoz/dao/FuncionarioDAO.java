@@ -1,0 +1,57 @@
+package com.codcoz.dao;
+
+import com.codcoz.model.Funcionario;
+
+import java.sql.*;
+
+public class FuncionarioDAO {
+
+    public void create(Funcionario funcionario) {
+        String sql = "INSERT INTO funcionario (id_empresa, id_funcao, nome, sobrenome, data_admissao, cpf, salario, ) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        Conexao conexao = new Conexao();
+        Connection conn = conexao.conectar();
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            pstmt.setInt(1, funcionario.getIdEmpresa());
+            pstmt.setInt(2, funcionario.getIdFuncao());
+            pstmt.setString(3, funcionario.getNome());
+            pstmt.setString(4, funcionario.getSobrenome());
+            pstmt.setString(5, funcionario.getCpf());
+            pstmt.setDouble(6, funcionario.getSalario());
+            pstmt.setString(7, funcionario.getDataAdmissao());
+
+            pstmt.executeUpdate();
+            System.out.println("Funcionario inserido com sucesso!");
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+        conexao.desconectar(conn);
+    }
+    public ResultSet read(){
+        Conexao conexao = new Conexao();
+        Connection conn = conexao.conectar();
+        ResultSet rs = null;
+        try{
+            Statement stmt = conn.createStatement();
+            rs = stmt.executeQuery("select * from funcionario");
+        }catch (SQLException sqle){
+            sqle.printStackTrace();
+        }
+        conexao.desconectar(conn);
+        return rs;
+    }
+    public void delete(int id){
+        Conexao conexao = new Conexao();
+        Connection conn = conexao.conectar();
+        try{
+            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM funcionario WHERE id = ?");
+
+            pstmt.setInt(1,id);
+            pstmt.execute();
+        }catch (SQLException sqle){
+            sqle.printStackTrace();
+        }
+        conexao.desconectar(conn);
+    }
+}
