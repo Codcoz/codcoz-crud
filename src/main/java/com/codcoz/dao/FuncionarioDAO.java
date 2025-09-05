@@ -1,6 +1,7 @@
 package com.codcoz.dao;
 
 import com.codcoz.model.Funcionario;
+import com.codcoz.model.ItemNotaFiscal;
 
 import java.sql.*;
 
@@ -40,6 +41,23 @@ public class FuncionarioDAO {
         }
         conexao.desconectar(conn);
         return rs;
+    }
+    public void update(Funcionario funcionario){
+        Conexao conexao = new Conexao();
+        Connection conn = conexao.conectar();
+        String sql = "update funcionario set id_empresa = ?, id_funcao = ?, nome = ?, sobrenome = ?, data_admissao where id = ?";
+        try{
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,funcionario.getIdEmpresa());
+            pstmt.setInt(2,funcionario.getIdFuncao());
+            pstmt.setString(3,funcionario.getNome());
+            pstmt.setString(4,funcionario.getSobrenome());
+            pstmt.setString(5,funcionario.getDataAdmissao());
+            pstmt.setInt(6, funcionario.getId());
+            pstmt.executeUpdate();
+        }catch (SQLException sqle){
+            sqle.printStackTrace();
+        }
     }
     public void delete(int id){
         Conexao conexao = new Conexao();

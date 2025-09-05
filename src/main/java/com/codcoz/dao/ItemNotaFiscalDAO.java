@@ -37,6 +37,22 @@ public class ItemNotaFiscalDAO {
         conexao.desconectar(conn);
         return rs;
     }
+    public void update(ItemNotaFiscal itemNotaFiscal){
+        Conexao conexao = new Conexao();
+        Connection conn = conexao.conectar();
+        String sql = "update item_nota_fiscal set id_nota_fiscal = ?, id_empresa = ?, quantidade = ?, preco = ? where id = ?";
+        try{
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,itemNotaFiscal.getIdNotaFiscalXml());
+            pstmt.setInt(2,itemNotaFiscal.getIdEmpresa());
+            pstmt.setDouble(3,itemNotaFiscal.getQuantidade());
+            pstmt.setDouble(4,itemNotaFiscal.getPreco());
+            pstmt.setInt(5,itemNotaFiscal.getId());
+            pstmt.executeUpdate();
+        }catch (SQLException sqle){
+            sqle.printStackTrace();
+        }
+    }
 
     public void delete(int id){
         Conexao conexao = new Conexao();
