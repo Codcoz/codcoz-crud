@@ -16,10 +16,8 @@ public class ItemNotaFiscalDAO {
             pstmt.setDouble(2, itemNotaFiscal.getIdEmpresa());
             pstmt.setDouble(3, itemNotaFiscal.getQuantidade());
             pstmt.setDouble(4,itemNotaFiscal.getPreco());
-
             pstmt.executeUpdate();
-            System.out.println("ItemNotaFiscal inserido com sucesso!");
-
+            System.out.println("create de item nota fiscal com sucesso");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }
@@ -30,7 +28,7 @@ public class ItemNotaFiscalDAO {
         ResultSet rs = null;
         try{
             Statement stmt = conn.createStatement();
-            rs = stmt.executeQuery("select * from funcionario");
+            rs = stmt.executeQuery("select * from item_nota_fiscal");
         }catch (SQLException sqle){
             sqle.printStackTrace();
         }
@@ -40,7 +38,7 @@ public class ItemNotaFiscalDAO {
     public void update(ItemNotaFiscal itemNotaFiscal){
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
-        String sql = "update item_nota_fiscal set id_nota_fiscal = ?, id_empresa = ?, quantidade = ?, preco = ? where id = ?";
+        String sql = "update item_nota_fiscal set id_nota_fiscal_xml = ?, id_empresa = ?, quantidade = ?, preco = ? where id = ?";
         try{
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,itemNotaFiscal.getIdNotaFiscalXml());
@@ -49,6 +47,7 @@ public class ItemNotaFiscalDAO {
             pstmt.setDouble(4,itemNotaFiscal.getPreco());
             pstmt.setInt(5,itemNotaFiscal.getId());
             pstmt.executeUpdate();
+            System.out.println("update de item nota fiscal com sucesso");
         }catch (SQLException sqle){
             sqle.printStackTrace();
         }
@@ -61,7 +60,8 @@ public class ItemNotaFiscalDAO {
             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM ItemNotaFiscal WHERE DEPTNO = ?");
 
             pstmt.setInt(1,id);
-            pstmt.execute();
+            pstmt.executeUpdate();
+            System.out.println("delete de item nota fiscal com sucesso");
         }catch (SQLException sqle){
             sqle.printStackTrace();
         }

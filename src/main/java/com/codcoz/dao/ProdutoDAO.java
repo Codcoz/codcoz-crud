@@ -19,10 +19,8 @@ public class ProdutoDAO {
             pstmt.setDouble(5, produto.getEstoqueMinimo());
             pstmt.setString(6, produto.getCategoria());
             pstmt.setString(7, produto.getStatus());
-
-            pstmt.executeUpdate(); // melhor que execute() em INSERT
-
-            System.out.println("Produto inserido com sucesso!");
+            pstmt.executeUpdate();
+            System.out.println("create produto com sucesso");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }
@@ -54,7 +52,8 @@ public class ProdutoDAO {
             pstmt.setString(6, produto.getCategoria());
             pstmt.setString(7, produto.getStatus());
             pstmt.setInt(8, produto.getId());
-            pstmt.execute();
+            pstmt.executeUpdate();
+            System.out.println("update produto com sucesso");
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -67,6 +66,7 @@ public class ProdutoDAO {
             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM produto WHERE id= ?");
             pstmt.setInt(1,id);
             pstmt.execute();
+            System.out.println("delete produto com sucesso");
             conexao.desconectar(conn);
         }catch (SQLException sqle){
             sqle.printStackTrace();

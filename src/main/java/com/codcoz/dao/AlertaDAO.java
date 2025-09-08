@@ -19,12 +19,11 @@ public class AlertaDAO {
             pstmt.setString(5, alerta.getTipoAlerta());
 
             pstmt.executeUpdate();
-            System.out.println("Alerta inserido com sucesso!");
+            System.out.println("create de alerta com sucesso");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-        } finally {
-            conexao.desconectar(conn);
         }
+        conexao.desconectar(conn);
     }
     public ResultSet read() {
         Conexao conexao = new Conexao();
@@ -32,7 +31,7 @@ public class AlertaDAO {
         ResultSet rset = null;
         try {
             Statement stmt = conn.createStatement();
-            rset = stmt.executeQuery("SELECT * FROM Alerta");
+            rset = stmt.executeQuery("SELECT * FROM alerta");
 
             conexao.desconectar(conn);
         } catch (SQLException sqle) {
@@ -44,7 +43,7 @@ public class AlertaDAO {
     public void update(Alerta alerta){
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
-        String sql ="UPDATE Produto SET id_empresa = ?, id_produto = ?,  data_criacao= ?, status = ?, tipo_alerta = ?";
+        String sql ="UPDATE alerta SET id_empresa = ?, id_produto = ?,  data_criacao= ?, status = ?, tipo_alerta = ?";
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,alerta.getIdEmpresa());
@@ -52,6 +51,8 @@ public class AlertaDAO {
             pstmt.setString(3, alerta.getDataCriacao());
             pstmt.setString(4,alerta.getStatus());
             pstmt.setString(5, alerta.getTipoAlerta());
+            pstmt.executeUpdate();
+            System.out.println("update de alerta com sucesso");
         }catch (SQLException sqle){
             sqle.printStackTrace();
         }
@@ -64,7 +65,8 @@ public class AlertaDAO {
         try{
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,id);
-            pstmt.execute();
+            pstmt.executeUpdate();
+            System.out.println("delete de alerta com sucesso");
         }catch (SQLException sqle){
             sqle.printStackTrace();
         }

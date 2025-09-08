@@ -23,7 +23,7 @@ public class FuncionarioDAO {
             pstmt.setString(7, funcionario.getDataAdmissao());
 
             pstmt.executeUpdate();
-            System.out.println("Funcionario inserido com sucesso!");
+            System.out.println("create de funcionario com sucesso");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }
@@ -55,6 +55,7 @@ public class FuncionarioDAO {
             pstmt.setString(5,funcionario.getDataAdmissao());
             pstmt.setInt(6, funcionario.getId());
             pstmt.executeUpdate();
+            System.out.println("update de funcionario com sucesso");
         }catch (SQLException sqle){
             sqle.printStackTrace();
         }
@@ -66,7 +67,8 @@ public class FuncionarioDAO {
             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM funcionario WHERE id = ?");
 
             pstmt.setInt(1,id);
-            pstmt.execute();
+            pstmt.executeUpdate();
+            System.out.println("delete de funcionario com sucesso");
         }catch (SQLException sqle){
             sqle.printStackTrace();
         }

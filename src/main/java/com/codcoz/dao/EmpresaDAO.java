@@ -6,19 +6,19 @@ import java.sql.*;
 
 public class EmpresaDAO {
 
-    public void create(Integer id, Integer idEndereco, String nome, String cnpj) {
+    public void create(Empresa empresa) {
         String sql = "INSERT INTO empresa (id_endereco, nome, cnpj) VALUES (?, ?, ?)";
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
-            pstmt.setInt(1, idEndereco);
-            pstmt.setString(2, nome);
-            pstmt.setString(3, cnpj);
+            pstmt.setInt(1, empresa.getIdEndereco() );
+            pstmt.setString(2, empresa.getNome());
+            pstmt.setString(3, empresa.getCnpj());
 
             pstmt.executeUpdate();
-            System.out.println("Empresa inserida com sucesso!");
+            System.out.println("create de empresa com sucesso");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }
@@ -46,7 +46,8 @@ public class EmpresaDAO {
             pstmt.setInt(1,empresa.getIdEndereco());
             pstmt.setString(2,empresa.getNome());
             pstmt.setString(3,empresa.getCnpj());
-            pstmt.execute();
+            pstmt.executeUpdate();
+            System.out.println("update de empresa com sucesso");
         }catch (SQLException sqle){
             sqle.printStackTrace();
         }
@@ -58,7 +59,8 @@ public class EmpresaDAO {
         try{
             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM empresa WHERE id = ?");
             pstmt.setInt(1,id);
-            pstmt.execute();
+            pstmt.executeUpdate();
+            System.out.println("delete de empresa com sucesso");
         }catch (SQLException sqle){
             sqle.printStackTrace();
         }
