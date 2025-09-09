@@ -3,68 +3,97 @@ package com.codcoz.dao;
 import com.codcoz.model.ItemNotaFiscal;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemNotaFiscalDAO {
-
-    public void create(ItemNotaFiscal itemNotaFiscal) {
-        String sql = "INSERT INTO item_nota_fiscal (id_nota_fiscal_xml, id_empresa, quantidade, preco) VALUES ( ?, ?, ?, ?)";
+    public boolean create(ItemNotaFiscal itemNotaFiscal) {
+        String sql = "INSERT INTO item_nota_fiscal (id_nota_fiscal_xml, id_empresa, quantidade, preco) VALUES (?, ?, ?, ?)";
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, itemNotaFiscal.getIdNotaFiscalXml());
-            pstmt.setDouble(2, itemNotaFiscal.getIdEmpresa());
+            pstmt.setInt(2, itemNotaFiscal.getIdEmpresa());
             pstmt.setDouble(3, itemNotaFiscal.getQuantidade());
-            pstmt.setDouble(4,itemNotaFiscal.getPreco());
-            pstmt.executeUpdate();
-            System.out.println("create de item nota fiscal com sucesso");
+            pstmt.setDouble(4, itemNotaFiscal.getPreco());
+            if (pstmt.executeUpdate() > 0) {
+                System.out.println("create de item nota fiscal com sucesso");
+                return true;
+            }
+            return false;
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+            return false;
+        } finally {
+            conexao.desconectar(conn);
+        }
+    }
+
+    public List<ItemNotaFiscal> read() {
+        ArrayList<ItemNotaFiscal> itemList = new ArrayList<>();
+        Conexao conexao = new Conexao();
+        Connection conn = conexao.conectar();
+        ResultSet rs;
+        try {
+            Statement stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM item_nota_fiscal");
+            while (rs.next()) {
+                ItemNotaFiscal item = new ItemNotaFiscal(
+                        rs.getInt("id"),
+                        rs.getInt("id_nota_fiscal_xml"),
+                        rs.getInt("id_empresa"),
+                        rs.getDouble("quantidade"),
+                        rs.getDouble("preco")
+                );
+                itemList.add(item);
+            }
+            System.out.println("read de item nota fiscal com sucesso");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }
         conexao.desconectar(conn);
-    }public ResultSet read(){
-        Conexao conexao = new Conexao();
-        Connection conn = conexao.conectar();
-        ResultSet rs = null;
-        try{
-            Statement stmt = conn.createStatement();
-            rs = stmt.executeQuery("select * from item_nota_fiscal");
-        }catch (SQLException sqle){
-            sqle.printStackTrace();
-        }
-        conexao.desconectar(conn);
-        return rs;
+        return itemList;
     }
-    public void update(ItemNotaFiscal itemNotaFiscal){
+
+    public int update(ItemNotaFiscal itemNotaFiscal) {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
-        String sql = "update item_nota_fiscal set id_nota_fiscal_xml = ?, id_empresa = ?, quantidade = ?, preco = ? where id = ?";
-        try{
+        String sql = "UPDATE item_nota_fiscal SET id_nota_fiscal_xml = ?, id_empresa = ?, quantidade = ?, preco = ? WHERE id = ?";
+        try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1,itemNotaFiscal.getIdNotaFiscalXml());
-            pstmt.setInt(2,itemNotaFiscal.getIdEmpresa());
-            pstmt.setDouble(3,itemNotaFiscal.getQuantidade());
-            pstmt.setDouble(4,itemNotaFiscal.getPreco());
-            pstmt.setInt(5,itemNotaFiscal.getId());
-            pstmt.executeUpdate();
-            System.out.println("update de item nota fiscal com sucesso");
-        }catch (SQLException sqle){
+            pstmt.setInt(1, itemNotaFiscal.getIdNotaFiscalXml());
+            pstmt.setInt(2, itemNotaFiscal.getIdEmpresa());
+            pstmt.setDouble(3, itemNotaFiscal.getQuantidade());
+            pstmt.setDouble(4, itemNotaFiscal.getPreco());
+            pstmt.setInt(5, itemNotaFiscal.getId());
+            if (pstmt.executeUpdate() > 1) {
+                System.out.println("update de item nota fiscal com sucesso");
+                return 1;
+            }
+            return 0;
+        } catch (SQLException sqle) {
             sqle.printStackTrace();
+            return -1;
         }
     }
 
-    public void delete(int id){
+    public int delete(int id) {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
-        try{
-            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM ItemNotaFiscal WHERE DEPTNO = ?");
-
-            pstmt.setInt(1,id);
-            pstmt.executeUpdate();
-            System.out.println("delete de item nota fiscal com sucesso");
-        }catch (SQLException sqle){
+        try {
+            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM item_nota_fiscal WHERE id = ?");
+            pstmt.setInt(1, id);
+            if (pstmt.executeUpdate() > 1) {
+                System.out.println("delete de item nota fiscal com sucesso");
+                return 1;
+            }
+            return 0;
+        } catch (SQLException sqle) {
             sqle.printStackTrace();
+            return -1;
+        } finally {
+            conexao.desconectar(conn);
         }
-        conexao.desconectar(conn);
     }
 }

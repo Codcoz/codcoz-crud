@@ -4,10 +4,12 @@ import com.codcoz.model.Funcionario;
 import com.codcoz.model.ItemNotaFiscal;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FuncionarioDAO {
 
-    public void create(Funcionario funcionario) {
+    public boolean create(Funcionario funcionario) {
         String sql = "INSERT INTO funcionario (id_empresa, id_funcao, nome, sobrenome, data_admissao, cpf, salario, ) VALUES (?, ?, ?, ?, ?, ?, ?)";
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
@@ -21,28 +23,42 @@ public class FuncionarioDAO {
             pstmt.setString(5, funcionario.getCpf());
             pstmt.setDouble(6, funcionario.getSalario());
             pstmt.setString(7, funcionario.getDataAdmissao());
-
-            pstmt.executeUpdate();
-            System.out.println("create de funcionario com sucesso");
+            return pstmt.executeUpdate()>0;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
+            return false;
+        }finally {
+            conexao.desconectar(conn);
         }
-        conexao.desconectar(conn);
     }
-    public ResultSet read(){
+    public List<Funcionario> read(){
+        ArrayList<Funcionario> funcionariosList = new ArrayList<>();
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
-        ResultSet rs = null;
+        ResultSet rs;
         try{
             Statement stmt = conn.createStatement();
             rs = stmt.executeQuery("select * from funcionario");
+            while (rs.next()){
+            Funcionario funcionario = new Funcionario(
+                    rs.getInt("id"),
+                    rs.getInt("id_empresa"),
+                    rs.getInt("id_funcao"),
+                    rs.getString("nome"),
+                    rs.getString("sobrenome"),
+                    rs.getString("data_admissao"),
+                    rs.getString("cpf"),
+                    rs.getDouble("salario")
+            );
+                funcionariosList.add(funcionario);
+            }
         }catch (SQLException sqle){
             sqle.printStackTrace();
         }
         conexao.desconectar(conn);
-        return rs;
+        return funcionariosList;
     }
-    public void update(Funcionario funcionario){
+    public int update(Funcionario funcionario){
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         String sql = "update funcionario set id_empresa = ?, id_funcao = ?, nome = ?, sobrenome = ?, data_admissao where id = ?";
@@ -54,24 +70,33 @@ public class FuncionarioDAO {
             pstmt.setString(4,funcionario.getSobrenome());
             pstmt.setString(5,funcionario.getDataAdmissao());
             pstmt.setInt(6, funcionario.getId());
-            pstmt.executeUpdate();
-            System.out.println("update de funcionario com sucesso");
+            if(pstmt.executeUpdate()>1){
+                System.out.println("update de funcionario com sucesso");
+                return 1;
+            };
+            return 0;
         }catch (SQLException sqle){
             sqle.printStackTrace();
+            return -1;
         }
     }
-    public void delete(int id){
+    public int delete(int id){
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try{
             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM funcionario WHERE id = ?");
 
             pstmt.setInt(1,id);
-            pstmt.executeUpdate();
-            System.out.println("delete de funcionario com sucesso");
+            if(pstmt.executeUpdate()>1){
+                System.out.println("delete de funcionario com sucesso");
+                return 1;
+            };
+            return 0;
         }catch (SQLException sqle){
             sqle.printStackTrace();
+            return -1;
+        }finally {
+            conexao.desconectar(conn);
         }
-        conexao.desconectar(conn);
     }
 }
