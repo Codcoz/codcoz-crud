@@ -54,8 +54,9 @@ public class FuncionarioDAO {
             }
         }catch (SQLException sqle){
             sqle.printStackTrace();
+        }finally {
+            conexao.desconectar(conn);
         }
-        conexao.desconectar(conn);
         return funcionariosList;
     }
     public int update(Funcionario funcionario){
@@ -70,7 +71,7 @@ public class FuncionarioDAO {
             pstmt.setString(4,funcionario.getSobrenome());
             pstmt.setString(5,funcionario.getDataAdmissao());
             pstmt.setInt(6, funcionario.getId());
-            if(pstmt.executeUpdate()>1){
+            if(pstmt.executeUpdate()>0){
                 System.out.println("update de funcionario com sucesso");
                 return 1;
             };
@@ -78,6 +79,8 @@ public class FuncionarioDAO {
         }catch (SQLException sqle){
             sqle.printStackTrace();
             return -1;
+        }finally {
+            conexao.desconectar(conn);
         }
     }
     public int delete(int id){
@@ -87,7 +90,7 @@ public class FuncionarioDAO {
             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM funcionario WHERE id = ?");
 
             pstmt.setInt(1,id);
-            if(pstmt.executeUpdate()>1){
+            if(pstmt.executeUpdate()>0){
                 System.out.println("delete de funcionario com sucesso");
                 return 1;
             };

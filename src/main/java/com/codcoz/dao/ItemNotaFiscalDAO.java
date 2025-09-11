@@ -31,7 +31,7 @@ public class ItemNotaFiscalDAO {
     }
 
     public List<ItemNotaFiscal> read() {
-        ArrayList<ItemNotaFiscal> itemList = new ArrayList<>();
+        ArrayList<ItemNotaFiscal> itensNotaFiscal = new ArrayList<>();
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         ResultSet rs;
@@ -39,21 +39,22 @@ public class ItemNotaFiscalDAO {
             Statement stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM item_nota_fiscal");
             while (rs.next()) {
-                ItemNotaFiscal item = new ItemNotaFiscal(
+                ItemNotaFiscal itemNotaFiscal = new ItemNotaFiscal(
                         rs.getInt("id"),
                         rs.getInt("id_nota_fiscal_xml"),
                         rs.getInt("id_empresa"),
                         rs.getDouble("quantidade"),
                         rs.getDouble("preco")
                 );
-                itemList.add(item);
+                itensNotaFiscal.add(itemNotaFiscal);
             }
             System.out.println("read de item nota fiscal com sucesso");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
+        }finally {
+            conexao.desconectar(conn);
         }
-        conexao.desconectar(conn);
-        return itemList;
+        return itensNotaFiscal;
     }
 
     public int update(ItemNotaFiscal itemNotaFiscal) {
@@ -67,7 +68,7 @@ public class ItemNotaFiscalDAO {
             pstmt.setDouble(3, itemNotaFiscal.getQuantidade());
             pstmt.setDouble(4, itemNotaFiscal.getPreco());
             pstmt.setInt(5, itemNotaFiscal.getId());
-            if (pstmt.executeUpdate() > 1) {
+            if (pstmt.executeUpdate() > 0) {
                 System.out.println("update de item nota fiscal com sucesso");
                 return 1;
             }
@@ -75,6 +76,8 @@ public class ItemNotaFiscalDAO {
         } catch (SQLException sqle) {
             sqle.printStackTrace();
             return -1;
+        }finally {
+            conexao.desconectar(conn);
         }
     }
 
@@ -84,7 +87,7 @@ public class ItemNotaFiscalDAO {
         try {
             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM item_nota_fiscal WHERE id = ?");
             pstmt.setInt(1, id);
-            if (pstmt.executeUpdate() > 1) {
+            if (pstmt.executeUpdate() > 0) {
                 System.out.println("delete de item nota fiscal com sucesso");
                 return 1;
             }
