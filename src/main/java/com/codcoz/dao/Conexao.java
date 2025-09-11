@@ -9,10 +9,13 @@ public class Conexao {
         Connection conn = null;
         try {
             Class.forName("org.postgresql.Driver");
+            String url = System.getenv("DB_URL");
+            String user = System.getenv("DB_USER");
+            String pwd = System.getenv("DB_PWD");
             conn = DriverManager.getConnection(
-                    "",
-                    "",
-                    ""
+                    url,
+                    user,
+                    pwd
             );
         } catch (ClassNotFoundException cnfe) {
             cnfe.printStackTrace();
