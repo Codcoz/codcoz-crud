@@ -1,12 +1,15 @@
 package com.codcoz.dao;
 
+import com.codcoz.model.ItemNotaFiscal;
 import com.codcoz.model.Produto;
 import com.codcoz.dao.Conexao;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.*;
 
 public class ProdutoDAO {
-    public void create(Produto produto) {
+    public boolean create(Produto produto) {
         String sql = "INSERT INTO Produto ( id_empresa,id_ItemNotaFiscal,id_Unidade_Medida,nome,estoque_Minimo,categoria,status) VALUES (?, ?, ?, ?, ?, ?, ?)";
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
@@ -19,27 +22,50 @@ public class ProdutoDAO {
             pstmt.setDouble(5, produto.getEstoqueMinimo());
             pstmt.setString(6, produto.getCategoria());
             pstmt.setString(7, produto.getStatus());
-            pstmt.executeUpdate();
-            System.out.println("create produto com sucesso");
+            if (pstmt.executeUpdate() > 0) {
+                System.out.println("create de item nota fiscal com sucesso");
+                return true;
+            }
+            return false;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
+            return false;
         }
-        conexao.desconectar(conn);
+        finally {
+            conexao.desconectar(conn);
+        }
     }
-    public ResultSet read(Produto produto) {
+    public List<Produto> read() {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
-        ResultSet rset=null;
+        ArrayList<Produto> produtoList = new ArrayList<>();
+        ResultSet rs;
         try {
             Statement stmt = conn.createStatement();
-            rset = stmt.executeQuery("SELECT * FROM produto");
+            rs = stmt.executeQuery("SELECT * FROM produto");
+            while (rs.next()) {
+                Produto produto = new Produto(
+                        rs.getInt("id"),
+                        rs.getInt("id_empresa"),
+                        rs.getInt("id_ItemNotaFiscal"),
+                        rs.getInt("id_Unidade_Medida"),
+                        rs.getString("nome"),
+                        rs.getDouble("estoque_Minimo"),
+                        rs.getString("categoria"),
+                        rs.getString("status")
+                );
+                produtoList.add(produto);
+            }
+            System.out.println("read de item nota fiscal com sucesso");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }
-        conexao.desconectar(conn);
-        return rset;
+        finally {
+            conexao.desconectar(conn);
+        }
+        return produtoList;
     }
-    public void update(Produto produto){
+    public int update(Produto produto){
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try {
@@ -52,25 +78,36 @@ public class ProdutoDAO {
             pstmt.setString(6, produto.getCategoria());
             pstmt.setString(7, produto.getStatus());
             pstmt.setInt(8, produto.getId());
-            pstmt.executeUpdate();
-            System.out.println("update produto com sucesso");
+            if (pstmt.executeUpdate() > 0) {
+                System.out.println("update de item nota fiscal com sucesso");
+                return 1;
+            }
+            return 0;
         }catch (SQLException e){
             e.printStackTrace();
+            return -1;
         }
-        conexao.desconectar(conn);
+        finally {
+            conexao.desconectar(conn);
+        }
     }
-    public void delete(int id){
+    public int delete(int id){
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try{
             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM produto WHERE id= ?");
             pstmt.setInt(1,id);
-            pstmt.execute();
-            System.out.println("delete produto com sucesso");
-            conexao.desconectar(conn);
+            if (pstmt.executeUpdate() > 0) {
+                System.out.println("delete de item nota fiscal com sucesso");
+                return 1;
+            }
+            return 0;
         }catch (SQLException sqle){
             sqle.printStackTrace();
+            return -1;
         }
-        conexao.desconectar(conn);
+        finally {
+            conexao.desconectar(conn);
+        }
     }
 }
