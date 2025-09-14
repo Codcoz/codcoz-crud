@@ -62,7 +62,7 @@ public class FuncionarioDAO {
     public int update(Funcionario funcionario){
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
-        String sql = "update funcionario set id_empresa = ?, id_funcao = ?, nome = ?, sobrenome = ?, data_admissao where id = ?";
+        String sql = "update funcionario set id_empresa = ?, id_funcao = ?, nome = ?, sobrenome = ?, data_admissao = ? where id = ?";
         try{
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,funcionario.getIdEmpresa());
