@@ -15,6 +15,13 @@ public class ItemNotaFiscal {
         this.preco = preco;
     }
 
+    public ItemNotaFiscal(Integer idNotaFiscalXml, Integer idEmpresa, Double quantidade, Double preco) {
+        this.idNotaFiscalXml = idNotaFiscalXml;
+        this.idEmpresa = idEmpresa;
+        this.quantidade = quantidade;
+        this.preco = preco;
+    }
+
     public Integer getId() {
         return id;
     }

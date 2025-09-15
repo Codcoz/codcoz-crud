@@ -13,6 +13,12 @@ public class Empresa {
         this.cnpj = cnpj;
     }
 
+    public Empresa(Integer idEndereco, String nome, String cnpj) {
+        this.idEndereco = idEndereco;
+        this.nome = nome;
+        this.cnpj = cnpj;
+    }
+
     public Integer getId() {
         return id;
     }

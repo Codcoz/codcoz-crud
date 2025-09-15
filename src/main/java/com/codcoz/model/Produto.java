@@ -21,6 +21,16 @@ public class Produto {
         this.status = status;
     }
 
+    public Produto(Integer idEmpresa, Integer idItemNotaFiscal, Integer idUnidadeMedida, String nome, Double estoqueMinimo, String categoria, String status) {
+        this.idEmpresa = idEmpresa;
+        this.idItemNotaFiscal = idItemNotaFiscal;
+        this.idUnidadeMedida = idUnidadeMedida;
+        this.nome = nome;
+        this.estoqueMinimo = estoqueMinimo;
+        this.categoria = categoria;
+        this.status = status;
+    }
+
     public Integer getId() {
         return id;
     }

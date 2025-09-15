@@ -17,6 +17,14 @@ public class Alerta {
         this.tipoAlerta = tipoAlerta;
     }
 
+    public Alerta(Integer idEmpresa, Integer idProduto, String dataCriacao, String status, String tipoAlerta) {
+        this.idEmpresa = idEmpresa;
+        this.idProduto = idProduto;
+        this.dataCriacao = dataCriacao;
+        this.status = status;
+        this.tipoAlerta = tipoAlerta;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -21,6 +21,16 @@ public class Funcionario {
         this.salario = salario;
     }
 
+    public Funcionario(Integer idEmpresa, Integer idFuncao, String nome, String sobrenome, String dataAdmissao, String cpf, Double salario) {
+        this.idEmpresa = idEmpresa;
+        this.idFuncao = idFuncao;
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.dataAdmissao = dataAdmissao;
+        this.cpf = cpf;
+        this.salario = salario;
+    }
+
     public Integer getId() {
         return id;
     }

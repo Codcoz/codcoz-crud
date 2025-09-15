@@ -15,6 +15,13 @@ public class NotaFiscalXml {
         this.numeroNota = numeroNota;
     }
 
+    public NotaFiscalXml(Integer idEmpresa, String dataEmissao, String xmlString, String numeroNota) {
+        this.idEmpresa = idEmpresa;
+        this.dataEmissao = dataEmissao;
+        this.xmlString = xmlString;
+        this.numeroNota = numeroNota;
+    }
+
     public Integer getId() {
         return id;
     }
