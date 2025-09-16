@@ -2,6 +2,7 @@ package com.codcoz.controller.Endereco;
 
 import com.codcoz.dao.EnderecoDAO;
 import com.codcoz.model.Endereco;
+import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -26,5 +27,6 @@ public class ServletCreateEndereco extends HttpServlet {
                 request.getParameter("numero")
         );
         new EnderecoDAO().create(endereco);
+        response.sendRedirect("http://localhost:8080/codcoz_crud_war_exploded/");
     }
 }
