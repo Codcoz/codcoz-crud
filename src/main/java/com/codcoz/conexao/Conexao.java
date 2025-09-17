@@ -1,4 +1,4 @@
-package com.codcoz.dao;
+package com.codcoz.conexao;
 
 
 import io.github.cdimascio.dotenv.Dotenv;
@@ -11,6 +11,7 @@ public class Conexao {
     public Connection conectar() {
         Connection conn = null;
         try {
+            Class.forName("org.postgresql.Driver");
             Dotenv dotenv = Dotenv.load();
             String url = dotenv.get("DB_URL");
             String user = dotenv.get("DB_USER");
@@ -20,6 +21,8 @@ public class Conexao {
         } catch (SQLException e) {
             System.out.println("Erro ao conectar ao banco:");
             e.printStackTrace();
+        } catch (ClassNotFoundException cnfe){
+            cnfe.printStackTrace();
         }
         return conn;
     }

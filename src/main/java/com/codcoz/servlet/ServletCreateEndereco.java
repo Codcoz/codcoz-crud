@@ -1,4 +1,4 @@
-package com.codcoz.controller.Endereco;
+package com.codcoz.servlet;
 
 import com.codcoz.dao.EnderecoDAO;
 import com.codcoz.model.Endereco;
@@ -26,5 +26,6 @@ public class ServletCreateEndereco extends HttpServlet {
                 request.getParameter("numero")
         );
         new EnderecoDAO().create(endereco);
+        response.sendRedirect("http://localhost:8080/codcoz_crud_war_exploded/");
     }
 }

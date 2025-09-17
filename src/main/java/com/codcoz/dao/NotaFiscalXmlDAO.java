@@ -1,4 +1,5 @@
 package com.codcoz.dao;
+import com.codcoz.conexao.Conexao;
 import com.codcoz.model.NotaFiscalXml;
 
 import java.sql.*;
