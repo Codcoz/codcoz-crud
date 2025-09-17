@@ -50,6 +50,6 @@
         }
     %>
 </table>
-<a href="../../index.jsp">retornar para home</a>
+<a href="index.jsp">retornar para home</a>
 </body>
 </html>
