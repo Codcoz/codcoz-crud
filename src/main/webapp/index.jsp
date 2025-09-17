@@ -135,7 +135,7 @@
 
 <form action="ServletDeleteEndereco" method="post">
     <h2>Deletar Endereço</h2>
-    <label for="id2">Número:</label>
+    <label for="id2">ID:</label>
     <input type="text" id="id2" name="id2" required placeholder="Ex: 1"><br><br>
 
     <button type="submit">DELETE ENDERECO</button>
