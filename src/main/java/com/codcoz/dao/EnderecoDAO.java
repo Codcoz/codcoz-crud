@@ -1,4 +1,5 @@
 package com.codcoz.dao;
+import com.codcoz.conexao.Conexao;
 import com.codcoz.model.Endereco;
 
 import java.sql.*;
@@ -38,7 +39,6 @@ public class EnderecoDAO {
         Connection conn = conexao.conectar();
         ArrayList<Endereco> listaEnderecos = new ArrayList<>();
         ResultSet rs;
-
         try {
             Statement stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM endereco");

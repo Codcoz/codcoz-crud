@@ -1,4 +1,4 @@
-package com.codcoz.dao;
+package com.codcoz.conexao;
 
 
 import io.github.cdimascio.dotenv.Dotenv;

@@ -1,4 +1,4 @@
-package com.codcoz.controller.Endereco;
+package com.codcoz.servlet;
 
 import com.codcoz.dao.EnderecoDAO;
 import com.codcoz.model.Endereco;

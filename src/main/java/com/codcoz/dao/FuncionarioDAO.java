@@ -1,7 +1,7 @@
 package com.codcoz.dao;
 
+import com.codcoz.conexao.Conexao;
 import com.codcoz.model.Funcionario;
-import com.codcoz.model.ItemNotaFiscal;
 
 import java.sql.*;
 import java.util.ArrayList;
