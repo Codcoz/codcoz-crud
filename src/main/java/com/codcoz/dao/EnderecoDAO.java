@@ -41,7 +41,7 @@ public class EnderecoDAO {
         ResultSet rs;
         try {
             Statement stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM endereco");
+            rs = stmt.executeQuery("SELECT * FROM endereco order by id");
             while (rs.next()) {
                 Endereco endereco = new Endereco(
                         rs.getInt("id"),
@@ -59,6 +59,30 @@ public class EnderecoDAO {
         }
         conexao.desconectar(conn);
         return listaEnderecos;
+    }
+    public Endereco buscarPorId(int id) {
+        Endereco endereco = null;
+        try (Connection conn = new Conexao().conectar();
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM endereco WHERE id = ?")) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                endereco = new Endereco(
+                        rs.getInt("id"),
+                        rs.getString("rua"),
+                        rs.getString("complemento"),
+                        rs.getString("cidade"),
+                        rs.getString("estado"),
+                        rs.getString("cep"),
+                        rs.getString("numero")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return endereco;
     }
 
     public int update(Endereco endereco) {

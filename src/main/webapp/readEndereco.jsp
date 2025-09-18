@@ -1,21 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: felipeboregio-ieg
-  Date: 16/09/2025
-  Time: 07:45
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.codcoz.model.Endereco" %>
 <%@ page import="java.util.List" %>
-
-<html>
-<head>
-    <title>Lista de Endereços</title>
-</head>
-<body>
-<h2>Endereços cadastrados</h2>
-
 <table border="1">
     <tr>
         <th>ID</th>
@@ -24,32 +8,47 @@
         <th>Cidade</th>
         <th>Estado</th>
         <th>CEP</th>
-        <th>Número</th>
+        <th>Numero</th>
+        <th>Update</th>
+        <th>Delete</th>
     </tr>
 
     <%
         List<Endereco> lista = (List<Endereco>) request.getAttribute("listaEnderecos");
-        if (lista != null) {
-            for (Endereco e : lista) {
+        if (lista != null && lista.size()>0) {
+            for (Endereco endereco : lista) {
     %>
     <tr>
-        <td><%= e.getId() %></td>
-        <td><%= e.getRua() %></td>
-        <td><%= e.getComplemento() %></td>
-        <td><%= e.getCidade() %></td>
-        <td><%= e.getEstado() %></td>
-        <td><%= e.getCep() %></td>
-        <td><%= e.getNumero() %></td>
+        <td><%= endereco.getId() %></td>
+        <td><%= endereco.getRua() %></td>
+        <td><%= endereco.getComplemento() %></td>
+        <td><%= endereco.getCidade() %></td>
+        <td><%= endereco.getEstado() %></td>
+        <td><%= endereco.getCep() %></td>
+        <td><%= endereco.getNumero() %></td>
+
+        <!-- Botão de Update -->
+        <td>
+            <form action="update.jsp" method="get">
+                <input type="hidden" name="id" value="<%= endereco.getId() %>"/>
+                <button type="submit">Update</button>
+            </form>
+        </td>
+
+        <!-- Botão de Delete -->
+        <td>
+            <form action="ServletDeleteEndereco" method="post">
+                <input type="hidden" name="id" value="<%= endereco.getId() %>"/>
+                <input type="submit" value="Delete" />
+            </form>
+        </td>
     </tr>
     <%
         }
     } else {
     %>
-    <tr><td colspan="7">Nenhum endereço encontrado.</td></tr>
+    <tr><td colspan="9">Nenhum endereco encontrado.</td></tr>
     <%
         }
     %>
 </table>
-<a href="index.jsp">retornar para home</a>
-</body>
-</html>
