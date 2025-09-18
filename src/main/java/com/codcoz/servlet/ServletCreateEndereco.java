@@ -8,6 +8,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "ServletCreateEndereco", value = "/ServletCreateEndereco")
 public class ServletCreateEndereco extends HttpServlet {
@@ -26,7 +27,16 @@ public class ServletCreateEndereco extends HttpServlet {
                 request.getParameter("cep"),
                 request.getParameter("numero")
         );
-        new EnderecoDAO().create(endereco);
-        response.sendRedirect("http://localhost:8080/codcoz_crud_war_exploded/");
+        // Chama o DAO
+        EnderecoDAO dao = new EnderecoDAO();
+        dao.create(endereco);
+        List<Endereco> lista = dao.read();
+
+        // Define a lista como atributo da request
+        request.setAttribute("listaEnderecos", lista);
+
+        // Encaminha para a página JSP mantendo os dados
+        RequestDispatcher dispatcher = request.getRequestDispatcher("readEndereco.jsp");
+        dispatcher.forward(request, response);
     }
 }
