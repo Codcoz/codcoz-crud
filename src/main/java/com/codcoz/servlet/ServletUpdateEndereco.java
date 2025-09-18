@@ -19,19 +19,19 @@ public class ServletUpdateEndereco extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //          cria o objeto Endereco já com os dados do form
         Endereco endereco = new Endereco(
-            Integer.parseInt(request.getParameter("id1")),
-            request.getParameter("rua1"),
-            request.getParameter("complemento1"),
-            request.getParameter("cidade1"),
-            request.getParameter("estado1"),
-            request.getParameter("cep1"),
-            request.getParameter("numero1")
+            Integer.parseInt(request.getParameter("id")),
+            request.getParameter("rua"),
+            request.getParameter("complemento"),
+            request.getParameter("cidade"),
+            request.getParameter("estado"),
+            request.getParameter("cep"),
+            request.getParameter("numero")
         );
 
 //          chama o DAO para update
         EnderecoDAO enderecoDAO = new EnderecoDAO();
         enderecoDAO.update(endereco);
-//          redireciona pra mesma pagina
+//          redireciona pra o read
         response.sendRedirect("http://localhost:8080/codcoz_crud_war_exploded/");
     }
 }

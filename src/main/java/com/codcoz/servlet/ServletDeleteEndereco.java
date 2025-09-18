@@ -16,7 +16,7 @@ public class ServletDeleteEndereco extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id2"));
+        int id = Integer.parseInt(request.getParameter("id"));
         EnderecoDAO enderecoDAO = new EnderecoDAO();
         enderecoDAO.delete(id);
         response.sendRedirect("http://localhost:8080/codcoz_crud_war_exploded/");
