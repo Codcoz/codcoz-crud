@@ -1,4 +1,4 @@
-package com.codcoz.servlet;
+package com.codcoz.servlet.endereco;
 
 import com.codcoz.dao.EnderecoDAO;
 import jakarta.servlet.*;
