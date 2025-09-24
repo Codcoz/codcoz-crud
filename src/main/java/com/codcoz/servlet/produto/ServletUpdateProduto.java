@@ -46,4 +46,3 @@ public class ServletUpdateProduto extends HttpServlet {
         dispatcher.forward(request, response);
     }
     }
-}
