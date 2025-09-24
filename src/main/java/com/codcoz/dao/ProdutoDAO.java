@@ -41,7 +41,7 @@ public class ProdutoDAO {
         ResultSet rs;
         try {
             Statement stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM produto");
+            rs = stmt.executeQuery("SELECT * FROM produto order by id");
             while (rs.next()) {
                 Produto produto = new Produto(
                         rs.getInt("id"),
@@ -63,6 +63,31 @@ public class ProdutoDAO {
             conexao.desconectar(conn);
         }
         return produtoList;
+    }
+    public Produto buscarPorId(int id) {
+        Produto produto = null;
+        try (Connection conn = new Conexao().conectar();
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM produto WHERE id = ?")) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                produto = new Produto(
+                        rs.getInt("id"),
+                        rs.getInt("id_empresa"),
+                        rs.getInt("id_ItemNotaFiscal"),
+                        rs.getInt("id_Unidade_Medida"),
+                        rs.getString("nome"),
+                        rs.getDouble("estoque_Minimo"),
+                        rs.getString("categoria"),
+                        rs.getString("status")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return produto;
     }
     public int update(Produto produto){
         Conexao conexao = new Conexao();
