@@ -1,7 +1,9 @@
-package com.codcoz.servlet.endereco;
+package com.codcoz.servlet.itemNotaFiscalXml;
 
-import com.codcoz.dao.EnderecoDAO;
-import com.codcoz.model.Endereco;
+
+
+import com.codcoz.dao.ItemNotaFiscalDAO;
+import com.codcoz.model.ItemNotaFiscal;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -9,24 +11,29 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ServletReadEndereco", value = "/ServletReadEndereco")
-public class ServletReadEndereco extends HttpServlet {
+
+
+@WebServlet(name = "ServletReadItemNotaFiscal", value = "/ServletReadItemNotaFiscal")
+public class ServletReaditemNotaFiscalXml extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Chama o DAO
-        EnderecoDAO enderecoDAO = new EnderecoDAO();
-        List<Endereco> lista = enderecoDAO.read();
+        ItemNotaFiscalDAO itemNotaFiscalDAO = new ItemNotaFiscalDAO();
+        List<ItemNotaFiscal> lista = itemNotaFiscalDAO.read();
 
         // Define a lista como atributo da request
-        request.setAttribute("listaEnderecos", lista);
+        request.setAttribute("listaItensNotaFiscal", lista);
 
         // Encaminha para a página JSP mantendo os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("readEndereco.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("readItemNotaFiscal.jsp");
         dispatcher.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Não utilizado neste servlet
+
     }
 }
+
+
+

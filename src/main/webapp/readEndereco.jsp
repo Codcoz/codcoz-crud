@@ -1,6 +1,10 @@
 <%@ page import="com.codcoz.model.Endereco" %>
 <%@ page import="java.util.List" %>
+<form action="createEndereco.jsp" method="post">
+    <button type="submit">Create</button>
+</form>
 <table border="1">
+
     <tr>
         <th>ID</th>
         <th>Rua</th>
@@ -18,6 +22,7 @@
         if (lista != null && lista.size()>0) {
             for (Endereco endereco : lista) {
     %>
+    
     <tr>
         <td><%= endereco.getId() %></td>
         <td><%= endereco.getRua() %></td>
@@ -29,7 +34,7 @@
 
         <!-- Botão de Update -->
         <td>
-            <form action="update.jsp" method="get">
+            <form action="updateEndereco.jsp" method="get">
                 <input type="hidden" name="id" value="<%= endereco.getId() %>"/>
                 <button type="submit">Update</button>
             </form>
