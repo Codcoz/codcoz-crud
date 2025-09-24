@@ -57,6 +57,28 @@ public class ItemNotaFiscalDAO {
         }
         return itensNotaFiscal;
     }
+    public ItemNotaFiscal buscarPorId(int id) {
+        ItemNotaFiscal item = null;
+        try (Connection conn = new Conexao().conectar();
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM itemNotaFiscal WHERE id = ?")) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                item = new ItemNotaFiscal(
+                        rs.getInt("id"),
+                        rs.getInt("idNotaFiscalXml"),
+                        rs.getInt("idEmpresa"),
+                        rs.getDouble("quantidade"),
+                        rs.getDouble("preco")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return item;
+    }
 
     public int update(ItemNotaFiscal itemNotaFiscal) {
         Conexao conexao = new Conexao();

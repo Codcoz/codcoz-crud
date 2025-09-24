@@ -56,6 +56,28 @@ public class NotaFiscalXmlDAO {
         conexao.desconectar(conn);
         return listnotaFiscalXml;
     }
+    public NotaFiscalXml buscarPorId(int id) {
+        NotaFiscalXml nota = null;
+        try (Connection conn = new Conexao().conectar();
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM notaFiscalXml WHERE id = ?")) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                nota = new NotaFiscalXml(
+                        rs.getInt("id"),
+                        rs.getInt("idEmpresa"),
+                        rs.getString("dataEmissao"),
+                        rs.getString("xmlString"),
+                        rs.getString("numeroNota")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nota;
+    }
     public int update(NotaFiscalXml notaFiscalXML) {
         String sql = "UPDATE nota_fiscal_xml " +
                 "SET id_empresa = ?, data_emissao = ?, xml_string = ?, numero_nota = ?" +
