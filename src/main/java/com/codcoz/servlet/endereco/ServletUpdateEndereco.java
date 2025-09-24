@@ -1,4 +1,4 @@
-package com.codcoz.servlet;
+package com.codcoz.servlet.endereco;
 
 import com.codcoz.dao.EnderecoDAO;
 import com.codcoz.model.Endereco;
@@ -7,6 +7,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "ServletUpdateEndereco", value = "/ServletUpdateEndereco")
 public class ServletUpdateEndereco extends HttpServlet {
@@ -32,6 +33,13 @@ public class ServletUpdateEndereco extends HttpServlet {
         EnderecoDAO enderecoDAO = new EnderecoDAO();
         enderecoDAO.update(endereco);
 //          redireciona pra o read
-        response.sendRedirect("http://localhost:8080/codcoz_crud_war_exploded/");
+        List<Endereco> lista = enderecoDAO.read();
+
+        // Define a lista como atributo da request
+        request.setAttribute("listaEnderecos", lista);
+
+        // Encaminha para a página JSP mantendo os dados
+        RequestDispatcher dispatcher = request.getRequestDispatcher("readEndereco.jsp");
+        dispatcher.forward(request, response);
     }
 }
