@@ -26,7 +26,6 @@ import java.util.List;
 
         @Override
         protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            try {
                 // Recupera parâmetros do formulário
                 Integer id = Integer.valueOf(request.getParameter("id"));
                 Integer idNotaFiscalXml = Integer.valueOf(request.getParameter("idNotaFiscalXml"));
@@ -50,12 +49,7 @@ import java.util.List;
                 RequestDispatcher dispatcher = request.getRequestDispatcher("readItemNotaFiscal.jsp");
                 dispatcher.forward(request, response);
 
-            } catch (NumberFormatException e) {
-                // Caso algum parâmetro numérico seja inválido
-                request.setAttribute("erro", "Erro ao converter valores numéricos: " + e.getMessage());
-                request.getRequestDispatcher("erro.jsp").forward(request, response);
             }
         }
-    }
 
 
