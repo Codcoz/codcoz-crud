@@ -102,4 +102,42 @@ public class FuncionarioDAO {
             conexao.desconectar(conn);
         }
     }
+
+    public Funcionario buscarPorId(int id) {
+        Funcionario funcionario = null;
+        // Query SQL para selecionar um funcionário específico pelo seu ID
+        String sql = "SELECT * FROM funcionario WHERE id = ?";
+
+        // Utiliza try-with-resources para garantir que a conexão e o statement sejam fechados
+        try (Connection conn = new Conexao().conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Define o valor do parâmetro ID na query
+            stmt.setInt(1, id);
+
+            // Executa a query e obtém o resultado
+            ResultSet rs = stmt.executeQuery();
+
+            // Verifica se um registro foi encontrado
+            if (rs.next()) {
+                // Cria uma instância do objeto Funcionario com os dados do banco
+                funcionario = new Funcionario(
+                        rs.getInt("id"),
+                        rs.getInt("idEmpresa"),
+                        rs.getInt("idFuncao"),
+                        rs.getString("nome"),
+                        rs.getString("sobrenome"),
+                        rs.getString("dataAdmissao"),
+                        rs.getString("cpf"),
+                        rs.getDouble("salario")
+                );
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar funcionário por ID: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        // Retorna o objeto funcionario encontrado, ou null se não encontrou
+        return funcionario;
+    }
 }
