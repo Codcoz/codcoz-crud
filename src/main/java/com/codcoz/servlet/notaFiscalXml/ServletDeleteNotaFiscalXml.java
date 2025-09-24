@@ -1,4 +1,4 @@
-package com.codcoz.servlet.NotaFiscalXml;
+package com.codcoz.servlet.notaFiscalXml;
 
 import com.codcoz.dao.NotaFiscalXmlDAO;
 import com.codcoz.model.NotaFiscalXml;

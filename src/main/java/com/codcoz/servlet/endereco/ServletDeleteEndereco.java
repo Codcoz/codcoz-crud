@@ -1,8 +1,7 @@
-package com.codcoz.servlet;
+package com.codcoz.servlet.endereco;
 
 import com.codcoz.dao.EnderecoDAO;
 import com.codcoz.model.Endereco;
-import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -10,8 +9,8 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ServletCreateEndereco", value = "/ServletCreateEndereco")
-public class ServletCreateEndereco extends HttpServlet {
+@WebServlet(name = "ServletDeleteEndereco", value = "/ServletDeleteEndereco")
+public class ServletDeleteEndereco extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -19,18 +18,10 @@ public class ServletCreateEndereco extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Endereco endereco = new Endereco(
-                request.getParameter("rua"),
-                request.getParameter("complemento"),
-                request.getParameter("cidade"),
-                request.getParameter("estado"),
-                request.getParameter("cep"),
-                request.getParameter("numero")
-        );
-        // Chama o DAO
-        EnderecoDAO dao = new EnderecoDAO();
-        dao.create(endereco);
-        List<Endereco> lista = dao.read();
+        int id = Integer.parseInt(request.getParameter("id"));
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
+        enderecoDAO.delete(id);
+        List<Endereco> lista = enderecoDAO.read();
 
         // Define a lista como atributo da request
         request.setAttribute("listaEnderecos", lista);
