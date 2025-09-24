@@ -41,7 +41,7 @@ public class ProdutoDAO {
         ResultSet rs;
         try {
             Statement stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM produto");
+            rs = stmt.executeQuery("SELECT * FROM produto order by id");
             while (rs.next()) {
                 Produto produto = new Produto(
                         rs.getInt("id"),
