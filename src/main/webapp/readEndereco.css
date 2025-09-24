@@ -8,8 +8,6 @@ body {
 
 /* Botão de criação */
 form[action="createEndereco.jsp"] button {
-    background-color: #D5BE65;
-    color: #0F1829;
     border: none;
     padding: 10px 20px;
     font-weight: bold;
@@ -19,39 +17,26 @@ form[action="createEndereco.jsp"] button {
     transition: background-color 0.3s ease;
 }
 
-form[action="createEndereco.jsp"] button:hover {
-    background-color: #c4aa58;
-}
 
 /* Tabela */
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #1A2336;
-    box-shadow: 0 0 10px rgba(213, 190, 101, 0.2);
 }
 
 th, td {
-    border: 1px solid #D5BE65;
     padding: 12px;
     text-align: center;
 }
 
 th {
-    background-color: #0F1829;
-    color: #D5BE65;
     font-size: 16px;
 }
 
-td {
-    color: #F0EAD6;
-}
 
 /* Botões de Update e Delete */
 form[action="updateEndereco.jsp"] button,
 form[action="ServletDeleteEndereco"] input[type="submit"] {
-    background-color: #D5BE65;
-    color: #0F1829;
     border: none;
     padding: 1%;
     width: 70px;
@@ -62,14 +47,7 @@ form[action="ServletDeleteEndereco"] input[type="submit"] {
     transition: background-color 0.3s ease;
 }
 
-form[action="updateEndereco.jsp"] button:hover,
-form[action="ServletDeleteEndereco"] input[type="submit"]:hover {
-    background-color: #c4aa58;
-}
-
 /* Mensagem de nenhum endereço */
 td[colspan="9"] {
     font-style: italic;
-    color: #D5BE65;
-    background-color: #1A2336;
 }
