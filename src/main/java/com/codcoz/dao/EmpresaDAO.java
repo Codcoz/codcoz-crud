@@ -2,6 +2,7 @@ package com.codcoz.dao;
 
 import com.codcoz.conexao.Conexao;
 import com.codcoz.model.Empresa;
+import com.codcoz.model.Endereco;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -55,6 +56,27 @@ public class EmpresaDAO {
         }
         conexao.desconectar(conn);
         return empresaList;
+    }
+    public Empresa buscarPorId(int id) {
+        Empresa empresa = null;
+        try (Connection conn = new Conexao().conectar();
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM empresa WHERE id = ?")) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                empresa = new Empresa(
+                        rs.getInt("id"),
+                        rs.getInt("id_endereco"),
+                        rs.getString("nome"),
+                        rs.getString("cnpj")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return empresa;
     }
 
     public int update(Empresa empresa) {
