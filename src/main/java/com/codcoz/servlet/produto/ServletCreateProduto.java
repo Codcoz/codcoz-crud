@@ -17,9 +17,9 @@ public class ServletCreateProduto extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Produto produto = new Produto(
-                Integer.parseInt(request.getParameter("idEmpresa")),
-                Integer.parseInt(request.getParameter("idItemNotaFiscal")),
-                Integer.parseInt(request.getParameter("idUnidadeMedida")),
+                Integer.parseInt(request.getParameter("id_empresas")),
+                Integer.parseInt(request.getParameter("id_ItemNotaFiscal")),
+                Integer.parseInt(request.getParameter("id_Unidade_Medida")),
                 request.getParameter("nome"),
                 Double.parseDouble(request.getParameter("estoqueMinimo")),
                 request.getParameter("categoria"),
