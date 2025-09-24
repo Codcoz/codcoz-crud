@@ -2,6 +2,7 @@ package com.codcoz.servlet.endereco;
 
 import com.codcoz.dao.EnderecoDAO;
 import com.codcoz.model.Endereco;
+import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
