@@ -1,6 +1,6 @@
 <%@ page import="com.codcoz.model.Endereco" %>
 <%@ page import="java.util.List" %>
-<form action="createEndereco.jsp" method="post">
+<form action="enderecoJSP/createEndereco.jsp" method="post">
     <button type="submit">Create</button>
 </form>
 <table border="1">

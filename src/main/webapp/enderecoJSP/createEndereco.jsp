@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="ServletCreateEndereco" method="post">
+<form action="<%=request.getContextPath()%>/ServletCreateEndereco" method="post">
     <input type="text" name="rua" placeholder="rua">
     <input type="text" name="complemento" placeholder="complemento">
     <input type="text" name="cidade" placeholder="cidade">
