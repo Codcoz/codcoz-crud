@@ -64,6 +64,31 @@ public class ProdutoDAO {
         }
         return produtoList;
     }
+    public Produto buscarPorId(int id) {
+        Produto produto = null;
+        try (Connection conn = new Conexao().conectar();
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM produto WHERE id = ?")) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                produto = new Produto(
+                        rs.getInt("id"),
+                        rs.getInt("id_empresa"),
+                        rs.getInt("id_ItemNotaFiscal"),
+                        rs.getInt("id_Unidade_Medida"),
+                        rs.getString("nome"),
+                        rs.getDouble("estoque_Minimo"),
+                        rs.getString("categoria"),
+                        rs.getString("status")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return produto;
+    }
     public int update(Produto produto){
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();

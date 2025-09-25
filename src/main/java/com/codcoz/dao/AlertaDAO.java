@@ -2,6 +2,7 @@ package com.codcoz.dao;
 
 import com.codcoz.conexao.Conexao;
 import com.codcoz.model.Alerta;
+import com.codcoz.model.Produto;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -59,6 +60,29 @@ public class AlertaDAO {
         }
         conexao.desconectar(conn);
         return alertaList;
+    }
+    public Alerta buscarPorId(int id) {
+        Alerta alerta = null;
+        try (Connection conn = new Conexao().conectar();
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM alerta WHERE id = ?")) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                alerta = new Alerta(
+                        rs.getInt("id"),
+                        rs.getInt("id_empresa"),
+                        rs.getInt("id_produto"),
+                        rs.getString("data_criacao"),
+                        rs.getString("status"),
+                        rs.getString("tipo_alerta")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return alerta;
     }
 
     public int update(Alerta alerta) {
