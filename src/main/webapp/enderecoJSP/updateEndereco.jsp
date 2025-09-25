@@ -19,7 +19,11 @@
 <body>
 <h2>Atualizar Endereço de ID <%= endereco.getId() %></h2>
 <% if (endereco != null) { %>
-<form action="ServletUpdateEndereco" method="post">
+<%
+    System.out.println("URL do servlet: " + request.getContextPath() + "/ServletCreateEndereco");
+%>
+
+<form action="<%=request.getContextPath()%>/ServletUpdateEndereco" method="post">
     <input type="hidden" name="id" value="<%= endereco.getId() %>"/>
 
     <label for="rua">Rua:</label>
@@ -77,6 +81,6 @@
 <p>Endereço não encontrado.</p>
 <% } %>
 
-<a href="ServletReadEndereco">Voltar à lista</a>
+<a href="<%=request.getContextPath()%>/ServletReadEndereco">Voltar à lista</a>
 </body>
 </html>
