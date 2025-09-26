@@ -48,6 +48,8 @@
     <input type="text" name="cep" placeholder="cep">
     <input type="text" name="numero" placeholder="numero">
     <button type="submit">CRIAR</button>
-</form>
+    <br> <br>
+    <a href="<%=request.getContextPath()%>/ServletReadEndereco">Voltar à lista</a> <br> <br>
+    <a href="<%=request.getContextPath()%>/index.html">Voltar ao inicio</a></form>
 </body>
 </html>

@@ -80,7 +80,8 @@
 <% } else { %>
 <p>Endereço não encontrado.</p>
 <% } %>
-
-<a href="<%=request.getContextPath()%>/ServletReadEndereco">Voltar à lista</a>
+<br><br>
+<a href="<%=request.getContextPath()%>/ServletReadEndereco">Voltar à lista</a> <br> <br>
+<a href="<%=request.getContextPath()%>/index.html">Voltar ao inicio</a>
 </body>
 </html>
