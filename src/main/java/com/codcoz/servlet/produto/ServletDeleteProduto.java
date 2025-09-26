@@ -29,7 +29,7 @@ public class ServletDeleteProduto extends HttpServlet {
         request.setAttribute("listaEnderecos", lista);
 
         // Encaminha para a página JSP mantendo os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("readEndereco.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("readEmpresa.jsp");
         dispatcher.forward(request, response);
     }
 }
