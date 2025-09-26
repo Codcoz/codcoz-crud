@@ -1,5 +1,8 @@
 <%@ page import="com.codcoz.model.Endereco" %>
 <%@ page import="java.util.List" %>
+<aside>
+    aside para por todos os botoes das outras classes
+</aside>
 <form action="enderecoJSP/createEndereco.jsp" method="post">
     <button type="submit">Create</button>
 </form>
@@ -22,7 +25,7 @@
         if (lista != null && lista.size()>0) {
             for (Endereco endereco : lista) {
     %>
-    
+
     <tr>
         <td><%= endereco.getId() %></td>
         <td><%= endereco.getRua() %></td>
@@ -34,12 +37,11 @@
 
         <!-- Botão de Update -->
         <td>
-            <form action="updateEndereco.jsp" method="get">
+            <form action="enderecoJSP/updateEndereco.jsp" method="get">
                 <input type="hidden" name="id" value="<%= endereco.getId() %>"/>
                 <button type="submit">Update</button>
             </form>
         </td>
-
         <!-- Botão de Delete -->
         <td>
             <form action="ServletDeleteEndereco" method="post">
