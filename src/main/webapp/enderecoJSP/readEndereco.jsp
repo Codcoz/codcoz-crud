@@ -1,7 +1,7 @@
 <%@ page import="com.codcoz.model.Endereco" %>
 <%@ page import="java.util.List" %>
 <aside>
-    aside para por todos os botoes das outras classes
+    aside para por todos os botoes das outras tabelas
 </aside>
 <form action="enderecoJSP/createEndereco.jsp" method="post">
     <button type="submit">Create</button>
@@ -59,3 +59,5 @@
         }
     %>
 </table>
+<br>
+<a href="<%=request.getContextPath()%>/index.html">Voltar ao inicio</a>
