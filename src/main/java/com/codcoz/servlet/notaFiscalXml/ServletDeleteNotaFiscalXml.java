@@ -21,7 +21,7 @@ public class ServletDeleteNotaFiscalXml extends HttpServlet {
         List<NotaFiscalXml> lista = dao.read();
         request.setAttribute("listaNotas", lista);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("readNotaFiscalXml.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/NotaFiscalxml/readNotaFiscalXml.jsp");
         dispatcher.forward(request, response);
     }
 }

@@ -10,7 +10,7 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 
 @WebServlet(name = "ServletUpdateItemNotaFiscal", value = "/ServletUpdateItemNotaFiscal")
-public class ServletUpdateitemNotaFiscalXml extends HttpServlet {
+public class ServletUpdateItemNotaFiscal extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -27,7 +27,8 @@ public class ServletUpdateitemNotaFiscalXml extends HttpServlet {
             dao.update(item);
 
             // Atualiza lista
-            response.sendRedirect("ServletReadItemNotaFiscal");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/itemNotaFiscal/readItemNotaFiscal.jsp");
+            dispatcher.forward(request, response);
 
         } catch (NumberFormatException e) {
             request.setAttribute("erro", "Erro ao converter valores numéricos: " + e.getMessage());

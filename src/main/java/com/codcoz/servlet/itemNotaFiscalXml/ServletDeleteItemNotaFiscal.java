@@ -12,7 +12,7 @@ import jakarta.servlet.annotation.*;
 import java.util.List;
 
 @WebServlet(name = "ServletDeleteItemNotaFiscal", value = "/ServletDeleteItemNotaFiscal")
-public class ServletDeleteitemNotaFiscalXml extends HttpServlet {
+public class ServletDeleteItemNotaFiscal extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Não utilizado neste servlet
@@ -29,7 +29,7 @@ public class ServletDeleteitemNotaFiscalXml extends HttpServlet {
         request.setAttribute("listaItensNotaFiscal", lista);
 
         // Encaminha para a página JSP mantendo os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("readItemNotaFiscal.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/itemNotaFiscalXml/readItemNotaFiscal.jsp");
         dispatcher.forward(request, response);
     }
 }

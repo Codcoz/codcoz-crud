@@ -7,6 +7,11 @@
 --%>
 <%@ page import="com.codcoz.model.ItemNotaFiscal" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.codcoz.model.Endereco" %>
+<%@ page import="com.codcoz.model.NotaFiscalXml" %>
+<%@ page import="com.codcoz.dao.NotaFiscalXmlDAO" %>
+<%@ page import="com.codcoz.dao.EmpresaDAO" %>
+<%@ page import="com.codcoz.model.Empresa" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -16,15 +21,15 @@
 <body>
 <h2>Lista de Itens Nota Fiscal</h2>
 
-<form action="createItemNotaFiscal.jsp" method="post">
+<form action="itemNotaFiscal/createItemNotaFiscal.jsp" method="post">
     <button type="submit">Create</button>
 </form>
 
 <table border="1">
     <tr>
         <th>ID</th>
-        <th>ID Nota Fiscal XML</th>
-        <th>ID Empresa</th>
+        <th>Numero da Nota Fiscal</th>
+        <th>Empresa</th>
         <th>Quantidade</th>
         <th>Preço</th>
         <th>Update</th>
@@ -32,14 +37,17 @@
     </tr>
 
     <%
-        List<ItemNotaFiscal> lista = (List<ItemNotaFiscal>) request.getAttribute("listaItens");
+        List<ItemNotaFiscal> lista = (List<ItemNotaFiscal>) request.getAttribute("listaItensNotaFiscal");
+
         if (lista != null && lista.size() > 0) {
             for (ItemNotaFiscal item : lista) {
+                NotaFiscalXml notaFiscalXml = new NotaFiscalXmlDAO().buscarPorId(item.getIdNotaFiscalXml());
+                Empresa empresa = new EmpresaDAO().buscarPorId(item.getIdEmpresa());
     %>
     <tr>
         <td><%= item.getId() %></td>
-        <td><%= item.getIdNotaFiscalXml() %></td>
-        <td><%= item.getIdEmpresa() %></td>
+        <td><%= notaFiscalXml.getNumeroNota() %></td>
+        <td><%= empresa.getNome()%></td>
         <td><%= item.getQuantidade() %></td>
         <td><%= item.getPreco() %></td>
 
@@ -53,7 +61,7 @@
 
         <!-- Botão de Delete -->
         <td>
-            <form action="ServletDeleteItemNotaFiscal" method="post">
+            <form action="ServletDeleteitemNotaFiscal" method="post">
                 <input type="hidden" name="id" value="<%= item.getId() %>"/>
                 <input type="submit" value="Delete" />
             </form>
