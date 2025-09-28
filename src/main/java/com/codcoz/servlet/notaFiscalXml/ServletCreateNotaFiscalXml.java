@@ -1,3 +1,4 @@
+// src/main/java/com/codcoz/servlet/notaFiscalXml/ServletCreateNotaFiscalXml.java
 package com.codcoz.servlet.notaFiscalXml;
 
 import com.codcoz.dao.NotaFiscalXmlDAO;
@@ -5,14 +6,32 @@ import com.codcoz.model.NotaFiscalXml;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ServletCreateNotaFiscalXml", value = "/ServletCreateNotaFiscalXml")
+@WebServlet(name = "ServletCreateNotaFiscalXml", urlPatterns = "/ServletCreateNotaFiscalXml")
 public class ServletCreateNotaFiscalXml extends HttpServlet {
+    private static final String READ_JSP = "/notaFiscalXmlJSP/readNotaFiscalXml.jsp";
+
+    /**
+     * Redireciona via GET para a listagem.
+     */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        List<NotaFiscalXml> lista = new NotaFiscalXmlDAO().read();
+        request.setAttribute("listaNotas", lista);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(READ_JSP);
+        dispatcher.forward(request, response);
+    }
+
+    /**
+     * Cria uma nova NotaFiscalXml e retorna para a listagem.
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Constrói o objeto a partir dos parâmetros transmitidos
         NotaFiscalXml nota = new NotaFiscalXml(
                 Integer.parseInt(request.getParameter("idEmpresa")),
                 request.getParameter("dataEmissao"),
@@ -23,15 +42,10 @@ public class ServletCreateNotaFiscalXml extends HttpServlet {
         NotaFiscalXmlDAO dao = new NotaFiscalXmlDAO();
         dao.create(nota);
 
+        // Recarrega lista e encaminha para o JSP
         List<NotaFiscalXml> lista = dao.read();
         request.setAttribute("listaNotas", lista);
-
-<<<<<<< HEAD
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/notaFiscalXmlJSP/readNotaFiscalXml.jsp");
-=======
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/NotaFiscalxml/readNotaFiscalXml.jsp");
->>>>>>> b0f8cb5cc2905eeb18a7e0ceb7a15fb342d0a0af
+        RequestDispatcher dispatcher = request.getRequestDispatcher(READ_JSP);
         dispatcher.forward(request, response);
     }
 }
-

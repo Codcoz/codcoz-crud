@@ -1,36 +1,27 @@
 package com.codcoz.servlet.itemNotaFiscalXml;
 
-
-
 import com.codcoz.dao.ItemNotaFiscalDAO;
-import com.codcoz.model.ItemNotaFiscal;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-
-        import java.io.IOException;
+import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ServletDeleteItemNotaFiscal", value = "/ServletDeleteItemNotaFiscal")
+@WebServlet(name = "ServletDeleteItemNotaFiscal", urlPatterns = "/ServletDeleteItemNotaFiscal")
 public class ServletDeleteItemNotaFiscal extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Não utilizado neste servlet
-    }
+    private static final String READ_JSP = "/itemNotaFiscalJSP/readItemNotaFiscal.jsp";
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        ItemNotaFiscalDAO itemNotaFiscalDAO = new ItemNotaFiscalDAO();
-        itemNotaFiscalDAO.delete(id);
-        List<ItemNotaFiscal> lista = itemNotaFiscalDAO.read();
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        ItemNotaFiscalDAO dao = new ItemNotaFiscalDAO();
+        dao.delete(id);
 
-        // Define a lista como atributo da request
+        // Recarrega lista e encaminha
+        List<?> lista = dao.read();
         request.setAttribute("listaItensNotaFiscal", lista);
-
-        // Encaminha para a página JSP mantendo os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/itemNotaFiscalXml/readItemNotaFiscal.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(READ_JSP);
         dispatcher.forward(request, response);
     }
 }
-
