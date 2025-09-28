@@ -1,28 +1,20 @@
-<<<<<<< HEAD
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-=======
->>>>>>> b0f8cb5cc2905eeb18a7e0ceb7a15fb342d0a0af
-<%@ page import="com.codcoz.dao.EmpresaDAO" %>
-<%@ page import="com.codcoz.dao.NotaFiscalXmlDAO" %>
-<%@ page import="com.codcoz.model.Empresa" %>
-<%@ page import="com.codcoz.model.NotaFiscalXml" %>
-<%@ page import="java.util.List" %>
-<<<<<<< HEAD
-
-=======
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
->>>>>>> b0f8cb5cc2905eeb18a7e0ceb7a15fb342d0a0af
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ page import="
+    com.codcoz.dao.EmpresaDAO,
+    com.codcoz.dao.NotaFiscalXmlDAO,
+    com.codcoz.model.Empresa,
+    com.codcoz.model.NotaFiscalXml,
+    java.util.List
+" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Criar Item da Nota Fiscal</title>
 </head>
 <body>
 <h2>Criar Item da Nota Fiscal</h2>
-<<<<<<< HEAD
 
-=======
->>>>>>> b0f8cb5cc2905eeb18a7e0ceb7a15fb342d0a0af
-<form action="<%=request.getContextPath()%>/ServletCreateItemNotaFiscal" method="post">
+<form action="<%= request.getContextPath() %>/ServletCreateItemNotaFiscal" method="post">
     <label for="idNotaFiscalXml">Nota Fiscal:</label>
     <%
         List<NotaFiscalXml> notas = new NotaFiscalXmlDAO().read();
@@ -30,16 +22,12 @@
     <select id="idNotaFiscalXml" name="idNotaFiscalXml" required>
         <option value="">Selecione uma nota fiscal</option>
         <% for (NotaFiscalXml nf : notas) { %>
-<<<<<<< HEAD
-        <option value="<%= nf.getId() %>">Nota nº <%= nf.getNumeroNota() %></option>
-        <% } %>
-    </select><br><br>
-=======
-        <option value="<%=nf.getId()%>">Nota nº <%=nf.getNumeroNota()%></option>
+        <option value="<%= nf.getId() %>">
+            Nota nº <%= nf.getNumeroNota() %>
+        </option>
         <% } %>
     </select>
     <br><br>
->>>>>>> b0f8cb5cc2905eeb18a7e0ceb7a15fb342d0a0af
 
     <label for="idEmpresa">Empresa:</label>
     <%
@@ -48,46 +36,32 @@
     <select id="idEmpresa" name="idEmpresa" required>
         <option value="">Selecione uma empresa</option>
         <% for (Empresa emp : empresas) { %>
-<<<<<<< HEAD
-        <option value="<%= emp.getId() %>"><%= emp.getNome() %> (CNPJ: <%= emp.getCnpj() %>)</option>
-        <% } %>
-    </select><br><br>
-
-    <label for="quantidade">Quantidade:</label>
-    <input type="number" step="0.01" name="quantidade" id="quantidade" required><br><br>
-
-    <label for="preco">Preço Unitário:</label>
-    <input type="number" step="0.01" name="preco" id="preco" required><br><br>
-
-    <button type="submit">CRIAR ITEM</button>
-</form>
-
-<br><br>
-<a href="<%=request.getContextPath()%>/ServletReadItemNotaFiscal">Voltar à lista</a> <br><br>
-<a href="<%=request.getContextPath()%>/index.html">Voltar ao início</a>
-</body>
-</html>
-=======
-        <option value="<%=emp.getId()%>"><%=emp.getNome()%> (CNPJ: <%=emp.getCnpj()%>)</option>
+        <option value="<%= emp.getId() %>">
+            <%= emp.getNome() %> (CNPJ: <%= emp.getCnpj() %>)
+        </option>
         <% } %>
     </select>
     <br><br>
 
     <label for="quantidade">Quantidade:</label>
-    <input type="number" step="0.01" name="quantidade" id="quantidade" required>
+    <input type="number" step="0.01" id="quantidade" name="quantidade" required>
     <br><br>
 
     <label for="preco">Preço Unitário:</label>
-    <input type="number" step="0.01" name="preco" id="preco" required>
+    <input type="number" step="0.01" id="preco" name="preco" required>
     <br><br>
 
     <button type="submit">CRIAR ITEM</button>
-    <br><br>
-    <a href="<%=request.getContextPath()%>/ServletReadItemNotaFiscal">Voltar à lista</a> <br><br>
-    <a href="<%=request.getContextPath()%>/index.html">Voltar ao início</a>
 </form>
+
+<br><br>
+<a href="<%= request.getContextPath() %>/ServletReadItemNotaFiscal">
+    Voltar à lista
+</a>
+<br><br>
+<a href="<%= request.getContextPath() %>/index.html">
+    Voltar ao início
+</a>
 </body>
 </html>
 
-
->>>>>>> b0f8cb5cc2905eeb18a7e0ceb7a15fb342d0a0af
