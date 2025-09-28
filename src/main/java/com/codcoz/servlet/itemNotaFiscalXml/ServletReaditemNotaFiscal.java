@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @WebServlet(name = "ServletReadItemNotaFiscal", value = "/ServletReadItemNotaFiscal")
-public class ServletReaditemNotaFiscalXml extends HttpServlet {
+public class ServletReaditemNotaFiscal extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Chama o DAO
@@ -25,10 +25,9 @@ public class ServletReaditemNotaFiscalXml extends HttpServlet {
         request.setAttribute("listaItensNotaFiscal", lista);
 
         // Encaminha para a página JSP mantendo os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("readItemNotaFiscal.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/itemNotaFiscal/readItemNotaFiscal.jsp");
         dispatcher.forward(request, response);
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

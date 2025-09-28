@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
     @WebServlet(name = "ServletCreateItemNotaFiscal", value = "/ServletCreateItemNotaFiscal")
-    public class ServletCreateitemNotaFiscalXml extends HttpServlet {
+    public class ServletCreateItemNotaFiscal extends HttpServlet {
         @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             // Poderia listar os itens direto se quiser acessar via GET
@@ -27,7 +27,7 @@ import java.util.List;
         @Override
         protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
                 // Recupera parâmetros do formulário
-                Integer id = Integer.valueOf(request.getParameter("id"));
+
                 Integer idNotaFiscalXml = Integer.valueOf(request.getParameter("idNotaFiscalXml"));
                 Integer idEmpresa = Integer.valueOf(request.getParameter("idEmpresa"));
                 Double quantidade = Double.valueOf(request.getParameter("quantidade"));
@@ -46,10 +46,8 @@ import java.util.List;
                 request.setAttribute("listaItensNotaFiscal", lista);
 
                 // Encaminha para a página JSP mantendo os dados
-                RequestDispatcher dispatcher = request.getRequestDispatcher("readItemNotaFiscal.jsp");
-                dispatcher.forward(request, response);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/itemNotaFiscal/readItemNotaFiscal.jsp");
+            dispatcher.forward(request, response);
 
-            }
         }
-
-
+        }

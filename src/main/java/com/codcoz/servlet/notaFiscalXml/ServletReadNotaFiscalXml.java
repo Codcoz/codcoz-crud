@@ -18,8 +18,9 @@ public class ServletReadNotaFiscalXml extends HttpServlet {
 
         request.setAttribute("listaNotas", lista);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("readNotaFiscalXml.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/notaFiscalXmlJSP/readNotaFiscalXml.jsp");
         dispatcher.forward(request, response);
+
     }
 }
 

@@ -20,7 +20,7 @@
     <input type="text" name="cnpj" placeholder="CNPJ" pattern="^\d{14}" required>
     <label for="idEndereco">Endereço:</label>
     <% List<Endereco> enderecos = new EnderecoDAO().read(); %>
-            <select name="idEndereco" required>
+            <select id ="idEndereco" name="idEndereco" required>
         <option value="">Selecione um endereço</option>
         <% for (Endereco e : enderecos) { %>
         <option value="<%=e.getId()%>">(<%=e.getCep()%>) <%=e.getCidade()%>, rua <%= e.getRua()%>, <%=e.getNumero()%> - <%=e.getEstado()%></option>
