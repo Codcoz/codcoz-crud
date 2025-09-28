@@ -53,17 +53,29 @@
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+<<<<<<< HEAD
+=======
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.7</version>
+        </dependency>
+>>>>>>> b0f8cb5cc2905eeb18a7e0ceb7a15fb342d0a0af
         <!-- https://mvnrepository.com/artifact/io.github.cdimascio/java-dotenv -->
         <dependency>
             <groupId>io.github.cdimascio</groupId>
             <artifactId>java-dotenv</artifactId>
             <version>5.2.2</version>
         </dependency>
+<<<<<<< HEAD
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.7.7</version>
         </dependency>
+=======
+
+>>>>>>> b0f8cb5cc2905eeb18a7e0ceb7a15fb342d0a0af
     </dependencies>
 
     <build>

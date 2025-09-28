@@ -1,14 +1,26 @@
+<<<<<<< HEAD
 <%@ page import="java.util.List" %>
 <%@ page import="com.codcoz.dao.EnderecoDAO" %>
 <%@ page import="com.codcoz.model.Endereco" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--
+=======
+<%@ page import="com.codcoz.dao.EmpresaDAO" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.codcoz.model.Empresa" %>
+<%@ page import="com.codcoz.dao.EnderecoDAO" %>
+<%@ page import="com.codcoz.model.Endereco" %><%--
+>>>>>>> b0f8cb5cc2905eeb18a7e0ceb7a15fb342d0a0af
   Created by IntelliJ IDEA.
   User: felipeboregio-ieg
   Date: 25/09/2025
   Time: 22:46
   To change this template use File | Settings | File Templates.
 --%>
+<<<<<<< HEAD
+=======
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>>>>>>> b0f8cb5cc2905eeb18a7e0ceb7a15fb342d0a0af
 <html>
 <head>
     <title>Criar Empresa</title>

@@ -2,7 +2,10 @@
 <%@ page import="com.codcoz.dao.EnderecoDAO" %>
 <%@ page import="com.codcoz.model.Endereco" %>
 <%@ page import="java.util.List" %>
+<<<<<<< HEAD
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+=======
+>>>>>>> b0f8cb5cc2905eeb18a7e0ceb7a15fb342d0a0af
 
 <aside>
     aside para por todos os botoes das outras tabelas

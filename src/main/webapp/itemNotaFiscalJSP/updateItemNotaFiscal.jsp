@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+=======
+>>>>>>> b0f8cb5cc2905eeb18a7e0ceb7a15fb342d0a0af
 <%@ page import="com.codcoz.model.ItemNotaFiscal" %>
 <%@ page import="com.codcoz.dao.ItemNotaFiscalDAO" %>
 <%@ page import="com.codcoz.dao.EmpresaDAO" %>
@@ -6,6 +9,10 @@
 <%@ page import="com.codcoz.model.Empresa" %>
 <%@ page import="com.codcoz.model.NotaFiscalXml" %>
 <%@ page import="java.util.List" %>
+<<<<<<< HEAD
+=======
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>>>>>>> b0f8cb5cc2905eeb18a7e0ceb7a15fb342d0a0af
 
 <%
     Integer id = Integer.parseInt(request.getParameter("id"));
@@ -66,4 +73,8 @@
 <a href="<%=request.getContextPath()%>/ServletReadItemNotaFiscal">Voltar à lista</a> <br><br>
 <a href="<%=request.getContextPath()%>/index.html">Voltar ao início</a>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> b0f8cb5cc2905eeb18a7e0ceb7a15fb342d0a0af

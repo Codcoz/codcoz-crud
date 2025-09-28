@@ -25,7 +25,11 @@ public class ServletReaditemNotaFiscal extends HttpServlet {
         request.setAttribute("listaItensNotaFiscal", lista);
 
         // Encaminha para a página JSP mantendo os dados
+<<<<<<< HEAD
         RequestDispatcher dispatcher = request.getRequestDispatcher("/itemNotaFiscalJSP/readItemNotaFiscal.jsp");
+=======
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/itemNotaFiscal/readItemNotaFiscal.jsp");
+>>>>>>> b0f8cb5cc2905eeb18a7e0ceb7a15fb342d0a0af
         dispatcher.forward(request, response);
     }
     @Override

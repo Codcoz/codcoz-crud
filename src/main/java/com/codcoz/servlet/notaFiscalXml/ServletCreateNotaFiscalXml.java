@@ -26,7 +26,11 @@ public class ServletCreateNotaFiscalXml extends HttpServlet {
         List<NotaFiscalXml> lista = dao.read();
         request.setAttribute("listaNotas", lista);
 
+<<<<<<< HEAD
         RequestDispatcher dispatcher = request.getRequestDispatcher("/notaFiscalXmlJSP/readNotaFiscalXml.jsp");
+=======
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/NotaFiscalxml/readNotaFiscalXml.jsp");
+>>>>>>> b0f8cb5cc2905eeb18a7e0ceb7a15fb342d0a0af
         dispatcher.forward(request, response);
     }
 }
