@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="ServletCreateProduto" method="post">
+<form action="/ServletCreateProduto" method="post">
     <input type="number" name="id_Empresa" placeholder="id_Empresa">
     <input type="number" name="id_ItemNotaFiscal" placeholder="id_ItemNotaFiscal">
     <input type="number" name="id_Unidade_Medida" placeholder="id_Unidade_Medida">

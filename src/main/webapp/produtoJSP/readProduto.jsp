@@ -1,6 +1,6 @@
 <%@ page import="com.codcoz.model.Produto" %>
 <%@ page import="java.util.List" %>
-<form action="createProduto.jsp" method="post">
+<form action="produto/createProduto.jsp" method="post">
     <button type="submit">Create</button>
 </form>
 <table border="1">
@@ -55,7 +55,7 @@
         }
     } else {
     %>
-    <tr><td colspan="9">Nenhum produto encontrado.</td></tr>
+    <tr><td colspan="10">Nenhum produto encontrado.</td></tr>
     <%
         }
     %>
