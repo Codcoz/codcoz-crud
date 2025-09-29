@@ -1,6 +1,6 @@
 <%@ page import="com.codcoz.model.Produto" %>
 <%@ page import="java.util.List" %>
-<form action="produto/createProduto.jsp" method="post">
+<form action="produtoJSP/createProduto.jsp" method="post">
     <button type="submit">Create</button>
 </form>
 <table border="1">
