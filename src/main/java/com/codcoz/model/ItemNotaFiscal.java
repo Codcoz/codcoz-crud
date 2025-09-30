@@ -7,7 +7,7 @@ public class ItemNotaFiscal {
     private Double quantidade;
     private Double preco;
 
-    public ItemNotaFiscal(Integer id, Integer idNotaFiscalXml, Integer idEmpresa, Double quantidade, Double precoUnitario) {
+    public ItemNotaFiscal(Integer id, Integer idNotaFiscalXml, Integer idEmpresa, Double quantidade, Double preco) {
         this.id = id;
         this.idNotaFiscalXml = idNotaFiscalXml;
         this.idEmpresa = idEmpresa;
