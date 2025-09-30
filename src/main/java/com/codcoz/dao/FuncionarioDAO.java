@@ -10,19 +10,17 @@ import java.util.List;
 public class FuncionarioDAO {
 
     public boolean create(Funcionario funcionario) {
-        String sql = "INSERT INTO funcionario (id_empresa, id_funcao, nome, sobrenome, data_admissao, cpf, salario, ) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO funcionario (id_empresa, funcao, nome, sobrenome, cpf) VALUES (?, ?, ?, ?, ?)";
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             pstmt.setInt(1, funcionario.getIdEmpresa());
-            pstmt.setInt(2, funcionario.getIdFuncao());
+            pstmt.setInt(2, funcionario.getFuncao());
             pstmt.setString(3, funcionario.getNome());
             pstmt.setString(4, funcionario.getSobrenome());
             pstmt.setString(5, funcionario.getCpf());
-            pstmt.setDouble(6, funcionario.getSalario());
-            pstmt.setString(7, funcionario.getDataAdmissao());
             return pstmt.executeUpdate()>0;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
@@ -46,9 +44,7 @@ public class FuncionarioDAO {
                     rs.getInt("id_funcao"),
                     rs.getString("nome"),
                     rs.getString("sobrenome"),
-                    rs.getString("data_admissao"),
-                    rs.getString("cpf"),
-                    rs.getDouble("salario")
+                    rs.getString("cpf")
             );
                 funcionariosList.add(funcionario);
             }
@@ -66,10 +62,9 @@ public class FuncionarioDAO {
         try{
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,funcionario.getIdEmpresa());
-            pstmt.setInt(2,funcionario.getIdFuncao());
+            pstmt.setInt(2,funcionario.getFuncao());
             pstmt.setString(3,funcionario.getNome());
             pstmt.setString(4,funcionario.getSobrenome());
-            pstmt.setString(5,funcionario.getDataAdmissao());
             pstmt.setInt(6, funcionario.getId());
             if(pstmt.executeUpdate()>0){
                 System.out.println("update de funcionario com sucesso");
@@ -124,12 +119,10 @@ public class FuncionarioDAO {
                 funcionario = new Funcionario(
                         rs.getInt("id"),
                         rs.getInt("idEmpresa"),
-                        rs.getInt("idFuncao"),
+                        rs.getInt("funcao"),
                         rs.getString("nome"),
                         rs.getString("sobrenome"),
-                        rs.getString("dataAdmissao"),
-                        rs.getString("cpf"),
-                        rs.getDouble("salario")
+                        rs.getString("cpf")
                 );
             }
         } catch (SQLException e) {

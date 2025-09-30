@@ -47,7 +47,7 @@
     %>
     <tr>
         <td><%= nota.getId() %></td>
-        <td><%= empresa != null ? empresa.getNome() : "Empresa não encontrada" %></td>
+        <td><%=empresa.getNome()%></td>
         <td><%= nota.getDataEmissao() %></td>
         <td><%= nota.getNumeroNota() %></td>
         <td>

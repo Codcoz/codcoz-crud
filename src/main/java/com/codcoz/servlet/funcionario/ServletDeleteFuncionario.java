@@ -12,27 +12,17 @@ import java.util.List;
 @WebServlet(name = "ServletDeleteFuncionario", value = "/ServletDeleteFuncionario")
 public class ServletDeleteFuncionario extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Não utilizado
-    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Obtém o ID do funcionário a ser deletado
         int id = Integer.parseInt(request.getParameter("id"));
 
-        // Chama o DAO para deletar
-        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-        funcionarioDAO.delete(id);
+        FuncionarioDAO dao = new FuncionarioDAO();
+        dao.delete(id);
+        List<Funcionario> lista = dao.read();
 
-        // Busca a lista atualizada
-        List<Funcionario> lista = funcionarioDAO.read();
-
-        // Define a lista como atributo da request
         request.setAttribute("listaFuncionarios", lista);
-
-        // Encaminha para a página JSP de listagem
-        RequestDispatcher dispatcher = request.getRequestDispatcher("readFuncionario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionarioJSP/readFuncionario.jsp");
         dispatcher.forward(request, response);
     }
 }
