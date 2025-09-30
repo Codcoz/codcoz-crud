@@ -7,6 +7,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 
 @WebServlet(name = "ServletUpdateNotaFiscalXml", value = "/ServletUpdateNotaFiscalXml")
@@ -16,19 +17,17 @@ public class ServletUpdateNotaFiscalXml extends HttpServlet {
         NotaFiscalXml nota = new NotaFiscalXml(
                 Integer.parseInt(request.getParameter("id")),
                 Integer.parseInt(request.getParameter("idEmpresa")),
-                request.getParameter("dataEmissao"),
+                Date.valueOf(request.getParameter("dataEmissao")),
                 request.getParameter("xmlString"),
                 request.getParameter("numeroNota")
         );
 
         NotaFiscalXmlDAO dao = new NotaFiscalXmlDAO();
         dao.update(nota);
-
         List<NotaFiscalXml> lista = dao.read();
-        request.setAttribute("listaNotas", lista);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("readNotaFiscalXml.jsp");
+        request.setAttribute("listaNotas", lista);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/notaFiscalXmlJSP/readNotaFiscalXml.jsp");
         dispatcher.forward(request, response);
     }
 }
-

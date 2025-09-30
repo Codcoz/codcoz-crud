@@ -21,7 +21,7 @@ public class ServletReadEndereco extends HttpServlet {
         request.setAttribute("listaEnderecos", lista);
 
         // Encaminha para a página JSP mantendo os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("readEndereco.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/enderecoJSP/readEndereco.jsp");
         dispatcher.forward(request, response);
     }
 
