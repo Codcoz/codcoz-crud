@@ -16,11 +16,7 @@
 <%
     // Obtém o ID da nota a partir do parâmetro e carrega dados
     Integer id = null;
-    try {
-        id = Integer.valueOf(request.getParameter("id"));
-    } catch (Exception e) {
-        // parâmetro inválido
-    }
+        id = Integer.parseInt(request.getParameter("id"));
 
     NotaFiscalXml nota = null;
     List<Empresa> empresas = new EmpresaDAO().read();
@@ -60,8 +56,9 @@
 
     <label for="xmlString">Conteúdo XML:</label>
     <br>
-    <textarea id="xmlString" name="xmlString"
-              rows="10" cols="60" required><%= nota.getXmlString() %></textarea>
+    <textarea id="xmlString" name="xmlString" required>
+        <%= nota.getXmlString() %>
+    </textarea>
     <br><br>
 
     <button type="submit">Atualizar Nota</button>

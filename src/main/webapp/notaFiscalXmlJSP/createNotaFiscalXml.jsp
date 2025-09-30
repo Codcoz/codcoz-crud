@@ -39,10 +39,7 @@
 
     <label for="xmlString">Conteúdo XML:</label>
     <br>
-    <textarea id="xmlString" name="xmlString"
-              rows="10" cols="60"
-              placeholder="Cole o XML aqui..." required>
-        </textarea>
+    <textarea id="xmlString" name="xmlString" placeholder="Cole o XML aqui..." required></textarea>
     <br><br>
 
     <button type="submit">CRIAR NOTA</button>

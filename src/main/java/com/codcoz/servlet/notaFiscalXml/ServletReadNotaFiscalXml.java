@@ -1,4 +1,3 @@
-
 package com.codcoz.servlet.notaFiscalXml;
 
 import com.codcoz.dao.NotaFiscalXmlDAO;
@@ -6,22 +5,19 @@ import com.codcoz.model.NotaFiscalXml;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ServletReadNotaFiscalXml", urlPatterns = "/ServletReadNotaFiscalXml")
+@WebServlet(name = "ServletReadNotaFiscalXml", value = "/ServletReadNotaFiscalXml")
 public class ServletReadNotaFiscalXml extends HttpServlet {
-    private static final String READ_JSP = "/notaFiscalXmlJSP/readNotaFiscalXml.jsp";
-
-    /**
-     * Carrega todas as notas fiscais e exibe a listagem.
-     */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        List<NotaFiscalXml> lista = new NotaFiscalXmlDAO().read();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        NotaFiscalXmlDAO dao = new NotaFiscalXmlDAO();
+        List<NotaFiscalXml> lista = dao.read();
+
         request.setAttribute("listaNotas", lista);
-        RequestDispatcher dispatcher = request.getRequestDispatcher(READ_JSP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/notaFiscalXmlJSP/readNotaFiscalXml.jsp");
         dispatcher.forward(request, response);
     }
 }

@@ -17,7 +17,7 @@ public class NotaFiscalXmlDAO {
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             pstmt.setInt(1, notaFiscalXml.getIdEmpresa());
-            pstmt.setString(2, notaFiscalXml.getDataEmissao());
+            pstmt.setDate(2, notaFiscalXml.getDataEmissao());
             pstmt.setString(3, notaFiscalXml.getXmlString());
             pstmt.setString(4, notaFiscalXml.getNumeroNota());
             if (pstmt.executeUpdate() > 0) {
@@ -44,7 +44,7 @@ public class NotaFiscalXmlDAO {
                 NotaFiscalXml notaFiscalXml = new NotaFiscalXml(
                         rs.getInt("id"),
                         rs.getInt("id_empresa"),
-                        rs.getString("data_emissao"),
+                        rs.getDate("data_emissao"),
                         rs.getString("xml_string"),
                         rs.getString("numero_nota")
                 );
@@ -59,7 +59,7 @@ public class NotaFiscalXmlDAO {
     public NotaFiscalXml buscarPorId(int id) {
         NotaFiscalXml nota = null;
         try (Connection conn = new Conexao().conectar();
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM notaFiscalXml WHERE id = ?")) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM nota_fiscal_xml WHERE id = ?")) {
 
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -67,10 +67,10 @@ public class NotaFiscalXmlDAO {
             if (rs.next()) {
                 nota = new NotaFiscalXml(
                         rs.getInt("id"),
-                        rs.getInt("idEmpresa"),
-                        rs.getString("dataEmissao"),
-                        rs.getString("xmlString"),
-                        rs.getString("numeroNota")
+                        rs.getInt("id_empresa"),
+                        rs.getDate("data_emissao"),
+                        rs.getString("xml_string"),
+                        rs.getString("numero_nota")
                 );
             }
         } catch (SQLException e) {
@@ -79,16 +79,14 @@ public class NotaFiscalXmlDAO {
         return nota;
     }
     public int update(NotaFiscalXml notaFiscalXML) {
-        String sql = "UPDATE nota_fiscal_xml " +
-                "SET id_empresa = ?, data_emissao = ?, xml_string = ?, numero_nota = ?" +
-                "WHERE id = ?";
+        String sql = "UPDATE nota_fiscal_xml SET id_empresa = ?, data_emissao = ?, xml_string = ?, numero_nota = ? WHERE id = ?";
 
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, notaFiscalXML.getIdEmpresa());
-            pstmt.setString(2, notaFiscalXML.getDataEmissao());
+            pstmt.setDate(2, notaFiscalXML.getDataEmissao());
             pstmt.setString(3, notaFiscalXML.getXmlString());
             pstmt.setString(4, notaFiscalXML.getNumeroNota());
             pstmt.setInt(5, notaFiscalXML.getId());

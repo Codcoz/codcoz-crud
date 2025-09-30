@@ -20,7 +20,7 @@
 
 <h2>Lista de Notas Fiscais XML</h2>
 
-<form action="<%= request.getContextPath() %>/ServletCreateItemNotaFiscal" method="get">
+<form action="<%= request.getContextPath() %>/notaFiscalXmlJSP/createNotaFiscalXml.jsp" method="post">
     <button type="submit">Criar Nota Fiscal XML</button>
 </form>
 <br>
@@ -37,7 +37,8 @@
         <th>Empresa</th>
         <th>Data de Emissão</th>
         <th>Número da Nota</th>
-        <th>Ações</th>
+        <th>Update</th>
+        <th>Delete</th>
     </tr>
     <%
         if (notas != null && !notas.isEmpty()) {
@@ -50,13 +51,16 @@
         <td><%= nota.getDataEmissao() %></td>
         <td><%= nota.getNumeroNota() %></td>
         <td>
-            <a href="<%= request.getContextPath() %>/ServletUpdateNotaFiscalXml?id=<%= nota.getId() %>">
-                Editar
-            </a> |
-            <a href="<%= request.getContextPath() %>/ServletDeleteNotaFiscalXml?id=<%= nota.getId() %>"
-               onclick="return confirm('Tem certeza que deseja excluir esta nota?');">
-                Excluir
-            </a>
+            <form action="<%= request.getContextPath() %>/notaFiscalXmlJSP/updateNotaFiscalXml.jsp" method="post">
+                <input type="hidden" name="id" value="<%= nota.getId() %>"/>
+                <button type="submit">Update</button>
+            </form>
+        </td>
+        <td>
+            <form action="<%= request.getContextPath() %>/ServletDeleteNotaFiscalXml" method="post">
+                <input type="hidden" name="id" value="<%= nota.getId() %>"/>
+                <button type="submit">Delete</button>
+            </form>
         </td>
     </tr>
     <%
@@ -64,7 +68,7 @@
     } else {
     %>
     <tr>
-        <td colspan="5">Nenhuma nota fiscal encontrada.</td>
+        <td colspan="6">Nenhuma nota fiscal encontrada.</td>
     </tr>
     <%
         }
