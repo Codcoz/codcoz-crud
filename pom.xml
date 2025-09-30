@@ -5,44 +5,39 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.codcoz</groupId>
-    <artifactId>ultimavez</artifactId>
+    <artifactId>codcoz-crud</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>ultimavez</name>
+    <name>codcoz-crud</name>
     <packaging>war</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.target>19</maven.compiler.target>
-        <maven.compiler.source>19</maven.compiler.source>
-        <junit.version>5.13.2</junit.version>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <junit.version>5.9.1</junit.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>6.1.0</version>
+            <version>5.0.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet</artifactId>
-            <version>4.0.0-M2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
-            <version>4.0.0-M2</version>
+            <version>3.0.4</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-cdi2-se</artifactId>
-            <version>4.0.0-M2</version>
+            <version>3.0.4</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.weld.se</groupId>
             <artifactId>weld-se-core</artifactId>
-            <version>6.0.3.Final</version>
+            <version>4.0.3.Final</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -56,14 +51,33 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.7</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>java-dotenv</artifactId>
+            <version>5.2.2</version>
+        </dependency>
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>.env</include>
+                </includes>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.4.0</version>
+                <version>3.3.2</version>
             </plugin>
         </plugins>
     </build>
