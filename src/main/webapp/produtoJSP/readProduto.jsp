@@ -9,7 +9,7 @@
         <th>ID</th>
         <th>id empresa</th>
         <th>id nota fiscal</th>
-        <th>id Unidade Medida</th>
+        <th>Unidade Medida</th>
         <th>nome</th>
         <th>estoque Minimo</th>
         <th>categoria</th>
@@ -28,7 +28,7 @@
         <td><%= produto.getId() %></td>
         <td><%= produto.getIdEmpresa() %></td>
         <td><%= produto.getIdItemNotaFiscal() %></td>
-        <td><%= produto.getIdUnidadeMedida() %></td>
+        <td><%= produto.getUnidadeMedida() %></td>
         <td><%= produto.getNome() %></td>
         <td><%= produto.getEstoqueMinimo() %></td>
         <td><%= produto.getCategoria() %></td>

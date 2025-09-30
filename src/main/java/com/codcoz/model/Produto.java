@@ -4,27 +4,27 @@ public class Produto {
     private Integer id;
     private Integer idEmpresa;
     private Integer idItemNotaFiscal;
-    private Integer idUnidadeMedida;
+    private String unidadeMedida;
     private String nome;
     private Double estoqueMinimo;
     private String categoria;
     private String status;
 
-    public Produto(Integer id, Integer idEmpresa, Integer idItemNotaFiscal, Integer idUnidadeMedida, String nome, Double estoqueMinimo, String categoria, String status) {
+    public Produto(Integer id, Integer idEmpresa, Integer idItemNotaFiscal, String unidadeMedida, String nome, Double estoqueMinimo, String categoria, String status) {
         this.id = id;
         this.idEmpresa = idEmpresa;
         this.idItemNotaFiscal = idItemNotaFiscal;
-        this.idUnidadeMedida = idUnidadeMedida;
+        this.unidadeMedida = unidadeMedida;
         this.nome = nome;
         this.estoqueMinimo = estoqueMinimo;
         this.categoria = categoria;
         this.status = status;
     }
 
-    public Produto(Integer idEmpresa, Integer idItemNotaFiscal, Integer idUnidadeMedida, String nome, Double estoqueMinimo, String categoria, String status) {
+    public Produto(Integer idEmpresa, Integer idItemNotaFiscal, String UnidadeMedida, String nome, Double estoqueMinimo, String categoria, String status) {
         this.idEmpresa = idEmpresa;
         this.idItemNotaFiscal = idItemNotaFiscal;
-        this.idUnidadeMedida = idUnidadeMedida;
+        this.unidadeMedida = unidadeMedida;
         this.nome = nome;
         this.estoqueMinimo = estoqueMinimo;
         this.categoria = categoria;
@@ -43,8 +43,8 @@ public class Produto {
         return idItemNotaFiscal;
     }
 
-    public Integer getIdUnidadeMedida() {
-        return idUnidadeMedida;
+    public String getUnidadeMedida() {
+        return unidadeMedida;
     }
 
     public String getNome() {

@@ -20,7 +20,7 @@ public class ServletCreateProduto extends HttpServlet {
         Produto produto = new Produto(
                 Integer.parseInt(request.getParameter("id_empresas")),
                 Integer.parseInt(request.getParameter("id_ItemNotaFiscal")),
-                Integer.parseInt(request.getParameter("unidade_de_medida")),
+                request.getParameter("unidade_de_medida"),
                 request.getParameter("nome"),
                 Double.parseDouble(request.getParameter("estoqueMinimo")),
                 request.getParameter("categoria"),

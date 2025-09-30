@@ -28,11 +28,14 @@
     <label for="id_ItemNotaFiscal">Id item nota fiscal:</label>
     <input type="number" id="id_ItemNotaFiscal" name="id_ItemNotaFiscal" value="<%= produto.getIdItemNotaFiscal() %>" placeholder="Ex:1,2,3"><br><br>
 
+    <label for="unidade_de_medida">unidade de medida:</label>
+    <input type="text" id="unidade_de_medida" name="unidade_de_medida" value="<%= produto.getUnidadeMedida() %>" placeholder="Ex:Kg,L,caixa"><br><br>
+
     <label for="nome">nome:</label>
     <input type="text" id="nome" name="nome" value="<%= produto.getNome() %>" required placeholder="Ex:Arroz"><br><br>
 
     <label for="estoque_Minimo">estoque_Minimo:</label>
-    <input type="number" id="estoque_Minimo" name="estoque_Minimo" value="<%= produto.getNome() %>" required placeholder="Ex:1,2,3"><br><br>
+    <input type="number" id="estoque_Minimo" name="estoque_Minimo" value="<%= produto.getEstoqueMinimo() %>" required placeholder="Ex:1,2,3"><br><br>
 
     <label for="categoria">categoria:</label>
     <input type="text" id="categoria" name="categoria" value="<%= produto.getCategoria() %>" required placeholder="Ex:Frios"><br><br>
