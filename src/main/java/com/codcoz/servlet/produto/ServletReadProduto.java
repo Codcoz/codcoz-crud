@@ -22,7 +22,7 @@ public class ServletReadProduto extends HttpServlet {
         request.setAttribute("listaEnderecos", lista);
 
         // Encaminha para a página JSP mantendo os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("readProduto.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/produtoJSP/readProduto.jsp");
         dispatcher.forward(request, response);
     }
 

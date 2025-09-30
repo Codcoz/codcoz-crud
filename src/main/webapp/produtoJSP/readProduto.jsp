@@ -1,6 +1,6 @@
 <%@ page import="com.codcoz.model.Produto" %>
 <%@ page import="java.util.List" %>
-<form action="createProduto.jsp" method="post">
+<form action="produtoJSP/createProduto.jsp" method="post">
     <button type="submit">Create</button>
 </form>
 <table border="1">
@@ -9,7 +9,7 @@
         <th>ID</th>
         <th>id empresa</th>
         <th>id nota fiscal</th>
-        <th>id Unidade Medida</th>
+        <th>Unidade Medida</th>
         <th>nome</th>
         <th>estoque Minimo</th>
         <th>categoria</th>
@@ -28,7 +28,7 @@
         <td><%= produto.getId() %></td>
         <td><%= produto.getIdEmpresa() %></td>
         <td><%= produto.getIdItemNotaFiscal() %></td>
-        <td><%= produto.getIdUnidadeMedida() %></td>
+        <td><%= produto.getUnidadeMedida() %></td>
         <td><%= produto.getNome() %></td>
         <td><%= produto.getEstoqueMinimo() %></td>
         <td><%= produto.getCategoria() %></td>
@@ -55,7 +55,7 @@
         }
     } else {
     %>
-    <tr><td colspan="9">Nenhum produto encontrado.</td></tr>
+    <tr><td colspan="10">Nenhum produto encontrado.</td></tr>
     <%
         }
     %>
