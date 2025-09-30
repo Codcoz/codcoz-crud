@@ -7,6 +7,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "ServletCreateProduto", value = "/ServletCreateProduto")
 public class ServletCreateProduto extends HttpServlet {
@@ -19,15 +20,21 @@ public class ServletCreateProduto extends HttpServlet {
         Produto produto = new Produto(
                 Integer.parseInt(request.getParameter("id_empresas")),
                 Integer.parseInt(request.getParameter("id_ItemNotaFiscal")),
-                Integer.parseInt(request.getParameter("id_Unidade_Medida")),
+                request.getParameter("unidade_de_medida"),
                 request.getParameter("nome"),
                 Double.parseDouble(request.getParameter("estoqueMinimo")),
                 request.getParameter("categoria"),
                 request.getParameter("status")
         );
 
-        new ProdutoDAO().create(produto);
+        ProdutoDAO dao = new ProdutoDAO();
+        dao.create(produto);
+        List<Produto> lista = dao.read();
 
-        response.sendRedirect("http://localhost:8080/codcoz_crud_war_exploded/");
+        // Define a lista como atributo da request
+        request.setAttribute("listaProduto", lista);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("produtoJSP/readProduto.jsp");
+        dispatcher.forward(request,response);
     }
 }

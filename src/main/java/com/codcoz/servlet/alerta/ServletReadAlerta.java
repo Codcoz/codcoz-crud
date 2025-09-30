@@ -1,4 +1,4 @@
-package com.codcoz.servlet.alerta;
+package com.codcoz.servlet.Alerta;
 
 import com.codcoz.dao.AlertaDAO;
 import com.codcoz.model.Alerta;
@@ -21,7 +21,7 @@ public class ServletReadAlerta extends HttpServlet {
         request.setAttribute("listaAlerta", lista);
 
         // Encaminha para a página JSP mantendo os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("readAlerta.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/alertaJSP/readAlerta.jsp");
         dispatcher.forward(request, response);
     }
 

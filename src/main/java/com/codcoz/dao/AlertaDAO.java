@@ -18,7 +18,7 @@ public class AlertaDAO {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, alerta.getIdEmpresa());
             pstmt.setInt(2, alerta.getIdProduto());
-            pstmt.setString(3, alerta.getDataCriacao()); // ideal: usar java.sql.Date
+            pstmt.setDate(3, alerta.getDataCriacao()); // ideal: usar java.sql.Date
             pstmt.setString(4, alerta.getStatus());
             pstmt.setString(5, alerta.getTipoAlerta());
 
@@ -48,7 +48,7 @@ public class AlertaDAO {
                         rs.getInt("id"),
                         rs.getInt("id_empresa"),
                         rs.getInt("id_produto"),
-                        rs.getString("data_criacao"),
+                        rs.getDate("data_criacao"),
                         rs.getString("status"),
                         rs.getString("tipo_alerta")
                 );
@@ -74,7 +74,7 @@ public class AlertaDAO {
                         rs.getInt("id"),
                         rs.getInt("id_empresa"),
                         rs.getInt("id_produto"),
-                        rs.getString("data_criacao"),
+                        rs.getDate("data_criacao"),
                         rs.getString("status"),
                         rs.getString("tipo_alerta")
                 );
@@ -93,7 +93,7 @@ public class AlertaDAO {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, alerta.getIdEmpresa());
             pstmt.setInt(2, alerta.getIdProduto());
-            pstmt.setString(3, alerta.getDataCriacao());
+            pstmt.setDate(3, alerta.getDataCriacao());
             pstmt.setString(4, alerta.getStatus());
             pstmt.setString(5, alerta.getTipoAlerta());
             pstmt.setInt(6, alerta.getId());
