@@ -1,26 +1,64 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: lucascosta-ieg
-  Date: 25/09/2025
-  Time: 12:05
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ page import="
+    java.util.List,
+    com.codcoz.dao.EmpresaDAO,
+    com.codcoz.model.Empresa
+" %>
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <title>Criar Produto</title>
 </head>
 <body>
-<form action="/ServletCreateProduto" method="post">
-    <input type="number" name="id_Empresa" placeholder="id_Empresa">
-    <input type="number" name="id_ItemNotaFiscal" placeholder="id_ItemNotaFiscal">
-    <input type="text" name="unidade_de_medida" placeholder="unidade_de_medida">
-    <input type="text" name="nome" placeholder="nome">
-    <input type="number" name="estoqueMinimo" placeholder="estoqueMinimo">
-    <input type="text" name="categoria" placeholder="categoria">
-    <input type="text" name="status" placeholder="status">
+<h2>Criar Produto</h2>
+
+<form action="<%= request.getContextPath() %>/ServletCreateProduto" method="post">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" placeholder="Nome do produto" required>
     <br><br>
-    <button type="submit">CRIAR</button>
+
+    <label for="categoria">Categoria:</label>
+    <input type="text" id="categoria" name="categoria" placeholder="Categoria" required>
+    <br><br>
+
+    <label for="unidadeMedida">Unidade de Medida:</label>
+    <select id="unidadeMedida" name="unidadeMedida" required>
+        <option value="">Selecione</option>
+        <option value="kg">Kg</option>
+        <option value="L">L</option>
+        <option value="unid">Unidade</option>
+    </select>
+    <br><br>
+
+    <label for="estoqueMinimo">Estoque Mínimo:</label>
+    <input type="number" step="0.01" id="estoqueMinimo" name="estoqueMinimo" placeholder="Quantidade mínima" required>
+    <br><br>
+
+    <label for="quantidade">Quantidade:</label>
+    <input type="number" id="quantidade" name="quantidade" placeholder="Quantidade atual" required>
+    <br><br>
+
+    <label for="idEmpresa">Empresa:</label>
+    <%
+        List<Empresa> empresas = new EmpresaDAO().read();
+    %>
+    <select id="idEmpresa" name="idEmpresa" required>
+        <option value="">Selecione uma empresa</option>
+        <% for (Empresa emp : empresas) { %>
+        <option value="<%= emp.getId() %>">
+            <%= emp.getNome() %> (CNPJ: <%= emp.getCnpj() %>)
+        </option>
+        <% } %>
+    </select>
+    <br><br>
+
+    <button type="submit">Criar</button>
 </form>
+
+<br><br>
+<a href="<%= request.getContextPath() %>/ServletReadProduto">Voltar à lista</a>
+<br><br>
+<a href="<%= request.getContextPath() %>/index.html">Voltar ao início</a>
 </body>
 </html>
