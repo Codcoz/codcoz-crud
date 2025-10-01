@@ -17,7 +17,7 @@ public class FuncionarioDAO {
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             pstmt.setInt(1, funcionario.getIdEmpresa());
-            pstmt.setInt(2, funcionario.getFuncao());
+            pstmt.setString(2, funcionario.getFuncao());
             pstmt.setString(3, funcionario.getNome());
             pstmt.setString(4, funcionario.getSobrenome());
             pstmt.setString(5, funcionario.getCpf());
@@ -40,8 +40,7 @@ public class FuncionarioDAO {
             while (rs.next()){
             Funcionario funcionario = new Funcionario(
                     rs.getInt("id"),
-                    rs.getInt("id_empresa"),
-                    rs.getInt("id_funcao"),
+                    rs.getString("funcao"),
                     rs.getString("nome"),
                     rs.getString("sobrenome"),
                     rs.getString("cpf")
@@ -58,11 +57,11 @@ public class FuncionarioDAO {
     public int update(Funcionario funcionario){
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
-        String sql = "update funcionario set id_empresa = ?, id_funcao = ?, nome = ?, sobrenome = ?, data_admissao = ? where id = ?";
+        String sql = "update funcionario set id_empresa = ?, funcao = ?, nome = ?, sobrenome = ?, data_admissao = ? where id = ?";
         try{
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,funcionario.getIdEmpresa());
-            pstmt.setInt(2,funcionario.getFuncao());
+            pstmt.setString(2,funcionario.getFuncao());
             pstmt.setString(3,funcionario.getNome());
             pstmt.setString(4,funcionario.getSobrenome());
             pstmt.setInt(6, funcionario.getId());
@@ -119,7 +118,7 @@ public class FuncionarioDAO {
                 funcionario = new Funcionario(
                         rs.getInt("id"),
                         rs.getInt("idEmpresa"),
-                        rs.getInt("funcao"),
+                        rs.getString("funcao"),
                         rs.getString("nome"),
                         rs.getString("sobrenome"),
                         rs.getString("cpf")

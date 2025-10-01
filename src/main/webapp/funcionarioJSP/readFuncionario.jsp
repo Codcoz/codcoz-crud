@@ -28,7 +28,8 @@
         <th>Sobrenome</th>
         <th>CPF</th>
         <th>ID Empresa</th>
-        <th>ID Função</th>
+        <th>Função</th>
+        <br>
         <th>Update</th>
         <th>Delete</th>
     </tr>
@@ -38,9 +39,12 @@
             for (Funcionario f : lista) {
     %>
     <tr>
+        <td><%= f.getId() %></td>
         <td><%= f.getNome() %></td>
         <td><%= f.getSobrenome() %></td>
         <td><%= f.getCpf() %></td>
+        <td><%= f.getIdEmpresa() %></td>
+        <td><%= f.getFuncao() %></td>
         <td>
             <form action="<%= request.getContextPath() %>/funcionarioJSP/updateFuncionario.jsp" method="post">
                 <input type="hidden" name="id" value="<%= f.getId() %>"/>
@@ -58,14 +62,11 @@
         }
     } else {
     %>
-    <tr>
-        <td colspan="8">Nenhum funcionário encontrado.</td>
-    </tr>
+    <tr><td colspan="8">Nenhum funcionário encontrado.</td></tr>
     <%
         }
     %>
 </table>
-
 <br>
 <a href="<%= request.getContextPath() %>/index.html">Voltar ao início</a>
 </body>
