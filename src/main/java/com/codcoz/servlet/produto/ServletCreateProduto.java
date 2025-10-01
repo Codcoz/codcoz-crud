@@ -12,29 +12,22 @@ import java.util.List;
 @WebServlet(name = "ServletCreateProduto", value = "/ServletCreateProduto")
 public class ServletCreateProduto extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Produto produto = new Produto(
-                Integer.parseInt(request.getParameter("id_empresas")),
-                Integer.parseInt(request.getParameter("id_ItemNotaFiscal")),
-                request.getParameter("unidade_de_medida"),
-                request.getParameter("nome"),
+                Integer.parseInt(request.getParameter("idEmpresa")),
+                request.getParameter("unidadeMedida"),
                 Double.parseDouble(request.getParameter("estoqueMinimo")),
+                request.getParameter("nome"),
                 request.getParameter("categoria"),
-                request.getParameter("status")
+                Integer.parseInt(request.getParameter("quantidade"))
         );
 
         ProdutoDAO dao = new ProdutoDAO();
         dao.create(produto);
         List<Produto> lista = dao.read();
 
-        // Define a lista como atributo da request
-        request.setAttribute("listaProduto", lista);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("produtoJSP/readProduto.jsp");
-        dispatcher.forward(request,response);
+        request.setAttribute("listaProdutos", lista);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/produtoJSP/readProduto.jsp");
+        dispatcher.forward(request, response);
     }
 }

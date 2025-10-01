@@ -1,8 +1,6 @@
 package com.codcoz.servlet.produto;
 
-import com.codcoz.dao.EnderecoDAO;
 import com.codcoz.dao.ProdutoDAO;
-import com.codcoz.model.Endereco;
 import com.codcoz.model.Produto;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -14,35 +12,23 @@ import java.util.List;
 @WebServlet(name = "ServletUpdateProduto", value = "/ServletUpdateProduto")
 public class ServletUpdateProduto extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //          cria o objeto Endereco já com os dados do form
         Produto produto = new Produto(
                 Integer.parseInt(request.getParameter("id")),
-                Integer.parseInt(request.getParameter("id_empresa")),
-                Integer.parseInt(request.getParameter("id_ItemNotaFiscal")),
-                request.getParameter("unidade_de_medida"),
+                Integer.parseInt(request.getParameter("idEmpresa")),
+                request.getParameter("unidadeMedida"),
+                Double.parseDouble(request.getParameter("estoqueMinimo")),
                 request.getParameter("nome"),
-                Double.parseDouble(request.getParameter("estoque_Minimo")),
                 request.getParameter("categoria"),
-                request.getParameter("status")
+                Integer.parseInt(request.getParameter("quantidade"))
         );
 
-//          chama o DAO para update
-        ProdutoDAO produtoDAO = new ProdutoDAO();
-        produtoDAO.update(produto);
-//          redireciona pra o read
-        List<Produto> lista = produtoDAO.read();
+        ProdutoDAO dao = new ProdutoDAO();
+        dao.update(produto);
+        List<Produto> lista = dao.read();
 
-        // Define a lista como atributo da request
-        request.setAttribute("listaProduto", lista);
-
-        // Encaminha para a página JSP mantendo os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("readProduto.jsp");
+        request.setAttribute("listaProdutos", lista);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/produtoJSP/readProduto.jsp");
         dispatcher.forward(request, response);
     }
-    }
+}
