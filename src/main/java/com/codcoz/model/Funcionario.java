@@ -3,12 +3,12 @@ package com.codcoz.model;
 public class Funcionario {
     private Integer id;
     private Integer idEmpresa;
-    private Integer funcao;
+    private String funcao;
     private String nome;
     private String sobrenome;
     private String cpf;
 
-    public Funcionario(Integer id, Integer idEmpresa, Integer funcao, String nome, String sobrenome, String cpf) {
+    public Funcionario(Integer id, Integer idEmpresa, String funcao, String nome, String sobrenome, String cpf) {
         this.id = id;
         this.idEmpresa = idEmpresa;
         this.funcao = funcao;
@@ -17,7 +17,7 @@ public class Funcionario {
         this.cpf = cpf;
     }
 
-    public Funcionario(Integer idEmpresa, Integer funcao, String nome, String sobrenome, String cpf) {
+    public Funcionario(Integer idEmpresa, String funcao, String nome, String sobrenome, String cpf) {
         this.idEmpresa = idEmpresa;
         this.funcao = funcao;
         this.nome = nome;
@@ -33,7 +33,7 @@ public class Funcionario {
         return idEmpresa;
     }
 
-    public Integer getFuncao() {
+    public String getFuncao() {
         return funcao;
     }
 

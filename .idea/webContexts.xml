@@ -8,6 +8,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/itemNotaFiscalJSP/readItemNotaFiscal.jsp" value="file://$PROJECT_DIR$/src/main/webapp/itemNotaFiscalJSP" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/notaFiscalXmlJSP/readNotaFiscalXml.jsp" value="file://$PROJECT_DIR$/src/main/webapp/notaFiscalXmlJSP" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/produto/updateProduto.jsp" value="file://$PROJECT_DIR$/src/main/webapp/produto" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/produtoJSP/createProduto.jsp" value="file://$PROJECT_DIR$/src/main/webapp/produtoJSP" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/readEndereco.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
       </map>
     </option>
