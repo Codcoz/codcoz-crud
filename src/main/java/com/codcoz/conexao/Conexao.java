@@ -13,9 +13,9 @@ public class Conexao {
         try {
             Class.forName("org.postgresql.Driver");
             Dotenv dotenv = Dotenv.load();
-            String url = dotenv.get("DB_URL");
-            String user = dotenv.get("DB_USER");
-            String pwd  = dotenv.get("DB_PWD");
+            String url = dotenv.get("DB_URLN");
+            String user = dotenv.get("DB_USERN");
+            String pwd  = dotenv.get("DB_PWDN");
             conn = DriverManager.getConnection(url, user, pwd);
             System.out.println("Conexão estabelecida com sucesso.");
         } catch (SQLException e) {
