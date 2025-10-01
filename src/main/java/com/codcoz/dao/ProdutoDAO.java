@@ -9,18 +9,17 @@ import java.sql.*;
 
 public class ProdutoDAO {
     public boolean create(Produto produto) {
-        String sql = "INSERT INTO Produto ( id_empresa,id_ItemNotaFiscal,unidade_de_medida,nome,estoque_Minimo,categoria,status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Produto ( id_empresa,unidade_de_medida,nome,estoque_Minimo,categoria,quantidade ) VALUES (?, ?, ?, ?, ?,?)";
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, produto.getIdEmpresa());
-            pstmt.setInt(2, produto.getIdItemNotaFiscal());
-            pstmt.setString(3, produto.getUnidadeMedida());
-            pstmt.setString(4, produto.getNome());
-            pstmt.setDouble(5, produto.getEstoqueMinimo());
-            pstmt.setString(6, produto.getCategoria());
-            pstmt.setString(7, produto.getStatus());
+            pstmt.setString(2, produto.getUnidadeMedida());
+            pstmt.setString(3, produto.getNome());
+            pstmt.setDouble(4, produto.getEstoqueMinimo());
+            pstmt.setString(5, produto.getCategoria());
+            pstmt.setInt(6, produto.getQuantidade());
             if (pstmt.executeUpdate() > 0) {
                 System.out.println("create de item nota fiscal com sucesso");
                 return true;
@@ -46,12 +45,11 @@ public class ProdutoDAO {
                 Produto produto = new Produto(
                         rs.getInt("id"),
                         rs.getInt("id_empresa"),
-                        rs.getInt("id_ItemNotaFiscal"),
                         rs.getString("unidade_de_medida"),
-                        rs.getString("nome"),
                         rs.getDouble("estoque_Minimo"),
+                        rs.getString("nome"),
                         rs.getString("categoria"),
-                        rs.getString("status")
+                        rs.getInt("quantidade")
                 );
                 produtoList.add(produto);
             }
@@ -76,13 +74,15 @@ public class ProdutoDAO {
                 produto = new Produto(
                         rs.getInt("id"),
                         rs.getInt("id_empresa"),
-                        rs.getInt("id_ItemNotaFiscal"),
                         rs.getString("unidade_de_medida"),
-                        rs.getString("nome"),
                         rs.getDouble("estoque_Minimo"),
+                        rs.getString("nome"),
                         rs.getString("categoria"),
-                        rs.getString("status")
-                );
+                        rs.getInt("qauntidade")
+
+
+
+                        );
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -93,15 +93,14 @@ public class ProdutoDAO {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try {
-            PreparedStatement pstmt = conn.prepareStatement("UPDATE produto SET id_Empresa = ?, id_ItemNotaFiscal = ?, unidade_de_medida = ?, nome = ?,estoque_Minimo = ?,categoria = ?, status = ?  WHERE id = ?");
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE produto SET id_Empresa = ?, unidade_de_medida = ?, nome = ?,estoque_Minimo = ?,categoria = ?,quantidade = ? WHERE id = ?");
             pstmt.setInt(1, produto.getIdEmpresa());
-            pstmt.setInt(2, produto.getIdItemNotaFiscal());
-            pstmt.setString(3, produto.getUnidadeMedida());
-            pstmt.setString(4, produto.getNome());
-            pstmt.setDouble(5, produto.getEstoqueMinimo());
-            pstmt.setString(6, produto.getCategoria());
-            pstmt.setString(7, produto.getStatus());
-            pstmt.setInt(8, produto.getId());
+            pstmt.setString(2, produto.getUnidadeMedida());
+            pstmt.setString(3, produto.getNome());
+            pstmt.setDouble(4, produto.getEstoqueMinimo());
+            pstmt.setString(5, produto.getCategoria());
+            pstmt.setInt(6, produto.getQuantidade());
+            pstmt.setInt(7, produto.getId());
             if (pstmt.executeUpdate() > 0) {
                 System.out.println("update de item nota fiscal com sucesso");
                 return 1;
