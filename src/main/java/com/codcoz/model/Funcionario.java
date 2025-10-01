@@ -3,32 +3,26 @@ package com.codcoz.model;
 public class Funcionario {
     private Integer id;
     private Integer idEmpresa;
-    private Integer idFuncao;
+    private Integer funcao;
     private String nome;
     private String sobrenome;
-    private String dataAdmissao;
     private String cpf;
-    private Double salario;
 
-    public Funcionario(Integer id, Integer idEmpresa, Integer idFuncao, String nome, String sobrenome, String dataAdmissao, String cpf, Double salario) {
+    public Funcionario(Integer id, Integer idEmpresa, Integer funcao, String nome, String sobrenome, String cpf) {
         this.id = id;
         this.idEmpresa = idEmpresa;
-        this.idFuncao = idFuncao;
+        this.funcao = funcao;
         this.nome = nome;
         this.sobrenome = sobrenome;
-        this.dataAdmissao = dataAdmissao;
         this.cpf = cpf;
-        this.salario = salario;
     }
 
-    public Funcionario(Integer idEmpresa, Integer idFuncao, String nome, String sobrenome, String dataAdmissao, String cpf, Double salario) {
+    public Funcionario(Integer idEmpresa, Integer funcao, String nome, String sobrenome, String cpf) {
         this.idEmpresa = idEmpresa;
-        this.idFuncao = idFuncao;
+        this.funcao = funcao;
         this.nome = nome;
         this.sobrenome = sobrenome;
-        this.dataAdmissao = dataAdmissao;
         this.cpf = cpf;
-        this.salario = salario;
     }
 
     public Integer getId() {
@@ -39,8 +33,8 @@ public class Funcionario {
         return idEmpresa;
     }
 
-    public Integer getIdFuncao() {
-        return idFuncao;
+    public Integer getFuncao() {
+        return funcao;
     }
 
     public String getNome() {
@@ -51,15 +45,9 @@ public class Funcionario {
         return sobrenome;
     }
 
-    public String getDataAdmissao() {
-        return dataAdmissao;
-    }
-
     public String getCpf() {
         return cpf;
     }
 
-    public Double getSalario() {
-        return salario;
-    }
+
 }

@@ -9,14 +9,14 @@ import java.sql.*;
 
 public class ProdutoDAO {
     public boolean create(Produto produto) {
-        String sql = "INSERT INTO Produto ( id_empresa,id_ItemNotaFiscal,id_Unidade_Medida,nome,estoque_Minimo,categoria,status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Produto ( id_empresa,id_ItemNotaFiscal,unidade_de_medida,nome,estoque_Minimo,categoria,status) VALUES (?, ?, ?, ?, ?, ?, ?)";
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, produto.getIdEmpresa());
             pstmt.setInt(2, produto.getIdItemNotaFiscal());
-            pstmt.setInt(3, produto.getIdUnidadeMedida());
+            pstmt.setString(3, produto.getUnidadeMedida());
             pstmt.setString(4, produto.getNome());
             pstmt.setDouble(5, produto.getEstoqueMinimo());
             pstmt.setString(6, produto.getCategoria());
@@ -47,7 +47,7 @@ public class ProdutoDAO {
                         rs.getInt("id"),
                         rs.getInt("id_empresa"),
                         rs.getInt("id_ItemNotaFiscal"),
-                        rs.getInt("id_Unidade_Medida"),
+                        rs.getString("unidade_de_medida"),
                         rs.getString("nome"),
                         rs.getDouble("estoque_Minimo"),
                         rs.getString("categoria"),
@@ -77,7 +77,7 @@ public class ProdutoDAO {
                         rs.getInt("id"),
                         rs.getInt("id_empresa"),
                         rs.getInt("id_ItemNotaFiscal"),
-                        rs.getInt("id_Unidade_Medida"),
+                        rs.getString("unidade_de_medida"),
                         rs.getString("nome"),
                         rs.getDouble("estoque_Minimo"),
                         rs.getString("categoria"),
@@ -93,10 +93,10 @@ public class ProdutoDAO {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try {
-            PreparedStatement pstmt = conn.prepareStatement("UPDATE produto SET id_Empresa = ?, id_ItemNotaFiscal = ?, id_Unidade_Medida = ?, nome = ?,estoque_Minimo = ?,categoria = ?, status = ?  WHERE id = ?");
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE produto SET id_Empresa = ?, id_ItemNotaFiscal = ?, unidade_de_medida = ?, nome = ?,estoque_Minimo = ?,categoria = ?, status = ?  WHERE id = ?");
             pstmt.setInt(1, produto.getIdEmpresa());
             pstmt.setInt(2, produto.getIdItemNotaFiscal());
-            pstmt.setInt(3, produto.getIdUnidadeMedida());
+            pstmt.setString(3, produto.getUnidadeMedida());
             pstmt.setString(4, produto.getNome());
             pstmt.setDouble(5, produto.getEstoqueMinimo());
             pstmt.setString(6, produto.getCategoria());

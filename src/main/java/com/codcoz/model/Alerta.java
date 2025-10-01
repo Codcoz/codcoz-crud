@@ -1,14 +1,16 @@
 package com.codcoz.model;
 
+import java.sql.Date;
+
 public class Alerta {
     private Integer id;
     private Integer idEmpresa;
     private Integer idProduto;
-    private String dataCriacao;
+    private Date dataCriacao;
     private String status;
     private String tipoAlerta;
 
-    public Alerta(Integer id, Integer idEmpresa, Integer idProduto, String dataCriacao, String status, String tipoAlerta) {
+    public Alerta(Integer id, Integer idEmpresa, Integer idProduto, Date dataCriacao, String status, String tipoAlerta) {
         this.id = id;
         this.idEmpresa = idEmpresa;
         this.idProduto = idProduto;
@@ -17,7 +19,7 @@ public class Alerta {
         this.tipoAlerta = tipoAlerta;
     }
 
-    public Alerta(Integer idEmpresa, Integer idProduto, String dataCriacao, String status, String tipoAlerta) {
+    public Alerta(Integer idEmpresa, Integer idProduto, Date dataCriacao, String status, String tipoAlerta) {
         this.idEmpresa = idEmpresa;
         this.idProduto = idProduto;
         this.dataCriacao = dataCriacao;
@@ -37,7 +39,7 @@ public class Alerta {
         return idProduto;
     }
 
-    public String getDataCriacao() {
+    public Date getDataCriacao() {
         return dataCriacao;
     }
 

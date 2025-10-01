@@ -7,6 +7,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 
 @WebServlet(name = "ServletUpdateAlerta", value = "/ServletUpdateAlerta")
@@ -22,7 +23,7 @@ public class ServletUpdateAlerta extends HttpServlet {
         Alerta alerta = new Alerta(
                 Integer.parseInt(request.getParameter("id_empresa")),
                 Integer.parseInt(request.getParameter("id_produto")),
-                request.getParameter("data_criacao"),
+                Date.valueOf(request.getParameter("data_criacao")),
                 request.getParameter("status"),
                 request.getParameter("tipo_alerta")
         );

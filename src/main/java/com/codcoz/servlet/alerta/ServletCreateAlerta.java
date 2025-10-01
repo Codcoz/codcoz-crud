@@ -1,4 +1,4 @@
-package com.codcoz.servlet.alerta;
+package com.codcoz.servlet.Alerta;
 
 import com.codcoz.dao.AlertaDAO;
 import com.codcoz.model.Alerta;
@@ -7,6 +7,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 
 @WebServlet(name = "ServletCreateAlerta", value = "/ServletCreateAlerta")
@@ -16,7 +17,7 @@ public class ServletCreateAlerta extends HttpServlet {
         Alerta alerta = new Alerta(
                 Integer.parseInt(request.getParameter("id_empresa")),
                 Integer.parseInt(request.getParameter("id_produto")),
-                request.getParameter("data_criacao"),
+                Date.valueOf(request.getParameter("data_criacao")),
                 request.getParameter("status"),
                 request.getParameter("tipo_alerta")
         );
