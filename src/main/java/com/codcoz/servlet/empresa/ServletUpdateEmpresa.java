@@ -17,7 +17,8 @@ public class ServletUpdateEmpresa extends HttpServlet {
                 Integer.parseInt(request.getParameter("id")),
                 Integer.parseInt(request.getParameter("idEndereco")),
                 request.getParameter("nome"),
-                request.getParameter("cnpj")
+                request.getParameter("cnpj"),
+                request.getParameter("email")
         );
 
         EmpresaDAO dao = new EmpresaDAO();

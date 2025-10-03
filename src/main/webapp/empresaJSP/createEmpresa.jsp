@@ -37,6 +37,10 @@
     <a href="../enderecoJSP/createEndereco.jsp">Criar Endereco</a>
     <br><br>
 
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="Email da empresa" required>
+    <br><br>
+
     <button type="submit">Criar</button>
 </form>
 

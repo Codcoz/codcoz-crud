@@ -2,7 +2,6 @@ package com.codcoz.dao;
 
 import com.codcoz.conexao.Conexao;
 import com.codcoz.model.Empresa;
-import com.codcoz.model.Endereco;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.List;
 public class EmpresaDAO {
 
     public boolean create(Empresa empresa) {
-        String sql = "INSERT INTO empresa (id_endereco, nome, cnpj) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO empresa (id_endereco, nome, cnpj, email) VALUES (?, ?, ?, ?)";
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try {
@@ -19,6 +18,7 @@ public class EmpresaDAO {
             pstmt.setInt(1, empresa.getIdEndereco());
             pstmt.setString(2, empresa.getNome());
             pstmt.setString(3, empresa.getCnpj());
+            pstmt.setString(4, empresa.getEmail());
 
             if (pstmt.executeUpdate() > 0) {
                 System.out.println("Empresa criada com sucesso!");
@@ -46,7 +46,8 @@ public class EmpresaDAO {
                         rs.getInt("id"),
                         rs.getInt("id_endereco"),
                         rs.getString("nome"),
-                        rs.getString("cnpj")
+                        rs.getString("cnpj"),
+                        rs.getString("email")
                 );
                 empresaList.add(empresa);
             }
@@ -57,6 +58,7 @@ public class EmpresaDAO {
         conexao.desconectar(conn);
         return empresaList;
     }
+
     public Empresa buscarPorId(int id) {
         Empresa empresa = null;
         try (Connection conn = new Conexao().conectar();
@@ -70,7 +72,8 @@ public class EmpresaDAO {
                         rs.getInt("id"),
                         rs.getInt("id_endereco"),
                         rs.getString("nome"),
-                        rs.getString("cnpj")
+                        rs.getString("cnpj"),
+                        rs.getString("email")
                 );
             }
         } catch (SQLException e) {
@@ -82,13 +85,14 @@ public class EmpresaDAO {
     public int update(Empresa empresa) {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
-        String sql = "UPDATE empresa SET id_endereco = ?, nome = ?, cnpj = ? WHERE id = ?";
+        String sql = "UPDATE empresa SET id_endereco = ?, nome = ?, cnpj = ?, email = ? WHERE id = ?";
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, empresa.getIdEndereco());
             pstmt.setString(2, empresa.getNome());
             pstmt.setString(3, empresa.getCnpj());
-            pstmt.setInt(4, empresa.getId());
+            pstmt.setString(4, empresa.getEmail());
+            pstmt.setInt(5, empresa.getId());
 
             if (pstmt.executeUpdate() > 0) {
                 System.out.println("update de empresa com sucesso");

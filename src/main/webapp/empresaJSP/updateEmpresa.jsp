@@ -43,6 +43,9 @@
         <% } %>
     </select><br><br>
 
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="<%= empresa.getEmail() %>" required placeholder="Ex: contato@empresa.com.br"><br><br>
+
     <button type="submit">Update</button>
 </form>
 <% } else { %>

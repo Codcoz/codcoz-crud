@@ -12,9 +12,6 @@
     <title>Lista de Empresas</title>
 </head>
 <body>
-<aside>
-    <!-- Aside para botões de navegação entre tabelas -->
-</aside>
 
 <h2>Lista de Empresas</h2>
 
@@ -31,6 +28,7 @@
         <th>Endereço</th>
         <th>Update</th>
         <th>Delete</th>
+        <th>Email</th>
     </tr>
     <%
         List<Empresa> lista = (List<Empresa>) request.getAttribute("listaEmpresas");
@@ -61,13 +59,14 @@
                 <button type="submit">Delete</button>
             </form>
         </td>
+        <td><%= empresa.getEmail() %></td>
     </tr>
     <%
         }
     } else {
     %>
     <tr>
-        <td colspan="6">Nenhuma empresa encontrada.</td>
+        <td colspan="7">Nenhuma empresa encontrada.</td>
     </tr>
     <%
         }

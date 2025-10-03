@@ -16,7 +16,8 @@ public class ServletCreateEmpresa extends HttpServlet {
         Empresa empresa = new Empresa(
                 Integer.parseInt(request.getParameter("idEndereco")),
                 request.getParameter("nome"),
-                request.getParameter("cnpj")
+                request.getParameter("cnpj"),
+                request.getParameter("email")
         );
 
         EmpresaDAO dao = new EmpresaDAO();
