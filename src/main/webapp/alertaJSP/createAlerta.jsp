@@ -27,6 +27,7 @@
         <option value="<%= emp.getId() %>"><%= emp.getNome() %> (CNPJ: <%= emp.getCnpj() %>)</option>
         <% } %>
     </select>
+    <a href="../empresaJSP/createEmpresa.jsp">Criar Empresa</a>
     <br><br>
 
     <label for="idProduto">Produto:</label>
@@ -39,6 +40,7 @@
         <option value="<%= prod.getId() %>"><%= prod.getNome() %> - <%= prod.getCategoria() %></option>
         <% } %>
     </select>
+    <a href="../produtoJSP/createProduto.jsp">Criar Produto</a>
     <br><br>
 
     <label for="dataCriacao">Data de Criação:</label>
