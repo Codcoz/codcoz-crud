@@ -22,7 +22,7 @@
 </head>
 <body>
 <% if (produto != null) { %>
-<h2>Atualizar Produto de ID <%= produto.getId() %></h2>
+<h2>Atualizar Produto de ID <%= produto.getNome() %></h2>
 
 <form action="<%=request.getContextPath()%>/ServletUpdateProduto" method="post">
     <input type="hidden" name="id" value="<%= produto.getId() %>"/>

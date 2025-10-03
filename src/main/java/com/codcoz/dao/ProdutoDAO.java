@@ -9,7 +9,7 @@ import java.sql.*;
 
 public class ProdutoDAO {
     public boolean create(Produto produto) {
-        String sql = "INSERT INTO Produto ( id_empresa,unidade_de_medida,nome,estoque_Minimo,categoria,quantidade ) VALUES (?, ?, ?, ?, ?,?)";
+        String sql = "INSERT INTO Produto ( id_empresa,unidade_medida,nome,estoque_Minimo,categoria,quantidade ) VALUES (?, ?, ?, ?, ?,?)";
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try {
@@ -45,7 +45,7 @@ public class ProdutoDAO {
                 Produto produto = new Produto(
                         rs.getInt("id"),
                         rs.getInt("id_empresa"),
-                        rs.getString("unidade_de_medida"),
+                        rs.getString("unidade_medida"),
                         rs.getDouble("estoque_Minimo"),
                         rs.getString("nome"),
                         rs.getString("categoria"),
@@ -74,11 +74,11 @@ public class ProdutoDAO {
                 produto = new Produto(
                         rs.getInt("id"),
                         rs.getInt("id_empresa"),
-                        rs.getString("unidade_de_medida"),
+                        rs.getString("unidade_medida"),
                         rs.getDouble("estoque_Minimo"),
                         rs.getString("nome"),
                         rs.getString("categoria"),
-                        rs.getInt("qauntidade")
+                        rs.getInt("quantidade")
 
 
 
@@ -93,7 +93,7 @@ public class ProdutoDAO {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try {
-            PreparedStatement pstmt = conn.prepareStatement("UPDATE produto SET id_Empresa = ?, unidade_de_medida = ?, nome = ?,estoque_Minimo = ?,categoria = ?,quantidade = ? WHERE id = ?");
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE produto SET id_Empresa = ?, unidade_medida = ?, nome = ?,estoque_Minimo = ?,categoria = ?,quantidade = ? WHERE id = ?");
             pstmt.setInt(1, produto.getIdEmpresa());
             pstmt.setString(2, produto.getUnidadeMedida());
             pstmt.setString(3, produto.getNome());

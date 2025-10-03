@@ -50,7 +50,7 @@
         <td><%= produto.getUnidadeMedida() %></td>
         <td><%= produto.getEstoqueMinimo() %></td>
         <td><%= produto.getQuantidade() %></td>
-        <td><%= empresa != null ? empresa.getNome() : "Empresa não encontrada" %></td>
+        <td><%= empresa.getNome() %></td>
         <td>
             <form action="<%= request.getContextPath() %>/produtoJSP/updateProduto.jsp" method="get">
                 <input type="hidden" name="id" value="<%= produto.getId() %>"/>

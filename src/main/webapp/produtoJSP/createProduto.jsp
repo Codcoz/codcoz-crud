@@ -51,6 +51,7 @@
         </option>
         <% } %>
     </select>
+    <a href="../empresaJSP/createEmpresa.jsp">Criar Empresa</a>
     <br><br>
 
     <button type="submit">Criar</button>
