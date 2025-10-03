@@ -1,3 +1,6 @@
+<%@ page import="com.codcoz.model.Empresa" %>
+<%@ page import="com.codcoz.dao.EmpresaDAO" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -10,9 +13,8 @@
 
 <form action="<%= request.getContextPath() %>/ServletCreateFuncionario" method="post">
     <label for="nome">Nome:</label>
-    <br><br>
     <input type="text" id="nome" name="nome" placeholder="Nome" required>
-
+    <br><br>
     <label for="sobrenome">Sobrenome:</label>
     <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome" required>
     <br><br>
@@ -24,6 +26,18 @@
     <label for="funcao">Função:</label>
     <input type="text" id="funcao" name="funcao" placeholder="Função" required>
     <br><br>
+    <label for="idEmpresa">Empresa:</label>
+    <%
+        List<Empresa> empresas = new EmpresaDAO().read();
+    %>
+    <select id="idEmpresa" name="idEmpresa" required>
+        <option value="">Selecione uma empresa</option>
+        <% for (Empresa emp : empresas) { %>
+        <option value="<%= emp.getId() %>">
+            <%= emp.getNome() %> (CNPJ: <%= emp.getCnpj() %>)
+        </option>
+        <% } %>
+    </select>
 
     <button type="submit">Criar</button>
 </form>

@@ -15,7 +15,9 @@ public class ServletCreateFuncionario extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Cria o objeto Funcionario com os dados do formulário
+
         Funcionario funcionario = new Funcionario(
+                Integer.parseInt(request.getParameter("id")),
                 Integer.parseInt(request.getParameter("idEmpresa")),
                 request.getParameter("funcao"),
                 request.getParameter("nome"),

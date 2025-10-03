@@ -40,6 +40,7 @@ public class FuncionarioDAO {
             while (rs.next()){
             Funcionario funcionario = new Funcionario(
                     rs.getInt("id"),
+                    rs.getInt("idEmpresa"),
                     rs.getString("funcao"),
                     rs.getString("nome"),
                     rs.getString("sobrenome"),
@@ -57,26 +58,33 @@ public class FuncionarioDAO {
     public int update(Funcionario funcionario){
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
-        String sql = "update funcionario set id_empresa = ?, funcao = ?, nome = ?, sobrenome = ?, data_admissao = ? where id = ?";
-        try{
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1,funcionario.getIdEmpresa());
-            pstmt.setString(2,funcionario.getFuncao());
-            pstmt.setString(3,funcionario.getNome());
-            pstmt.setString(4,funcionario.getSobrenome());
+        String sql = "UPDATE funcionario SET id_empresa = ?, funcao = ?, nome = ?, sobrenome = ?, cpf = ? WHERE id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            if (funcionario.getIdEmpresa() != null) {
+                pstmt.setInt(1, funcionario.getIdEmpresa());
+            } else {
+                pstmt.setNull(1, java.sql.Types.INTEGER);
+            }
+            pstmt.setString(2, funcionario.getFuncao());
+            pstmt.setString(3, funcionario.getNome());
+            pstmt.setString(4, funcionario.getSobrenome());
+            pstmt.setString(5, funcionario.getCpf());
             pstmt.setInt(6, funcionario.getId());
-            if(pstmt.executeUpdate()>0){
+
+            int updated = pstmt.executeUpdate();
+            if (updated > 0) {
                 System.out.println("update de funcionario com sucesso");
                 return 1;
-            };
+            }
             return 0;
-        }catch (SQLException sqle){
+        } catch (SQLException sqle) {
             sqle.printStackTrace();
             return -1;
-        }finally {
+        } finally {
             conexao.desconectar(conn);
         }
     }
+
     public int delete(int id){
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();

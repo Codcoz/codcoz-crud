@@ -12,9 +12,7 @@ import java.util.List;
 @WebServlet(name = "ServletDeleteFuncionario", value = "/ServletDeleteFuncionario")
 public class ServletDeleteFuncionario extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
 
         FuncionarioDAO dao = new FuncionarioDAO();
