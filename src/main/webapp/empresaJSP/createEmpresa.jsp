@@ -34,6 +34,7 @@
         </option>
         <% } %>
     </select>
+    <a href="../enderecoJSP/createEndereco.jsp">Criar Endereco</a>
     <br><br>
 
     <button type="submit">Criar</button>

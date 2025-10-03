@@ -20,7 +20,7 @@ public class ServletDeleteEndereco extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         EnderecoDAO enderecoDAO = new EnderecoDAO();
-        enderecoDAO.delete(id);
+        int statusDelete = enderecoDAO.delete(id);
         List<Endereco> lista = enderecoDAO.read();
 
         // Define a lista como atributo da request

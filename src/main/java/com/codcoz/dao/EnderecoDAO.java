@@ -1,6 +1,7 @@
 package com.codcoz.dao;
 import com.codcoz.conexao.Conexao;
 import com.codcoz.model.Endereco;
+import org.postgresql.util.PSQLException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -124,6 +125,9 @@ public class EnderecoDAO {
                 return 1;
             }
             return 0;
+        }catch (PSQLException psqle){
+            psqle.printStackTrace();
+            return -2;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
             return -1;
