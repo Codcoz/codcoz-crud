@@ -15,18 +15,27 @@ public class ServletCreateEmpresa extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String cnpj = request.getParameter("cnpj");
+        String email = request.getParameter("email");
 
         // Validação de CNPJ
         if (cnpj == null || !cnpj.matches("^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$|^\\d{14}$")) {
-            request.setAttribute("erroCnpj", "CNPJ inválido. Use o formato 00.000.000/0000-00 ou apenas números.");
+            request.setAttribute("erroEmail", "E-mail inválido. Use um formato como nome@dominio.com");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/empresaJSP/createEmpresa.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+        // Validação de E-mail
+        if (email == null || !email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$")) {
+            request.setAttribute("erroEmail", "E-mail inválido. Use um formato como nome@dominio.com");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/empresaJSP/createEmpresa.jsp");
             dispatcher.forward(request, response);
             return;
         }
         Empresa empresa = new Empresa(
                 Integer.parseInt(request.getParameter("idEndereco")),
-                request.getParameter("nome"),cnpj,
-                request.getParameter("email")
+                request.getParameter("nome"),
+                cnpj,
+                email
         );
 
         EmpresaDAO dao = new EmpresaDAO();
