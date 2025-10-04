@@ -17,8 +17,7 @@ public class ServletCreateFuncionario extends HttpServlet {
         // Cria o objeto Funcionario com os dados do formulário
 
         Funcionario funcionario = new Funcionario(
-                Integer.parseInt(request.getParameter("id")),
-                Integer.parseInt(request.getParameter("idEmpresa")),
+                Integer.parseInt(request.getParameter("id_empresa")),
                 request.getParameter("funcao"),
                 request.getParameter("nome"),
                 request.getParameter("sobrenome"),

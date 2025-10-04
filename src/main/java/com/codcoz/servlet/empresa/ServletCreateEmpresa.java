@@ -21,7 +21,13 @@ public class ServletCreateEmpresa extends HttpServlet {
         );
 
         EmpresaDAO dao = new EmpresaDAO();
-        dao.create(empresa);
+        String mensagem;
+        if (dao.create(empresa)){
+            mensagem = "A criação de " + empresa.getNome() + " foi realizada com sucesso";
+        }else {
+            mensagem = "A criação falhou: erro interno. Entre em contato em contato.codcoz@gmail.com";
+        }
+        request.setAttribute("mensagem", mensagem);
         List<Empresa> lista = dao.read();
 
         request.setAttribute("listaEmpresas", lista);

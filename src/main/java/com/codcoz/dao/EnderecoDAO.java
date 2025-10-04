@@ -104,13 +104,13 @@ public class EnderecoDAO {
             if (pstmt.executeUpdate() > 0) {
                 return 1;
             }
-            return 0;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return -1;
+            return 0;
         } finally {
             conexao.desconectar(conn);
         }
+        return -1;
     }
 
     public int delete(int id) {
@@ -124,16 +124,16 @@ public class EnderecoDAO {
             if (pstmt.executeUpdate() > 0) {
                 return 1;
             }
-            return 0;
-        }catch (PSQLException psqle){
-            psqle.printStackTrace();
-            return -2;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
+            if (sqle.getMessage().contains("still referenced")){
+                return 0;
+            }
             return -1;
         } finally {
             conexao.desconectar(conn);
         }
+        return -2;
     }
 }
 

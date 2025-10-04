@@ -16,7 +16,24 @@ public class ServletDeleteEmpresa extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
 
         EmpresaDAO dao = new EmpresaDAO();
-        dao.delete(id);
+        int status = dao.delete(id);
+        String mensagem;
+        String empresa = dao.buscarPorId(id).getNome();
+        switch (status) {
+            case 1:
+                mensagem = "A exclusão de " + empresa + " foi realizada com sucesso.";
+                break;
+            case 0:
+                mensagem = "A exclusão falhou: a empresa " + empresa + " está associado a outra tabela. Apague os campos relacionados primeiro.";
+                break;
+            case -1:
+                mensagem = "A exclusão de " + empresa + " falhou: erro interno. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
+                break;
+            default:
+                mensagem = "A exclusão de " + empresa + " falhou: erro desconhecido. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
+                break;
+        }
+        request.setAttribute("mensagem", mensagem);
         List<Empresa> lista = dao.read();
 
         request.setAttribute("listaEmpresas", lista);

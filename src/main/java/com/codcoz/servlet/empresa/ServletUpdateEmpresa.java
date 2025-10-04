@@ -22,7 +22,20 @@ public class ServletUpdateEmpresa extends HttpServlet {
         );
 
         EmpresaDAO dao = new EmpresaDAO();
-        dao.update(empresa);
+        int status = dao.update(empresa);
+        String mensagem;
+        switch (status) {
+            case 1:
+                mensagem = "A atualização de " +empresa.getNome()+ " foi realizada com sucesso.";
+                break;
+            case 0:
+                mensagem = "A atualização de " +empresa.getNome()+ " falhou: erro interno. Entre em contato pelo e-mail contato.codcoz@gmail.com";
+                break;
+            default:
+                mensagem = "A atualização de " +empresa.getNome()+ " falhou: erro desconhecido. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
+                break;
+        }
+        request.setAttribute("mensagem", mensagem);
         List<Empresa> lista = dao.read();
 
         request.setAttribute("listaEmpresas", lista);

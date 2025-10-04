@@ -12,33 +12,50 @@ import java.util.List;
 @WebServlet(name = "ServletUpdateEndereco", value = "/ServletUpdateEndereco")
 public class ServletUpdateEndereco extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//          cria o objeto Endereco já com os dados do form
+        // Cria o objeto Endereco com os dados do formulário
         Endereco endereco = new Endereco(
-            Integer.parseInt(request.getParameter("id")),
-            request.getParameter("rua"),
-            request.getParameter("complemento"),
-            request.getParameter("cidade"),
-            request.getParameter("estado"),
-            request.getParameter("cep"),
-            request.getParameter("numero")
+                Integer.parseInt(request.getParameter("id")),
+                request.getParameter("rua"),
+                request.getParameter("complemento"),
+                request.getParameter("cidade"),
+                request.getParameter("estado"),
+                request.getParameter("cep"),
+                request.getParameter("numero")
         );
 
-//          chama o DAO para update
+        // Chama o DAO para atualizar
         EnderecoDAO enderecoDAO = new EnderecoDAO();
-        enderecoDAO.update(endereco);
-//          redireciona pra o read
-        List<Endereco> lista = enderecoDAO.read();
+        int status = enderecoDAO.update(endereco);
 
-        // Define a lista como atributo da request
+        // Monta o resumo do endereço
+        String resumo = String.format("(%s) %s, rua %s, nº %s — %s",
+                endereco.getCep(),
+                endereco.getCidade(),
+                endereco.getRua(),
+                endereco.getNumero(),
+                endereco.getEstado());
+
+        // Define a mensagem com base no status
+        String mensagem;
+        switch (status) {
+            case 1:
+                mensagem = "A atualização do endereço " + resumo + " foi realizada com sucesso.";
+                break;
+            case 0:
+                mensagem = "A atualização do endereço " + resumo + " falhou: erro interno. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
+                break;
+            default:
+                mensagem = "A atualização do endereço " + resumo + " falhou: erro desconhecido. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
+                break;
+        }
+
+        request.setAttribute("mensagem", mensagem);
+
+        // Redireciona para o read
+        List<Endereco> lista = enderecoDAO.read();
         request.setAttribute("listaEnderecos", lista);
 
-        // Encaminha para a página JSP mantendo os dados
         RequestDispatcher dispatcher = request.getRequestDispatcher("/enderecoJSP/readEndereco.jsp");
         dispatcher.forward(request, response);
     }

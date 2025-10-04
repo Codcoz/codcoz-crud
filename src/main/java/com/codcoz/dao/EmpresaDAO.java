@@ -98,13 +98,13 @@ public class EmpresaDAO {
                 System.out.println("update de empresa com sucesso");
                 return 1;
             }
-            return 0;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return -1;
+            return 0;
         } finally {
             conexao.desconectar(conn);
         }
+        return -1;
     }
 
     public int delete(int id) {
@@ -114,15 +114,14 @@ public class EmpresaDAO {
             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM empresa WHERE id = ?");
             pstmt.setInt(1, id);
             if (pstmt.executeUpdate() > 0) {
-                System.out.println("delete de empresa com sucesso");
                 return 1;
             }
-            return 0;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return -1;
+            return 0;
         } finally {
             conexao.desconectar(conn);
         }
+        return -1;
     }
 }
