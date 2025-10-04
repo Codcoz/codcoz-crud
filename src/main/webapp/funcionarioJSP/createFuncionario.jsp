@@ -20,7 +20,11 @@
     <br><br>
 
     <label for="cpf">CPF:</label>
-    <input type="text" id="cpf" name="cpf" placeholder="CPF" pattern="^\d{11}" required>
+    <input type="text" id="cpf" name="cpf" placeholder="CPF" required>
+    <c:if test="${not empty erroCpf}">
+        <p style="color:red">${erroCpf}</p>
+    </c:if>
+
     <br><br>
 
     <label for="funcao">Função:</label>

@@ -19,12 +19,21 @@ public class ServletCreateEndereco extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String cep = request.getParameter("cep");
+
+        // Regex para CEP no formato 00000-000 ou 00000000
+        if (cep == null || !cep.matches("^\\d{5}-?\\d{3}$")) {
+            request.setAttribute("erroCep", "CEP inválido. Use o formato 00000-000 ou 00000000.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/enderecoJSP/createEndereco.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+
         Endereco endereco = new Endereco(
                 request.getParameter("rua"),
                 request.getParameter("complemento"),
                 request.getParameter("cidade"),
-                request.getParameter("estado"),
-                request.getParameter("cep"),
+                request.getParameter("estado"),cep,
                 request.getParameter("numero")
         );
         // Chama o DAO
