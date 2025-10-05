@@ -18,7 +18,7 @@ public class ServletReadAlerta extends HttpServlet {
         List<Alerta> lista = alertaDAO.read();
 
         // Define a lista como atributo da request
-        request.setAttribute("listaAlerta", lista);
+        request.setAttribute("listaAlertas", lista);
 
         // Encaminha para a página JSP mantendo os dados
         RequestDispatcher dispatcher = request.getRequestDispatcher("/alertaJSP/readAlerta.jsp");
