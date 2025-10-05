@@ -27,7 +27,7 @@ public class ServletDeleteAlerta extends HttpServlet {
         request.setAttribute("listaAlertas", lista);
 
         // Encaminha para a página JSP mantendo os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("readAlerta.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/alertaJSP/readAlerta.jsp");
         dispatcher.forward(request, response);
     }
 }
