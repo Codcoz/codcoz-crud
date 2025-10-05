@@ -1,4 +1,4 @@
-package com.codcoz.servlet.alerta;
+package com.codcoz.servlet.Alerta;
 
 import com.codcoz.dao.AlertaDAO;
 import com.codcoz.model.Alerta;
@@ -21,11 +21,11 @@ public class ServletUpdateAlerta extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //          cria o objeto Endereco já com os dados do form
         Alerta alerta = new Alerta(
-                Integer.parseInt(request.getParameter("id_empresa")),
-                Integer.parseInt(request.getParameter("id_produto")),
-                Date.valueOf(request.getParameter("data_criacao")),
+                Integer.parseInt(request.getParameter("idEmpresa")),
+                Integer.parseInt(request.getParameter("idProduto")),
+                Date.valueOf(request.getParameter("dataCriacao")),
                 request.getParameter("status"),
-                request.getParameter("tipo_alerta")
+                request.getParameter("tipoAlerta")
         );
 
 //          chama o DAO para update

@@ -1,4 +1,4 @@
-package com.codcoz.servlet.alerta;
+package com.codcoz.servlet.Alerta;
 
 import com.codcoz.dao.AlertaDAO;
 import com.codcoz.model.Alerta;
@@ -24,7 +24,7 @@ public class ServletDeleteAlerta extends HttpServlet {
         List<Alerta> lista = alertaDAO.read();
 
         // Define a lista como atributo da request
-        request.setAttribute("listaAlerta", lista);
+        request.setAttribute("listaAlertas", lista);
 
         // Encaminha para a página JSP mantendo os dados
         RequestDispatcher dispatcher = request.getRequestDispatcher("readAlerta.jsp");
