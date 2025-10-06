@@ -1,7 +1,8 @@
-package com.codcoz.servlet.Alerta;
+package com.codcoz.servlet.alerta;
 
 import com.codcoz.dao.AlertaDAO;
 import com.codcoz.model.Alerta;
+import com.codcoz.model.Empresa;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -23,15 +24,21 @@ public class ServletCreateAlerta extends HttpServlet {
         );
         // Chama o DAO
         AlertaDAO dao = new AlertaDAO();
-        dao.create(alerta);
-        List<Alerta> lista = dao.read();
+        String mensagem;
+        if (dao.create(alerta)) {
+            mensagem = "A criação de " + alerta.getId() + " foi realizada com sucesso";
+        } else {
+            mensagem = "A criação falhou: erro interno. Entre em contato em contato.codcoz@gmail.com";
+        }
 
-        // Define a lista como atributo da request
+        request.setAttribute("mensagem", mensagem);
+
+        // Atualiza a lista de empresas para exibir na JSP
+        List<Alerta> lista = dao.read();
         request.setAttribute("listaAlertas", lista);
 
         // Encaminha para a página JSP mantendo os dados
         RequestDispatcher dispatcher = request.getRequestDispatcher("/alertaJSP/readAlerta.jsp");
         dispatcher.forward(request, response);
     }
-
-}
+    }
