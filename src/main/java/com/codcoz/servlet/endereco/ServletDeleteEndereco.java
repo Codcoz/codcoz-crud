@@ -19,10 +19,10 @@ public class ServletDeleteEndereco extends HttpServlet {
 
         // Instancia o DAO e executa a exclusão
         EnderecoDAO enderecoDAO = new EnderecoDAO();
-        int status = enderecoDAO.delete(id);
-
         // Busca os dados do endereço para montar a mensagem
         Endereco endereco = enderecoDAO.buscarPorId(id);
+        // Apaga o endereco pelo id
+        int status = enderecoDAO.delete(id);
         String resumo = String.format("(%s) %s, rua %s, nº %s — %s",
                 endereco.getCep(),
                 endereco.getCidade(),

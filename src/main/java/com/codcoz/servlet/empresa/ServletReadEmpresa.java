@@ -13,10 +13,14 @@ import java.util.List;
 public class ServletReadEmpresa extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Consulta todas as empresas no banco
         EmpresaDAO dao = new EmpresaDAO();
         List<Empresa> lista = dao.read();
 
+        // Define a lista como atributo da request
         request.setAttribute("listaEmpresas", lista);
+
+        // Encaminha para a página JSP mantendo os dados
         RequestDispatcher dispatcher = request.getRequestDispatcher("/empresaJSP/readEmpresa.jsp");
         dispatcher.forward(request, response);
     }

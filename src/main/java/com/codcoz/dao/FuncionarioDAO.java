@@ -40,7 +40,7 @@ public class FuncionarioDAO {
             while (rs.next()){
             Funcionario funcionario = new Funcionario(
                     rs.getInt("id"),
-                    rs.getInt("idEmpresa"),
+                    rs.getInt("id_empresa"),
                     rs.getString("funcao"),
                     rs.getString("nome"),
                     rs.getString("sobrenome"),
