@@ -9,6 +9,7 @@ import java.util.List;
 
 public class EmpresaDAO {
 
+    // Insere uma nova empresa no banco
     public boolean create(Empresa empresa) {
         String sql = "INSERT INTO empresa (id_endereco, nome, cnpj, email) VALUES (?, ?, ?, ?)";
         Conexao conexao = new Conexao();
@@ -20,6 +21,7 @@ public class EmpresaDAO {
             pstmt.setString(3, empresa.getCnpj());
             pstmt.setString(4, empresa.getEmail());
 
+            // Retorna true se ao menos uma linha foi inserida
             if (pstmt.executeUpdate() > 0) {
                 System.out.println("Empresa criada com sucesso!");
                 return true;
@@ -29,10 +31,11 @@ public class EmpresaDAO {
             sqle.printStackTrace();
             return false;
         } finally {
-            conexao.desconectar(conn);
+            conexao.desconectar(conn); // garante fechamento da conexão
         }
     }
 
+    // Retorna todas as empresas cadastradas
     public List<Empresa> read() {
         ArrayList<Empresa> empresaList = new ArrayList<>();
         Conexao conexao = new Conexao();
@@ -41,6 +44,8 @@ public class EmpresaDAO {
         try {
             Statement stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM empresa");
+
+            // Mapeia cada linha do resultado para um objeto Empresa
             while (rs.next()) {
                 Empresa empresa = new Empresa(
                         rs.getInt("id"),
@@ -59,6 +64,7 @@ public class EmpresaDAO {
         return empresaList;
     }
 
+    // Busca uma empresa específica pelo ID
     public Empresa buscarPorId(int id) {
         Empresa empresa = null;
         try (Connection conn = new Conexao().conectar();
@@ -67,6 +73,7 @@ public class EmpresaDAO {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
+            // Retorna o primeiro resultado encontrado
             if (rs.next()) {
                 empresa = new Empresa(
                         rs.getInt("id"),
@@ -82,6 +89,7 @@ public class EmpresaDAO {
         return empresa;
     }
 
+    // Atualiza os dados de uma empresa existente
     public int update(Empresa empresa) {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
@@ -96,33 +104,34 @@ public class EmpresaDAO {
 
             if (pstmt.executeUpdate() > 0) {
                 System.out.println("update de empresa com sucesso");
-                return 1;
+                return 1; // sucesso
             }
-            return 0;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return -1;
+            return 0; // erro interno
         } finally {
             conexao.desconectar(conn);
         }
+        return -1; // erro desconhecido
     }
 
+    // Exclui uma empresa pelo ID
     public int delete(int id) {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try {
             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM empresa WHERE id = ?");
             pstmt.setInt(1, id);
+
             if (pstmt.executeUpdate() > 0) {
-                System.out.println("delete de empresa com sucesso");
-                return 1;
+                return 1; // sucesso
             }
-            return 0;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return -1;
+            return 0; // erro interno
         } finally {
             conexao.desconectar(conn);
         }
+        return -1; // erro desconhecido
     }
 }

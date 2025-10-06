@@ -41,7 +41,9 @@
             (<%= e.getCep() %>) <%= e.getCidade() %>, rua <%= e.getRua() %>, <%= e.getNumero() %> - <%= e.getEstado() %>
         </option>
         <% } %>
-    </select><br><br>
+    </select>
+    <a href="../enderecoJSP/createEndereco.jsp">Criar Endereco</a>
+    <br><br>
 
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" value="<%= empresa.getEmail() %>" required placeholder="Ex: contato@empresa.com.br"><br><br>

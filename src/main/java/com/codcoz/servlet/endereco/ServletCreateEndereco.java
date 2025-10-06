@@ -13,11 +13,6 @@ import java.util.List;
 @WebServlet(name = "ServletCreateEndereco", value = "/ServletCreateEndereco")
 public class ServletCreateEndereco extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cep = request.getParameter("cep");
 
@@ -38,7 +33,19 @@ public class ServletCreateEndereco extends HttpServlet {
         );
         // Chama o DAO
         EnderecoDAO dao = new EnderecoDAO();
-        dao.create(endereco);
+        String resumo = String.format("(%s) %s, rua %s, nº %s — %s",
+                endereco.getCep(),
+                endereco.getCidade(),
+                endereco.getRua(),
+                endereco.getNumero(),
+                endereco.getEstado());
+        String mensagem;
+        if (dao.create(endereco)) {
+            mensagem = "A criação do endereço " + resumo + " foi realizada com sucesso.";
+        } else {
+            mensagem = "A criação do endereço " + resumo + " falhou: erro interno. Entre em contato em contato.codcoz@gmail.com.";
+        }
+        request.setAttribute("mensagem", mensagem);
         List<Endereco> lista = dao.read();
 
         // Define a lista como atributo da request

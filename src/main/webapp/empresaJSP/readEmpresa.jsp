@@ -19,16 +19,24 @@
     <button type="submit">Create</button>
 </form>
 <br>
-
+<%
+    String mensagem = (String) request.getAttribute("mensagem");
+    if (mensagem != null) {
+        String cor = mensagem.contains("sucesso") ? "green" : "red";
+%>
+<p style="color: <%= cor %>"><%= mensagem %></p>
+<%
+    }
+%>
 <table border="1" cellpadding="8" cellspacing="0">
     <tr>
         <th>ID</th>
         <th>Nome</th>
         <th>CNPJ</th>
         <th>Endereço</th>
+        <th>Email</th> <!-- movido para antes -->
         <th>Update</th>
         <th>Delete</th>
-        <th>Email</th>
     </tr>
     <%
         List<Empresa> lista = (List<Empresa>) request.getAttribute("listaEmpresas");
@@ -47,6 +55,7 @@
             rua <%= endereco.getRua() %>, nº <%= endereco.getNumero() %> —
             <%= endereco.getEstado() %>
         </td>
+        <td><%= empresa.getEmail() %></td> <!-- movido para antes -->
         <td>
             <form action="<%= request.getContextPath() %>/empresaJSP/updateEmpresa.jsp" method="get">
                 <input type="hidden" name="id" value="<%= empresa.getId() %>"/>
@@ -59,7 +68,6 @@
                 <button type="submit">Delete</button>
             </form>
         </td>
-        <td><%= empresa.getEmail() %></td>
     </tr>
     <%
         }
