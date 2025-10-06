@@ -15,6 +15,7 @@ public class ServletUpdateFuncionario extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // ==== Leitura dos parâmetros ====
         String idStr        = request.getParameter("id");
         String idEmpresaStr = request.getParameter("idEmpresa");
         String funcao       = request.getParameter("funcao");
@@ -24,6 +25,7 @@ public class ServletUpdateFuncionario extends HttpServlet {
 
         boolean temErro = false;
 
+        // ==== Validações básicas ====
         Integer id = null;
         try {
             id = Integer.valueOf(idStr);
@@ -54,12 +56,15 @@ public class ServletUpdateFuncionario extends HttpServlet {
             request.setAttribute("erroFuncao", "Função é obrigatória.");
             temErro = true;
         }
+
+        // Aceita 000.000.000-00 ou somente 11 dígitos
         if (cpf == null || !cpf.matches("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$|^\\d{11}$")) {
             request.setAttribute("erroCpf", "CPF inválido. Use 000.000.000-00 ou apenas números.");
             temErro = true;
         }
 
         if (temErro) {
+            // Preserva valores para o formulário de update
             request.setAttribute("idValue", idStr);
             request.setAttribute("idEmpresaValue", idEmpresaStr);
             request.setAttribute("funcaoValue", funcao);
@@ -67,13 +72,16 @@ public class ServletUpdateFuncionario extends HttpServlet {
             request.setAttribute("sobrenomeValue", sobrenome);
             request.setAttribute("cpfValue", cpf);
 
+            // Volta para o formulário de atualização
             RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionarioJSP/updateFuncionario.jsp");
             dispatcher.forward(request, response);
             return;
         }
 
+        // Normaliza CPF para apenas dígitos (opcional)
         String cpfNormalizado = cpf.replaceAll("\\D", "");
 
+        // ==== Monta objeto e executa update ====
         Funcionario funcionario = new Funcionario(
                 id,
                 idEmpresa,
@@ -86,6 +94,7 @@ public class ServletUpdateFuncionario extends HttpServlet {
         FuncionarioDAO dao = new FuncionarioDAO();
         int status = dao.update(funcionario);
 
+        // ==== Mensagem conforme status ====
         String mensagem;
         switch (status) {
             case 1:
@@ -101,6 +110,8 @@ public class ServletUpdateFuncionario extends HttpServlet {
         }
 
         request.setAttribute("mensagem", mensagem);
+
+        // ==== Recarrega listagem ====
         List<Funcionario> lista = dao.read();
         request.setAttribute("listaFuncionarios", lista);
 

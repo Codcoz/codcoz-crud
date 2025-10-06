@@ -20,13 +20,16 @@ public class ServletDeleteFuncionario extends HttpServlet {
 
         FuncionarioDAO dao = new FuncionarioDAO();
 
+        // Busca o funcionário para montar a mensagem
         Funcionario f = dao.buscarPorId(id);
         String nomeExibicao = (f != null)
                 ? (f.getNome() + (f.getSobrenome() != null ? " " + f.getSobrenome() : ""))
                 : "Funcionário (ID " + id + ")";
 
+        // Executa a exclusão e captura o status
         int status = dao.delete(id);
 
+        // Monta mensagem conforme status
         String mensagem;
         switch (status) {
             case 1:
@@ -45,10 +48,12 @@ public class ServletDeleteFuncionario extends HttpServlet {
                         + " falhou: erro desconhecido. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
         }
 
+        // Atribui mensagem e lista atualizada
         request.setAttribute("mensagem", mensagem);
         List<Funcionario> lista = dao.read();
         request.setAttribute("listaFuncionarios", lista);
 
+        // Forward para a listagem
         RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionarioJSP/readFuncionario.jsp");
         dispatcher.forward(request, response);
     }
