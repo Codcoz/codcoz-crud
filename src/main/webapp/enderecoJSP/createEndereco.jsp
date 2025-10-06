@@ -48,7 +48,11 @@
     </select><br><br>
 
     <label for="cep">CEP:</label>
-    <input type="text" id="cep" name="cep" placeholder="cep"><br><br>
+    <input type="text" id="cep" name="cep" placeholder="cep" pattern="\d{5}-?\d{3}" ><br><br>
+    <c:if test="${not empty erroCep}">
+        <p style="color:red">${erroCep}</p>
+    </c:if>
+
 
     <label for="numero">Número:</label>
     <input type="text" id="numero" name="numero" placeholder="numero"><br><br>

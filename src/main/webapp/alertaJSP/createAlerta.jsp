@@ -24,7 +24,9 @@
     <select id="idEmpresa" name="idEmpresa" required>
         <option value="">Selecione uma empresa</option>
         <% for (Empresa emp : empresas) { %>
-        <option value="<%= emp.getId() %>"><%= emp.getNome() %> (CNPJ: <%= emp.getCnpj() %>)</option>
+        <option value="<%= emp.getId() %>">
+            <%= emp.getNome() %>
+        </option>
         <% } %>
     </select>
     <a href="../empresaJSP/createEmpresa.jsp">Criar Empresa</a>
@@ -37,7 +39,7 @@
     <select id="idProduto" name="idProduto" required>
         <option value="">Selecione um produto</option>
         <% for (Produto prod : produtos) { %>
-        <option value="<%= prod.getId() %>"><%= prod.getNome() %> - <%= prod.getCategoria() %></option>
+        <option value="<%= prod.getId() %>"><%= prod.getNome() %> </option>
         <% } %>
     </select>
     <a href="../produtoJSP/createProduto.jsp">Criar Produto</a>
@@ -50,8 +52,9 @@
     <label for="status">Status:</label>
     <select id="status" name="status" required>
         <option value="">Selecione o status</option>
-        <option value="ativo">Ativo</option>
-        <option value="inativo">Inativo</option>
+        <option value="Pendente">Pendente</option>
+        <option value="Resolvido">Resolvido</option>
+        <option value="Ignorado">Ignorado</option>
     </select>
     <br><br>
 

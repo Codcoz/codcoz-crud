@@ -36,7 +36,7 @@
         <option value="">Selecione uma empresa</option>
         <% for (Empresa emp : empresas) { %>
         <option value="<%= emp.getId() %>" <%= emp.getId() == alerta.getIdEmpresa() ? "selected" : "" %>>
-            <%= emp.getNome() %> (CNPJ: <%= emp.getCnpj() %>)
+            <%= emp.getNome() %>
         </option>
         <% } %>
     </select><br><br>
@@ -46,7 +46,7 @@
         <option value="">Selecione um produto</option>
         <% for (Produto prod : produtos) { %>
         <option value="<%= prod.getId() %>" <%= prod.getId() == alerta.getIdProduto() ? "selected" : "" %>>
-            <%= prod.getNome() %> - <%= prod.getCategoria() %>
+            <%= prod.getNome() %>
         </option>
         <% } %>
     </select><br><br>
@@ -58,8 +58,9 @@
     <label for="status">Status:</label>
     <select id="status" name="status" required>
         <option value="">Selecione o status</option>
-        <option value="pendente">Pendente</option>
-        <option value="resolvido">Resolvido</option>
+        <option value="Pendente">Pendente</option>
+        <option value="Resolvido">Resolvido</option>
+        <option value="Ignorado">Ignorado</option>
 
     </select><br><br>
 

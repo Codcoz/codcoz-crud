@@ -14,14 +14,24 @@ public class ServletCreateFuncionario extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String cpf = request.getParameter("cpf");
+
+        // Validação de CPF com regex
+        if (cpf == null || !cpf.matches("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$|^\\d{11}$")) {
+            request.setAttribute("erroCpf", "CPF inválido. Use o formato 000.000.000-00 ou apenas números.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionarioJSP/createFuncionario.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
         // Cria o objeto Funcionario com os dados do formulário
 
         Funcionario funcionario = new Funcionario(
-                Integer.parseInt(request.getParameter("id_empresa")),
+                Integer.parseInt(request.getParameter("idEmpresa")),
                 request.getParameter("funcao"),
                 request.getParameter("nome"),
                 request.getParameter("sobrenome"),
-                request.getParameter("cpf")
+                cpf
         );
 
         // Chama o DAO para salvar

@@ -47,7 +47,7 @@
         <option value="">Selecione uma empresa</option>
         <% for (Empresa emp : empresas) { %>
         <option value="<%= emp.getId() %>">
-            <%= emp.getNome() %> (CNPJ: <%= emp.getCnpj() %>)
+            <%= emp.getNome() %>
         </option>
         <% } %>
     </select>
