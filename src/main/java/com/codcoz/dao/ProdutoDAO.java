@@ -102,18 +102,17 @@ public class ProdutoDAO {
             pstmt.setInt(6, produto.getQuantidade());
             pstmt.setInt(7, produto.getId());
             if (pstmt.executeUpdate() > 0) {
-                System.out.println("update de item nota fiscal com sucesso");
-                return 1;
+                return 1; // sucesso
             }
-            return 0;
-        }catch (SQLException e){
-            e.printStackTrace();
-            return -1;
-        }
-        finally {
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+            return 0; // erro interno
+        } finally {
             conexao.desconectar(conn);
         }
+        return -1; // erro desconhecido
     }
+
     public int delete(int id){
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
@@ -121,16 +120,17 @@ public class ProdutoDAO {
             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM produto WHERE id= ?");
             pstmt.setInt(1,id);
             if (pstmt.executeUpdate() > 0) {
-                System.out.println("delete de item nota fiscal com sucesso");
-                return 1;
+                return 1; // sucesso
             }
-            return 0;
-        }catch (SQLException sqle){
+        } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return -1;
-        }
-        finally {
+            if (sqle.getMessage().contains("still referenced")){
+                return 0; // está vinculado a outra tabela
+            }
+            return -1; // erro interno
+        } finally {
             conexao.desconectar(conn);
         }
+        return -2; // falha genérica
     }
 }
