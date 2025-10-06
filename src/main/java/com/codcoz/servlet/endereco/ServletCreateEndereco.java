@@ -28,7 +28,8 @@ public class ServletCreateEndereco extends HttpServlet {
                 request.getParameter("rua"),
                 request.getParameter("complemento"),
                 request.getParameter("cidade"),
-                request.getParameter("estado"),cep,
+                request.getParameter("estado"),
+                cep.replaceAll("[^0-9]",""),
                 request.getParameter("numero")
         );
         // Chama o DAO

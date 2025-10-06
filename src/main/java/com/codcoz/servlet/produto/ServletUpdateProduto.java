@@ -15,6 +15,8 @@ public class ServletUpdateProduto extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Produto produto = new Produto(
                 Integer.parseInt(request.getParameter("id")),
+                Integer.parseInt(request.getParameter("idEstoque")),
+                Integer.parseInt(request.getParameter("idNotaFiscal")),
                 Integer.parseInt(request.getParameter("idEmpresa")),
                 request.getParameter("unidadeMedida"),
                 Double.parseDouble(request.getParameter("estoqueMinimo")),

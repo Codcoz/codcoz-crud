@@ -1,4 +1,4 @@
-package com.codcoz.servlet.Alerta;
+package com.codcoz.servlet.alerta;
 
 import com.codcoz.dao.AlertaDAO;
 import com.codcoz.model.Alerta;
