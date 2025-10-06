@@ -1,7 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ page import="
     com.codcoz.model.Produto,
+    com.codcoz.dao.EstoqueDAO,
+    com.codcoz.dao.NotaFiscalXmlDAO,
     com.codcoz.dao.EmpresaDAO,
+    com.codcoz.model.Estoque,
+    com.codcoz.model.NotaFiscalXml,
     com.codcoz.model.Empresa,
     java.util.List
 " %>
@@ -40,16 +44,22 @@
         <th>Unidade</th>
         <th>Estoque Mínimo</th>
         <th>Quantidade</th>
+        <th>Estoque</th>
+        <th>Nota Fiscal</th>
         <th>Empresa</th>
         <th>Update</th>
         <th>Delete</th>
     </tr>
     <%
         List<Produto> lista = (List<Produto>) request.getAttribute("listaProdutos");
+        EstoqueDAO estoqueDAO = new EstoqueDAO();
+        NotaFiscalXmlDAO notaDAO = new NotaFiscalXmlDAO();
         EmpresaDAO empresaDAO = new EmpresaDAO();
 
         if (lista != null && !lista.isEmpty()) {
             for (Produto produto : lista) {
+                Estoque estoque = estoqueDAO.buscarPorId(produto.getIdEstoque());
+                NotaFiscalXml nota = notaDAO.buscarPorId(produto.getIdNotaFiscal());
                 Empresa empresa = empresaDAO.buscarPorId(produto.getIdEmpresa());
     %>
     <tr>
@@ -59,7 +69,9 @@
         <td><%= produto.getUnidadeMedida() %></td>
         <td><%= produto.getEstoqueMinimo() %></td>
         <td><%= produto.getQuantidade() %></td>
-        <td><%= empresa.getNome() %></td>
+        <td><%= estoque != null ? estoque.getTipoEstoque() : "N/A" %></td>
+        <td><%= nota != null ? nota.getNumeroNota() : "N/A" %></td>
+        <td><%= empresa != null ? empresa.getNome() : "Desconhecida" %></td>
         <td>
             <form action="<%= request.getContextPath() %>/produtoJSP/updateProduto.jsp" method="get">
                 <input type="hidden" name="id" value="<%= produto.getId() %>"/>
@@ -78,7 +90,7 @@
     } else {
     %>
     <tr>
-        <td colspan="9">Nenhum produto encontrado.</td>
+        <td colspan="11">Nenhum produto encontrado.</td>
     </tr>
     <%
         }

@@ -1,6 +1,10 @@
 <%@ page import="com.codcoz.model.Produto" %>
 <%@ page import="com.codcoz.dao.ProdutoDAO" %>
+<%@ page import="com.codcoz.dao.EstoqueDAO" %>
+<%@ page import="com.codcoz.dao.NotaFiscalXmlDAO" %>
 <%@ page import="com.codcoz.dao.EmpresaDAO" %>
+<%@ page import="com.codcoz.model.Estoque" %>
+<%@ page import="com.codcoz.model.NotaFiscalXml" %>
 <%@ page import="com.codcoz.model.Empresa" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -8,7 +12,9 @@
 <%
     Integer id = Integer.parseInt(request.getParameter("id"));
     Produto produto = null;
-    List<Empresa> empresas = new EmpresaDAO().read();
+    List<Estoque> estoques = new EstoqueDAO().read();
+    List<NotaFiscalXml> notas = new NotaFiscalXmlDAO().read();
+    EmpresaDAO empresaDAO = new EmpresaDAO();
 
     if (id != null) {
         ProdutoDAO produtoDAO = new ProdutoDAO();
@@ -22,7 +28,7 @@
 </head>
 <body>
 <% if (produto != null) { %>
-<h2>Atualizar Produto de ID <%= produto.getNome() %></h2>
+<h2>Atualizar Produto de Nome <%= produto.getNome() %></h2>
 
 <form action="<%=request.getContextPath()%>/ServletUpdateProduto" method="post">
     <input type="hidden" name="id" value="<%= produto.getId() %>"/>
@@ -36,9 +42,12 @@
     <label for="unidadeMedida">Unidade de Medida:</label>
     <select id="unidadeMedida" name="unidadeMedida" required>
         <option value="">Selecione</option>
+        <option value="g" <%= "g".equals(produto.getUnidadeMedida()) ? "selected" : "" %>>g</option>
         <option value="kg" <%= "kg".equals(produto.getUnidadeMedida()) ? "selected" : "" %>>kg</option>
+        <option value="ml" <%= "ml".equals(produto.getUnidadeMedida()) ? "selected" : "" %>>ml</option>
         <option value="L" <%= "L".equals(produto.getUnidadeMedida()) ? "selected" : "" %>>L</option>
-        <option value="unid" <%= "unid".equals(produto.getUnidadeMedida()) ? "selected" : "" %>>unid</option>
+        <option value="caixa" <%= "caixa".equals(produto.getUnidadeMedida()) ? "selected" : "" %>>caixa</option>
+        <option value="unidade" <%= "unidade".equals(produto.getUnidadeMedida()) ? "selected" : "" %>>unidade</option>
     </select><br><br>
 
     <label for="estoqueMinimo">Estoque Mínimo:</label>
@@ -47,15 +56,31 @@
     <label for="quantidade">Quantidade:</label>
     <input type="number" id="quantidade" name="quantidade" value="<%= produto.getQuantidade() %>" required><br><br>
 
-    <label for="idEmpresa">Empresa:</label>
-    <select id="idEmpresa" name="idEmpresa" required>
-        <option value="">Selecione uma empresa</option>
-        <% for (Empresa emp : empresas) { %>
-        <option value="<%= emp.getId() %>" <%= emp.getId().equals(produto.getIdEmpresa()) ? "selected" : "" %>>
-            <%= emp.getNome() %>
+    <label for="idEstoque">Estoque:</label>
+    <select id="idEstoque" name="idEstoque" required>
+        <option value="">Selecione um estoque</option>
+        <% for (Estoque est : estoques) {
+            Empresa empresa = empresaDAO.buscarPorId(est.getIdEmpresa());
+        %>
+        <option value="<%= est.getId() %>" <%= est.getId().equals(produto.getIdEstoque()) ? "selected" : "" %>>
+            <%= est.getTipoEstoque() %> (Empresa: <%= empresa != null ? empresa.getNome() : "Desconhecida" %>)
         </option>
         <% } %>
     </select><br><br>
+
+    <label for="idNotaFiscal">Nota Fiscal:</label>
+    <select id="idNotaFiscal" name="idNotaFiscal" required>
+        <option value="">Selecione uma nota fiscal</option>
+        <% for (NotaFiscalXml nota : notas) {
+            Empresa empresa = empresaDAO.buscarPorId(nota.getIdEmpresa());
+        %>
+        <option value="<%= nota.getId() %>" <%= nota.getId().equals(produto.getIdNotaFiscal()) ? "selected" : "" %>>
+            Nº <%= nota.getNumeroNota() %> - Empresa: <%= empresa != null ? empresa.getNome() : "Desconhecida" %>
+        </option>
+        <% } %>
+    </select><br><br>
+
+    <input type="hidden" name="idEmpresa" value="<%= produto.getIdEmpresa() %>"/>
 
     <button type="submit">Update</button>
 </form>

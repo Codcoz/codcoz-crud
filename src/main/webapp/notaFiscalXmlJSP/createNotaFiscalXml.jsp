@@ -26,7 +26,7 @@
         </option>
         <% } %>
     </select>
-    <a href="../empresaJSP/createEmpresa.jsp">Criar Endereco</a>
+    <a href="../empresaJSP/createEmpresa.jsp">Criar Empresa</a>
     <br><br>
 
     <label for="dataEmissao">Data de Emissão:</label>

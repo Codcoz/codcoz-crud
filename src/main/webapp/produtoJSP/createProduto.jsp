@@ -2,7 +2,11 @@
 <%@ page import="
     java.util.List,
     com.codcoz.dao.EmpresaDAO,
-    com.codcoz.model.Empresa
+    com.codcoz.dao.EstoqueDAO,
+    com.codcoz.dao.NotaFiscalXmlDAO,
+    com.codcoz.model.Empresa,
+    com.codcoz.model.Estoque,
+    com.codcoz.model.NotaFiscalXml
 " %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -25,9 +29,12 @@
     <label for="unidadeMedida">Unidade de Medida:</label>
     <select id="unidadeMedida" name="unidadeMedida" required>
         <option value="">Selecione</option>
+        <option value="g">g</option>
         <option value="kg">Kg</option>
+        <option value="ml">ml</option>
         <option value="L">L</option>
-        <option value="unid">Unidade</option>
+        <option value="caixa">Caixa</option>
+        <option value="unidade">Unidade</option>
     </select>
     <br><br>
 
@@ -39,19 +46,39 @@
     <input type="number" id="quantidade" name="quantidade" placeholder="Quantidade atual" required>
     <br><br>
 
-    <label for="idEmpresa">Empresa:</label>
+    <label for="idEstoque">Estoque:</label>
     <%
-        List<Empresa> empresas = new EmpresaDAO().read();
+        List<Estoque> estoques = new EstoqueDAO().read();
+        EmpresaDAO empresaDAO = new EmpresaDAO();
     %>
-    <select id="idEmpresa" name="idEmpresa" required>
-        <option value="">Selecione uma empresa</option>
-        <% for (Empresa emp : empresas) { %>
-        <option value="<%= emp.getId() %>">
-            <%= emp.getNome() %>
+    <select id="idEstoque" name="idEstoque" required>
+        <option value="">Selecione um estoque</option>
+        <% for (Estoque est : estoques) {
+            Empresa empresa = empresaDAO.buscarPorId(est.getIdEmpresa());
+        %>
+        <option value="<%= est.getId() %>">
+            <%= est.getTipoEstoque() %> (Empresa: <%= empresa != null ? empresa.getNome() : "Desconhecida" %>)
         </option>
         <% } %>
     </select>
-    <a href="../empresaJSP/createEmpresa.jsp">Criar Empresa</a>
+    <a href="../estoqueJSP/createEstoque.jsp">Criar Estoque</a>
+    <br><br>
+
+    <label for="idNotaFiscal">Nota Fiscal:</label>
+    <%
+        List<NotaFiscalXml> notas = new NotaFiscalXmlDAO().read();
+    %>
+    <select id="idNotaFiscal" name="idNotaFiscal" required>
+        <option value="">Selecione uma nota fiscal</option>
+        <% for (NotaFiscalXml nota : notas) {
+            Empresa empresa = empresaDAO.buscarPorId(nota.getIdEmpresa());
+        %>
+        <option value="<%= nota.getId() %>">
+            Nº <%= nota.getNumeroNota() %> - Empresa: <%= empresa != null ? empresa.getNome() : "Desconhecida" %>
+        </option>
+        <% } %>
+    </select>
+    <a href="../notaFiscalJSP/createNotaFiscal.jsp">Criar Nota Fiscal</a>
     <br><br>
 
     <button type="submit">Criar</button>
