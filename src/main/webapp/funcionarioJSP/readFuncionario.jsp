@@ -3,6 +3,8 @@
     com.codcoz.model.Funcionario,
     java.util.List
 " %>
+<%@ page import="com.codcoz.dao.EmpresaDAO" %>
+<%@ page import="com.codcoz.model.Empresa" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -34,26 +36,29 @@
         <th>Delete</th>
     </tr>
     <%
-        List<Funcionario> lista = (List<Funcionario>) request.getAttribute("listaFuncionarios");
-        if (lista != null && !lista.isEmpty()) {
-            for (Funcionario f : lista) {
-    %>
+    List<Funcionario> lista = (List<Funcionario>) request.getAttribute("listaFuncionarios");
+    EmpresaDAO empresaDAO = new EmpresaDAO();
+
+    if (lista != null && !lista.isEmpty()) {
+        for (Funcionario funcionario : lista) {
+            Empresa empresa = empresaDAO.buscarPorId(funcionario.getIdEmpresa());
+%>
     <tr>
-        <td><%= f.getId() %></td>
-        <td><%= f.getNome() %></td>
-        <td><%= f.getSobrenome() %></td>
-        <td><%= f.getCpf() %></td>
-        <td><%= f.getIdEmpresa() %></td>
-        <td><%= f.getFuncao() %></td>
+        <td><%= funcionario.getId() %></td>
+        <td><%= funcionario.getNome() %></td>
+        <td><%= funcionario.getSobrenome() %></td>
+        <td><%= funcionario.getCpf() %></td>
+        <td><%= empresa.getNome() %></td>
+        <td><%= funcionario.getFuncao() %></td>
         <td>
             <form action="<%= request.getContextPath() %>/funcionarioJSP/updateFuncionario.jsp" method="post">
-                <input type="hidden" name="id" value="<%= f.getId() %>"/>
+                <input type="hidden" name="id" value="<%= funcionario.getId() %>"/>
                 <button type="submit">Update</button>
             </form>
         </td>
         <td>
             <form action="<%= request.getContextPath() %>/ServletDeleteFuncionario" method="post">
-                <input type="hidden" name="id" value="<%= f.getId() %>"/>
+                <input type="hidden" name="id" value="<%= funcionario.getId() %>"/>
                 <button type="submit">Delete</button>
             </form>
         </td>
