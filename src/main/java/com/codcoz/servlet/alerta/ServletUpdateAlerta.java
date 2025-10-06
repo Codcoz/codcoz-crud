@@ -1,4 +1,4 @@
-package com.codcoz.servlet.Alerta;
+package com.codcoz.servlet.alerta;
 
 import com.codcoz.dao.AlertaDAO;
 import com.codcoz.model.Alerta;
@@ -31,8 +31,23 @@ public class ServletUpdateAlerta extends HttpServlet {
 
 //          chama o DAO para update
         AlertaDAO dao = new AlertaDAO();
-        dao.update(alerta);
-//          redireciona pra o read
+        int status = dao.update(alerta);
+
+        // Define a mensagem com base no status da atualização
+        String mensagem;
+        switch (status) {
+            case 1:
+                mensagem = "A atualização de " + alerta.getId() + " foi realizada com sucesso.";
+                break;
+            case 0:
+                mensagem = "A atualização de " + alerta.getId() + " falhou: erro interno. Entre em contato pelo e-mail contato.codcoz@gmail.com";
+                break;
+            default:
+                mensagem = "A atualização de " + alerta.getId() + " falhou: erro desconhecido. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
+                break;
+        }
+
+        request.setAttribute("mensagem", mensagem);
         List<Alerta> lista = dao.read();
 
         // Define a lista como atributo da request
