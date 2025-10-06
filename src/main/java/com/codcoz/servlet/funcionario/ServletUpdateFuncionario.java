@@ -56,6 +56,7 @@ public class ServletUpdateFuncionario extends HttpServlet {
             request.setAttribute("erroFuncao", "Função é obrigatória.");
             temErro = true;
         }
+
         // Aceita 000.000.000-00 ou somente 11 dígitos
         if (cpf == null || !cpf.matches("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$|^\\d{11}$")) {
             request.setAttribute("erroCpf", "CPF inválido. Use 000.000.000-00 ou apenas números.");
