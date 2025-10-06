@@ -99,16 +99,15 @@ public class AlertaDAO {
             pstmt.setInt(6, alerta.getId());
 
             if (pstmt.executeUpdate() > 0) {
-                System.out.println("update de alerta com sucesso");
-                return 1;
+                return 1; // sucesso
             }
-            return 0;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return -1;
+            return 0; // erro interno
         } finally {
             conexao.desconectar(conn);
         }
+        return -1; // erro desconhecido
     }
 
     public int delete(int id) {

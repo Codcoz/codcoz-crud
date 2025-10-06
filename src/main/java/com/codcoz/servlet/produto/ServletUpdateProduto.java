@@ -24,7 +24,21 @@ public class ServletUpdateProduto extends HttpServlet {
         );
 
         ProdutoDAO dao = new ProdutoDAO();
-        dao.update(produto);
+        int status = dao.update(produto);
+        String mensagem;
+        switch (status) {
+            case 1:
+                mensagem = "A atualização de " + produto.getNome() + " foi realizada com sucesso.";
+                break;
+            case 0:
+                mensagem = "A atualização de " + produto.getNome() + " falhou: erro interno. Entre em contato pelo e-mail contato.codcoz@gmail.com";
+                break;
+            default:
+                mensagem = "A atualização de " + produto.getNome() + " falhou: erro desconhecido. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
+                break;
+        }
+
+        request.setAttribute("mensagem", mensagem);
         List<Produto> lista = dao.read();
 
         request.setAttribute("listaProdutos", lista);

@@ -23,6 +23,14 @@ public class ServletCreateProduto extends HttpServlet {
         );
 
         ProdutoDAO dao = new ProdutoDAO();
+        String mensagem;
+        if (dao.create(produto)) {
+            mensagem = "A criação de " + produto.getNome() + " foi realizada com sucesso";
+        } else {
+            mensagem = "A criação falhou: erro interno. Entre em contato em contato.codcoz@gmail.com";
+        }
+
+        request.setAttribute("mensagem", mensagem);
         dao.create(produto);
         List<Produto> lista = dao.read();
 
