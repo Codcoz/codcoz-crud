@@ -1,6 +1,6 @@
 package com.codcoz.model;
 
-public class Empresa {
+public class    Empresa {
     private Integer id;
     private Integer idEndereco;
     private String nome;

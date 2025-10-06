@@ -115,8 +115,8 @@ public class ProdutoDAO {
                 return 1;
             }
             return 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
             return -1;
         } finally {
             conexao.desconectar(conn);
@@ -136,6 +136,9 @@ public class ProdutoDAO {
             return 0;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
+            if (sqle.getMessage().contains("still referenced")) {
+                return 0; // está vinculado a outra tabela
+            }
             return -1;
         } finally {
             conexao.desconectar(conn);

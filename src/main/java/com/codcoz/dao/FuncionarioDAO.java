@@ -86,19 +86,19 @@ public class FuncionarioDAO {
         Connection conn = conexao.conectar();
         try{
             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM funcionario WHERE id = ?");
-
             pstmt.setInt(1,id);
+
             if(pstmt.executeUpdate()>0){
-                System.out.println("delete de funcionario com sucesso");
-                return 1;
-            };
-            return 0;
+                return 1;// sucesso
+            }
+
         }catch (SQLException sqle){
             sqle.printStackTrace();
-            return -1;
+            return 0;// erro interno
         }finally {
             conexao.desconectar(conn);
         }
+        return -1; // erro desconhecido
     }
 
     public Funcionario buscarPorId(int id) {

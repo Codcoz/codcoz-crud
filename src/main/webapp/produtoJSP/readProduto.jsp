@@ -26,6 +26,15 @@
     <button type="submit">Create</button>
 </form>
 <br>
+<%
+    String mensagem = (String) request.getAttribute("mensagem");
+    if (mensagem != null) {
+        String cor = mensagem.contains("sucesso") ? "green" : "red";
+%>
+<p style="color: <%= cor %>"><%= mensagem %></p>
+<%
+    }
+%>
 
 <table border="1" cellpadding="8" cellspacing="0">
     <tr>
