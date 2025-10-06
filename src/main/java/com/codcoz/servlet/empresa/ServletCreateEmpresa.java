@@ -32,10 +32,14 @@ public class ServletCreateEmpresa extends HttpServlet {
             dispatcher.forward(request, response);
             return;
         }
+
+        // Normaliza CNPJ para apenas dígitos (opcional)
+        String cnpjNormalizado = cnpj.replaceAll("\\D", "");
+
         Empresa empresa = new Empresa(
                 Integer.parseInt(request.getParameter("idEndereco")),
                 request.getParameter("nome"),
-                cnpj,
+                cnpjNormalizado,
                 email
         );
 

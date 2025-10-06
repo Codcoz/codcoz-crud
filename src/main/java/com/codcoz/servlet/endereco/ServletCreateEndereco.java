@@ -16,8 +16,11 @@ public class ServletCreateEndereco extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cep = request.getParameter("cep");
 
-        // Regex para CEP no formato 00000-000 ou 00000000
-        if (cep == null || !cep.matches("^\\d{5}-?\\d{3}$")) {
+        // Normaliza CEP para apenas dígitos (remove traços, espaços e outros caracteres)
+        String cepNormalizado = cep != null ? cep.replaceAll("\\D", "") : "";
+
+        // Regex para CEP com exatamente 8 dígitos (após normalização)
+        if (cepNormalizado == null || !cepNormalizado.matches("^\\d{8}$")) {
             request.setAttribute("erroCep", "CEP inválido. Use o formato 00000-000 ou 00000000.");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/enderecoJSP/createEndereco.jsp");
             dispatcher.forward(request, response);
@@ -28,30 +31,35 @@ public class ServletCreateEndereco extends HttpServlet {
                 request.getParameter("rua"),
                 request.getParameter("complemento"),
                 request.getParameter("cidade"),
-                request.getParameter("estado"),cep,
+                request.getParameter("estado"),
+                cepNormalizado, // usa o CEP normalizado
                 request.getParameter("numero")
         );
+
         // Chama o DAO
         EnderecoDAO dao = new EnderecoDAO();
+
+        // Cria um resumo para mensagens de sucesso/erro
         String resumo = String.format("(%s) %s, rua %s, nº %s — %s",
                 endereco.getCep(),
                 endereco.getCidade(),
                 endereco.getRua(),
                 endereco.getNumero(),
                 endereco.getEstado());
+
         String mensagem;
         if (dao.create(endereco)) {
             mensagem = "A criação do endereço " + resumo + " foi realizada com sucesso.";
         } else {
             mensagem = "A criação do endereço " + resumo + " falhou: erro interno. Entre em contato em contato.codcoz@gmail.com.";
         }
-        request.setAttribute("mensagem", mensagem);
-        List<Endereco> lista = dao.read();
 
-        // Define a lista como atributo da request
+        request.setAttribute("mensagem", mensagem);
+
+        // Atualiza lista de endereços e envia para JSP
+        List<Endereco> lista = dao.read();
         request.setAttribute("listaEnderecos", lista);
 
-        // Encaminha para a página JSP mantendo os dados
         RequestDispatcher dispatcher = request.getRequestDispatcher("/enderecoJSP/readEndereco.jsp");
         dispatcher.forward(request, response);
     }
