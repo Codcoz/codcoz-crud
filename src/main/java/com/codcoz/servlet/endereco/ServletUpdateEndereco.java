@@ -116,6 +116,7 @@ public class ServletUpdateEndereco extends HttpServlet {
                 break;
         }
 
+
         request.setAttribute("mensagem", mensagem);
 
         // Redireciona para a listagem
