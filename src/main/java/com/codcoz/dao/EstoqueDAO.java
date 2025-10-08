@@ -2,6 +2,7 @@ package com.codcoz.dao;
 
 import com.codcoz.model.Estoque;
 import com.codcoz.conexao.Conexao;
+import com.codcoz.model.NotaFiscalXml;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -40,6 +41,31 @@ public class EstoqueDAO {
             e.printStackTrace();
         }
         return lista;
+    }
+    public List<Estoque> buscarPorEmpresa(int idEmpresa) {
+        Conexao conexao = new Conexao();
+        Connection conn = conexao.conectar();
+        ArrayList<Estoque> listestoque = new ArrayList<>();
+        ResultSet rs;
+        String sql = "SELECT * FROM estoque WHERE id_empresa = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,idEmpresa);
+            rs= pstmt.executeQuery();
+            while (rs.next()) {
+                Estoque estoque = new Estoque(
+                        rs.getInt("id"),
+                        rs.getInt("id_empresa"),
+                        rs.getString("tipo_estoque"),
+                        rs.getInt("capacidade")
+                );
+                listestoque.add(estoque);
+            }
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+        conexao.desconectar(conn);
+        return listestoque;
     }
 
     public Estoque buscarPorId(int id) {
