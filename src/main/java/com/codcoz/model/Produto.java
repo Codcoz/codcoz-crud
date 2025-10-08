@@ -2,6 +2,8 @@ package com.codcoz.model;
 
 public class Produto {
     private Integer id;
+    private Integer idEstoque;
+    private Integer idNotaFiscal;
     private Integer idEmpresa;
     private String unidadeMedida;
     private Double estoqueMinimo;
@@ -9,8 +11,12 @@ public class Produto {
     private String categoria;
     private Integer quantidade;
 
-    public Produto(Integer id, Integer idEmpresa, String unidadeMedida, Double estoqueMinimo, String nome, String categoria, Integer quantidade) {
+    public Produto(Integer id, Integer idEstoque, Integer idNotaFiscal, Integer idEmpresa,
+                   String unidadeMedida, Double estoqueMinimo, String nome,
+                   String categoria, Integer quantidade) {
         this.id = id;
+        this.idEstoque = idEstoque;
+        this.idNotaFiscal = idNotaFiscal;
         this.idEmpresa = idEmpresa;
         this.unidadeMedida = unidadeMedida;
         this.estoqueMinimo = estoqueMinimo;
@@ -19,7 +25,11 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
-    public Produto(Integer idEmpresa, String unidadeMedida, Double estoqueMinimo, String nome, String categoria, Integer quantidade) {
+    public Produto(Integer idEstoque, Integer idNotaFiscal, Integer idEmpresa,
+                   String unidadeMedida, Double estoqueMinimo, String nome,
+                   String categoria, Integer quantidade) {
+        this.idEstoque = idEstoque;
+        this.idNotaFiscal = idNotaFiscal;
         this.idEmpresa = idEmpresa;
         this.unidadeMedida = unidadeMedida;
         this.estoqueMinimo = estoqueMinimo;
@@ -30,6 +40,14 @@ public class Produto {
 
     public Integer getId() {
         return id;
+    }
+
+    public Integer getIdEstoque() {
+        return idEstoque;
+    }
+
+    public Integer getIdNotaFiscal() {
+        return idNotaFiscal;
     }
 
     public Integer getIdEmpresa() {
@@ -56,4 +74,3 @@ public class Produto {
         return quantidade;
     }
 }
-

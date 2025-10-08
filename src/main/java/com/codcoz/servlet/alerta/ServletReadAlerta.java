@@ -1,4 +1,4 @@
-package com.codcoz.servlet.Alerta;
+package com.codcoz.servlet.alerta;
 
 import com.codcoz.dao.AlertaDAO;
 import com.codcoz.model.Alerta;
@@ -23,10 +23,5 @@ public class ServletReadAlerta extends HttpServlet {
         // Encaminha para a página JSP mantendo os dados
         RequestDispatcher dispatcher = request.getRequestDispatcher("/alertaJSP/readAlerta.jsp");
         dispatcher.forward(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }

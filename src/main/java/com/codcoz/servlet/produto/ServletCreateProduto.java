@@ -14,6 +14,8 @@ public class ServletCreateProduto extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Produto produto = new Produto(
+                Integer.parseInt(request.getParameter("idEstoque")),
+                Integer.parseInt(request.getParameter("idNotaFiscal")),
                 Integer.parseInt(request.getParameter("idEmpresa")),
                 request.getParameter("unidadeMedida"),
                 Double.parseDouble(request.getParameter("estoqueMinimo")),
@@ -23,6 +25,14 @@ public class ServletCreateProduto extends HttpServlet {
         );
 
         ProdutoDAO dao = new ProdutoDAO();
+        String mensagem;
+        if (dao.create(produto)) {
+            mensagem = "A criação de " + produto.getNome() + " foi realizada com sucesso";
+        } else {
+            mensagem = "A criação falhou: erro interno. Entre em contato em contato.codcoz@gmail.com";
+        }
+
+        request.setAttribute("mensagem", mensagem);
         dao.create(produto);
         List<Produto> lista = dao.read();
 

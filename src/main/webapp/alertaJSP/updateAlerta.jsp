@@ -1,55 +1,53 @@
-
-<%@ page import="com.codcoz.model.Alerta" %>
-<%@ page import="com.codcoz.dao.AlertaDAO" %>
-<%@ page import="com.codcoz.dao.EmpresaDAO" %>
-<%@ page import="com.codcoz.dao.ProdutoDAO" %>
-<%@ page import="com.codcoz.model.Empresa" %>
-<%@ page import="com.codcoz.model.Produto" %>
-<%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ page import="
+    java.util.List,
+    com.codcoz.model.Alerta,
+    com.codcoz.model.Empresa,
+    com.codcoz.model.Produto,
+    com.codcoz.dao.AlertaDAO,
+    com.codcoz.dao.EmpresaDAO,
+    com.codcoz.dao.ProdutoDAO
+" %>
 <%
     Integer id = Integer.parseInt(request.getParameter("id"));
-    Alerta alerta = null;
-    List<Empresa> empresas = new EmpresaDAO().read();
+    Alerta alerta = new AlertaDAO().buscarPorId(id);
     List<Produto> produtos = new ProdutoDAO().read();
-
-    if (id != null) {
-        AlertaDAO alertaDAO = new AlertaDAO();
-        alerta = alertaDAO.buscarPorId(id);
+    Empresa empresa = null;
+    if (alerta != null) {
+        Produto produto = new ProdutoDAO().buscarPorId(alerta.getIdProduto());
+        if (produto != null) {
+            empresa = new EmpresaDAO().buscarPorId(produto.getIdEmpresa());
+        }
     }
 %>
-
-<html>
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
+    <meta charset="UTF-8">
     <title>Atualizar Alerta</title>
 </head>
 <body>
 <% if (alerta != null) { %>
 <h2>Atualizar Alerta de ID <%= alerta.getId() %></h2>
 
-<form action="<%=request.getContextPath()%>/ServletUpdateAlerta" method="post">
+<form action="<%= request.getContextPath() %>/ServletUpdateAlerta" method="post">
     <input type="hidden" name="id" value="<%= alerta.getId() %>"/>
 
-    <label for="idEmpresa">Empresa:</label>
-    <select id="idEmpresa" name="idEmpresa" required>
-        <option value="">Selecione uma empresa</option>
-        <% for (Empresa emp : empresas) { %>
-        <option value="<%= emp.getId() %>" <%= emp.getId() == alerta.getIdEmpresa() ? "selected" : "" %>>
-            <%= emp.getNome() %>
-        </option>
-        <% } %>
-    </select><br><br>
+    <label>Empresa:</label>
+    <input type="text" value="<%= empresa != null ? empresa.getNome() : "Empresa não encontrada" %>" readonly>
+    <br><br>
 
     <label for="idProduto">Produto:</label>
     <select id="idProduto" name="idProduto" required>
         <option value="">Selecione um produto</option>
         <% for (Produto prod : produtos) { %>
-        <option value="<%= prod.getId() %>" <%= prod.getId() == alerta.getIdProduto() ? "selected" : "" %>>
+        <option value="<%= prod.getId() %>" <%= prod.getId().equals(alerta.getIdProduto()) ? "selected" : "" %>>
             <%= prod.getNome() %>
         </option>
         <% } %>
-    </select><br><br>
+    </select>
+    <a href="../produtoJSP/createProduto.jsp">Criar Produto</a>
+    <br><br>
 
     <label for="dataCriacao">Data de Criação:</label>
     <input type="date" id="dataCriacao" name="dataCriacao"
@@ -58,24 +56,23 @@
     <label for="status">Status:</label>
     <select id="status" name="status" required>
         <option value="">Selecione o status</option>
-        <option value="Pendente">Pendente</option>
-        <option value="Resolvido">Resolvido</option>
-        <option value="Ignorado">Ignorado</option>
-
+        <option value="Pendente" <%= "Pendente".equals(alerta.getStatus()) ? "selected" : "" %>>Pendente</option>
+        <option value="Resolvido" <%= "Resolvido".equals(alerta.getStatus()) ? "selected" : "" %>>Resolvido</option>
+        <option value="Ignorado" <%= "Ignorado".equals(alerta.getStatus()) ? "selected" : "" %>>Ignorado</option>
     </select><br><br>
 
     <label for="tipoAlerta">Tipo de Alerta:</label>
     <input type="text" id="tipoAlerta" name="tipoAlerta"
            value="<%= alerta.getTipoAlerta() %>" required placeholder="Ex: Estoque baixo"><br><br>
 
-    <button type="submit">Update</button>
+    <button type="submit">Atualizar</button>
 </form>
 <% } else { %>
 <p>Alerta não encontrado.</p>
 <% } %>
 
 <br><br>
-<a href="<%=request.getContextPath()%>/ServletReadAlerta">Voltar à lista</a> <br><br>
-<a href="<%=request.getContextPath()%>/index.html">Voltar ao início</a>
+<a href="<%= request.getContextPath() %>/ServletReadAlerta">Voltar à lista</a><br><br>
+<a href="<%= request.getContextPath() %>/index.html">Voltar ao início</a>
 </body>
 </html>

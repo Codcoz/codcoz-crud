@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ page import="
     java.util.List,
@@ -15,12 +14,10 @@
     <title>Lista de Alertas</title>
 </head>
 <body>
-<aside>
-</aside>
 
 <h2>Lista de Alertas</h2>
 
-<form action="<%= request.getContextPath() %>/alertaJSP/createAlerta.jsp" method="get">
+<form action="<%= request.getContextPath() %>/alertaJSP/escolhaEmpresaDoAlerta.jsp" method="get">
     <button type="submit">Create</button>
 </form>
 <br>
@@ -38,20 +35,23 @@
     </tr>
     <%
         List<Alerta> lista = (List<Alerta>) request.getAttribute("listaAlertas");
-        EmpresaDAO empresaDAO = new EmpresaDAO();
         ProdutoDAO produtoDAO = new ProdutoDAO();
+        EmpresaDAO empresaDAO = new EmpresaDAO();
 
         if (lista != null && !lista.isEmpty()) {
             for (Alerta alerta : lista) {
-                Empresa empresa = empresaDAO.buscarPorId(alerta.getIdEmpresa());
                 Produto produto = produtoDAO.buscarPorId(alerta.getIdProduto());
+                Empresa empresa = null;
+                if (produto != null) {
+                    empresa = empresaDAO.buscarPorId(produto.getIdEmpresa());
+                }
     %>
     <tr>
         <td><%= alerta.getId() %></td>
-        <td><%= empresa.getNome() %></td>
-        <td><%= produto.getNome()%></td>
+        <td><%= empresa != null ? empresa.getNome() : "Empresa não encontrada" %></td>
+        <td><%= produto != null ? produto.getNome() : "Produto não encontrado" %></td>
         <td><%= alerta.getDataCriacao() %></td>
-        <td><%= alerta.getStatus() %></td>
+        <td ><%= alerta.getStatus() %></td>
         <td><%= alerta.getTipoAlerta() %></td>
         <td>
             <form action="<%= request.getContextPath() %>/alertaJSP/updateAlerta.jsp" method="get">

@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ page import="
     java.util.List,
@@ -15,31 +14,19 @@
 </head>
 <body>
 <h2>Criar Alerta</h2>
-
 <form action="<%= request.getContextPath() %>/ServletCreateAlerta" method="post">
-    <label for="idEmpresa">Empresa:</label>
-    <%
-        List<Empresa> empresas = new EmpresaDAO().read();
-    %>
-    <select id="idEmpresa" name="idEmpresa" required>
-        <option value="">Selecione uma empresa</option>
-        <% for (Empresa emp : empresas) { %>
-        <option value="<%= emp.getId() %>">
-            <%= emp.getNome() %>
-        </option>
-        <% } %>
-    </select>
-    <a href="../empresaJSP/createEmpresa.jsp">Criar Empresa</a>
-    <br><br>
-
+    <% int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
+        Empresa empresa = new EmpresaDAO().buscarPorId(idEmpresa);%>
+    <input type="hidden" value="<%=idEmpresa%>" name="idEmpresa">
+    <p>Empresa do Alerta: <%=empresa.getNome()%></p>
     <label for="idProduto">Produto:</label>
-    <%
-        List<Produto> produtos = new ProdutoDAO().read();
-    %>
     <select id="idProduto" name="idProduto" required>
         <option value="">Selecione um produto</option>
-        <% for (Produto prod : produtos) { %>
-        <option value="<%= prod.getId() %>"><%= prod.getNome() %> </option>
+        <%
+            List<Produto> produtos = new ProdutoDAO().buscarPorEmpresa(idEmpresa);
+            for (Produto p : produtos) {
+        %>
+        <option value="<%= p.getId() %>"><%= p.getNome() %></option>
         <% } %>
     </select>
     <a href="../produtoJSP/createProduto.jsp">Criar Produto</a>
@@ -51,7 +38,6 @@
 
     <label for="status">Status:</label>
     <select id="status" name="status" required>
-        <option value="">Selecione o status</option>
         <option value="Pendente">Pendente</option>
         <option value="Resolvido">Resolvido</option>
         <option value="Ignorado">Ignorado</option>
@@ -59,7 +45,7 @@
     <br><br>
 
     <label for="tipoAlerta">Tipo de Alerta:</label>
-    <input type="text" id="tipoAlerta" name="tipoAlerta" placeholder="Tipo de alerta" required>
+    <input type="text" id="tipoAlerta" name="tipoAlerta" placeholder="Ex: Estoque baixo" required>
     <br><br>
 
     <button type="submit">Criar</button>

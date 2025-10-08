@@ -36,7 +36,7 @@ public class FuncionarioDAO {
         ResultSet rs;
         try{
             Statement stmt = conn.createStatement();
-            rs = stmt.executeQuery("select * from funcionario");
+            rs = stmt.executeQuery("select * from funcionario ");
             while (rs.next()){
             Funcionario funcionario = new Funcionario(
                     rs.getInt("id"),
