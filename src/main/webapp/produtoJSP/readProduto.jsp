@@ -22,7 +22,7 @@
 
 <h2>Lista de Produtos</h2>
 
-<form action="<%= request.getContextPath() %>/produtoJSP/createProduto.jsp" method="get">
+<form action="<%= request.getContextPath() %>/produtoJSP/escolhaEmpresaDoProduto.jsp" method="get">
     <button type="submit">Create</button>
 </form>
 <br>
