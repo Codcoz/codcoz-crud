@@ -1,8 +1,7 @@
 package com.codcoz.dao;
 
-import com.codcoz.conexao.Conexao;
 import com.codcoz.model.Alerta;
-import com.codcoz.model.Produto;
+import com.codcoz.conexao.Conexao;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,38 +10,30 @@ import java.util.List;
 public class AlertaDAO {
 
     public boolean create(Alerta alerta) {
-        String sql = "INSERT INTO alerta (id_empresa, id_produto, data_criacao, status, tipo_alerta) VALUES (?, ?, ?, ?, ?)";
-        Conexao conexao = new Conexao();
-        Connection conn = conexao.conectar();
-        try {
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, alerta.getIdEmpresa());
-            pstmt.setInt(2, alerta.getIdProduto());
-            pstmt.setDate(3, alerta.getDataCriacao()); // ideal: usar java.sql.Date
-            pstmt.setString(4, alerta.getStatus());
-            pstmt.setString(5, alerta.getTipoAlerta());
+        String sql = "INSERT INTO alerta (id_produto, tipo_alerta, status, data_criacao) VALUES (?, ?, ?, ?)";
+        try (Connection conn = new Conexao().conectar();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            if (pstmt.executeUpdate() > 0) {
-                System.out.println("create de alerta com sucesso");
-                return true;
-            }
+            pstmt.setInt(1, alerta.getIdProduto());
+            pstmt.setString(2, alerta.getTipoAlerta());
+            pstmt.setString(3, alerta.getStatus());
+            pstmt.setDate(4, alerta.getDataCriacao());
+
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
             return false;
-        } catch (SQLException sqle) {
-            sqle.printStackTrace();
-            return false;
-        } finally {
-            conexao.desconectar(conn);
         }
     }
 
     public List<Alerta> read() {
-        ArrayList<Alerta> alertaList = new ArrayList<>();
-        Conexao conexao = new Conexao();
-        Connection conn = conexao.conectar();
-        ResultSet rs;
-        try {
-            Statement stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM alerta");
+        List<Alerta> lista = new ArrayList<>();
+        String sql = "SELECT a.id, e.id AS id_empresa, a.id_produto, a.data_criacao, a.status, a.tipo_alerta FROM alerta a JOIN produto p ON a.id_produto = p.id JOIN nota_fiscal_xml nf ON p.id_nota_fiscal = nf.id JOIN empresa e ON nf.id_empresa = e.id ORDER BY a.id";
+
+        try (Connection conn = new Conexao().conectar();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
             while (rs.next()) {
                 Alerta alerta = new Alerta(
                         rs.getInt("id"),
@@ -52,25 +43,24 @@ public class AlertaDAO {
                         rs.getString("status"),
                         rs.getString("tipo_alerta")
                 );
-                alertaList.add(alerta);
+                lista.add(alerta);
             }
-            System.out.println("read de alerta com sucesso");
-        } catch (SQLException sqle) {
-            sqle.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        conexao.desconectar(conn);
-        return alertaList;
+        return lista;
     }
-    public Alerta buscarPorId(int id) {
-        Alerta alerta = null;
-        try (Connection conn = new Conexao().conectar();
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM alerta WHERE id = ?")) {
 
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
+    public Alerta buscarPorId(int id) {
+        String sql = "SELECT * FROM alerta WHERE id = ?";
+        try (Connection conn = new Conexao().conectar();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                alerta = new Alerta(
+                return new Alerta(
                         rs.getInt("id"),
                         rs.getInt("id_empresa"),
                         rs.getInt("id_produto"),
@@ -82,51 +72,37 @@ public class AlertaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return alerta;
+        return null;
     }
 
     public int update(Alerta alerta) {
-        Conexao conexao = new Conexao();
-        Connection conn = conexao.conectar();
-        String sql = "UPDATE alerta SET id_empresa = ?, id_produto = ?, data_criacao = ?, status = ?, tipo_alerta = ? WHERE id = ?";
-        try {
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, alerta.getIdEmpresa());
-            pstmt.setInt(2, alerta.getIdProduto());
-            pstmt.setDate(3, alerta.getDataCriacao());
-            pstmt.setString(4, alerta.getStatus());
-            pstmt.setString(5, alerta.getTipoAlerta());
-            pstmt.setInt(6, alerta.getId());
+        String sql = "UPDATE alerta SET id_produto = ?, tipo_alerta = ?, status = ?, data_criacao = ? WHERE id = ?";
+        try (Connection conn = new Conexao().conectar();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            if (pstmt.executeUpdate() > 0) {
-                return 1; // sucesso
-            }
-        } catch (SQLException sqle) {
-            sqle.printStackTrace();
-            return 0; // erro interno
-        } finally {
-            conexao.desconectar(conn);
+            pstmt.setInt(1, alerta.getIdProduto());
+            pstmt.setString(2, alerta.getTipoAlerta());
+            pstmt.setString(3, alerta.getStatus());
+            pstmt.setDate(4, alerta.getDataCriacao());
+            pstmt.setInt(5, alerta.getId());
+
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
         }
-        return -1; // erro desconhecido
     }
 
     public int delete(int id) {
-        Conexao conexao = new Conexao();
-        Connection conn = conexao.conectar();
         String sql = "DELETE FROM alerta WHERE id = ?";
-        try {
-            PreparedStatement pstmt = conn.prepareStatement(sql);
+        try (Connection conn = new Conexao().conectar();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
             pstmt.setInt(1, id);
-            if (pstmt.executeUpdate() > 0) {
-                System.out.println("delete de alerta com sucesso");
-                return 1;
-            }
-            return 0;
-        } catch (SQLException sqle) {
-            sqle.printStackTrace();
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
             return -1;
-        } finally {
-            conexao.desconectar(conn);
         }
     }
 }

@@ -51,5 +51,3 @@ public class Alerta {
         return tipoAlerta;
     }
 }
-
-

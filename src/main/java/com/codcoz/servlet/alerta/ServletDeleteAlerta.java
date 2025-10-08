@@ -27,7 +27,7 @@ public class ServletDeleteAlerta extends HttpServlet {
                 mensagem = "A exclusão de " + alerta + " foi realizada com sucesso.";
                 break;
             case 0:
-                mensagem = "A exclusão falhou: a empresa " + alerta + " está associada a outra tabela. Apague os campos relacionados primeiro.";
+                mensagem = "A exclusão falhou: o alerta " + alerta + " está associado a outra tabela. Apague os campos relacionados primeiro.";
                 break;
             case -1:
                 mensagem = "A exclusão de " + alerta + " falhou: erro interno. Entre em contato pelo e-mail contato.codcoz@gmail.com.";

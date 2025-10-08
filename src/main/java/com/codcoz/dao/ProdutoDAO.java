@@ -59,7 +59,6 @@ public class ProdutoDAO {
                 );
                 produtoList.add(produto);
             }
-            System.out.println("Leitura de produtos com JOIN realizada com sucesso");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         } finally {
@@ -95,7 +94,42 @@ public class ProdutoDAO {
         }
         return produto;
     }
-
+    public List<Produto> buscarPorEmpresa(int idEmpresa) {
+        Conexao conexao = new Conexao();
+        Connection conn = conexao.conectar();
+        ArrayList<Produto> produtoList = new ArrayList<>();
+        ResultSet rs;
+        String sql = "SELECT p.id, p.id_estoque, p.id_nota_fiscal, e.id AS id_empresa, p.unidade_medida, p.nome, p.estoque_minimo, p.categoria, p.quantidade " +
+                "FROM produto p " +
+                "LEFT JOIN nota_fiscal_xml nf ON p.id_nota_fiscal = nf.id " +
+                "LEFT JOIN empresa e ON nf.id_empresa = e.id " +
+                "WHERE e.id = ? " +
+                "ORDER BY p.id";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, idEmpresa);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Produto produto = new Produto(
+                        rs.getInt("id"),
+                        rs.getInt("id_estoque"),
+                        rs.getInt("id_nota_fiscal"),
+                        rs.getInt("id_empresa"),
+                        rs.getString("unidade_medida"),
+                        rs.getDouble("estoque_minimo"),
+                        rs.getString("nome"),
+                        rs.getString("categoria"),
+                        rs.getInt("quantidade")
+                );
+                produtoList.add(produto);
+            }
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        } finally {
+            conexao.desconectar(conn);
+        }
+        return produtoList;
+    }
     public int update(Produto produto) {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
