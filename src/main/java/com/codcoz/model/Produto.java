@@ -4,7 +4,7 @@ public class Produto {
     private Integer id;
     private Integer idEstoque;
     private Integer idNotaFiscal;
-    private Integer idEmpresa; // novo campo
+    private Integer idEmpresa;
     private String unidadeMedida;
     private Double estoqueMinimo;
     private String nome;

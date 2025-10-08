@@ -13,13 +13,8 @@ import java.util.List;
 @WebServlet(name = "ServletUpdateAlerta", value = "/ServletUpdateAlerta")
 public class ServletUpdateAlerta extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //          cria o objeto Endereco já com os dados do form
+        // Cria o objeto Alerta com os dados do formulário
         Alerta alerta = new Alerta(
                 Integer.parseInt(request.getParameter("id")),
                 Integer.parseInt(request.getParameter("idEmpresa")),
@@ -29,33 +24,31 @@ public class ServletUpdateAlerta extends HttpServlet {
                 request.getParameter("tipoAlerta")
         );
 
-//          chama o DAO para update
+        // Chama o DAO para atualizar
         AlertaDAO dao = new AlertaDAO();
-        int status = dao.update(alerta);
+        int resultado = dao.update(alerta);
 
-        // Define a mensagem com base no status da atualização
+        // Define a mensagem com base no resultado
         String mensagem;
-        switch (status) {
+        switch (resultado) {
             case 1:
-                mensagem = "A atualização de " + alerta.getId() + " foi realizada com sucesso.";
+                mensagem = "A atualização do alerta " + alerta.getId() + " foi realizada com sucesso.";
                 break;
             case 0:
-                mensagem = "A atualização de " + alerta.getId() + " falhou: erro interno. Entre em contato pelo e-mail contato.codcoz@gmail.com";
+                mensagem = "A atualização do alerta " + alerta.getId() + " falhou: erro interno. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
                 break;
             default:
-                mensagem = "A atualização de " + alerta.getId() + " falhou: erro desconhecido. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
+                mensagem = "A atualização do alerta " + alerta.getId() + " falhou: erro desconhecido. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
                 break;
         }
 
+        // Define atributos para a JSP
         request.setAttribute("mensagem", mensagem);
         List<Alerta> lista = dao.read();
-
-        // Define a lista como atributo da request
         request.setAttribute("listaAlertas", lista);
 
-        // Encaminha para a página JSP mantendo os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/alertaJSP/readAlerta.jsp");
+        // Encaminha para a página de listagem
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/alertaJSP/listaAlerta.jsp");
         dispatcher.forward(request, response);
     }
 }
-

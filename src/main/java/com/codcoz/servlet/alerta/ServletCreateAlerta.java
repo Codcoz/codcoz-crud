@@ -1,8 +1,8 @@
 package com.codcoz.servlet.alerta;
 
 import com.codcoz.dao.AlertaDAO;
+import com.codcoz.dao.EmpresaDAO;
 import com.codcoz.model.Alerta;
-import com.codcoz.model.Empresa;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -15,6 +15,7 @@ import java.util.List;
 public class ServletCreateAlerta extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Captura os dados do formulário
         Alerta alerta = new Alerta(
                 Integer.parseInt(request.getParameter("idEmpresa")),
                 Integer.parseInt(request.getParameter("idProduto")),
@@ -22,23 +23,24 @@ public class ServletCreateAlerta extends HttpServlet {
                 request.getParameter("status"),
                 request.getParameter("tipoAlerta")
         );
+
         // Chama o DAO
         AlertaDAO dao = new AlertaDAO();
         String mensagem;
+
         if (dao.create(alerta)) {
-            mensagem = "A criação de " + alerta.getId() + " foi realizada com sucesso";
+            mensagem = "Alerta criado com sucesso.";
         } else {
-            mensagem = "A criação falhou: erro interno. Entre em contato em contato.codcoz@gmail.com";
+            mensagem = "A criação falhou: erro interno. Entre em contato via contato.codcoz@gmail.com";
         }
 
+        // Define atributos para a JSP
         request.setAttribute("mensagem", mensagem);
-
-        // Atualiza a lista de empresas para exibir na JSP
         List<Alerta> lista = dao.read();
         request.setAttribute("listaAlertas", lista);
 
-        // Encaminha para a página JSP mantendo os dados
+        // Encaminha para a página de listagem
         RequestDispatcher dispatcher = request.getRequestDispatcher("/alertaJSP/readAlerta.jsp");
         dispatcher.forward(request, response);
     }
-    }
+}
