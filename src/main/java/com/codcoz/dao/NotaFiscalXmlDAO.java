@@ -1,5 +1,6 @@
 package com.codcoz.dao;
 import com.codcoz.conexao.Conexao;
+import com.codcoz.model.Estoque;
 import com.codcoz.model.NotaFiscalXml;
 
 import java.sql.*;
@@ -40,6 +41,32 @@ public class NotaFiscalXmlDAO {
         try {
             Statement stmt = conn.createStatement();
             rs= stmt.executeQuery("SELECT * FROM nota_fiscal_xml");
+            while (rs.next()) {
+                NotaFiscalXml notaFiscalXml = new NotaFiscalXml(
+                        rs.getInt("id"),
+                        rs.getInt("id_empresa"),
+                        rs.getDate("data_emissao"),
+                        rs.getString("xml_string"),
+                        rs.getString("numero_nota")
+                );
+                listnotaFiscalXml.add(notaFiscalXml);
+            }
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+        conexao.desconectar(conn);
+        return listnotaFiscalXml;
+    }
+    public List<NotaFiscalXml> buscarPorEmpresa(int idEmpresa) {
+        Conexao conexao = new Conexao();
+        Connection conn = conexao.conectar();
+        ArrayList<NotaFiscalXml> listnotaFiscalXml = new ArrayList<>();
+        ResultSet rs;
+        String sql = "SELECT * FROM nota_fiscal_xml WHERE id_empresa = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,idEmpresa);
+            rs= pstmt.executeQuery();
             while (rs.next()) {
                 NotaFiscalXml notaFiscalXml = new NotaFiscalXml(
                         rs.getInt("id"),
