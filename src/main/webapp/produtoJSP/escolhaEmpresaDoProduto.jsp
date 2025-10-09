@@ -8,15 +8,14 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Criar Alerta</title>
+    <title>Criar Produto</title>
 </head>
 <body>
-<h2>Empresa do alerta:</h2>
+<h2>Empresa do Produto</h2>
 
-<form action="<%= request.getContextPath() %>/alertaJSP/createAlerta.jsp" method="post">
+<form action="<%= request.getContextPath() %>/produtoJSP/createProduto.jsp" method="post">
     <label for="idEmpresa">Empresa: </label>
     <select name="idEmpresa" id="idEmpresa">
-        <option value="">Selecione...</option>
         <%
             List<Empresa> empresas = new EmpresaDAO().read();
             for (Empresa empresa : empresas){

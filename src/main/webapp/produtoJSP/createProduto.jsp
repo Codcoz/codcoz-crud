@@ -1,13 +1,14 @@
+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ page import="
     java.util.List,
     com.codcoz.dao.EmpresaDAO,
-    com.codcoz.dao.EstoqueDAO,
-    com.codcoz.dao.NotaFiscalXmlDAO,
-    com.codcoz.model.Empresa,
-    com.codcoz.model.Estoque,
-    com.codcoz.model.NotaFiscalXml
+    com.codcoz.model.Empresa
 " %>
+<%@ page import="com.codcoz.model.NotaFiscalXml" %>
+<%@ page import="com.codcoz.dao.NotaFiscalXmlDAO" %>
+<%@ page import="com.codcoz.model.Estoque" %>
+<%@ page import="com.codcoz.dao.EstoqueDAO" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -18,74 +19,69 @@
 <h2>Criar Produto</h2>
 
 <form action="<%= request.getContextPath() %>/ServletCreateProduto" method="post">
-    <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" placeholder="Nome do produto" required>
-    <br><br>
-
-    <label for="categoria">Categoria:</label>
-    <input type="text" id="categoria" name="categoria" placeholder="Categoria" required>
-    <br><br>
-
-    <label for="unidadeMedida">Unidade de Medida:</label>
-    <select id="unidadeMedida" name="unidadeMedida" required>
-        <option value="">Selecione</option>
-        <option value="g">g</option>
-        <option value="kg">Kg</option>
-        <option value="ml">ml</option>
-        <option value="L">L</option>
-        <option value="caixa">Caixa</option>
-        <option value="unidade">Unidade</option>
-    </select>
-    <br><br>
-
-    <label for="estoqueMinimo">Estoque Mínimo:</label>
-    <input type="number" step="0.01" id="estoqueMinimo" name="estoqueMinimo" placeholder="Quantidade mínima" required>
-    <br><br>
-
-    <label for="quantidade">Quantidade:</label>
-    <input type="number" id="quantidade" name="quantidade" placeholder="Quantidade atual" required>
-    <br><br>
-
+    <% int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
+        Empresa empresa = new EmpresaDAO().buscarPorId(idEmpresa);%>
+    <input type="hidden" value="<%=idEmpresa%>" name="idEmpresa">
+    <p>Empresa do Alerta: <%=empresa.getNome()%></p>
     <label for="idEstoque">Estoque:</label>
-    <%
-        List<Estoque> estoques = new EstoqueDAO().read();
-        EmpresaDAO empresaDAO = new EmpresaDAO();
-    %>
     <select id="idEstoque" name="idEstoque" required>
         <option value="">Selecione um estoque</option>
-        <% for (Estoque est : estoques) {
-            Empresa empresa = empresaDAO.buscarPorId(est.getIdEmpresa());
+        <%
+            List<Estoque> estoques = new EstoqueDAO().buscarPorEmpresa(idEmpresa);
+            for (Estoque e : estoques) {
         %>
-        <option value="<%= est.getId() %>">
-            <%= est.getTipoEstoque() %> (Empresa: <%= empresa != null ? empresa.getNome() : "Desconhecida" %>)
-        </option>
+        <option value="<%= e.getId() %>"><%= e.getTipoEstoque() %></option>
         <% } %>
     </select>
     <a href="../estoqueJSP/createEstoque.jsp">Criar Estoque</a>
     <br><br>
 
-    <label for="idNotaFiscal">Nota Fiscal:</label>
-    <%
-        List<NotaFiscalXml> notas = new NotaFiscalXmlDAO().read();
-    %>
+    <label for="idNotaFiscal">Nota Fiscal XML:</label>
     <select id="idNotaFiscal" name="idNotaFiscal" required>
-        <option value="">Selecione uma nota fiscal</option>
-        <% for (NotaFiscalXml nota : notas) {
-            Empresa empresa = empresaDAO.buscarPorId(nota.getIdEmpresa());
+        <option value="">Selecione uma Nota fiscal xml</option>
+        <%
+            List<NotaFiscalXml> notaFiscalXmls = new NotaFiscalXmlDAO().buscarPorEmpresa(idEmpresa);
+            for (NotaFiscalXml n : notaFiscalXmls) {
         %>
-        <option value="<%= nota.getId() %>">
-            Nº <%= nota.getNumeroNota() %> - Empresa: <%= empresa != null ? empresa.getNome() : "Desconhecida" %>
-        </option>
+        <option value="<%= n.getId() %>"><%= n.getNumeroNota() %></option>
         <% } %>
     </select>
-    <a href="../notaFiscalJSP/createNotaFiscal.jsp">Criar Nota Fiscal</a>
+    <a href="../notaFiscalXmlJSP/createNotaFiscalXml.jsp">Criar Nota fiscal xml</a>
     <br><br>
 
-    <button type="submit">Criar</button>
+    <label for="unidadeMedida">Unidade de medida:</label>
+    <select id="unidadeMedida" name="unidadeMedida" required>
+        <option value="">Selecione uma Unidade de Medida</option>
+        <option value="kg">Kg</option>
+        <option value="g">g</option>
+        <option value="L">L</option>
+        <option value="ml">ml</option>
+        <option value="unidade">Unidade</option>
+        <option value="caixa">Caixa</option>
+    </select>
+    <br><br>
+
+    <label for="nome">Nome do Produto:</label>
+    <input type="text" id="nome" name="nome" placeholder="Ex:Carne"required>
+    <br><br>
+
+    <label for="estoqueMinimo">Estoque Mínimo:</label>
+    <input type="number" step="1" id="estoqueMinimo" name="estoqueMinimo" placeholder="Ex:1"required>
+    <br><br>
+
+    <label for="categoria">Categoria:</label>
+    <input type="text" id="categoria" name="categoria" placeholder="Ex:Frios"required>
+    <br><br>
+
+    <label for="quantidade">Quantidade:</label>
+    <input type="number" step="1" id="quantidade" name="quantidade" placeholder="Ex:1"required>
+    <br><br>
+
+    <button type="submit">Criar Produto</button>
 </form>
 
 <br><br>
-<a href="<%= request.getContextPath() %>/ServletReadProduto">Voltar à lista</a>
+<a href="<%= request.getContextPath() %>/ServletReadProduto">Voltar à lista de produtos</a>
 <br><br>
 <a href="<%= request.getContextPath() %>/index.html">Voltar ao início</a>
 </body>

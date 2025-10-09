@@ -51,10 +51,12 @@
         <td><%= empresa != null ? empresa.getNome() : "Empresa não encontrada" %></td>
         <td><%= produto != null ? produto.getNome() : "Produto não encontrado" %></td>
         <td><%= alerta.getDataCriacao() %></td>
-        <td ><%= alerta.getStatus() %></td>
+        <td style="color: <%= alerta.getStatus().equalsIgnoreCase("pendente") ? "red" : "green" %>;">
+            <%= alerta.getStatus() %>
+        </td>
         <td><%= alerta.getTipoAlerta() %></td>
         <td>
-            <form action="<%= request.getContextPath() %>/alertaJSP/updateAlerta.jsp" method="get">
+            <form action="<%= request.getContextPath() %>/alertaJSP/updateEmpresaDoAlerta.jsp" method="get">
                 <input type="hidden" name="id" value="<%= alerta.getId() %>"/>
                 <button type="submit">Update</button>
             </form>

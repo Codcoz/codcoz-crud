@@ -74,8 +74,32 @@ public class NotaFiscalXmlDAO {
         }
         return listNotaFiscalXml; // Retorna a lista com todas as notas
     }
-
-    // Método para buscar uma nota fiscal XML específica pelo ID
+    public List<NotaFiscalXml> buscarPorEmpresa(int idEmpresa) {
+        Conexao conexao = new Conexao();
+        Connection conn = conexao.conectar();
+        ArrayList<NotaFiscalXml> listnotaFiscalXml = new ArrayList<>();
+        ResultSet rs;
+        String sql = "SELECT * FROM nota_fiscal_xml WHERE id_empresa = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,idEmpresa);
+            rs= pstmt.executeQuery();
+            while (rs.next()) {
+                NotaFiscalXml notaFiscalXml = new NotaFiscalXml(
+                        rs.getInt("id"),
+                        rs.getInt("id_empresa"),
+                        rs.getDate("data_emissao"),
+                        rs.getString("xml_string"),
+                        rs.getString("numero_nota")
+                );
+                listnotaFiscalXml.add(notaFiscalXml);
+            }
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+        conexao.desconectar(conn);
+        return listnotaFiscalXml;
+    }
     public NotaFiscalXml buscarPorId(int id) {
         NotaFiscalXml nota = null; // Inicializa o objeto como nulo
         try (Connection conn = new Conexao().conectar(); // Conecta ao banco (try-with-resources fecha automaticamente)

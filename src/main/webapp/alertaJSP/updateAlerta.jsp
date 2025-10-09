@@ -12,13 +12,6 @@
     Integer id = Integer.parseInt(request.getParameter("id"));
     Alerta alerta = new AlertaDAO().buscarPorId(id);
     List<Produto> produtos = new ProdutoDAO().read();
-    Empresa empresa = null;
-    if (alerta != null) {
-        Produto produto = new ProdutoDAO().buscarPorId(alerta.getIdProduto());
-        if (produto != null) {
-            empresa = new EmpresaDAO().buscarPorId(produto.getIdEmpresa());
-        }
-    }
 %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -27,15 +20,14 @@
     <title>Atualizar Alerta</title>
 </head>
 <body>
+
 <% if (alerta != null) { %>
 <h2>Atualizar Alerta de ID <%= alerta.getId() %></h2>
 
 <form action="<%= request.getContextPath() %>/ServletUpdateAlerta" method="post">
     <input type="hidden" name="id" value="<%= alerta.getId() %>"/>
 
-    <label>Empresa:</label>
-    <input type="text" value="<%= empresa != null ? empresa.getNome() : "Empresa não encontrada" %>" readonly>
-    <br><br>
+    <% Empresa empresa = new EmpresaDAO().buscarPorId(Integer.parseInt(request.getParameter("idEmpresa"))); %>
 
     <label for="idProduto">Produto:</label>
     <select id="idProduto" name="idProduto" required>

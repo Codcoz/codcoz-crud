@@ -38,6 +38,7 @@
 
     <label for="status">Status:</label>
     <select id="status" name="status" required>
+        <option value="">Selecione o status</option>
         <option value="Pendente">Pendente</option>
         <option value="Resolvido">Resolvido</option>
         <option value="Ignorado">Ignorado</option>

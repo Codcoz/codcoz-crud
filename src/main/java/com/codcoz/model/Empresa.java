@@ -41,4 +41,15 @@ public class    Empresa {
     public String getEmail() {
         return email;
     }
+
+    @Override
+    public String toString() {
+        return "Empresa{" +
+                "id=" + id +
+                ", idEndereco=" + idEndereco +
+                ", nome='" + nome + '\'' +
+                ", cnpj='" + cnpj + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

@@ -16,39 +16,28 @@
     <input type="text" id="cidade" name="cidade" placeholder="cidade" maxlength="80" required><br><br>
 
     <label for="estado">Estado:</label>
+    <%
+        String[] estados = {
+                "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS",
+                "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC",
+                "SP", "SE", "TO" };
+    %>
+
     <select name="estado" id="estado" required>
         <option value="">Selecione...</option>
-        <option value="AC">AC</option>
-        <option value="AL">AL</option>
-        <option value="AP">AP</option>
-        <option value="AM">AM</option>
-        <option value="BA">BA</option>
-        <option value="CE">CE</option>
-        <option value="DF">DF</option>
-        <option value="ES">ES</option>
-        <option value="GO">GO</option>
-        <option value="MA">MA</option>
-        <option value="MT">MT</option>
-        <option value="MS">MS</option>
-        <option value="MG">MG</option>
-        <option value="PA">PA</option>
-        <option value="PB">PB</option>
-        <option value="PR">PR</option>
-        <option value="PE">PE</option>
-        <option value="PI">PI</option>
-        <option value="RJ">RJ</option>
-        <option value="RN">RN</option>
-        <option value="RS">RS</option>
-        <option value="RO">RO</option>
-        <option value="RR">RR</option>
-        <option value="SC">SC</option>
-        <option value="SP">SP</option>
-        <option value="SE">SE</option>
-        <option value="TO">TO</option>
-    </select><br><br>
+        <%
+            for (int i = 0; i < estados.length; i++) {
+        %>
+        <option value="<%= estados[i] %>"><%= estados[i] %></option>
+        <%
+            }
+        %>
+    </select>
+    <br><br>
 
     <label for="cep">CEP:</label>
     <input type="text" id="cep" name="cep" placeholder="cep" maxlength="8" ><br><br>
+    <input type="text" id="cep" name="cep" placeholder="cep" >
     <c:if test="${not empty erroCep}">
         <p style="color:red">${erroCep}</p>
     </c:if>
