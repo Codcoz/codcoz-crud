@@ -21,14 +21,18 @@
 
     <label for="cpf">CPF:</label>
     <input type="text" id="cpf" name="cpf" placeholder="CPF" required>
+    <br><br>
     <c:if test="${not empty erroCpf}">
         <p style="color:red">${erroCpf}</p>
     </c:if>
 
-    <br><br>
 
     <label for="funcao">Função:</label>
-    <input type="text" id="funcao" name="funcao" placeholder="Função" required>
+    <select id="funcao" name="funcao" required>
+        <option value="" disabled selected>Selecione a função</option>
+        <option value="Estoquista">Estoquista</option>
+        <option value="Gestor">Gestor</option>
+    </select>
     <br><br>
     <label for="idEmpresa">Empresa:</label>
     <%
@@ -43,6 +47,7 @@
         <% } %>
     </select>
     <a href="../empresaJSP/createEmpresa.jsp">Criar Empresa</a>
+    <br><br>
     <button type="submit">Criar</button>
 </form>
 

@@ -10,19 +10,19 @@ import java.util.List;
 public class ProdutoDAO {
 
     public boolean create(Produto produto) {
-        String sql = "INSERT INTO Produto (id_estoque, id_nota_fiscal, id_empresa, unidade_medida, nome, estoque_minimo, categoria, quantidade) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Produto (id_estoque, id_nota_fiscal, nome, categoria, unidade_medida, quantidade, estoque_minimo) VALUES (?, ?, ?, ?, ?, ?, ?)";
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, produto.getIdEstoque());
             pstmt.setInt(2, produto.getIdNotaFiscal());
-            pstmt.setInt(3, produto.getIdEmpresa());
-            pstmt.setString(4, produto.getUnidadeMedida());
-            pstmt.setString(5, produto.getNome());
-            pstmt.setDouble(6, produto.getEstoqueMinimo());
-            pstmt.setString(7, produto.getCategoria());
-            pstmt.setInt(8, produto.getQuantidade());
+            pstmt.setString(3, produto.getNome());
+            pstmt.setString(4, produto.getCategoria());
+            pstmt.setString(5, produto.getUnidadeMedida());
+            pstmt.setInt(6, produto.getQuantidade());
+            pstmt.setDouble(7, produto.getEstoqueMinimo());
+
             if (pstmt.executeUpdate() > 0) {
                 System.out.println("Produto criado com sucesso");
                 return true;
@@ -134,16 +134,15 @@ public class ProdutoDAO {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try {
-            PreparedStatement pstmt = conn.prepareStatement("UPDATE produto SET id_estoque = ?, id_nota_fiscal = ?, id_empresa = ?, unidade_medida = ?, nome = ?, estoque_minimo = ?, categoria = ?, quantidade = ? WHERE id = ?");
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE produto SET id_estoque = ?, id_nota_fiscal = ?, unidade_medida = ?, nome = ?, estoque_minimo = ?, categoria = ?, quantidade = ? WHERE id = ?");
             pstmt.setInt(1, produto.getIdEstoque());
             pstmt.setInt(2, produto.getIdNotaFiscal());
-            pstmt.setInt(3, produto.getIdEmpresa());
-            pstmt.setString(4, produto.getUnidadeMedida());
-            pstmt.setString(5, produto.getNome());
-            pstmt.setDouble(6, produto.getEstoqueMinimo());
-            pstmt.setString(7, produto.getCategoria());
-            pstmt.setInt(8, produto.getQuantidade());
-            pstmt.setInt(9, produto.getId());
+            pstmt.setString(3, produto.getUnidadeMedida());
+            pstmt.setString(4, produto.getNome());
+            pstmt.setDouble(5, produto.getEstoqueMinimo());
+            pstmt.setString(6, produto.getCategoria());
+            pstmt.setInt(7, produto.getQuantidade());
+            pstmt.setInt(8, produto.getId());
             if (pstmt.executeUpdate() > 0) {
                 System.out.println("Produto atualizado com sucesso");
                 return 1;

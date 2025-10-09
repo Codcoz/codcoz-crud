@@ -56,7 +56,6 @@ public class EmpresaDAO {
                 );
                 empresaList.add(empresa);
             }
-            System.out.println("read de empresa com sucesso");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }
