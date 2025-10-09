@@ -8,6 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Endereços</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
 </head>
 <body>
 <aside>

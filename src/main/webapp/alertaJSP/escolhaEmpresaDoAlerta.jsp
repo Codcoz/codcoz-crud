@@ -9,6 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Criar Alerta</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
 </head>
 <body>
 <h2>Empresa do alerta:</h2>

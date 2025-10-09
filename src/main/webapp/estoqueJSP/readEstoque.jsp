@@ -8,6 +8,7 @@
 <html>
 <head>
     <title>Lista de Estoques</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
 </head>
 <body>
 <h2>Lista de Estoques</h2>

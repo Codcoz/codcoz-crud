@@ -19,6 +19,7 @@
 <html>
 <head>
     <title>Atualizar Estoque</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
 </head>
 <body>
 <% if (estoque != null) { %>
