@@ -20,7 +20,6 @@
 
     <label for="cnpj">CNPJ:</label>
     <input type="text" id="cnpj" name="cnpj" placeholder="CNPJ" required>
-    <br><br>
     <c:if test="${not empty erroCnpj}">
         <p style="color:red">${erroCnpj}</p>
     </c:if>
@@ -42,11 +41,6 @@
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" placeholder="Email da empresa" required>
     <br><br>
-
-    <c:if test="${not empty erroCnpj}">
-        <p style="color:red">${erroCnpj}</p>
-    </c:if>
-
     <c:if test="${not empty erroEmail}">
         <p style="color:red">${erroEmail}</p>
     </c:if>

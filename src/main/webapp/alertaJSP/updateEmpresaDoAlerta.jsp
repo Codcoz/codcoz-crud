@@ -8,20 +8,20 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Criar Alerta</title>
+    <title>Editar Alerta</title>
 </head>
 <body>
-<h2>Empresa do alerta:</h2>
-
-<form action="<%= request.getContextPath() %>/alertaJSP/createAlerta.jsp" method="post">
+<h2>Editar Empresa do alerta:</h2>
+<form action="<%= request.getContextPath() %>/alertaJSP/updateAlerta.jsp" method="post">
+    <input type="hidden" value="<%=request.getParameter("id")%>" name="id">
     <label for="idEmpresa">Empresa: </label>
-    <select name="idEmpresa" id="idEmpresa">
+    <select name="idEmpresa" id="idEmpresa" required>
         <option value="">Selecione...</option>
         <%
             List<Empresa> empresas = new EmpresaDAO().read();
-            for (Empresa empresa : empresas){
+            for (Empresa emp : empresas) {
         %>
-        <option value="<%= empresa.getId() %>"><%= empresa.getNome() %></option>
+        <option value="<%= emp.getId() %>"><%= emp.getNome() %></option>
         <%
             }
         %>

@@ -62,7 +62,6 @@ public class AlertaDAO {
             if (rs.next()) {
                 return new Alerta(
                         rs.getInt("id"),
-                        rs.getInt("id_empresa"),
                         rs.getInt("id_produto"),
                         rs.getDate("data_criacao"),
                         rs.getString("status"),

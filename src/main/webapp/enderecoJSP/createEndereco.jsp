@@ -36,7 +36,7 @@
     <br><br>
 
     <label for="cep">CEP:</label>
-    <input type="text" id="cep" name="cep" placeholder="cep" ><br><br>
+    <input type="text" id="cep" name="cep" placeholder="cep" >
     <c:if test="${not empty erroCep}">
         <p style="color:red">${erroCep}</p>
     </c:if>
