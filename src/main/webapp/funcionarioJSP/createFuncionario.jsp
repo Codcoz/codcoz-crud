@@ -21,12 +21,9 @@
 
     <label for="cpf">CPF:</label>
     <input type="text" id="cpf" name="cpf" placeholder="CPF" required>
-    <br><br>
     <c:if test="${not empty erroCpf}">
         <p style="color:red">${erroCpf}</p>
     </c:if>
-
-
     <label for="funcao">Função:</label>
     <select id="funcao" name="funcao" required>
         <option value="" disabled selected>Selecione a função</option>

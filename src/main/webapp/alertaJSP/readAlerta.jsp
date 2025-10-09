@@ -56,7 +56,7 @@
         </td>
         <td><%= alerta.getTipoAlerta() %></td>
         <td>
-            <form action="<%= request.getContextPath() %>/alertaJSP/escolhaEmpresaDoAlerta.jsp" method="get">
+            <form action="<%= request.getContextPath() %>/alertaJSP/updateEmpresaDoAlerta.jsp" method="get">
                 <input type="hidden" name="id" value="<%= alerta.getId() %>"/>
                 <button type="submit">Update</button>
             </form>
