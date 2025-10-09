@@ -12,8 +12,8 @@
     <label for="tipoEstoque">Tipo de Estoque:</label>
     <input type="text" id="tipoEstoque" name="tipoEstoque" required><br><br>
 
-    <label for="capacidade">Capacidade:</label>
-    <input type="number" id="capacidade" name="capacidade(Kg/L)" required><br><br>
+    <label for="capacidade">Capacidade(Kg/L):</label>
+    <input type="number" id="capacidade" step="1" name="capacidade" required><br><br>
 
     <label for="idEmpresa">Empresa:</label>
     <%

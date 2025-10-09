@@ -20,12 +20,10 @@
 
     <label for="cnpj">CNPJ:</label>
     <input type="text" id="cnpj" name="cnpj" placeholder="CNPJ" required>
+    <br><br>
     <c:if test="${not empty erroCnpj}">
         <p style="color:red">${erroCnpj}</p>
     </c:if>
-
-    <br><br>
-
     <label for="idEndereco">Endereço:</label>
     <%
         List<Endereco> enderecos = new EnderecoDAO().read();

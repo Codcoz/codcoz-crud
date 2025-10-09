@@ -51,6 +51,7 @@
 
     <label for="unidadeMedida">Unidade de medida:</label>
     <select id="unidadeMedida" name="unidadeMedida" required>
+        <option value="">Selecione uma Unidade de Medida</option>
         <option value="kg">Kg</option>
         <option value="g">g</option>
         <option value="L">L</option>
@@ -65,7 +66,7 @@
     <br><br>
 
     <label for="estoqueMinimo">Estoque Mínimo:</label>
-    <input type="number" step="0.01" id="estoqueMinimo" name="estoqueMinimo" placeholder="Ex:1"required>
+    <input type="number" step="1" id="estoqueMinimo" name="estoqueMinimo" placeholder="Ex:1"required>
     <br><br>
 
     <label for="categoria">Categoria:</label>
@@ -73,7 +74,7 @@
     <br><br>
 
     <label for="quantidade">Quantidade:</label>
-    <input type="number" id="quantidade" name="quantidade" placeholder="Ex:1"required>
+    <input type="number" step="1" id="quantidade" name="quantidade" placeholder="Ex:1"required>
     <br><br>
 
     <button type="submit">Criar Produto</button>

@@ -33,7 +33,6 @@ public class ServletCreateProduto extends HttpServlet {
         }
 
         request.setAttribute("mensagem", mensagem);
-        dao.create(produto);
         List<Produto> lista = dao.read();
 
         request.setAttribute("listaProdutos", lista);
