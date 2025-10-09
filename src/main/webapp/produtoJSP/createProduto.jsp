@@ -36,17 +36,17 @@
     <a href="../estoqueJSP/createEstoque.jsp">Criar Estoque</a>
     <br><br>
 
-    <label for="idNotaFiscal">Nota fiscal:</label>
+    <label for="idNotaFiscal">Nota Fiscal XML:</label>
     <select id="idNotaFiscal" name="idNotaFiscal" required>
-        <option value="">Selecione um estoque</option>
+        <option value="">Selecione uma Nota fiscal xml</option>
         <%
-            List<NotaFiscalXml> notaFiscalXmls = new NotaFiscalXmlDAO().read();
+            List<NotaFiscalXml> notaFiscalXmls = new NotaFiscalXmlDAO().buscarPorEmpresa(idEmpresa);
             for (NotaFiscalXml n : notaFiscalXmls) {
         %>
         <option value="<%= n.getId() %>"><%= n.getNumeroNota() %></option>
         <% } %>
     </select>
-    <a href="../notaFiscalXmlJSP/createNotaFiscalXml.jsp">Criar nota fiscal</a>
+    <a href="../notaFiscalXmlJSP/createNotaFiscalXml.jsp">Criar Nota fiscal xml</a>
     <br><br>
 
     <label for="unidadeMedida">Unidade de medida:</label>
