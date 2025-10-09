@@ -28,7 +28,7 @@
     <input type="hidden" name="id" value="<%= estoque.getId() %>"/>
 
     <label for="tipoEstoque">Tipo de Estoque:</label>
-    <input type="text" id="tipoEstoque" name="tipoEstoque" value="<%= estoque.getTipoEstoque() %>" required><br><br>
+    <input type="text" id="tipoEstoque" name="tipoEstoque" value="<%= estoque.getTipoEstoque() %>" maxlength="30" required><br><br>
 
     <label for="capacidade">Capacidade:</label>
     <input type="number" id="capacidade" name="capacidade" value="<%= estoque.getCapacidade() %>" required><br><br>

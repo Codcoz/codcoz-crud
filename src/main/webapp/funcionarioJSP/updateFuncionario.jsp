@@ -36,18 +36,18 @@
     <label for="nome">Nome:</label>
     <input type="text" id="nome" name="nome"
            value="<%= funcionario.getNome() %>"
-           required placeholder="Ex: Ana">
+           maxlength="50" placeholder="Ex: Ana">
     <br><br>
 
     <label for="sobrenome">Sobrenome:</label>
     <input type="text" id="sobrenome" name="sobrenome"
            value="<%= funcionario.getSobrenome() %>"
-           required placeholder="Ex: Silva">
+            maxlength="50" placeholder="Ex: Silva">
     <br><br>
 
     <label for="cpf">CPF:</label>
     <input type="text" id="cpf" name="cpf"
-           value="<%= funcionario.getCpf() %>"
+           value="<%= funcionario.getCpf() %>" maxlength="11"
            required placeholder="Ex: 123.456.789-00">
     <br><br>
 

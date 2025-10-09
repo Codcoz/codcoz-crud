@@ -13,14 +13,14 @@
 
 <form action="<%= request.getContextPath() %>/ServletCreateFuncionario" method="post">
     <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" placeholder="Nome" required>
+    <input type="text" id="nome" name="nome" placeholder="Nome" maxlength="50" required>
     <br><br>
     <label for="sobrenome">Sobrenome:</label>
-    <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome" required>
+    <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome" maxlength="50" required>
     <br><br>
 
     <label for="cpf">CPF:</label>
-    <input type="text" id="cpf" name="cpf" placeholder="CPF" required>
+    <input type="text" id="cpf" name="cpf" placeholder="CPF" maxlength="11"  required>
     <c:if test="${not empty erroCpf}">
         <p style="color:red">${erroCpf}</p>
     </c:if>
@@ -28,7 +28,7 @@
     <br><br>
 
     <label for="funcao">Função:</label>
-    <input type="text" id="funcao" name="funcao" placeholder="Função" required>
+    <input type="text" id="funcao" name="funcao" placeholder="Função" maxlength="50" required>
     <br><br>
     <label for="idEmpresa">Empresa:</label>
     <%

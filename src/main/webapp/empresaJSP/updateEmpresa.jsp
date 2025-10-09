@@ -28,10 +28,10 @@
     <input type="hidden" name="id" value="<%= empresa.getId() %>"/>
 
     <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" value="<%= empresa.getNome() %>" required placeholder="Ex: Codcoz Ltda"><br><br>
+    <input type="text" id="nome" name="nome" value="<%= empresa.getNome() %>" maxlength="150" required placeholder="Ex: Codcoz Ltda"><br><br>
 
     <label for="cnpj">CNPJ:</label>
-    <input type="text" id="cnpj" name="cnpj" value="<%= empresa.getCnpj() %>" required placeholder="Ex: 12.345.678/0001-90"><br><br>
+    <input type="text" id="cnpj" name="cnpj" value="<%= empresa.getCnpj() %>" maxlength="14" required placeholder="Ex: 12.345.678/0001-90"><br><br>
 
     <label for="idEndereco">Endereço:</label>
     <select id="idEndereco" name="idEndereco" required>

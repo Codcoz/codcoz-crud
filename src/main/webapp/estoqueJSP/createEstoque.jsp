@@ -10,7 +10,7 @@
 
 <form action="<%= request.getContextPath() %>/ServletCreateEstoque" method="post">
     <label for="tipoEstoque">Tipo de Estoque:</label>
-    <input type="text" id="tipoEstoque" name="tipoEstoque" required><br><br>
+    <input type="text" id="tipoEstoque" name="tipoEstoque" maxlength="30" required><br><br>
 
     <label for="capacidade">Capacidade:</label>
     <input type="number" id="capacidade" name="capacidade(Kg/L)" required><br><br>

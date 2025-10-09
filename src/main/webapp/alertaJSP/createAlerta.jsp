@@ -33,7 +33,7 @@
     <br><br>
 
     <label for="dataCriacao">Data de Criação:</label>
-    <input type="date" id="dataCriacao" name="dataCriacao" required>
+    <input type="date" id="dataCriacao" name="dataCriacao"  required>
     <br><br>
 
     <label for="status">Status:</label>
@@ -45,7 +45,7 @@
     <br><br>
 
     <label for="tipoAlerta">Tipo de Alerta:</label>
-    <input type="text" id="tipoAlerta" name="tipoAlerta" placeholder="Ex: Estoque baixo" required>
+    <input type="text" id="tipoAlerta" name="tipoAlerta" maxlength="50" placeholder="Ex: Estoque baixo" required>
     <br><br>
 
     <button type="submit">Criar</button>

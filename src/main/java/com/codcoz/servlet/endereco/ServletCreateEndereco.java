@@ -44,7 +44,6 @@ public class ServletCreateEndereco extends HttpServlet {
         }
 
         // ==== Validação do CEP ====
-        // Aceita 00000-000 ou 00000000
         if (cep == null || !cep.matches("^\\d{5}-?\\d{3}$")) {
             request.setAttribute("erroCep", "CEP inválido. Use o formato 00000-000 ou 00000000.");
             temErro = true;
@@ -66,7 +65,6 @@ public class ServletCreateEndereco extends HttpServlet {
         }
 
         // ==== Normalização ====
-        // Remove tudo que não for número do CEP
         String cepNormalizado = cep.replaceAll("\\D", "");
 
         // ==== Criação do objeto ====
@@ -79,33 +77,43 @@ public class ServletCreateEndereco extends HttpServlet {
                 numero
         );
 
-        // ==== Chama o DAO ====
-        EnderecoDAO dao = new EnderecoDAO();
-        boolean criado = dao.create(endereco);
+        try {
+            // ==== Chama o DAO ====
+            EnderecoDAO dao = new EnderecoDAO();
+            boolean criado = dao.create(endereco);
 
-        // ==== Monta resumo e mensagem ====
-        String resumo = String.format("(%s) %s, rua %s, nº %s — %s",
-                endereco.getCep(),
-                endereco.getCidade(),
-                endereco.getRua(),
-                endereco.getNumero(),
-                endereco.getEstado());
+            // ==== Monta resumo e mensagem ====
+            String resumo = String.format("(%s) %s, rua %s, nº %s — %s",
+                    endereco.getCep(),
+                    endereco.getCidade(),
+                    endereco.getRua(),
+                    endereco.getNumero(),
+                    endereco.getEstado());
 
-        String mensagem;
-        if (criado) {
-            mensagem = "A criação do endereço " + resumo + " foi realizada com sucesso.";
-        } else {
-            mensagem = "A criação do endereço " + resumo + " falhou: erro interno. " +
-                    "Entre em contato pelo e-mail contato.codcoz@gmail.com.";
+            String mensagem;
+            if (criado) {
+                mensagem = "A criação do endereço " + resumo + " foi realizada com sucesso.";
+            } else {
+                mensagem = "A criação do endereço " + resumo + " falhou: erro interno. " +
+                        "Entre em contato pelo e-mail contato.codcoz@gmail.com.";
+            }
+
+            request.setAttribute("mensagem", mensagem);
+
+            // ==== Recarrega listagem ====
+            List<Endereco> lista = dao.read();
+            request.setAttribute("listaEnderecos", lista);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/enderecoJSP/readEndereco.jsp");
+            dispatcher.forward(request, response);
+
+        } catch (Exception e) {
+            // ==== Tratamento de erro ====
+            e.printStackTrace(); // ou use um Logger em produção
+
+            request.setAttribute("mensagem", "Erro interno ao processar o endereço. Tente novamente mais tarde.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/enderecoJSP/createEndereco.jsp");
+            dispatcher.forward(request, response);
         }
-
-        request.setAttribute("mensagem", mensagem);
-
-        // ==== Recarrega listagem ====
-        List<Endereco> lista = dao.read();
-        request.setAttribute("listaEnderecos", lista);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/enderecoJSP/readEndereco.jsp");
-        dispatcher.forward(request, response);
     }
 }
