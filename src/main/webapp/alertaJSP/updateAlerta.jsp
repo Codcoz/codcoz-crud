@@ -55,7 +55,7 @@
 
     <label for="tipoAlerta">Tipo de Alerta:</label>
     <input type="text" id="tipoAlerta" name="tipoAlerta"
-           value="<%= alerta.getTipoAlerta() %>" required placeholder="Ex: Estoque baixo"><br><br>
+           value="<%= alerta.getTipoAlerta() %>" maxlength="50" required placeholder="Ex: Estoque baixo"><br><br>
 
     <button type="submit">Atualizar</button>
 </form>

@@ -33,19 +33,20 @@
 
     <label for="rua">Rua:</label>
     <input type="text" id="rua" name="rua"
-           value="<%= endereco.getRua() %>"
+           value="<%= endereco.getRua() %>" maxlength="100"
            required placeholder="Ex: Av. Paulista">
     <br><br>
 
     <label for="complemento">Complemento:</label>
     <input type="text" id="complemento" name="complemento"
-           value="<%= endereco.getComplemento() %>"
+           value="<%= endereco.getComplemento() %>" maxlength="50"
            placeholder="Ex: Apto 101, Fundos">
     <br><br>
 
     <label for="cidade">Cidade:</label>
     <input type="text" id="cidade" name="cidade"
            value="<%= endereco.getCidade() %>"
+           maxlength="80"
            required placeholder="Ex: São Paulo">
     <br><br>
 
@@ -84,13 +85,13 @@
 
     <label for="cep">CEP:</label>
     <input type="text" id="cep" name="cep"
-           value="<%= endereco.getCep() %>"
+           value="<%= endereco.getCep() %>" maxlength="8"
            required placeholder="Ex: 01311000">
     <br><br>
 
     <label for="numero">Número:</label>
     <input type="text" id="numero" name="numero"
-           value="<%= endereco.getNumero() %>"
+           value="<%= endereco.getNumero() %>" maxlength="10"
            required placeholder="Ex: 1578">
     <br><br>
 

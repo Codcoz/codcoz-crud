@@ -15,11 +15,11 @@
 
 <form action="<%= request.getContextPath() %>/ServletCreateEmpresa" method="post">
     <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" placeholder="Nome da empresa" required>
+    <input type="text" id="nome" name="nome" placeholder="Nome da empresa" maxlength="150" required>
     <br><br>
 
     <label for="cnpj">CNPJ:</label>
-    <input type="text" id="cnpj" name="cnpj" placeholder="CNPJ" required>
+    <input type="text" id="cnpj" name="cnpj" placeholder="CNPJ" maxlength="14" required>
     <c:if test="${not empty erroCnpj}">
         <p style="color:red">${erroCnpj}</p>
     </c:if>

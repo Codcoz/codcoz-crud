@@ -7,13 +7,13 @@
 <h1>Criar Endereço</h1>
 <form action="<%=request.getContextPath()%>/ServletCreateEndereco" method="post">
     <label for="rua">Rua:</label>
-    <input type="text" id="rua" name="rua" placeholder="rua"><br><br>
+    <input type="text" id="rua" name="rua" placeholder="rua" max="100" required><br><br>
 
     <label for="complemento">Complemento:</label>
-    <input type="text" id="complemento" name="complemento" placeholder="complemento"><br><br>
+    <input type="text" id="complemento" name="complemento" placeholder="complemento" maxlength="50" required><br><br>
 
     <label for="cidade">Cidade:</label>
-    <input type="text" id="cidade" name="cidade" placeholder="cidade"><br><br>
+    <input type="text" id="cidade" name="cidade" placeholder="cidade" maxlength="80" required><br><br>
 
     <label for="estado">Estado:</label>
     <%
@@ -36,6 +36,7 @@
     <br><br>
 
     <label for="cep">CEP:</label>
+    <input type="text" id="cep" name="cep" placeholder="cep" maxlength="8" ><br><br>
     <input type="text" id="cep" name="cep" placeholder="cep" >
     <c:if test="${not empty erroCep}">
         <p style="color:red">${erroCep}</p>
@@ -43,7 +44,7 @@
 
 
     <label for="numero">Número:</label>
-    <input type="text" id="numero" name="numero" placeholder="numero"><br><br>
+    <input type="text" id="numero" name="numero" placeholder="numero" maxlength="10"><br><br>
 
     <button type="submit">CRIAR</button><br><br>
 
