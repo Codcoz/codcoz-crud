@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Criar Estoque</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
 </head>
 <body>
 <h2>Criar Estoque</h2>

@@ -12,6 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Alertas</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
 </head>
 <body>
 

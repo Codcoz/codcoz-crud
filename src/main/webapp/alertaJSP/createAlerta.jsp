@@ -11,8 +11,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Criar Alerta</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
 </head>
 <body>
+
 <h2>Criar Alerta</h2>
 <form action="<%= request.getContextPath() %>/ServletCreateAlerta" method="post">
     <% int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));

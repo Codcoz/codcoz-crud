@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Criar Endereço</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
 </head>
 <body>
 <h1>Criar Endereço</h1>

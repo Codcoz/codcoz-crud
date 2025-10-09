@@ -8,6 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Atualizar Endereço</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
 </head>
 <body>
 <%
