@@ -9,6 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Criar Nota Fiscal XML</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
 </head>
 <body>
 <h2>Criar Nota Fiscal XML</h2>

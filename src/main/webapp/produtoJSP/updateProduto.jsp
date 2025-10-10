@@ -25,6 +25,7 @@
 <html>
 <head>
     <title>Atualizar Produto</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
 </head>
 <body>
 <% if (produto != null) { %>

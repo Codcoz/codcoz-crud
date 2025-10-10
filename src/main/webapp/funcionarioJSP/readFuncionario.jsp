@@ -10,6 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Funcionários</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
 </head>
 <body>
 

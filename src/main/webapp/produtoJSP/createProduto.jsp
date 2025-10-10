@@ -14,6 +14,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Criar Produto</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
 </head>
 <body>
 <h2>Criar Produto</h2>
