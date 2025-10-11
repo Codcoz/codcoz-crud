@@ -16,47 +16,67 @@
     }
 %>
 
-<html>
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
+    <meta charset="UTF-8">
     <title>Atualizar Empresa</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<% if (empresa != null) { %>
-<h2>Atualizar Empresa de ID <%= empresa.getId() %></h2>
+<div class="container">
 
-<form action="<%=request.getContextPath()%>/ServletUpdateEmpresa" method="post">
-    <input type="hidden" name="id" value="<%= empresa.getId() %>"/>
+    <jsp:include page="./../barraLateral.jsp" />
 
-    <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" value="<%= empresa.getNome() %>" maxlength="150" required placeholder="Ex: Codcoz Ltda"><br><br>
+    <main class="content">
+        <header class="topo">
+            <h2>Atualizar Empresa</h2>
+            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo">
+        </header>
 
-    <label for="cnpj">CNPJ:</label>
-    <input type="text" id="cnpj" name="cnpj" value="<%= empresa.getCnpj() %>" maxlength="14" required placeholder="Ex: 12.345.678/0001-90"><br><br>
+        <div class="sub-header">
+            <span class="hover-link ativo">Editar Empresa</span>
+        </div>
 
-    <label for="idEndereco">Endereço:</label>
-    <select id="idEndereco" name="idEndereco" required>
-        <option value="">Selecione um endereço</option>
-        <% for (Endereco e : enderecos) { %>
-        <option value="<%= e.getId() %>" <%= e.getId() == empresa.getIdEndereco() ? "selected" : "" %>>
-            (<%= e.getCep() %>) <%= e.getCidade() %>, rua <%= e.getRua() %>, <%= e.getNumero() %> - <%= e.getEstado() %>
-        </option>
+        <% if (empresa != null) { %>
+        <div class="actions">
+            <form action="<%=request.getContextPath()%>/ServletUpdateEmpresa" method="post" style="max-width: 500px;">
+                <input type="hidden" name="id" value="<%= empresa.getId() %>"/>
+
+                <label for="nome">Nome:</label><br>
+                <input type="text" id="nome" name="nome" class="input-redondo" value="<%= empresa.getNome() %>" maxlength="150" required placeholder="Ex: Codcoz Ltda"><br><br>
+
+                <label for="cnpj">CNPJ:</label><br>
+                <input type="text" id="cnpj" name="cnpj" class="input-redondo" value="<%= empresa.getCnpj() %>" maxlength="14" required placeholder="Ex: 12.345.678/0001-90"><br><br>
+
+                <label for="idEndereco">Endereço:</label><br>
+                <select id="idEndereco" name="idEndereco" class="select-redondo" required>
+                    <option value="">Selecione um endereço</option>
+                    <% for (Endereco e : enderecos) { %>
+                    <option value="<%= e.getId() %>" <%= e.getId() == empresa.getIdEndereco() ? "selected" : "" %>>
+                        (<%= e.getCep() %>) <%= e.getCidade() %>, rua <%= e.getRua() %>, <%= e.getNumero() %> - <%= e.getEstado() %>
+                    </option>
+                    <% } %>
+                </select>
+                <br>
+                <a href="../enderecoJSP/createEndereco.jsp" class="hover-link">Criar Endereço</a>
+                <br><br>
+
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email" class="input-redondo" value="<%= empresa.getEmail() %>" required placeholder="Ex: contato@empresa.com.br"><br><br>
+
+                <button type="submit" class="novo">✔</button>
+            </form>
+        </div>
+        <% } else { %>
+        <p style="color: red;">Empresa não encontrada.</p>
         <% } %>
-    </select>
-    <a href="../enderecoJSP/createEndereco.jsp">Criar Endereco</a>
-    <br><br>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" value="<%= empresa.getEmail() %>" required placeholder="Ex: contato@empresa.com.br"><br><br>
-
-    <button type="submit">Update</button>
-</form>
-<% } else { %>
-<p>Empresa não encontrada.</p>
-<% } %>
-
-<br><br>
-<a href="<%=request.getContextPath()%>/ServletReadEmpresa">Voltar à lista</a> <br><br>
-<a href="<%=request.getContextPath()%>/index.html">Voltar ao início</a>
+        <br>
+        <a href="<%=request.getContextPath()%>/ServletReadEmpresa" class="hover-link">Voltar à lista</a><br>
+        <a href="<%=request.getContextPath()%>/index.html" class="hover-link">Voltar ao início</a>
+    </main>
+</div>
 </body>
 </html>

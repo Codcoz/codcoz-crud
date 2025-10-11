@@ -117,9 +117,8 @@ body {
 }
 
 .logo {
-    width: 100px;
+    width: 70px;
     object-fit: contain;
-    width: 40px;
 }
 
 .sub-header {
@@ -187,14 +186,19 @@ body {
 }
 
 .novo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #1a263d;
     color: white;
     border: none;
-    border-radius: 20px;
-    padding: 6px 15px;
-    font-size: 13px;
+    border-radius: 15px;
+    padding: 5%;
+    font-size: 20px;
     cursor: pointer;
     transition: 0.3s;
+    width: 50px;
+    height: 50px;
 }
 
 .novo:hover {
@@ -262,3 +266,50 @@ td.acoes img {
 td.acoes img:hover {
     transform: scale(1.1);
 }
+
+/*input update e create*/
+
+.input-redondo {
+    width: 100%;
+    max-width: 350px;
+    height: 40px;
+    padding: 0 15px;
+    border: 0.5px #999 solid;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+}
+
+.input-redondo::placeholder {
+    color: #999;
+}
+
+.input-redondo:focus {
+    box-shadow: 0 0 0 2px rgba(213, 190, 101, 0.4);
+}
+.select-redondo {
+    width: 100%;
+    max-width: 380px;
+    height: 40px;
+    padding: 0 15px;
+    border: 0.5px solid #999;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    font-size: 14px;
+    color: #333;
+    transition: box-shadow 0.3s ease;
+    background-position: right 12px center;
+    background-size: 10px 7px;
+}
+
+
+.select-redondo:focus {
+    box-shadow: 0 0 0 2px rgba(213, 190, 101, 0.4);
+}
+
+
+
+

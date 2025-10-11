@@ -10,49 +10,63 @@
     <meta charset="UTF-8">
     <title>Criar Empresa</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<h2>Criar Empresa</h2>
+<div class="container">
 
-<form action="<%= request.getContextPath() %>/ServletCreateEmpresa" method="post">
-    <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" placeholder="Nome da empresa" maxlength="150" required>
-    <br><br>
+    <jsp:include page="./../barraLateral.jsp" />
 
-    <label for="cnpj">CNPJ:</label>
-    <input type="text" id="cnpj" name="cnpj" placeholder="CNPJ" maxlength="14" required>
-    <c:if test="${not empty erroCnpj}">
-        <p style="color:red">${erroCnpj}</p>
-    </c:if>
-    <label for="idEndereco">Endereço:</label>
-    <%
-        List<Endereco> enderecos = new EnderecoDAO().read();
-    %>
-    <select id="idEndereco" name="idEndereco" required>
-        <option value="">Selecione um endereço</option>
-        <% for (Endereco e : enderecos) { %>
-        <option value="<%= e.getId() %>">
-            (<%= e.getCep() %>) <%= e.getCidade() %>, rua <%= e.getRua() %>, <%= e.getNumero() %> - <%= e.getEstado() %>
-        </option>
-        <% } %>
-    </select>
-    <a href="../enderecoJSP/createEndereco.jsp">Criar Endereco</a>
-    <br><br>
+    <main class="content">
+        <header class="topo">
+            <h2>Criar Empresa</h2>
+            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo">
+        </header>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" placeholder="Email da empresa" required>
-    <br><br>
-    <c:if test="${not empty erroEmail}">
-        <p style="color:red">${erroEmail}</p>
-    </c:if>
+        <div class="sub-header" >
+            <span class="hover-link ativo">Nova Empresa</span>
+        </div>
 
+        <div class="actions">
+            <form action="<%= request.getContextPath() %>/ServletCreateEmpresa" method="post" style="max-width: 500px;">
+                <label for="nome">Nome:</label><br>
+                <input type="text" id="nome" name="nome" class="input-redondo" placeholder="Nome da empresa" maxlength="150" required><br><br>
 
-    <button type="submit">Criar</button>
-</form>
+                <label for="cnpj">CNPJ:</label><br>
+                <input type="text" id="cnpj" name="cnpj" class="input-redondo" placeholder="CNPJ" maxlength="14" required>
+                <c:if test="${not empty erroCnpj}">
+                    <p style="color:red">${erroCnpj}</p>
+                </c:if>
 
-<br><br>
-<a href="<%= request.getContextPath() %>/ServletReadEmpresa">Voltar à lista</a>
-<br><br>
-<a href="<%= request.getContextPath() %>/index.html">Voltar ao início</a>
+                <label for="idEndereco">Endereço:</label><br>
+                <%
+                    List<Endereco> enderecos = new EnderecoDAO().read();
+                %>
+                <select id="idEndereco" name="idEndereco" class="select-redondo" required>
+                    <option value="">Selecione um endereço</option>
+                    <% for (Endereco e : enderecos) { %>
+                    <option value="<%= e.getId() %>">
+                        (<%= e.getCep() %>) <%= e.getCidade() %>, rua <%= e.getRua() %>, <%= e.getNumero() %> - <%= e.getEstado() %>
+                    </option>
+                    <% } %>
+                </select>
+                <br>
+                <a href="../enderecoJSP/createEndereco.jsp" class="hover-link">Criar Endereço</a>
+                <br><br>
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email" class="input-redondo" placeholder="Email da empresa" required><br>
+                <c:if test="${not empty erroEmail}">
+                    <p style="color:red">${erroEmail}</p>
+                </c:if><br>
+
+                <button type="submit" class="novo">+</button>
+            </form>
+        </div>
+
+        <br>
+        <a href="<%= request.getContextPath() %>/ServletReadEmpresa" class="hover-link">Voltar à lista</a><br>
+        <a href="<%= request.getContextPath() %>/index.html" class="hover-link">Voltar ao início</a>
+    </main>
+</div>
 </body>
 </html>
