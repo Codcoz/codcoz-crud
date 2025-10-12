@@ -26,9 +26,6 @@
         <p style="color:red">${erroCpf}</p>
     </c:if>
     <label for="funcao">Função:</label>
-
-    <input type="text" id="funcao" name="funcao" placeholder="Função" maxlength="50" required>
-
     <select id="funcao" name="funcao" required>
         <option value="" disabled selected>Selecione a função</option>
         <option value="Estoquista">Estoquista</option>

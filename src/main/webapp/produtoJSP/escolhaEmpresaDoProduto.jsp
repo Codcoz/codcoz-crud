@@ -8,26 +8,40 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Criar Produto</title>
+    <title>Empresa do Produto</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
 </head>
 <body>
-<h2>Empresa do Produto</h2>
+<div class="container">
 
-<form action="<%= request.getContextPath() %>/produtoJSP/createProduto.jsp" method="post">
-    <label for="idEmpresa">Empresa: </label>
-    <select name="idEmpresa" id="idEmpresa">
-        <%
-            List<Empresa> empresas = new EmpresaDAO().read();
-            for (Empresa empresa : empresas){
-        %>
-        <option value="<%= empresa.getId() %>"><%= empresa.getNome() %></option>
-        <%
-            }
-        %>
-    </select>
-    <br><br>
-    <button type="submit">Confirmar</button>
-</form>
+    <main class="content">
+        <header class="topo">
+            <h2>Empresa do Produto</h2>
+            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo">
+        </header>
+
+        <form action="<%= request.getContextPath() %>/produtoJSP/createProduto.jsp" method="post">
+            <label for="idEmpresa">Empresa:</label>
+            <select name="idEmpresa" id="idEmpresa" required>
+                <option value="">Selecione...</option>
+                <%
+                    List<Empresa> empresas = new EmpresaDAO().read();
+                    for (Empresa empresa : empresas){
+                %>
+                <option value="<%= empresa.getId() %>"><%= empresa.getNome() %></option>
+                <%
+                    }
+                %>
+            </select>
+            <br><br>
+
+            <button type="submit">Confirmar</button>
+        </form>
+
+        <br>
+        <a href="<%= request.getContextPath() %>/ServletReadProduto" class="hover-link">Voltar à lista de produtos</a><br><br>
+        <a href="<%= request.getContextPath() %>/index.html" class="hover-link">Voltar ao início</a>
+    </main>
+</div>
 </body>
 </html>

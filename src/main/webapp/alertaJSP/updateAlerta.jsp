@@ -11,7 +11,6 @@
 <%
     Integer id = Integer.parseInt(request.getParameter("id"));
     Alerta alerta = new AlertaDAO().buscarPorId(id);
-    List<Produto> produtos = new ProdutoDAO().read();
 %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -28,7 +27,12 @@
 <form action="<%= request.getContextPath() %>/ServletUpdateAlerta" method="post">
     <input type="hidden" name="id" value="<%= alerta.getId() %>"/>
 
-    <% Empresa empresa = new EmpresaDAO().buscarPorId(Integer.parseInt(request.getParameter("idEmpresa"))); %>
+
+    <%
+        int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
+        Empresa empresa = new EmpresaDAO().buscarPorId(idEmpresa);
+        List<Produto> produtos = new ProdutoDAO().buscarPorEmpresa(idEmpresa);
+    %>
 
     <label for="idProduto">Produto:</label>
     <select id="idProduto" name="idProduto" required>

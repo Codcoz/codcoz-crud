@@ -56,7 +56,7 @@
         <td><%= endereco.getCep() %></td>
         <td><%= endereco.getNumero() %></td>
         <td>
-            <form action="<%= request.getContextPath() %>/enderecoJSP/updateEndereco.jsp" method="post">
+            <form action="<%= request.getContextPath() %>/enderecoJSP/updateEndereco.jsp" >
                 <input type="hidden" name="id" value="<%= endereco.getId() %>"/>
                 <button type="submit">Update</button>
             </form>
