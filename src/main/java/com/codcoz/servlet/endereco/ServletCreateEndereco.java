@@ -47,10 +47,8 @@ public class ServletCreateEndereco extends HttpServlet {
             temErro = true;
         }
 
-        // ==== Validação do CEP ====
-        if (cep == null || !cep.matches("^\\d{5}-?\\d{3}$")) {
-            request.setAttribute("erroCep", "CEP inválido. Use o formato 00000-000 ou 00000000.");
-            temErro = true;
+        if (cep == null || cep.trim().isEmpty()) {
+            request.setAttribute("erroCep", "Cep e obrigatorio");
         }
 
         if (temErro) {

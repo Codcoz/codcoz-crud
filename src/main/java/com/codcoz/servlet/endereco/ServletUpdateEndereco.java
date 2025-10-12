@@ -48,9 +48,8 @@ public class ServletUpdateEndereco extends HttpServlet {
             request.setAttribute("erroEstado", "Estado é obrigatório.");
             temErro = true;
         }
-        if (cep == null || !cep.matches("^\\d{5}-?\\d{3}$")) {
-            request.setAttribute("erroCep", "CEP inválido. Use 00000-000 ou apenas números.");
-            temErro = true;
+        if (cep == null || cep.trim().isEmpty()) {
+            request.setAttribute("erroCep", "Cep e obrigatorio");
         }
         if (numero == null || numero.trim().isEmpty()) {
             request.setAttribute("erroNumero", "Número é obrigatório.");

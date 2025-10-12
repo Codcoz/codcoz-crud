@@ -87,7 +87,7 @@
     <label for="cep">CEP:</label>
     <input type="text" id="cep" name="cep"
            value="<%= endereco.getCep() %>" maxlength="8"
-           required placeholder="Ex: 01311000">
+           pattern="^\d{5}-?\d{3}$" required placeholder="Ex: 01311000">
     <br><br>
 
     <label for="numero">Número:</label>
