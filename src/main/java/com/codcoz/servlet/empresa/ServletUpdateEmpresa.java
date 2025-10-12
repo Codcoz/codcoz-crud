@@ -53,8 +53,8 @@ public class ServletUpdateEmpresa extends HttpServlet {
             temErro = true;
         }
 
-        if (email == null || !email.matches("^[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,}$")) {
-            request.setAttribute("erroEmail", "E-mail inválido.");
+        if (email == null || !email.matches("^[\\w.%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}(?:\\.br)?$")) {
+            request.setAttribute("erroEmail", "E-mail inválido. Use um formato como nome@dominio.com");
             temErro = true;
         }
 

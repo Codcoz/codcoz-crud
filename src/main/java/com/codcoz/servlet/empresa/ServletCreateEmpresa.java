@@ -20,13 +20,13 @@ public class ServletCreateEmpresa extends HttpServlet {
 
         // Validação de CNPJ
         if (cnpj == null || !cnpj.matches("^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$|^\\d{14}$")) {
-            request.setAttribute("erroEmail", "E-mail inválido. Use um formato como nome@dominio.com");
+            request.setAttribute("erroEmail", "CNPJ inválido. Use 00.000.000/0000-00 ou apenas números.");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/empresaJSP/createEmpresa.jsp");
             dispatcher.forward(request, response);
             return;
         }
         // Validação de E-mail
-        if (email == null || !email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$")) {
+        if (email == null || !email.matches("^[\\w.%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}(?:\\.br)?$")) {
             request.setAttribute("erroEmail", "E-mail inválido. Use um formato como nome@dominio.com");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/empresaJSP/createEmpresa.jsp");
             dispatcher.forward(request, response);
