@@ -48,12 +48,16 @@ public class ServletUpdateEndereco extends HttpServlet {
             request.setAttribute("erroEstado", "Estado é obrigatório.");
             temErro = true;
         }
-        if (cep == null || !cep.matches("^\\d{5}-\\d{3}$|^\\d{8}$")) {
+        if (cep == null || !cep.matches("^\\d{5}-?\\d{3}$")) {
             request.setAttribute("erroCep", "CEP inválido. Use 00000-000 ou apenas números.");
             temErro = true;
         }
         if (numero == null || numero.trim().isEmpty()) {
             request.setAttribute("erroNumero", "Número é obrigatório.");
+            temErro = true;
+        }
+        if (complemento == null || complemento.trim().isEmpty()) {
+            request.setAttribute("erroComplemento","Complemento e Obrigatorio");
             temErro = true;
         }
 

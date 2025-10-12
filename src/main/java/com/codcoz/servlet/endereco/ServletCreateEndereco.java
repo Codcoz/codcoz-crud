@@ -42,6 +42,10 @@ public class ServletCreateEndereco extends HttpServlet {
             request.setAttribute("erroNumero", "Número é obrigatório.");
             temErro = true;
         }
+        if (complemento == null || complemento.trim().isEmpty()) {
+            request.setAttribute("erroComplemento","Complemento e Obrigatorio");
+            temErro = true;
+        }
 
         // ==== Validação do CEP ====
         if (cep == null || !cep.matches("^\\d{5}-?\\d{3}$")) {
