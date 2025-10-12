@@ -15,90 +15,123 @@
     <meta charset="UTF-8">
     <title>Lista de Produtos</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<aside>
-    <!-- Aside para botões de navegação entre tabelas -->
-</aside>
+<div class="container">
 
-<h2>Lista de Produtos</h2>
+    <aside class="sidebar">
+        <div class="perfil">
+            <img src="<%= request.getContextPath() %>/assets/user_icon.png" alt="Perfil" class="perfil-img">
+            <p class="perfil-nome">Gabriela Santana</p>
+        </div>
 
-<form action="<%= request.getContextPath() %>/produtoJSP/escolhaEmpresaDoProduto.jsp" method="get">
-    <button type="submit">Create</button>
-</form>
-<br>
-<%
-    String mensagem = (String) request.getAttribute("mensagem");
-    if (mensagem != null) {
-        String cor = mensagem.contains("sucesso") ? "green" : "red";
-%>
-<p style="color: <%= cor %>"><%= mensagem %></p>
-<%
-    }
-%>
+        <nav class="menu">
+            <a href="ServletReadEndereco"><img src="ASSET_ENDERECO" alt=""> Endereços</a>
+            <a href="ServletReadEmpresa"><img src="ASSET_EMPRESA" alt=""> Empresas</a>
+            <a href="ServletReadFuncionario"><img src="ASSET_FUNCIONARIO" alt=""> Funcionário</a>
+            <a href="ServletReadEstoque"><img src="ASSET_ESTOQUE" alt=""> Estoques</a>
+            <a href="ServletReadNotaFiscalXml"><img src="ASSET_NOTAFISCAL" alt=""> Notas Fiscais XML</a>
+            <a href="ServletReadProduto"><img src="ASSET_PRODUTO" alt=""> Produtos</a>
+            <a href="ServletReadAlerta"><img src="ASSET_ALERTA" alt=""> Alerta</a>
+        </nav>
 
-<table border="1" cellpadding="8" cellspacing="0">
-    <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Categoria</th>
-        <th>Unidade</th>
-        <th>Estoque Mínimo</th>
-        <th>Quantidade</th>
-        <th>Estoque</th>
-        <th>Nota Fiscal</th>
-        <th>Empresa</th>
-        <th>Update</th>
-        <th>Delete</th>
-    </tr>
-    <%
-        List<Produto> lista = (List<Produto>) request.getAttribute("listaProdutos");
-        EstoqueDAO estoqueDAO = new EstoqueDAO();
-        NotaFiscalXmlDAO notaDAO = new NotaFiscalXmlDAO();
-        EmpresaDAO empresaDAO = new EmpresaDAO();
+        <button class="logout">
+            <img src="<%= request.getContextPath() %>/assets/exit_icon.png" alt=""> Sair
+        </button>
+    </aside>
 
-        if (lista != null && !lista.isEmpty()) {
-            for (Produto produto : lista) {
-                Estoque estoque = estoqueDAO.buscarPorId(produto.getIdEstoque());
-                NotaFiscalXml nota = notaDAO.buscarPorId(produto.getIdNotaFiscal());
-                Empresa empresa = empresaDAO.buscarPorId(produto.getIdEmpresa());
-    %>
-    <tr>
-        <td><%= produto.getId() %></td>
-        <td><%= produto.getNome() %></td>
-        <td><%= produto.getCategoria() %></td>
-        <td><%= produto.getUnidadeMedida() %></td>
-        <td><%= produto.getEstoqueMinimo() %></td>
-        <td><%= produto.getQuantidade() %></td>
-        <td><%= estoque != null ? estoque.getTipoEstoque() : "N/A" %></td>
-        <td><%= nota != null ? nota.getNumeroNota() : "N/A" %></td>
-        <td><%= empresa != null ? empresa.getNome() : "Desconhecida" %></td>
-        <td>
-            <form action="<%= request.getContextPath() %>/produtoJSP/updateProduto.jsp" method="get">
-                <input type="hidden" name="id" value="<%= produto.getId() %>"/>
-                <button type="submit">Update</button>
+    <main class="content">
+        <header class="topo">
+            <h2>Lista de Produtos</h2>
+            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo">
+        </header>
+
+        <div class="sub-header">
+            <span class="hover-link ativo">Produtos</span>
+        </div>
+
+        <div class="actions">
+            <form action="<%= request.getContextPath() %>/produtoJSP/escolhaEmpresaDoProduto.jsp" method="get">
+                <button type="submit" class="novo">+ Novo Produto</button>
             </form>
-        </td>
-        <td>
-            <form action="<%= request.getContextPath() %>/ServletDeleteProduto" method="post">
-                <input type="hidden" name="id" value="<%= produto.getId() %>"/>
-                <button type="submit">Delete</button>
-            </form>
-        </td>
-    </tr>
-    <%
-        }
-    } else {
-    %>
-    <tr>
-        <td colspan="11">Nenhum produto encontrado.</td>
-    </tr>
-    <%
-        }
-    %>
-</table>
+        </div>
 
-<br>
-<a href="<%= request.getContextPath() %>/index.html">Voltar ao início</a>
+        <%
+            String mensagem = (String) request.getAttribute("mensagem");
+            if (mensagem != null) {
+                String cor = mensagem.contains("sucesso") ? "green" : "red";
+        %>
+        <p style="color: <%= cor %>"><%= mensagem %></p>
+        <% } %>
+
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Unidade</th>
+                <th>Estoque Mínimo</th>
+                <th>Quantidade</th>
+                <th>Estoque</th>
+                <th>Nota Fiscal</th>
+                <th>Empresa</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+                List<Produto> lista = (List<Produto>) request.getAttribute("listaProdutos");
+                EstoqueDAO estoqueDAO = new EstoqueDAO();
+                NotaFiscalXmlDAO notaDAO = new NotaFiscalXmlDAO();
+                EmpresaDAO empresaDAO = new EmpresaDAO();
+
+                if (lista != null && !lista.isEmpty()) {
+                    for (Produto produto : lista) {
+                        Estoque estoque = estoqueDAO.buscarPorId(produto.getIdEstoque());
+                        NotaFiscalXml nota = notaDAO.buscarPorId(produto.getIdNotaFiscal());
+                        Empresa empresa = empresaDAO.buscarPorId(produto.getIdEmpresa());
+            %>
+            <tr>
+                <td><%= produto.getId() %></td>
+                <td><%= produto.getNome() %></td>
+                <td><%= produto.getCategoria() %></td>
+                <td><%= produto.getUnidadeMedida() %></td>
+                <td><%= produto.getEstoqueMinimo() %></td>
+                <td><%= produto.getQuantidade() %></td>
+                <td><%= estoque != null ? estoque.getTipoEstoque() : "N/A" %></td>
+                <td><%= nota != null ? nota.getNumeroNota() : "N/A" %></td>
+                <td><%= empresa != null ? empresa.getNome() : "Desconhecida" %></td>
+                <td class="acoes">
+                    <a href="<%= request.getContextPath() %>/produtoJSP/updateEmpresaDoProduto.jsp?id=<%= produto.getId() %>">
+                        <img src="<%= request.getContextPath() %>/assets/edit_icon.png" alt="Editar">
+                    </a>
+                </td>
+                <td class="acoes">
+                    <form action="<%= request.getContextPath() %>/ServletDeleteProduto" method="post">
+                        <input type="hidden" name="id" value="<%= produto.getId() %>"/>
+                        <button type="submit" class="icon-button">
+                            <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir">
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            <%
+                }
+            } else {
+            %>
+            <tr>
+                <td colspan="11">Nenhum produto encontrado.</td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+
+        <br>
+        <a href="<%= request.getContextPath() %>/index.html" class="hover-link">Voltar ao início</a>
+    </main>
+</div>
 </body>
 </html>

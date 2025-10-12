@@ -21,7 +21,7 @@
             List<Empresa> empresas = new EmpresaDAO().read();
             for (Empresa emp : empresas) {
         %>
-        <option value="<%= emp.getId() %>"><%= emp.getNome() %></option>
+        <option <%=emp.getId()==Integer.parseInt(request.getParameter("id"))?"selected":""%> value="<%= emp.getId() %>"><%= emp.getNome() %></option>
         <%
             }
         %>
