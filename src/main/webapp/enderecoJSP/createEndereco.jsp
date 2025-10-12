@@ -37,10 +37,7 @@
     <br><br>
 
     <label for="cep">CEP:</label>
-    <input type="text" id="cep" name="cep" placeholder="cep" maxlength="8" ><br><br>
-    <c:if test="${not empty erroCep}">
-        <p style="color:red">${erroCep}</p>
-    </c:if>
+    <input type="text" id="cep" name="cep" placeholder="cep" pattern="^\d{5}-?\d{3}$" maxlength="8" required><br><br>
 
 
     <label for="numero">Número:</label>

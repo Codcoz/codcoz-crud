@@ -49,6 +49,7 @@
     <label for="cpf">CPF:</label>
     <input type="text" id="cpf" name="cpf"
            value="<%= funcionario.getCpf() %>" maxlength="11"
+           pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$|^\d{11}$"
            required placeholder="Ex: 123.456.789-00">
     <br><br>
 

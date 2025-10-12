@@ -30,10 +30,10 @@
         <div class="actions">
             <form action="<%= request.getContextPath() %>/ServletCreateEmpresa" method="post" style="max-width: 500px;">
                 <label for="nome">Nome:</label><br>
-                <input type="text" id="nome" name="nome" class="input-redondo" placeholder="Nome da empresa" maxlength="150" required><br><br>
+                <input type="text" id="nome" name="nome" class="input-redondo" placeholder="Nome da empresa" maxlength="150" pattern="[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}(?:\.br)?$" required><br><br>
 
                 <label for="cnpj">CNPJ:</label><br>
-                <input type="text" id="cnpj" name="cnpj" class="input-redondo" placeholder="CNPJ" maxlength="14" required>
+                <input type="text" id="cnpj" name="cnpj" class="input-redondo" placeholder="CNPJ" maxlength="14" pattern="^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$|^\d{14}$" required>
                 <c:if test="${not empty erroCnpj}">
                     <p style="color:red">${erroCnpj}</p>
                 </c:if>

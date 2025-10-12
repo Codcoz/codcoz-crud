@@ -49,11 +49,8 @@ public class ServletCreateFuncionario extends HttpServlet {
             request.setAttribute("erroFuncao", "Função é obrigatória.");
             temErro = true;
         }
-
-        // Validação de CPF: aceita com máscara (000.000.000-00) ou só dígitos (11 dígitos)
-        if (cpf == null || !cpf.matches("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$|^\\d{11}$")) {
-            request.setAttribute("erroCpf", "CPF inválido. Use o formato 000.000.000-00 ou apenas números.");
-            temErro = true;
+        if (cpf == null || cpf.trim().isEmpty()) {
+            request.setAttribute("erroCpf", "Cpf e obrigatorio");
         }
 
         // Se houve erro, devolve para o formulário preservando o que o usuário digitou

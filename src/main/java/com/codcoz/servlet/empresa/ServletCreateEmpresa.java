@@ -13,30 +13,15 @@ import java.util.List;
 public class ServletCreateEmpresa extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Cria o objeto Empresa com os dados recebidos do formulário
+        // 🔢 Normaliza o CNPJ: remove tudo que não for número
+        String cnpjOriginal = request.getParameter("cnpj");
+        String cnpj = cnpjOriginal.replaceAll("\\D", ""); // Remove pontos, barras, hífens etc.
 
-        String cnpj = request.getParameter("cnpj");
-        String email = request.getParameter("email");
-
-        // Validação de CNPJ
-        if (cnpj == null || !cnpj.matches("^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$|^\\d{14}$")) {
-            request.setAttribute("erroEmail", "CNPJ inválido. Use 00.000.000/0000-00 ou apenas números.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/empresaJSP/createEmpresa.jsp");
-            dispatcher.forward(request, response);
-            return;
-        }
-        // Validação de E-mail
-        if (email == null || !email.matches("^[\\w.%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}(?:\\.br)?$")) {
-            request.setAttribute("erroEmail", "E-mail inválido. Use um formato como nome@dominio.com");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/empresaJSP/createEmpresa.jsp");
-            dispatcher.forward(request, response);
-            return;
-        }
         Empresa empresa = new Empresa(
                 Integer.parseInt(request.getParameter("idEndereco")),
                 request.getParameter("nome"),
                 cnpj,
-                email
+                request.getParameter("email")
         );
 
         // Executa a criação via DAO e define a mensagem com base no resultado
@@ -57,5 +42,6 @@ public class ServletCreateEmpresa extends HttpServlet {
         // Encaminha para a página JSP mantendo os dados
         RequestDispatcher dispatcher = request.getRequestDispatcher("/empresaJSP/readEmpresa.jsp");
         dispatcher.forward(request, response);
+
     }
 }

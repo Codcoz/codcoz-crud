@@ -21,10 +21,9 @@
     <br><br>
 
     <label for="cpf">CPF:</label>
-    <input type="text" id="cpf" name="cpf" placeholder="CPF" maxlength="11"  required>
-    <c:if test="${not empty erroCpf}">
-        <p style="color:red">${erroCpf}</p>
-    </c:if>
+    <input type="text" id="cpf" name="cpf" placeholder="CPF" maxlength="11"
+           pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$|^\d{11}$" required>
+
     <label for="funcao">Função:</label>
     <select id="funcao" name="funcao" required>
         <option value="" disabled selected>Selecione a função</option>

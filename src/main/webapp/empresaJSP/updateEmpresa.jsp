@@ -45,10 +45,13 @@
                 <input type="hidden" name="id" value="<%= empresa.getId() %>"/>
 
                 <label for="nome">Nome:</label><br>
-                <input type="text" id="nome" name="nome" class="input-redondo" value="<%= empresa.getNome() %>" maxlength="150" required placeholder="Ex: Codcoz Ltda"><br><br>
+                <input type="text" id="nome" name="nome" class="input-redondo" value="<%= empresa.getNome() %>" maxlength="150"
+                       pattern="[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}(?:\.br)?$" required placeholder="Ex: Codcoz Ltda"><br><br>
 
                 <label for="cnpj">CNPJ:</label><br>
-                <input type="text" id="cnpj" name="cnpj" class="input-redondo" value="<%= empresa.getCnpj() %>" maxlength="14" required placeholder="Ex: 12.345.678/0001-90"><br><br>
+                <input type="text" id="cnpj" name="cnpj" class="input-redondo" value="<%= empresa.getCnpj() %>" maxlength="14"
+                       pattern="^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$|^\d{14}$" required placeholder="Ex: 12.345.678/0001-90"><br><br>
+
 
                 <label for="idEndereco">Endereço:</label><br>
                 <select id="idEndereco" name="idEndereco" class="select-redondo" required>
