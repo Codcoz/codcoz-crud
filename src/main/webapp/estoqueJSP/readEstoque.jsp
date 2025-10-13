@@ -17,6 +17,16 @@
     <button type="submit">Create</button>
 </form>
 <br>
+<%
+    String mensagem = (String) request.getAttribute("mensagem");
+    if (mensagem != null) {
+        boolean sucesso = mensagem.toLowerCase().contains("sucesso");
+%>
+<div class="mensagem <%= sucesso ? "sucesso" : "erro" %>">
+    <%= mensagem %>
+</div>
+<% } %>
+
 
 <table border="1" cellpadding="8" cellspacing="0">
     <tr>
@@ -43,7 +53,7 @@
             </form>
         </td>
         <td>
-            <form action="<%= request.getContextPath() %>/ServletDeleteEstoque" method="post">
+            <form action="<%= request.getContextPath() %>/ServletDeleteEstoque" method="get">
                 <input type="hidden" name="id" value="<%= est.getId() %>"/>
                 <button type="submit">Delete</button>
             </form>
