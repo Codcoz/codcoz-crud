@@ -59,7 +59,7 @@
         <% for (Empresa e : empresas) { %>
         <option value="<%= e.getId() %>"
                 <%= (e.getId() != null && e.getId().equals(funcionario.getIdEmpresa())) ? "selected" : "" %>>
-            <%= e.getNome() %> (ID <%= e.getId() %>)
+            <%= e.getNome() %>
         </option>
         <% } %>
     </select>
@@ -67,10 +67,11 @@
     <br><br>
 
     <label for="funcao">Função:</label>
-    <input type="text" id="funcao" name="funcao"
-           value="<%= funcionario.getFuncao() %>"
-           required placeholder="Ex: Analista">
-    <br><br>
+    <select id="funcao" name="funcao" required>
+        <option value="" disabled selected>Selecione a função</option>
+        <option <%= funcionario.getFuncao().equals("Estoquista")? "selected" : "" %> value="Estoquista">Estoquista</option>
+        <option <%= funcionario.getFuncao().equals("Gestor")? "selected" : "" %> value="Gestor">Gestor</option>
+    </select>
 
     <button type="submit">Update</button>
 </form>

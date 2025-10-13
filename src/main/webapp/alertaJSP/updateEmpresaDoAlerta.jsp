@@ -25,7 +25,8 @@
         <%
             }
         %>
-    </select>
+    </select><br>
+    <a href="../empresaJSP/createEmpresa.jsp">Criar Empresa</a>
     <br><br>
     <button type="submit">Confirmar</button>
 </form>
