@@ -326,3 +326,12 @@ td.acoes img:hover {
 .select-redondo:focus {
     box-shadow: 0 0 0 2px rgba(213, 190, 101, 0.4);
 }
+.tabela-container {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 60vh;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+}

@@ -9,16 +9,14 @@
     <meta charset="UTF-8">
     <title>Atualizar Endereço</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 <%
-    // Lê o parâmetro 'id' da request e busca o endereço correspondente
     Integer id = null;
     try {
         id = Integer.valueOf(request.getParameter("id"));
-    } catch (Exception e) {
-        // parâmetro inválido ou ausente
-    }
+    } catch (Exception e) {}
 
     Endereco endereco = null;
     if (id != null) {
@@ -26,85 +24,69 @@
     }
 %>
 
-<% if (endereco != null) { %>
-<h2>Atualizar Endereço de ID <%= endereco.getId() %></h2>
+<div class="container">
+    <jsp:include page="./../barraLateral.jsp" />
 
-<form action="<%= request.getContextPath() %>/ServletUpdateEndereco" method="post">
-    <input type="hidden" name="id" value="<%= endereco.getId() %>"/>
+    <main class="content">
+        <header class="topo">
+            <h2>Atualizar Endereço</h2>
+            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo">
+        </header>
 
-    <label for="rua">Rua:</label>
-    <input type="text" id="rua" name="rua"
-           value="<%= endereco.getRua() %>" maxlength="100"
-           required placeholder="Ex: Av. Paulista">
-    <br><br>
+        <div class="sub-header">
+            <span class="hover-link ativo">Editar Endereço</span>
+        </div>
 
-    <label for="complemento">Complemento:</label>
-    <input type="text" id="complemento" name="complemento"
-           value="<%= endereco.getComplemento() %>" maxlength="50"
-           placeholder="Ex: Apto 101, Fundos">
-    <br><br>
+        <% if (endereco != null) { %>
+        <div class="actions">
+            <form action="<%= request.getContextPath() %>/ServletUpdateEndereco" method="post" style="max-width: 500px;">
+                <input type="hidden" name="id" value="<%= endereco.getId() %>"/>
 
-    <label for="cidade">Cidade:</label>
-    <input type="text" id="cidade" name="cidade"
-           value="<%= endereco.getCidade() %>"
-           maxlength="80"
-           required placeholder="Ex: São Paulo">
-    <br><br>
+                <label for="rua">Rua:</label>
+                <input type="text" id="rua" name="rua" class="input-redondo"
+                       value="<%= endereco.getRua() %>" maxlength="100"
+                       required placeholder="Ex: Av. Paulista"><br><br>
 
-    <label for="estado">Estado (UF):</label>
-    <select id="estado" name="estado" required>
-        <option value="">Selecione...</option>
-        <option value="AC" <%= "AC".equals(endereco.getEstado()) ? "selected" : "" %>>AC</option>
-        <option value="AL" <%= "AL".equals(endereco.getEstado()) ? "selected" : "" %>>AL</option>
-        <option value="AP" <%= "AP".equals(endereco.getEstado()) ? "selected" : "" %>>AP</option>
-        <option value="AM" <%= "AM".equals(endereco.getEstado()) ? "selected" : "" %>>AM</option>
-        <option value="BA" <%= "BA".equals(endereco.getEstado()) ? "selected" : "" %>>BA</option>
-        <option value="CE" <%= "CE".equals(endereco.getEstado()) ? "selected" : "" %>>CE</option>
-        <option value="DF" <%= "DF".equals(endereco.getEstado()) ? "selected" : "" %>>DF</option>
-        <option value="ES" <%= "ES".equals(endereco.getEstado()) ? "selected" : "" %>>ES</option>
-        <option value="GO" <%= "GO".equals(endereco.getEstado()) ? "selected" : "" %>>GO</option>
-        <option value="MA" <%= "MA".equals(endereco.getEstado()) ? "selected" : "" %>>MA</option>
-        <option value="MT" <%= "MT".equals(endereco.getEstado()) ? "selected" : "" %>>MT</option>
-        <option value="MS" <%= "MS".equals(endereco.getEstado()) ? "selected" : "" %>>MS</option>
-        <option value="MG" <%= "MG".equals(endereco.getEstado()) ? "selected" : "" %>>MG</option>
-        <option value="PA" <%= "PA".equals(endereco.getEstado()) ? "selected" : "" %>>PA</option>
-        <option value="PB" <%= "PB".equals(endereco.getEstado()) ? "selected" : "" %>>PB</option>
-        <option value="PR" <%= "PR".equals(endereco.getEstado()) ? "selected" : "" %>>PR</option>
-        <option value="PE" <%= "PE".equals(endereco.getEstado()) ? "selected" : "" %>>PE</option>
-        <option value="PI" <%= "PI".equals(endereco.getEstado()) ? "selected" : "" %>>PI</option>
-        <option value="RJ" <%= "RJ".equals(endereco.getEstado()) ? "selected" : "" %>>RJ</option>
-        <option value="RN" <%= "RN".equals(endereco.getEstado()) ? "selected" : "" %>>RN</option>
-        <option value="RS" <%= "RS".equals(endereco.getEstado()) ? "selected" : "" %>>RS</option>
-        <option value="RO" <%= "RO".equals(endereco.getEstado()) ? "selected" : "" %>>RO</option>
-        <option value="RR" <%= "RR".equals(endereco.getEstado()) ? "selected" : "" %>>RR</option>
-        <option value="SC" <%= "SC".equals(endereco.getEstado()) ? "selected" : "" %>>SC</option>
-        <option value="SP" <%= "SP".equals(endereco.getEstado()) ? "selected" : "" %>>SP</option>
-        <option value="SE" <%= "SE".equals(endereco.getEstado()) ? "selected" : "" %>>SE</option>
-        <option value="TO" <%= "TO".equals(endereco.getEstado()) ? "selected" : "" %>>TO</option>
-    </select>
-    <br><br>
+                <label for="complemento">Complemento:</label>
+                <input type="text" id="complemento" name="complemento" class="input-redondo"
+                       value="<%= endereco.getComplemento() %>" maxlength="50"
+                       placeholder="Ex: Apto 101, Fundos"><br><br>
 
-    <label for="cep">CEP:</label>
-    <input type="text" id="cep" name="cep"
-           value="<%= endereco.getCep() %>" maxlength="8"
-           pattern="^\d{5}-?\d{3}$" required placeholder="Ex: 01311000">
-    <br><br>
+                <label for="cidade">Cidade:</label>
+                <input type="text" id="cidade" name="cidade" class="input-redondo"
+                       value="<%= endereco.getCidade() %>" maxlength="80"
+                       required placeholder="Ex: São Paulo"><br><br>
 
-    <label for="numero">Número:</label>
-    <input type="text" id="numero" name="numero"
-           value="<%= endereco.getNumero() %>" maxlength="10"
-           required placeholder="Ex: 1578">
-    <br><br>
+                <label for="estado">Estado (UF):</label>
+                <select id="estado" name="estado" class="select-redondo" required>
+                    <option value="">Selecione...</option>
+                    <% String[] estados = { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" };
+                        for (String uf : estados) { %>
+                    <option value="<%= uf %>" <%= uf.equals(endereco.getEstado()) ? "selected" : "" %>><%= uf %></option>
+                    <% } %>
+                </select><br><br>
 
-    <button type="submit">Atualizar</button>
-</form>
-<% } else { %>
-<p>Endereço não encontrado ou ID inválido.</p>
-<% } %>
+                <label for="cep">CEP:</label>
+                <input type="text" id="cep" name="cep" class="input-redondo"
+                       value="<%= endereco.getCep() %>" maxlength="8"
+                       pattern="^\d{5}-?\d{3}$" required placeholder="Ex: 01311000"><br><br>
 
-<br>
-<a href="<%= request.getContextPath() %>/ServletReadEndereco">Voltar à lista</a>
-<br><br>
-<a href="<%= request.getContextPath() %>/index.html">Voltar ao início</a>
+                <label for="numero">Número:</label>
+                <input type="text" id="numero" name="numero" class="input-redondo"
+                       value="<%= endereco.getNumero() %>" maxlength="10"
+                       required placeholder="Ex: 1578"><br><br>
+
+                <button type="submit" class="novo">✔</button>
+            </form>
+        </div>
+        <% } else { %>
+        <p style="color: red;">Endereço não encontrado ou ID inválido.</p>
+        <% } %>
+
+        <br>
+        <a href="<%= request.getContextPath() %>/ServletReadEndereco" class="hover-link">Voltar à lista</a><br>
+        <a href="<%= request.getContextPath() %>/index.html" class="hover-link">Voltar ao início</a>
+    </main>
+</div>
 </body>
 </html>
