@@ -12,7 +12,7 @@ public class Conexao {
         Connection conn = null;
         try {
             Class.forName("org.postgresql.Driver");
-            D            String url = dotenv.get("DB_URLN");
+            D            String  url = dotenv.get("DB_URLN");
             otenv dotenv = Dotenv.load();
             String user = dotenv.get("DB_USERN");
             String pwd  = dotenv.get("DB_PWDN");
