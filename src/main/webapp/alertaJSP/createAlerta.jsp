@@ -28,18 +28,19 @@
             List<Produto> produtos = new ProdutoDAO().buscarPorEmpresa(idEmpresa);
             for (Produto p : produtos) {
         %>
-        <option value="<%= p.getId() %>"><%= p.getNome() %></option>
+        <option value="<%= p.getId() %>"><%= p.getNome() + ", " + p.getUnidadeMedida() + ", id: " + p.getId()%></option>
         <% } %>
     </select>
-    <a href="../produtoJSP/createProduto.jsp">Criar Produto</a>
+    <a href="../produtoJSP/escolhaEmpresaDoProduto.jsp">Criar Produto</a>
     <br><br>
 
     <label for="dataCriacao">Data de Criação:</label>
-    <input type="date" id="dataCriacao" name="dataCriacao" required>
+    <input type="date" id="dataCriacao" name="dataCriacao"  required>
     <br><br>
 
     <label for="status">Status:</label>
     <select id="status" name="status" required>
+        <option value="">Selecione o status</option>
         <option value="Pendente">Pendente</option>
         <option value="Resolvido">Resolvido</option>
         <option value="Ignorado">Ignorado</option>
@@ -47,7 +48,7 @@
     <br><br>
 
     <label for="tipoAlerta">Tipo de Alerta:</label>
-    <input type="text" id="tipoAlerta" name="tipoAlerta" placeholder="Ex: Estoque baixo" required>
+    <input type="text" id="tipoAlerta" name="tipoAlerta" maxlength="50" placeholder="Ex: Estoque baixo" required>
     <br><br>
 
     <button type="submit">Criar</button>

@@ -10,6 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Funcionários</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
 </head>
 <body>
 
@@ -67,7 +68,7 @@
             </form>
         </td>
         <td>
-            <form action="<%= request.getContextPath() %>/ServletDeleteFuncionario" method="post">
+            <form action="<%= request.getContextPath() %>/ServletDeleteFuncionario" method="get">
                 <input type="hidden" name="id" value="<%= funcionario.getId() %>"/>
                 <button type="submit">Delete</button>
             </form>

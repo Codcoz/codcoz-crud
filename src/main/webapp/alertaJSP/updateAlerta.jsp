@@ -9,16 +9,8 @@
     com.codcoz.dao.ProdutoDAO
 " %>
 <%
-    Integer id = Integer.parseInt(request.getParameter("id"));
+    int id = Integer.parseInt(request.getParameter("id"));
     Alerta alerta = new AlertaDAO().buscarPorId(id);
-    List<Produto> produtos = new ProdutoDAO().read();
-    Empresa empresa = null;
-    if (alerta != null) {
-        Produto produto = new ProdutoDAO().buscarPorId(alerta.getIdProduto());
-        if (produto != null) {
-            empresa = new EmpresaDAO().buscarPorId(produto.getIdEmpresa());
-        }
-    }
 %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -28,22 +20,26 @@
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
 </head>
 <body>
+
 <% if (alerta != null) { %>
-<h2>Atualizar Alerta de ID <%= alerta.getId() %></h2>
+<h2>Atualizar Alerta de ID <%=id%></h2>
 
 <form action="<%= request.getContextPath() %>/ServletUpdateAlerta" method="post">
-    <input type="hidden" name="id" value="<%= alerta.getId() %>"/>
+    <input type="hidden" name="id" value="<%=id%>"/>
+    <input type="hidden" name="idEmpresa" value="<%= request.getParameter("idEmpresa") %>"/>
 
-    <label>Empresa:</label>
-    <input type="text" value="<%= empresa != null ? empresa.getNome() : "Empresa não encontrada" %>" readonly>
-    <br><br>
+    <%
+        int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
+        Empresa empresa = new EmpresaDAO().buscarPorId(idEmpresa);
+        List<Produto> produtos = new ProdutoDAO().buscarPorEmpresa(idEmpresa);
+    %>
 
     <label for="idProduto">Produto:</label>
     <select id="idProduto" name="idProduto" required>
         <option value="">Selecione um produto</option>
         <% for (Produto prod : produtos) { %>
         <option value="<%= prod.getId() %>" <%= prod.getId().equals(alerta.getIdProduto()) ? "selected" : "" %>>
-            <%= prod.getNome() %>
+            <%= prod.getNome() + ", " + prod.getUnidadeMedida() + ", id: " + prod.getId() %>
         </option>
         <% } %>
     </select>
@@ -64,7 +60,7 @@
 
     <label for="tipoAlerta">Tipo de Alerta:</label>
     <input type="text" id="tipoAlerta" name="tipoAlerta"
-           value="<%= alerta.getTipoAlerta() %>" required placeholder="Ex: Estoque baixo"><br><br>
+           value="<%= alerta.getTipoAlerta() %>" maxlength="50" required placeholder="Ex: Estoque baixo"><br><br>
 
     <button type="submit">Atualizar</button>
 </form>

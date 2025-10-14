@@ -11,10 +11,10 @@
 
 <form action="<%= request.getContextPath() %>/ServletCreateEstoque" method="post">
     <label for="tipoEstoque">Tipo de Estoque:</label>
-    <input type="text" id="tipoEstoque" name="tipoEstoque" required><br><br>
+    <input type="text" id="tipoEstoque" name="tipoEstoque" maxlength="30" required><br><br>
 
-    <label for="capacidade">Capacidade:</label>
-    <input type="number" id="capacidade" name="capacidade(Kg/L)" required><br><br>
+    <label for="capacidade">Capacidade(Kg/L):</label>
+    <input type="number" id="capacidade" step="1" name="capacidade" required><br><br>
 
     <label for="idEmpresa">Empresa:</label>
     <%
@@ -25,7 +25,9 @@
         <% for (Empresa emp : empresas) { %>
         <option value="<%= emp.getId() %>"><%= emp.getNome() %></option>
         <% } %>
-    </select><br><br>
+    </select><br>
+    <a href="../empresaJSP/createEmpresa.jsp">Criar Empresa</a>
+    <br><br>
 
     <button type="submit">Criar</button>
 </form>

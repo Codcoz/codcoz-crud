@@ -11,6 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Atualizar Nota Fiscal XML</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
 </head>
 <body>
 <%
@@ -41,7 +42,8 @@
             <%= emp.getNome() %> (CNPJ: <%= emp.getCnpj() %>)
         </option>
         <% } %>
-    </select>
+    </select><br>
+    <a href="../empresaJSP/createEmpresa.jsp">Criar Empresa</a>
     <br><br>
 
     <label for="dataEmissao">Data de Emissão:</label>
