@@ -1,16 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<%@ page import="
-    java.util.List,
-    com.codcoz.model.Alerta,
-    com.codcoz.model.Empresa,
-    com.codcoz.model.Produto,
-    com.codcoz.dao.AlertaDAO,
-    com.codcoz.dao.EmpresaDAO,
-    com.codcoz.dao.ProdutoDAO
-" %>
+<%@ page import="java.util.List, com.codcoz.model.Alerta, com.codcoz.model.Empresa, com.codcoz.model.Produto, com.codcoz.dao.AlertaDAO, com.codcoz.dao.EmpresaDAO, com.codcoz.dao.ProdutoDAO" %>
 <%
-    Integer id = Integer.parseInt(request.getParameter("id"));
+    System.out.println("id:" + request.getParameter("id"));
+    int id = Integer.parseInt(request.getParameter("id"));
+    int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
     Alerta alerta = new AlertaDAO().buscarPorId(id);
+    Empresa empresa = new EmpresaDAO().buscarPorId(idEmpresa);
+    List<Produto> produtos = new ProdutoDAO().buscarPorEmpresa(idEmpresa);
 %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -21,18 +17,11 @@
 </head>
 <body>
 
-<% if (alerta != null) { %>
 <h2>Atualizar Alerta de ID <%= alerta.getId() %></h2>
 
 <form action="<%= request.getContextPath() %>/ServletUpdateAlerta" method="post">
     <input type="hidden" name="id" value="<%= alerta.getId() %>"/>
-
-
-    <%
-        int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
-        Empresa empresa = new EmpresaDAO().buscarPorId(idEmpresa);
-        List<Produto> produtos = new ProdutoDAO().buscarPorEmpresa(idEmpresa);
-    %>
+    <input type="hidden" name="idEmpresa" value="<%= empresa.getId() %>"/>
 
     <label for="idProduto">Produto:</label>
     <select id="idProduto" name="idProduto" required>
@@ -64,9 +53,6 @@
 
     <button type="submit">Atualizar</button>
 </form>
-<% } else { %>
-<p>Alerta não encontrado.</p>
-<% } %>
 
 <br><br>
 <a href="<%= request.getContextPath() %>/ServletReadAlerta">Voltar à lista</a><br><br>
