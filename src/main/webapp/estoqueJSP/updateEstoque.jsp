@@ -31,7 +31,7 @@
     <label for="tipoEstoque">Tipo de Estoque:</label>
     <input type="text" id="tipoEstoque" name="tipoEstoque" value="<%= estoque.getTipoEstoque() %>" maxlength="30" required><br><br>
 
-    <label for="capacidade">Capacidade:</label>
+    <label for="capacidade">Capacidade(Kg/L):</label>
     <input type="number" id="capacidade" name="capacidade" value="<%= estoque.getCapacidade() %>" required><br><br>
 
     <label for="idEmpresa">Empresa:</label>
@@ -42,7 +42,9 @@
             <%= emp.getNome() %>
         </option>
         <% } %>
-    </select><br><br>
+    </select><br>
+    <a href="../empresaJSP/createEmpresa.jsp">Criar Empresa</a>
+    <br><br>
 
     <button type="submit">Atualizar</button>
 </form>

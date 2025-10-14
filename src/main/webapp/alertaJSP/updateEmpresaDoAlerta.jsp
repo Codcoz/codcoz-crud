@@ -1,32 +1,33 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<%@ page import="java.util.List, com.codcoz.dao.EmpresaDAO, com.codcoz.dao.AlertaDAO, com.codcoz.model.Empresa, com.codcoz.model.Alerta" %>
-<%
-    System.out.println("id1:" + request.getParameter("id"));
-    int idAlerta = Integer.parseInt(request.getParameter("id"));
-    Alerta alerta = new AlertaDAO().buscarPorId(idAlerta);
-%>
+<%@ page import="
+    java.util.List,
+    com.codcoz.dao.EmpresaDAO,
+    com.codcoz.model.Empresa
+" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Empresa do alerta</title>
+    <title>Editar Alerta</title>
 </head>
 <body>
-<h2>Editar Empresa do alerta:</h2>
+<h2>Editar alerta da empresa:</h2>
 <form action="<%= request.getContextPath() %>/alertaJSP/updateAlerta.jsp" method="post">
-    <input type="hidden" value="<%=idAlerta%>" name="id">
+    <input  type="hidden" value="<%=request.getParameter("id")%>" name="id">
     <label for="idEmpresa">Empresa: </label>
-    <select name="idEmpresa" id="idEmpresa" required>
+    <select id="nigga" name="idEmpresa" id="idEmpresa" required>
         <option value="">Selecione...</option>
         <%
             List<Empresa> empresas = new EmpresaDAO().read();
             for (Empresa emp : empresas) {
+                System.out.println(emp.getId());
         %>
-        <option value="<%= emp.getId() %>" <%= emp.getId() == alerta.getIdEmpresa() ? "selected" : "" %>>
-            <%= emp.getNome() %>
-        </option>
-        <% } %>
-    </select>
+        <option <%=emp.getId()==Integer.parseInt(request.getParameter("id"))?"selected":""%> value="<%= emp.getId() %>"><%= emp.getNome() %></option>
+        <%
+            }
+        %>
+    </select><br>
+    <a href="../empresaJSP/createEmpresa.jsp">Criar Empresa</a>
     <br><br>
     <button type="submit">Confirmar</button>
 </form>

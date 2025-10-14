@@ -15,107 +15,45 @@ public class ServletCreateEndereco extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // ==== Leitura dos parâmetros ====
+        // Coleta os parâmetros do formulário
         String rua         = request.getParameter("rua");
         String complemento = request.getParameter("complemento");
         String cidade      = request.getParameter("cidade");
         String estado      = request.getParameter("estado");
-        String cep         = request.getParameter("cep");
+        String cepOriginal = request.getParameter("cep");
         String numero      = request.getParameter("numero");
 
-        boolean temErro = false;
+        // Normaliza o CEP: remove tudo que não for número
+        String cep = cepOriginal != null ? cepOriginal.replaceAll("\\D", "") : "";
 
-        // ==== Validações básicas ====
-        if (rua == null || rua.trim().isEmpty()) {
-            request.setAttribute("erroRua", "Rua é obrigatória.");
-            temErro = true;
-        }
-        if (cidade == null || cidade.trim().isEmpty()) {
-            request.setAttribute("erroCidade", "Cidade é obrigatória.");
-            temErro = true;
-        }
-        if (estado == null || estado.trim().isEmpty()) {
-            request.setAttribute("erroEstado", "Estado é obrigatório.");
-            temErro = true;
-        }
-        if (numero == null || numero.trim().isEmpty()) {
-            request.setAttribute("erroNumero", "Número é obrigatório.");
-            temErro = true;
-        }
-        if (complemento == null || complemento.trim().isEmpty()) {
-            request.setAttribute("erroComplemento","Complemento e Obrigatorio");
-            temErro = true;
-        }
-
-        if (cep == null || cep.trim().isEmpty()) {
-            request.setAttribute("erroCep", "Cep e obrigatorio");
-        }
-
-        if (temErro) {
-            // Preserva valores para o formulário de criação
-            request.setAttribute("ruaValue", rua);
-            request.setAttribute("complementoValue", complemento);
-            request.setAttribute("cidadeValue", cidade);
-            request.setAttribute("estadoValue", estado);
-            request.setAttribute("cepValue", cep);
-            request.setAttribute("numeroValue", numero);
-
-            // Volta para o formulário de criação
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/enderecoJSP/createEndereco.jsp");
-            dispatcher.forward(request, response);
-            return;
-        }
-
-        // ==== Normalização ====
-        String cepNormalizado = cep.replaceAll("\\D", "");
-
-        // ==== Criação do objeto ====
+        // Cria o objeto Endereco
         Endereco endereco = new Endereco(
                 rua,
                 complemento,
                 cidade,
                 estado,
-                cepNormalizado,
+                cep,
                 numero
         );
 
-        try {
-            // ==== Chama o DAO ====
-            EnderecoDAO dao = new EnderecoDAO();
-            boolean criado = dao.create(endereco);
+        // 🗄Executa a criação via DAO e define a mensagem com base no resultado
+        EnderecoDAO dao = new EnderecoDAO();
+        String mensagem;
 
-            // ==== Monta resumo e mensagem ====
-            String resumo = String.format("(%s) %s, rua %s, nº %s — %s",
-                    endereco.getCep(),
-                    endereco.getCidade(),
-                    endereco.getRua(),
-                    endereco.getNumero(),
-                    endereco.getEstado());
-
-            String mensagem;
-            if (criado) {
-                mensagem = "A criação do endereço " + resumo + " foi realizada com sucesso.";
-            } else {
-                mensagem = "A criação do endereço " + resumo + " falhou: erro interno. " +
-                        "Entre em contato pelo e-mail contato.codcoz@gmail.com.";
-            }
-
-            request.setAttribute("mensagem", mensagem);
-
-            // ==== Recarrega listagem ====
-            List<Endereco> lista = dao.read();
-            request.setAttribute("listaEnderecos", lista);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/enderecoJSP/readEndereco.jsp");
-            dispatcher.forward(request, response);
-
-        } catch (Exception e) {
-            // ==== Tratamento de erro ====
-            e.printStackTrace(); // ou use um Logger em produção
-
-            request.setAttribute("mensagem", "Erro interno ao processar o endereço. Tente novamente mais tarde.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/enderecoJSP/createEndereco.jsp");
-            dispatcher.forward(request, response);
+        if (dao.create(endereco)) {
+            mensagem = "A criação do endereço foi realizada com sucesso.";
+        } else {
+            mensagem = "A criação do endereço falhou: erro interno. Entre em contato em contato.codcoz@gmail.com";
         }
+
+        request.setAttribute("mensagem", mensagem);
+
+        // 🔄 Atualiza a lista de endereços para exibir na JSP
+        List<Endereco> lista = dao.read();
+        request.setAttribute("listaEnderecos", lista);
+
+        // 📄 Encaminha para a página JSP mantendo os dados
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/enderecoJSP/readEndereco.jsp");
+        dispatcher.forward(request, response);
     }
 }
