@@ -12,18 +12,34 @@ import java.util.List;
 @WebServlet(name = "ServletCreateEstoque", value = "/ServletCreateEstoque")
 public class ServletCreateEstoque extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Estoque estoque = new Estoque(
-                Integer.parseInt(request.getParameter("idEmpresa")),
-                request.getParameter("tipoEstoque"),
-                Integer.parseInt(request.getParameter("capacidade"))
-        );
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
+        // Coleta os parâmetros do formulário
+        int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
+        String tipoEstoque = request.getParameter("tipoEstoque");
+        int capacidade = Integer.parseInt(request.getParameter("capacidade"));
+
+        // Cria o objeto Estoque
+        Estoque estoque = new Estoque(idEmpresa, tipoEstoque, capacidade);
+
+        // Executa a criação via DAO e define a mensagem com base no resultado
         EstoqueDAO dao = new EstoqueDAO();
-        dao.create(estoque);
-        List<Estoque> lista = dao.read();
+        String mensagem;
 
+        if (dao.create(estoque)) {
+            mensagem = "O estoque do tipo \"" + estoque.getTipoEstoque() + "\" foi criado com sucesso.";
+        } else {
+            mensagem = "A criação do estoque falhou: erro interno. Entre em contato em contato.codcoz@gmail.com";
+        }
+
+        request.setAttribute("mensagem", mensagem);
+
+        // Atualiza a lista de estoques para exibir na JSP
+        List<Estoque> lista = dao.read();
         request.setAttribute("listaEstoques", lista);
+
+        // Encaminha para a página JSP mantendo os dados
         RequestDispatcher dispatcher = request.getRequestDispatcher("/estoqueJSP/readEstoque.jsp");
         dispatcher.forward(request, response);
     }
