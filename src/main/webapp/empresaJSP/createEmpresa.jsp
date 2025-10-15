@@ -23,20 +23,22 @@
             <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo">
         </header>
 
-        <div class="sub-header" >
+        <div class="sub-header">
             <span class="hover-link ativo">Nova Empresa</span>
         </div>
+
+        <% String mensagem = (String) request.getAttribute("mensagem"); %>
+        <% if (mensagem != null) { %>
+        <div class="mensagem-aviso"><%= mensagem %></div>
+        <% } %>
 
         <div class="actions">
             <form action="<%= request.getContextPath() %>/ServletCreateEmpresa" method="post" style="max-width: 500px;">
                 <label for="nome">Nome:</label><br>
-                <input type="text" id="nome" name="nome" class="input-redondo" placeholder="Nome da empresa" maxlength="150" pattern="[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}(?:\.br)?$" required><br><br>
+                <input type="text" id="nome" name="nome" class="input-redondo" placeholder="Nome da empresa" maxlength="150" required><br><br>
 
                 <label for="cnpj">CNPJ:</label><br>
-                <input type="text" id="cnpj" name="cnpj" class="input-redondo" placeholder="CNPJ" maxlength="14" pattern="^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$|^\d{14}$" required>
-                <c:if test="${not empty erroCnpj}">
-                    <p style="color:red">${erroCnpj}</p>
-                </c:if>
+                <input type="text" id="cnpj" name="cnpj" class="input-redondo" placeholder="CNPJ" maxlength="14" required>
 
                 <label for="idEndereco">Endereço:</label><br>
                 <%
@@ -53,11 +55,11 @@
                 <br>
                 <a href="../enderecoJSP/createEndereco.jsp" class="hover-link">Criar Endereço</a>
                 <br><br>
+
                 <label for="email">Email:</label><br>
-                <input type="email" id="email" name="email" class="input-redondo" placeholder="Email da empresa" required><br>
-                <c:if test="${not empty erroEmail}">
-                    <p style="color:red">${erroEmail}</p>
-                </c:if><br>
+                <input type="email" id="email" name="email" class="input-redondo"
+                       pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.((com|net|org|gov|edu|info|biz|co)(\\.br)?|br)$"
+                       placeholder="Email da empresa" required><br>
 
                 <button type="submit" class="novo">+</button>
             </form>
@@ -68,5 +70,9 @@
         <a href="<%= request.getContextPath() %>/index.JSP" class="hover-link">Voltar ao início</a>
     </main>
 </div>
+
+<script>
+
+</script>
 </body>
 </html>

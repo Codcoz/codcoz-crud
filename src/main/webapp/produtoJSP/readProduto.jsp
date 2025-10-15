@@ -68,6 +68,33 @@
                     NotaFiscalXmlDAO notaDAO = new NotaFiscalXmlDAO();
                     EmpresaDAO empresaDAO = new EmpresaDAO();
 
+
+                if (lista != null && !lista.isEmpty()) {
+                    for (Produto produto : lista) {
+                        Estoque estoque = estoqueDAO.buscarPorId(produto.getIdEstoque());
+                        NotaFiscalXml nota = notaDAO.buscarPorId(produto.getIdNotaFiscal());
+                        Empresa empresa = empresaDAO.buscarPorId(produto.getIdEmpresa());
+            %>
+            <tr>
+                <td><%= produto.getId() %></td>
+                <td><%= produto.getNome() %></td>
+                <td><%= produto.getCategoria() %></td>
+                <td><%= produto.getUnidadeMedida() %></td>
+                <td><%= produto.getEstoqueMinimo() %></td>
+                <td><%= produto.getQuantidade() %></td>
+                <td><%= estoque != null ? estoque.getTipoEstoque() : "N/A" %></td>
+                <td><%= nota != null ? nota.getNumeroNota() : "N/A" %></td>
+                <td><%= empresa != null ? empresa.getNome() : "Desconhecida" %></td>
+                <td class="acoes">
+                    <a href="<%= request.getContextPath() %>/produtoJSP/updateEmpresaDoProduto.jsp?id=<%= produto.getId() %>">
+                        <img src="<%= request.getContextPath() %>/assets/edit_icon.png" alt="Editar">
+                    </a>
+                </td>
+                <td class="acoes">
+                    <form action="<%= request.getContextPath() %>/ServletDeleteProduto" method="get">
+                        <input type="hidden" name="id" value="<%= produto.getId() %>"/>
+                        <button type="submit" class="icon-button">
+
                     if (lista != null && !lista.isEmpty()) {
                         for (Produto produto : lista) {
                             Estoque estoque = estoqueDAO.buscarPorId(produto.getIdEstoque());
@@ -91,7 +118,8 @@
                     </td>
                     <td class="acoes">
                         <a href="<%= request.getContextPath() %>/ServletDeleteProduto?id=<%= produto.getId() %>"
-                           onclick="return confirm('Tem certeza que deseja excluir <%= produto.getNome() %>?');">
+                           onclick="return confirm('Tem certeza que deseja excluir <%=produto.getNome()%>?');">
+
                             <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir">
                         </a>
                     </td>
