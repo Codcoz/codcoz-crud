@@ -12,19 +12,35 @@ import java.util.List;
 @WebServlet(name = "ServletUpdateEstoque", value = "/ServletUpdateEstoque")
 public class ServletUpdateEstoque extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Estoque estoque = new Estoque(
-                Integer.parseInt(request.getParameter("id")),
-                Integer.parseInt(request.getParameter("idEmpresa")),
-                request.getParameter("tipoEstoque"),
-                Integer.parseInt(request.getParameter("capacidade"))
-        );
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
+        // Coleta os parâmetros do formulário
+        int id = Integer.parseInt(request.getParameter("id"));
+        int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
+        String tipoEstoque = request.getParameter("tipoEstoque");
+        int capacidade = Integer.parseInt(request.getParameter("capacidade"));
+
+        // Cria o objeto Estoque
+        Estoque estoque = new Estoque(id, idEmpresa, tipoEstoque, capacidade);
+
+        // Executa a atualização via DAO e define a mensagem de retorno
         EstoqueDAO dao = new EstoqueDAO();
-        dao.update(estoque);
-        List<Estoque> lista = dao.read();
+        String mensagem;
 
+        if (dao.update(estoque) > 0) {
+            mensagem = "O estoque \"" + estoque.getTipoEstoque() + "\" foi atualizado com sucesso.";
+        } else {
+            mensagem = "A atualização do estoque \"" + estoque.getTipoEstoque() + "\" falhou: erro interno. "
+                    + "Entre em contato em contato.codcoz@gmail.com";
+        }
+        request.setAttribute("mensagem", mensagem);
+
+        // Atualiza a lista de estoques para exibir na JSP
+        List<Estoque> lista = dao.read();
         request.setAttribute("listaEstoques", lista);
+
+        // Encaminha para a página JSP mantendo os dados
         RequestDispatcher dispatcher = request.getRequestDispatcher("/estoqueJSP/readEstoque.jsp");
         dispatcher.forward(request, response);
     }
