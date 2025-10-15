@@ -9,10 +9,7 @@
 </head>
 <body>
 <div class="container">
-    <aside class="sidebar">
         <jsp:include page="./../barraLateral.jsp" />
-    </aside>
-
     <main class="content">
         <header class="topo">
             <h2>Criar Endereço</h2>
@@ -55,7 +52,7 @@
 
         <br>
         <a href="<%=request.getContextPath()%>/ServletReadEndereco" class="hover-link">Voltar à lista</a><br>
-        <a href="<%=request.getContextPath()%>/index.html" class="hover-link">Voltar ao início</a>
+        <a href="<%=request.getContextPath()%>/index.jsp" class="hover-link">Voltar ao início</a>
     </main>
 </div>
 </body>

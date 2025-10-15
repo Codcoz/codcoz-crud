@@ -43,6 +43,6 @@
 
 <br><br>
 <a href="<%= request.getContextPath() %>/ServletReadProduto">Voltar à lista de produtos</a><br><br>
-<a href="<%= request.getContextPath() %>/index.html">Voltar ao início</a>
+<a href="<%= request.getContextPath() %>/index.jsp">Voltar ao início</a>
 </body>
 </html>

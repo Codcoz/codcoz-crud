@@ -52,7 +52,7 @@
     Voltar à lista
 </a>
 <br><br>
-<a href="<%= request.getContextPath() %>/index.html">
+<a href="<%= request.getContextPath() %>/index.jsp">
     Voltar ao início
 </a>
 </body>

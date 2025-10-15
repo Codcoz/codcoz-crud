@@ -81,6 +81,6 @@
 
 <br><br>
 <a href="<%=request.getContextPath()%>/ServletReadFuncionario">Voltar à lista</a> <br><br>
-<a href="<%=request.getContextPath()%>/index.html">Voltar ao início</a>
+<a href="<%=request.getContextPath()%>/index.jsp">Voltar ao início</a>
 </body>
 </html>

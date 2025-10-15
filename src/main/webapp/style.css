@@ -12,11 +12,14 @@ body {
 
 .sidebar {
     width: 230px;
+    height: 90%;
+    margin-left: 20px;
     background-color: #1a263d;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 15px 0;
+    border-radius: 15px;
 }
 
 .perfil {
@@ -119,7 +122,7 @@ body {
 }
 
 .logo {
-    width: 70px;
+    width: 60px;
     object-fit: contain;
 }
 
