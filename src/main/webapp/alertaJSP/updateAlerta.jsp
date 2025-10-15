@@ -9,7 +9,7 @@
     com.codcoz.dao.ProdutoDAO
 " %>
 <%
-    Integer id = Integer.parseInt(request.getParameter("id"));
+    int id = Integer.parseInt(request.getParameter("id"));
     Alerta alerta = new AlertaDAO().buscarPorId(id);
 %>
 <!DOCTYPE html>
@@ -22,11 +22,11 @@
 <body>
 
 <% if (alerta != null) { %>
-<h2>Atualizar Alerta de ID <%= alerta.getId() %></h2>
+<h2>Atualizar Alerta de ID <%=id%></h2>
 
 <form action="<%= request.getContextPath() %>/ServletUpdateAlerta" method="post">
-    <input type="hidden" name="id" value="<%= alerta.getId() %>"/>
-
+    <input type="hidden" name="id" value="<%=id%>"/>
+    <input type="hidden" name="idEmpresa" value="<%= request.getParameter("idEmpresa") %>"/>
 
     <%
         int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
@@ -39,7 +39,7 @@
         <option value="">Selecione um produto</option>
         <% for (Produto prod : produtos) { %>
         <option value="<%= prod.getId() %>" <%= prod.getId().equals(alerta.getIdProduto()) ? "selected" : "" %>>
-            <%= prod.getNome() %>
+            <%= prod.getNome() + ", " + prod.getUnidadeMedida() + ", id: " + prod.getId() %>
         </option>
         <% } %>
     </select>

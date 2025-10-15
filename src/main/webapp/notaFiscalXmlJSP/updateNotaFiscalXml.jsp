@@ -42,7 +42,8 @@
             <%= emp.getNome() %> (CNPJ: <%= emp.getCnpj() %>)
         </option>
         <% } %>
-    </select>
+    </select><br>
+    <a href="../empresaJSP/createEmpresa.jsp">Criar Empresa</a>
     <br><br>
 
     <label for="dataEmissao">Data de Emissão:</label>

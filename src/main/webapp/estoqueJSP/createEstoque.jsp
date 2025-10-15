@@ -25,7 +25,9 @@
         <% for (Empresa emp : empresas) { %>
         <option value="<%= emp.getId() %>"><%= emp.getNome() %></option>
         <% } %>
-    </select><br><br>
+    </select><br>
+    <a href="../empresaJSP/createEmpresa.jsp">Criar Empresa</a>
+    <br><br>
 
     <button type="submit">Criar</button>
 </form>

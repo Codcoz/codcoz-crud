@@ -7,6 +7,7 @@ body {
 .container {
     display: flex;
     height: 100vh;
+    overflow: hidden;
 }
 
 .sidebar {
@@ -16,8 +17,6 @@ body {
     flex-direction: column;
     justify-content: space-between;
     padding: 15px 0;
-    /*border-top-right-radius: 20px;*/
-    /*border-bottom-right-radius: 20px;*/
 }
 
 .perfil {
@@ -99,8 +98,11 @@ body {
 
 .content {
     flex: 1;
+    display: flex;
+    flex-direction: column;
     background-color: #fbf9fb;
     padding: 30px 40px;
+    overflow: hidden;
 }
 
 .topo {
@@ -230,20 +232,36 @@ body {
     transform: scale(1.05);
 }
 
+.tabela-container {
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
+    word-wrap: break-word;
     margin-top: 20px;
 }
 
-th,
-td {
+th, td {
     text-align: left;
     padding: 15px;
     font-size: 14px;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
-th {
+thead th {
+    position: sticky;
+    top: 0;
+    background-color: #fbf9fb;
+    z-index: 1;
     color: #1a263d;
 }
 
@@ -257,6 +275,7 @@ tr:hover td {
     background-color: rgba(213, 190, 101, 0.1);
     cursor: pointer;
 }
+
 td.acoes img {
     width: 25px;
     cursor: pointer;
@@ -266,8 +285,6 @@ td.acoes img {
 td.acoes img:hover {
     transform: scale(1.1);
 }
-
-/*input update e create*/
 
 .input-redondo {
     width: 100%;
@@ -290,6 +307,7 @@ td.acoes img:hover {
 .input-redondo:focus {
     box-shadow: 0 0 0 2px rgba(213, 190, 101, 0.4);
 }
+
 .select-redondo {
     width: 100%;
     max-width: 380px;
@@ -305,11 +323,15 @@ td.acoes img:hover {
     background-size: 10px 7px;
 }
 
-
 .select-redondo:focus {
     box-shadow: 0 0 0 2px rgba(213, 190, 101, 0.4);
 }
-
-
-
-
+.tabela-container {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 60vh;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+}
