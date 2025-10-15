@@ -21,7 +21,11 @@ public class AlertaDAO {
             pstmt.setString(3, alerta.getStatus());
             pstmt.setDate(4, alerta.getDataCriacao());
 
-            return pstmt.executeUpdate() > 0;
+            if (pstmt.executeUpdate() > 0) {
+                System.out.println("Empresa criada com sucesso!");
+                return true;
+            }
+            return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -39,11 +43,11 @@ public class AlertaDAO {
         try {
             Statement stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT a.id, e.id AS id_empresa, a.id_produto, a.data_criacao, a.status, a.tipo_alerta FROM alerta a JOIN produto p ON a.id_produto = p.id JOIN nota_fiscal_xml nf ON p.id_nota_fiscal = nf.id JOIN empresa e ON nf.id_empresa = e.id ORDER BY a.id");
-
             // Mapeia cada linha do resultado para um objeto Alerta
             while (rs.next()) {
                 Alerta alerta = new Alerta(
                         rs.getInt("id"),
+                        rs.getInt("id_empresa"),
                         rs.getInt("id_produto"),
                         rs.getDate("data_criacao"),
                         rs.getString("status"),
@@ -54,19 +58,26 @@ public class AlertaDAO {
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }
+        finally {
         conexao.desconectar(conn);
+            }
         return listaAlertas;
-    }
+        }
 
     public Alerta buscarPorId(int id) {
         Alerta alerta = null;
+        String sql = "SELECT a.id, e.id AS id_empresa, a.id_produto, a.data_criacao, a.status, a.tipo_alerta " +
+                "FROM alerta a " +
+                "JOIN produto p ON a.id_produto = p.id " +
+                "JOIN nota_fiscal_xml nf ON p.id_nota_fiscal = nf.id " +
+                "JOIN empresa e ON nf.id_empresa = e.id " +
+                "WHERE a.id = ?";
         try (Connection conn = new Conexao().conectar();
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM alerta WHERE id = ?")) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
-            // Retorna o primeiro resultado encontrado
             if (rs.next()) {
                 alerta = new Alerta(
                         rs.getInt("id"),
@@ -81,6 +92,8 @@ public class AlertaDAO {
         }
         return alerta;
     }
+
+
 
     public int update(Alerta alerta) {
         Conexao conexao = new Conexao();
@@ -114,16 +127,19 @@ public class AlertaDAO {
         try {
             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM alerta WHERE id = ?");
             pstmt.setInt(1, id);
-
             if (pstmt.executeUpdate() > 0) {
-                return 1; // sucesso
+                System.out.println("Alerta deletado com sucesso");
+                return 1;
             }
+            return 0;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return 0; // erro interno
+            if (sqle.getMessage().contains("still referenced")) {
+                return 0; // está vinculado a outra tabela
+            }
+            return -1;
         } finally {
             conexao.desconectar(conn);
         }
-        return -1; // erro desconhecido
     }
 }
