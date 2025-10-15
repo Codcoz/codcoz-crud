@@ -124,7 +124,7 @@
                         </a>
                     </td>
                 </tr>
-                <%   }
+                <%     }
                 } else { %>
                 <tr>
                     <td colspan="11">Nenhum produto encontrado.</td>
@@ -135,7 +135,7 @@
         </div>
 
         <br>
-        <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link">Voltar ao início</a>
+        <a href="<%= request.getContextPath() %>/index.JSP" class="hover-link">Voltar ao início</a>
     </main>
 </div>
 </body>

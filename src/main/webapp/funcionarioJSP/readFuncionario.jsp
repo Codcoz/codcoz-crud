@@ -11,82 +11,94 @@
     <meta charset="UTF-8">
     <title>Lista de Funcionários</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="container">
 
-<h2>Lista de Funcionários</h2>
+    <jsp:include page="./../barraLateral.jsp" />
 
-<form action="<%= request.getContextPath() %>/funcionarioJSP/createFuncionario.jsp" method="get">
-    <button type="submit">Create</button>
-</form>
-<br>
+    <main class="content">
+        <header class="topo">
+            <h2>Lista de Funcionários</h2>
+            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo">
+        </header>
 
-<%
-    String mensagem = (String) request.getAttribute("mensagem");
-    if (mensagem != null) {
-        String cor = mensagem.toLowerCase().contains("sucesso") ? "green" : "red";
-%>
-<p style="color: <%= cor %>"><%= mensagem %></p>
-<%
-    }
-%>
+        <div class="sub-header">
+            <span class="hover-link ativo">Funcionários</span>
+        </div>
 
-<table border="1" cellpadding="8" cellspacing="0">
-    <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Sobrenome</th>
-        <th>CPF</th>
-        <th>Empresa</th>
-        <th>Função</th>
-        <th>Update</th>
-        <th>Delete</th>
-    </tr>
-    <%
-        List<Funcionario> lista = (List<Funcionario>) request.getAttribute("listaFuncionarios");
-        EmpresaDAO empresaDAO = new EmpresaDAO();
-
-        if (lista != null && !lista.isEmpty()) {
-            for (Funcionario funcionario : lista) {
-                Empresa empresa = null;
-                try {
-                    empresa = empresaDAO.buscarPorId(funcionario.getIdEmpresa());
-                } catch (Exception ignore) { }
-                String nomeEmpresa = (empresa != null && empresa.getNome() != null) ? empresa.getNome() : "—";
-    %>
-    <tr>
-        <td><%= funcionario.getId() %></td>
-        <td><%= funcionario.getNome() %></td>
-        <td><%= funcionario.getSobrenome() %></td>
-        <td><%= funcionario.getCpf() %></td>
-        <td><%= nomeEmpresa %></td>
-        <td><%= funcionario.getFuncao() %></td>
-        <td>
-            <form action="<%= request.getContextPath() %>/funcionarioJSP/updateFuncionario.jsp" method="get">
-                <input type="hidden" name="id" value="<%= funcionario.getId() %>"/>
-                <button type="submit">Update</button>
+        <div class="actions">
+            <form action="<%= request.getContextPath() %>/funcionarioJSP/createFuncionario.jsp" method="get">
+                <button type="submit" class="novo">+</button>
             </form>
-        </td>
-        <td>
-            <form action="<%= request.getContextPath() %>/ServletDeleteFuncionario" method="get">
-                <input type="hidden" name="id" value="<%= funcionario.getId() %>"/>
-                <button type="submit">Delete</button>
-            </form>
-        </td>
-    </tr>
-    <%
-        }
-    } else {
-    %>
-    <tr>
-        <td colspan="8">Nenhum funcionário encontrado.</td>
-    </tr>
-    <%
-        }
-    %>
-</table>
+        </div>
 
-<br>
-<a href="<%= request.getContextPath() %>/index.jsp">Voltar ao início</a>
+        <% String mensagem = (String) request.getAttribute("mensagem");
+            if (mensagem != null) {
+                String cor = mensagem.toLowerCase().contains("sucesso") ? "green" : "red"; %>
+        <p style="color: <%= cor %>"><%= mensagem %></p>
+        <% } %>
+
+        <div class="tabela-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Sobrenome</th>
+                    <th>CPF</th>
+                    <th>Empresa</th>
+                    <th>Função</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                    List<Funcionario> lista = (List<Funcionario>) request.getAttribute("listaFuncionarios");
+                    EmpresaDAO empresaDAO = new EmpresaDAO();
+
+                    if (lista != null && !lista.isEmpty()) {
+                        for (Funcionario funcionario : lista) {
+                            Empresa empresa = null;
+                            try {
+                                empresa = empresaDAO.buscarPorId(funcionario.getIdEmpresa());
+                            } catch (Exception ignore) { }
+                            String nomeEmpresa = (empresa != null && empresa.getNome() != null) ? empresa.getNome() : "—";
+                %>
+                <tr>
+                    <td><%= funcionario.getId() %></td>
+                    <td><%= funcionario.getNome() %></td>
+                    <td><%= funcionario.getSobrenome() %></td>
+                    <td><%= funcionario.getCpf() %></td>
+                    <td><%= nomeEmpresa %></td>
+                    <td><%= funcionario.getFuncao() %></td>
+                    <td class="acoes">
+                        <a href="<%= request.getContextPath() %>/funcionarioJSP/updateFuncionario.jsp?id=<%= funcionario.getId() %>">
+                            <img src="<%= request.getContextPath() %>/assets/edit_icon.png" alt="Editar">
+                        </a>
+                    </td>
+                    <td class="acoes">
+                        <a href="<%= request.getContextPath() %>/ServletDeleteFuncionario?id=<%= funcionario.getId() %>"
+                           onclick="return confirm('Tem certeza que deseja excluir este funcionário?');">
+                            <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir">
+                        </a>
+                    </td>
+                </tr>
+                <%     }
+                } else { %>
+                <tr>
+                    <td colspan="8">Nenhum funcionário encontrado.</td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+
+        <br>
+        <a href="<%= request.getContextPath() %>/index.JSP" class="hover-link">Voltar ao início</a>
+    </main>
+</div>
 </body>
 </html>
