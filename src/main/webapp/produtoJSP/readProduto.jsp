@@ -110,7 +110,7 @@
                     </a>
                 </td>
                 <td class="acoes">
-                    <form action="<%= request.getContextPath() %>/ServletDeleteProduto" method="post">
+                    <form action="<%= request.getContextPath() %>/ServletDeleteProduto" method="get">
                         <input type="hidden" name="id" value="<%= produto.getId() %>"/>
                         <button type="submit" class="icon-button">
                             <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir">
