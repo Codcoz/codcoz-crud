@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -5,35 +6,41 @@
 </head>
 <body>
 <h2>Menu Principal</h2>
+
 <form action="ServletReadEndereco" method="get">
     <button type="submit">Endereços</button>
 </form>
 <br>
+
 <form action="ServletReadEmpresa" method="get">
     <button type="submit">Empresas</button>
 </form>
 <br>
+
 <form action="ServletReadFuncionario" method="get">
     <button type="submit">Funcionário</button>
 </form>
 <br>
+
 <form action="ServletReadEstoque" method="get">
     <button type="submit">Estoques</button>
 </form>
 <br>
+
 <form action="ServletReadNotaFiscalXml" method="get">
     <button type="submit">Notas Fiscais XML</button>
 </form>
 <br>
+
 <form action="ServletReadProduto" method="get">
     <button type="submit">Produtos</button>
 </form>
 <br>
+
 <form action="ServletReadAlerta" method="get">
     <button type="submit">Alerta</button>
 </form>
 <br>
 
-</form>
 </body>
 </html>

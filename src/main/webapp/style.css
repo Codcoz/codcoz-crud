@@ -335,3 +335,32 @@ td.acoes img:hover {
     border-radius: 8px;
     background-color: white;
 }
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 30px 10px;
+    justify-items: center;
+}
+
+.botao-menu {
+    width: 100%;
+    max-width: 220px;
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    background-color: #1a263d;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.botao-menu:hover {
+    background-color: #d5be65;
+    color: #1a263d;
+    transform: scale(1.03);
+}

@@ -67,7 +67,7 @@
 
         <br>
         <a href="<%= request.getContextPath() %>/ServletReadEmpresa" class="hover-link">Voltar à lista</a><br>
-        <a href="<%= request.getContextPath() %>/index.html" class="hover-link">Voltar ao início</a>
+        <a href="<%= request.getContextPath() %>/index.JSP" class="hover-link">Voltar ao início</a>
     </main>
 </div>
 
