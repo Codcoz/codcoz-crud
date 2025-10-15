@@ -1,5 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<%@ page import="com.codcoz.model.Estoque, java.util.List" %>
+<%@ page import="
+    com.codcoz.model.Estoque,
+    com.codcoz.model.Empresa,
+    com.codcoz.dao.EmpresaDAO,
+    java.util.List
+" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -7,56 +12,23 @@
     <title>Lista de Estoques</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .tabela-container {
+            flex: 1;
+            overflow-y: auto;
+            max-height: 60vh;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: white;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
 
-
-<form action="<%= request.getContextPath() %>/estoqueJSP/createEstoque.jsp" method="get">
-    <button type="submit">Create</button>
-</form>
-<br>
-<%
-    String mensagem = (String) request.getAttribute("mensagem");
-    if (mensagem != null) {
-        boolean sucesso = mensagem.toLowerCase().contains("sucesso");
-%>
-<div class="mensagem <%= sucesso ? "sucesso" : "erro" %>">
-    <%= mensagem %>
-</div>
-<% } %>
-
-
-<table border="1" cellpadding="8" cellspacing="0">
-    <tr>
-        <th>ID</th>
-        <th>Tipo</th>
-        <th>Capacidade</th>
-        <th>Empresa</th>
-        <th>Update</th>
-        <th>Delete</th>
-    </tr>
-    <% if (lista != null && !lista.isEmpty()) {
-        for (Estoque est : lista) {
-            Empresa emp = empresaDAO.buscarPorId(est.getIdEmpresa());
-    %>
-    <tr>
-        <td><%= est.getId() %></td>
-        <td><%= est.getTipoEstoque() %></td>
-        <td><%= est.getCapacidade() %></td>
-        <td><%= emp != null ? emp.getNome() : "N/A" %></td>
-        <td>
-            <form action="<%= request.getContextPath() %>/estoqueJSP/updateEstoque.jsp" method="get">
-                <input type="hidden" name="id" value="<%= est.getId() %>"/>
-                <button type="submit">Update</button>
-            </form>
-        </td>
-        <td>
-            <form action="<%= request.getContextPath() %>/ServletDeleteEstoque" method="get">
-                <input type="hidden" name="id" value="<%= est.getId() %>"/>
-                <button type="submit">Delete</button>
-
     <jsp:include page="./../barraLateral.jsp" />
+
     <main class="content">
         <header class="topo">
             <h2>Lista de Estoques</h2>
@@ -64,7 +36,7 @@
         </header>
 
         <div class="sub-header">
-            <span class="hover-link ativo">Estoque</span>
+            <span class="hover-link ativo">Estoques</span>
         </div>
 
         <div class="actions">
@@ -73,11 +45,15 @@
             </form>
         </div>
 
-        <% String mensagem = (String) request.getAttribute("mensagem");
+        <%
+            String mensagem = (String) request.getAttribute("mensagem");
             if (mensagem != null) {
-                String cor = mensagem.toLowerCase().contains("sucesso") ? "green" : "red"; %>
+                String cor = mensagem.toLowerCase().contains("sucesso") ? "green" : "red";
+        %>
         <p style="color: <%= cor %>"><%= mensagem %></p>
-        <% } %>
+        <%
+            }
+        %>
 
         <div class="tabela-container">
             <table>
@@ -85,7 +61,8 @@
                 <tr>
                     <th>ID</th>
                     <th>Tipo de Estoque</th>
-                    <th>Descrição</th>
+                    <th>Capacidade</th>
+                    <th>Empresa</th>
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
@@ -93,10 +70,17 @@
                 <tbody>
                 <%
                     List<Estoque> lista = (List<Estoque>) request.getAttribute("listaEstoques");
+                    EmpresaDAO empresaDAO = new EmpresaDAO();
+
                     if (lista != null && !lista.isEmpty()) {
                         for (Estoque estoque : lista) {
+                            Empresa empresa = empresaDAO.buscarPorId(estoque.getIdEmpresa());
                 %>
                 <tr>
+                    <td><%= estoque.getId() %></td>
+                    <td><%= estoque.getTipoEstoque() %></td>
+                    <td><%= estoque.getCapacidade() %></td>
+                    <td><%= empresa != null ? empresa.getNome() : "N/A" %></td>
                     <td class="acoes">
                         <a href="<%= request.getContextPath() %>/estoqueJSP/updateEstoque.jsp?id=<%= estoque.getId() %>">
                             <img src="<%= request.getContextPath() %>/assets/edit_icon.png" alt="Editar">
@@ -109,12 +93,16 @@
                         </a>
                     </td>
                 </tr>
-                <%     }
-                } else { %>
+                <%
+                    } // fim do for
+                } else {
+                %>
                 <tr>
-                    <td colspan="5">Nenhum estoque encontrado.</td>
+                    <td colspan="6">Nenhum estoque encontrado.</td>
                 </tr>
-                <% } %>
+                <%
+                    } // fim do if lista
+                %>
                 </tbody>
             </table>
         </div>
