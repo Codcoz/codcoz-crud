@@ -75,7 +75,7 @@
 
         <% String mensagem = (String) request.getAttribute("mensagem");
             if (mensagem != null) {
-                String cor = mensagem.contains("sucesso") ? "green" : "red"; %>
+                String cor = mensagem.toLowerCase().contains("sucesso") ? "green" : "red"; %>
         <p style="color: <%= cor %>"><%= mensagem %></p>
         <% } %>
 
@@ -97,9 +97,6 @@
                         for (Estoque estoque : lista) {
                 %>
                 <tr>
-                    <td><%= estoque.getId() %></td>
-                    <td><%= estoque.getTipoEstoque() %></td>
-                    <td><%= estoque.getDescricao() %></td>
                     <td class="acoes">
                         <a href="<%= request.getContextPath() %>/estoqueJSP/updateEstoque.jsp?id=<%= estoque.getId() %>">
                             <img src="<%= request.getContextPath() %>/assets/edit_icon.png" alt="Editar">
@@ -123,7 +120,7 @@
         </div>
 
         <br>
-        <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link">Voltar ao início</a>
+        <a href="<%= request.getContextPath() %>/index.JSP" class="hover-link">Voltar ao início</a>
     </main>
 </div>
 </body>
