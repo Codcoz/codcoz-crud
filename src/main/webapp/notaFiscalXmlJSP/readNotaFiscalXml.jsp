@@ -58,7 +58,7 @@
             </form>
         </td>
         <td>
-            <form action="<%= request.getContextPath() %>/ServletDeleteNotaFiscalXml" method="post">
+            <form action="<%= request.getContextPath() %>/ServletDeleteNotaFiscalXml" method="get">
                 <input type="hidden" name="id" value="<%= nota.getId() %>"/>
                 <button type="submit">Delete</button>
             </form>

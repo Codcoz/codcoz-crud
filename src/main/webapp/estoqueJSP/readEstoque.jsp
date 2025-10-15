@@ -11,8 +11,52 @@
 <body>
 <div class="container">
 
-    <jsp:include page="./../barraLateral.jsp" />
 
+<form action="<%= request.getContextPath() %>/estoqueJSP/createEstoque.jsp" method="get">
+    <button type="submit">Create</button>
+</form>
+<br>
+<%
+    String mensagem = (String) request.getAttribute("mensagem");
+    if (mensagem != null) {
+        boolean sucesso = mensagem.toLowerCase().contains("sucesso");
+%>
+<div class="mensagem <%= sucesso ? "sucesso" : "erro" %>">
+    <%= mensagem %>
+</div>
+<% } %>
+
+
+<table border="1" cellpadding="8" cellspacing="0">
+    <tr>
+        <th>ID</th>
+        <th>Tipo</th>
+        <th>Capacidade</th>
+        <th>Empresa</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    <% if (lista != null && !lista.isEmpty()) {
+        for (Estoque est : lista) {
+            Empresa emp = empresaDAO.buscarPorId(est.getIdEmpresa());
+    %>
+    <tr>
+        <td><%= est.getId() %></td>
+        <td><%= est.getTipoEstoque() %></td>
+        <td><%= est.getCapacidade() %></td>
+        <td><%= emp != null ? emp.getNome() : "N/A" %></td>
+        <td>
+            <form action="<%= request.getContextPath() %>/estoqueJSP/updateEstoque.jsp" method="get">
+                <input type="hidden" name="id" value="<%= est.getId() %>"/>
+                <button type="submit">Update</button>
+            </form>
+        </td>
+        <td>
+            <form action="<%= request.getContextPath() %>/ServletDeleteEstoque" method="get">
+                <input type="hidden" name="id" value="<%= est.getId() %>"/>
+                <button type="submit">Delete</button>
+
+    <jsp:include page="./../barraLateral.jsp" />
     <main class="content">
         <header class="topo">
             <h2>Lista de Estoques</h2>
