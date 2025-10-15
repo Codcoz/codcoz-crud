@@ -39,6 +39,11 @@
             <span class="hover-link ativo">Editar Empresa</span>
         </div>
 
+        <% String mensagem = (String) request.getAttribute("mensagem"); %>
+        <% if (mensagem != null) { %>
+        <div class="mensagem-aviso"><%= mensagem %></div>
+        <% } %>
+
         <% if (empresa != null) { %>
         <div class="actions">
             <form action="<%=request.getContextPath()%>/ServletUpdateEmpresa" method="post" style="max-width: 500px;">
@@ -46,12 +51,11 @@
 
                 <label for="nome">Nome:</label><br>
                 <input type="text" id="nome" name="nome" class="input-redondo" value="<%= empresa.getNome() %>" maxlength="150"
-                       pattern="[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}(?:\.br)?$" required placeholder="Ex: Codcoz Ltda"><br><br>
+                       required placeholder="Ex: Codcoz Ltda"><br><br>
 
                 <label for="cnpj">CNPJ:</label><br>
                 <input type="text" id="cnpj" name="cnpj" class="input-redondo" value="<%= empresa.getCnpj() %>" maxlength="14"
                        pattern="^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$|^\d{14}$" required placeholder="Ex: 12.345.678/0001-90"><br><br>
-
 
                 <label for="idEndereco">Endereço:</label><br>
                 <select id="idEndereco" name="idEndereco" class="select-redondo" required>
@@ -67,7 +71,9 @@
                 <br><br>
 
                 <label for="email">Email:</label><br>
-                <input type="email" id="email" name="email" class="input-redondo" value="<%= empresa.getEmail() %>" required placeholder="Ex: contato@empresa.com.br"><br><br>
+                <input type="email" id="email" name="email" class="input-redondo" value="<%= empresa.getEmail() %>"
+                       pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.((com|net|org|gov|edu|info|biz|co)(\\.br)?|br)$"
+                       required placeholder="Ex: contato@empresa.com.br"><br><br>
 
                 <button type="submit" class="novo">✔</button>
             </form>
@@ -78,7 +84,7 @@
 
         <br>
         <a href="<%=request.getContextPath()%>/ServletReadEmpresa" class="hover-link">Voltar à lista</a><br>
-        <a href="<%=request.getContextPath()%>/index.html" class="hover-link">Voltar ao início</a>
+        <a href="<%=request.getContextPath()%>/index.JSP" class="hover-link">Voltar ao início</a>
     </main>
 </div>
 </body>

@@ -8,49 +8,67 @@
     <meta charset="UTF-8">
     <title>Criar Funcionário</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<h2>Criar Funcionário</h2>
+<div class="container">
+    <aside class="sidebar">
+        <jsp:include page="./../barraLateral.jsp" />
+    </aside>
 
-<form action="<%= request.getContextPath() %>/ServletCreateFuncionario" method="post">
-    <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" placeholder="Nome" maxlength="50" required>
-    <br><br>
-    <label for="sobrenome">Sobrenome:</label>
-    <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome" maxlength="50" required>
-    <br><br>
+    <main class="content">
+        <header class="topo">
+            <h2>Criar Funcionário</h2>
+            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo">
+        </header>
 
-    <label for="cpf">CPF:</label>
-    <input type="text" id="cpf" name="cpf" placeholder="CPF" maxlength="11"
-           pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$|^\d{11}$" required>
-    <br><br>
-    <label for="funcao">Função:</label>
-    <select id="funcao" name="funcao" required>
-        <option value="" disabled selected>Selecione a função</option>
-        <option value="Estoquista">Estoquista</option>
-        <option value="Gestor">Gestor</option>
-    </select>
-    <br><br>
-    <label for="idEmpresa">Empresa:</label>
-    <%
-        List<Empresa> empresas = new EmpresaDAO().read();
-    %>
-    <select id="idEmpresa" name="idEmpresa" required>
-        <option value="">Selecione uma empresa</option>
-        <% for (Empresa emp : empresas) { %>
-        <option value="<%= emp.getId() %>">
-            <%= emp.getNome() %> (CNPJ: <%= emp.getCnpj() %>)
-        </option>
-        <% } %>
-    </select>
-    <a href="../empresaJSP/createEmpresa.jsp">Criar Empresa</a>
-    <br><br>
-    <button type="submit">Criar</button>
-</form>
+        <div class="sub-header">
+            <span class="hover-link ativo">Novo Funcionário</span>
+        </div>
 
-<br><br>
-<a href="<%= request.getContextPath() %>/ServletReadFuncionario">Voltar à lista</a>
-<br><br>
-<a href="<%= request.getContextPath() %>/index.html">Voltar ao início</a>
+        <div class="actions">
+            <form action="<%= request.getContextPath() %>/ServletCreateFuncionario" method="post" style="max-width: 500px;">
+                <label for="nome">Nome:</label><br>
+                <input type="text" id="nome" name="nome" class="input-redondo" placeholder="Nome" maxlength="50" required><br><br>
+
+                <label for="sobrenome">Sobrenome:</label><br>
+                <input type="text" id="sobrenome" name="sobrenome" class="input-redondo" placeholder="Sobrenome" maxlength="50" required><br><br>
+
+                <label for="cpf">CPF:</label><br>
+                <input type="text" id="cpf" name="cpf" class="input-redondo" placeholder="CPF" maxlength="11"
+                       pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$|^\d{11}$" required><br><br>
+
+                <label for="funcao">Função:</label><br>
+                <select id="funcao" name="funcao" class="select-redondo" required>
+                    <option value="" disabled selected>Selecione a função</option>
+                    <option value="Estoquista">Estoquista</option>
+                    <option value="Gestor">Gestor</option>
+                </select><br><br>
+
+                <label for="idEmpresa">Empresa:</label><br>
+                <%
+                    List<Empresa> empresas = new EmpresaDAO().read();
+                %>
+                <select id="idEmpresa" name="idEmpresa" class="select-redondo" required>
+                    <option value="">Selecione uma empresa</option>
+                    <% for (Empresa emp : empresas) { %>
+                    <option value="<%= emp.getId() %>">
+                        <%= emp.getNome() %> (CNPJ: <%= emp.getCnpj() %>)
+                    </option>
+                    <% } %>
+                </select>
+                <br>
+                <a href="../empresaJSP/createEmpresa.jsp" class="hover-link">Criar Empresa</a>
+                <br><br>
+
+                <button type="submit" class="novo">+</button>
+            </form>
+        </div>
+
+        <br>
+        <a href="<%= request.getContextPath() %>/ServletReadFuncionario" class="hover-link">Voltar à lista</a><br>
+        <a href="<%= request.getContextPath() %>/index.JSP" class="hover-link">Voltar ao início</a>
+    </main>
+</div>
 </body>
 </html>

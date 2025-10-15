@@ -18,58 +18,75 @@
     <meta charset="UTF-8">
     <title>Atualizar Alerta</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="container">
 
-<% if (alerta != null) { %>
-<h2>Atualizar Alerta de ID <%=id%></h2>
+    <jsp:include page="./../barraLateral.jsp" />
 
-<form action="<%= request.getContextPath() %>/ServletUpdateAlerta" method="post">
-    <input type="hidden" name="id" value="<%=id%>"/>
-    <input type="hidden" name="idEmpresa" value="<%= request.getParameter("idEmpresa") %>"/>
+    <main class="content">
+        <header class="topo">
+            <h2>Atualizar Alerta</h2>
+            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo">
+        </header>
 
-    <%
-        int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
-        Empresa empresa = new EmpresaDAO().buscarPorId(idEmpresa);
-        List<Produto> produtos = new ProdutoDAO().buscarPorEmpresa(idEmpresa);
-    %>
+        <div class="sub-header">
+            <span class="hover-link ativo">Editar Alerta</span>
+        </div>
 
-    <label for="idProduto">Produto:</label>
-    <select id="idProduto" name="idProduto" required>
-        <option value="">Selecione um produto</option>
-        <% for (Produto prod : produtos) { %>
-        <option value="<%= prod.getId() %>" <%= prod.getId().equals(alerta.getIdProduto()) ? "selected" : "" %>>
-            <%= prod.getNome() + ", " + prod.getUnidadeMedida() + ", id: " + prod.getId() %>
-        </option>
+        <% if (alerta != null) { %>
+        <div class="actions">
+            <form action="<%= request.getContextPath() %>/ServletUpdateAlerta" method="post" style="max-width: 500px;">
+                <input type="hidden" name="id" value="<%= id %>"/>
+                <input type="hidden" name="idEmpresa" value="<%= request.getParameter("idEmpresa") %>"/>
+
+                <%
+                    int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
+                    Empresa empresa = new EmpresaDAO().buscarPorId(idEmpresa);
+                    List<Produto> produtos = new ProdutoDAO().buscarPorEmpresa(idEmpresa);
+                %>
+
+                <label for="idProduto">Produto:</label><br>
+                <select id="idProduto" name="idProduto" class="select-redondo" required>
+                    <option value="">Selecione um produto</option>
+                    <% for (Produto prod : produtos) { %>
+                    <option value="<%= prod.getId() %>" <%= prod.getId().equals(alerta.getIdProduto()) ? "selected" : "" %>>
+                        <%= prod.getNome() %>, <%= prod.getUnidadeMedida() %>, id: <%= prod.getId() %>
+                    </option>
+                    <% } %>
+                </select>
+                <br>
+                <a href="../produtoJSP/createProduto.jsp" class="hover-link">Criar Produto</a>
+                <br><br>
+
+                <label for="dataCriacao">Data de Criação:</label><br>
+                <input type="date" id="dataCriacao" name="dataCriacao" class="input-redondo"
+                       value="<%= alerta.getDataCriacao().toString() %>" required><br><br>
+
+                <label for="status">Status:</label><br>
+                <select id="status" name="status" class="select-redondo" required>
+                    <option value="">Selecione o status</option>
+                    <option value="Pendente" <%= "Pendente".equals(alerta.getStatus()) ? "selected" : "" %>>Pendente</option>
+                    <option value="Resolvido" <%= "Resolvido".equals(alerta.getStatus()) ? "selected" : "" %>>Resolvido</option>
+                    <option value="Ignorado" <%= "Ignorado".equals(alerta.getStatus()) ? "selected" : "" %>>Ignorado</option>
+                </select><br><br>
+
+                <label for="tipoAlerta">Tipo de Alerta:</label><br>
+                <input type="text" id="tipoAlerta" name="tipoAlerta" class="input-redondo"
+                       value="<%= alerta.getTipoAlerta() %>" maxlength="50" required placeholder="Ex: Estoque baixo"><br><br>
+
+                <button type="submit" class="novo">✔</button>
+            </form>
+        </div>
+        <% } else { %>
+        <p style="color: red;">Alerta não encontrado.</p>
         <% } %>
-    </select>
-    <a href="../produtoJSP/createProduto.jsp">Criar Produto</a>
-    <br><br>
 
-    <label for="dataCriacao">Data de Criação:</label>
-    <input type="date" id="dataCriacao" name="dataCriacao"
-           value="<%= alerta.getDataCriacao().toString() %>" required><br><br>
-
-    <label for="status">Status:</label>
-    <select id="status" name="status" required>
-        <option value="">Selecione o status</option>
-        <option value="Pendente" <%= "Pendente".equals(alerta.getStatus()) ? "selected" : "" %>>Pendente</option>
-        <option value="Resolvido" <%= "Resolvido".equals(alerta.getStatus()) ? "selected" : "" %>>Resolvido</option>
-        <option value="Ignorado" <%= "Ignorado".equals(alerta.getStatus()) ? "selected" : "" %>>Ignorado</option>
-    </select><br><br>
-
-    <label for="tipoAlerta">Tipo de Alerta:</label>
-    <input type="text" id="tipoAlerta" name="tipoAlerta"
-           value="<%= alerta.getTipoAlerta() %>" maxlength="50" required placeholder="Ex: Estoque baixo"><br><br>
-
-    <button type="submit">Atualizar</button>
-</form>
-<% } else { %>
-<p>Alerta não encontrado.</p>
-<% } %>
-
-<br><br>
-<a href="<%= request.getContextPath() %>/ServletReadAlerta">Voltar à lista</a><br><br>
-<a href="<%= request.getContextPath() %>/index.html">Voltar ao início</a>
+        <br>
+        <a href="<%= request.getContextPath() %>/ServletReadAlerta" class="hover-link">Voltar à lista</a><br>
+        <a href="<%= request.getContextPath() %>/index.JSP" class="hover-link">Voltar ao início</a>
+    </main>
+</div>
 </body>
 </html>
