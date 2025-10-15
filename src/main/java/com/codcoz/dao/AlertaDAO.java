@@ -40,7 +40,7 @@ public class AlertaDAO {
             Statement stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT a.id, e.id AS id_empresa, a.id_produto, a.data_criacao, a.status, a.tipo_alerta FROM alerta a JOIN produto p ON a.id_produto = p.id JOIN nota_fiscal_xml nf ON p.id_nota_fiscal = nf.id JOIN empresa e ON nf.id_empresa = e.id ORDER BY a.id");
 
-            // Mapeia cada linha do resultado para um objeto Empresa
+            // Mapeia cada linha do resultado para um objeto Alerta
             while (rs.next()) {
                 Alerta alerta = new Alerta(
                         rs.getInt("id"),
