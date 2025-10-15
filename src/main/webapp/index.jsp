@@ -1,46 +1,30 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ page import="
+    com.codcoz.model.Produto,
+    com.codcoz.dao.EstoqueDAO,
+    com.codcoz.dao.NotaFiscalXmlDAO,
+    com.codcoz.dao.EmpresaDAO,
+    com.codcoz.model.Estoque,
+    com.codcoz.model.NotaFiscalXml,
+    com.codcoz.model.Empresa,
+    java.util.List
+" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Menu Principal</title>
+    <title>Lista de Produtos</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<h2>Menu Principal</h2>
+<div class="container">
 
-<form action="ServletReadEndereco" method="get">
-    <button type="submit">Endereços</button>
-</form>
-<br>
+    <jsp:include page="./barraLateral.jsp" />
 
-<form action="ServletReadEmpresa" method="get">
-    <button type="submit">Empresas</button>
-</form>
-<br>
+    <main class="content">
 
-<form action="ServletReadFuncionario" method="get">
-    <button type="submit">Funcionário</button>
-</form>
-<br>
-
-<form action="ServletReadEstoque" method="get">
-    <button type="submit">Estoques</button>
-</form>
-<br>
-
-<form action="ServletReadNotaFiscalXml" method="get">
-    <button type="submit">Notas Fiscais XML</button>
-</form>
-<br>
-
-<form action="ServletReadProduto" method="get">
-    <button type="submit">Produtos</button>
-</form>
-<br>
-
-<form action="ServletReadAlerta" method="get">
-    <button type="submit">Alerta</button>
-</form>
-<br>
-
+    </main>
+</div>
 </body>
 </html>

@@ -29,7 +29,7 @@
                 <input type="text" id="rua" name="rua" class="input-redondo" placeholder="rua" maxlength="100" required><br><br>
 
                 <label for="complemento">Complemento:</label><br>
-                <input type="text" id="complemento" name="complemento" class="input-redondo" placeholder="complemento" maxlength="50" required><br><br>
+                <input type="text" id="complemento" name="complemento" class="input-redondo" placeholder="complemento" maxlength="50"><br><br>
 
                 <label for="cidade">Cidade:</label><br>
                 <input type="text" id="cidade" name="cidade" class="input-redondo" placeholder="cidade" maxlength="80" required><br><br>
@@ -44,7 +44,7 @@
                 </select><br><br>
 
                 <label for="cep">CEP:</label><br>
-                <input type="text" id="cep" name="cep" class="input-redondo" placeholder="cep" pattern="^\d{5}-?\d{3}$" maxlength="8" required><br><br>
+                <input type="text" id="cep" name="cep" class="input-redondo" placeholder="cep" pattern="^\d{5}-?\d{3}$" maxlength="9" required><br><br>
 
                 <label for="numero">Número:</label><br>
                 <input type="text" id="numero" name="numero" class="input-redondo" placeholder="numero" maxlength="10"><br><br>
