@@ -64,6 +64,12 @@
                        pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$|^\d{11}$"
                        required placeholder="Ex: 123.456.789-00"><br><br>
 
+                <!-- CAMPO ADICIONADO -->
+                <label for="email">E-mail:</label><br>
+                <input type="email" id="email" name="email" class="input-redondo"
+                       value="<%= funcionario.getEmail() %>" maxlength="100"
+                       required placeholder="Ex: nome@empresa.com.br"><br><br>
+
                 <label for="idEmpresa">Empresa:</label><br>
                 <select id="idEmpresa" name="idEmpresa" class="select-redondo" required>
                     <option value="">Selecione uma empresa</option>

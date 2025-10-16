@@ -14,9 +14,7 @@
 </head>
 <body>
 <div class="container">
-
         <jsp:include page="./../barraLateral.jsp" />
-
     <main class="content">
         <header class="topo">
             <h2>Criar Nota Fiscal XML</h2>

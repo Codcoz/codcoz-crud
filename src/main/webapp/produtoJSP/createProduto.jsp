@@ -19,7 +19,6 @@
 <body>
 <div class="container">
 
-
         <jsp:include page="./../barraLateral.jsp" />
     <main class="content">
         <header class="topo">
