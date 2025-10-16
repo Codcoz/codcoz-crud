@@ -10,9 +10,7 @@
 </head>
 <body>
 <div class="container">
-    <aside class="sidebar">
         <jsp:include page="./../barraLateral.jsp" />
-    </aside>
 
     <main class="content">
         <header class="topo">

@@ -14,9 +14,8 @@
 </head>
 <body>
 <div class="container">
-    <aside class="sidebar">
+
         <jsp:include page="./../barraLateral.jsp" />
-    </aside>
 
     <main class="content">
         <header class="topo">
@@ -62,8 +61,10 @@
         </div>
 
         <br>
-        <a href="<%= request.getContextPath() %>/ServletReadNotaFiscalXml" class="hover-link">Voltar à lista</a><br>
-        <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link">Voltar ao início</a>
+        <div style="display: flex">
+            <a href="<%= request.getContextPath() %>/ServletReadNotaFiscalXml" class="hover-link">Voltar à lista</a><br>
+            <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link">Voltar ao início</a>
+        </div>
     </main>
 </div>
 </body>

@@ -56,7 +56,6 @@
                 <label for="cnpj">CNPJ:</label><br>
                 <input type="text" id="cnpj" name="cnpj" class="input-redondo" value="<%= empresa.getCnpj() %>" maxlength="14"
                        pattern="^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$|^\d{14}$" required placeholder="Ex: 12.345.678/0001-90"><br><br>
-
                 <label for="idEndereco">Endereço:</label><br>
                 <select id="idEndereco" name="idEndereco" class="select-redondo" required>
                     <option value="">Selecione um endereço</option>
@@ -73,7 +72,8 @@
                 <label for="email">Email:</label><br>
                 <input type="email" id="email" name="email" class="input-redondo" value="<%= empresa.getEmail() %>"
                        pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.((com|net|org|gov|edu|info|biz|co)(\\.br)?|br)$"
-                       required placeholder="Ex: contato@empresa.com.br"><br><br>
+                       required placeholder="Ex: contato@empresa.com.br">
+                <br><br>
 
                 <button type="submit" class="novo">✔</button>
             </form>

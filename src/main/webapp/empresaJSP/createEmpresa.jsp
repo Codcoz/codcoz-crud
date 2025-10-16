@@ -39,7 +39,7 @@
 
                 <label for="cnpj">CNPJ:</label><br>
                 <input type="text" id="cnpj" name="cnpj" class="input-redondo" placeholder="CNPJ" maxlength="14" required>
-
+                <br><br>
                 <label for="idEndereco">Endereço:</label><br>
                 <%
                     List<Endereco> enderecos = new EnderecoDAO().read();
@@ -59,7 +59,7 @@
                 <label for="email">Email:</label><br>
                 <input type="email" id="email" name="email" class="input-redondo"
                        pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.((com|net|org|gov|edu|info|biz|co)(\\.br)?|br)$"
-                       placeholder="Email da empresa" required><br>
+                       placeholder="Email da empresa" required><br><br>
 
                 <button type="submit" class="novo">+</button>
             </form>
