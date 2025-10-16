@@ -38,7 +38,7 @@
                 <input type="text" id="nome" name="nome" class="input-redondo" placeholder="Nome da empresa" maxlength="150" required><br><br>
 
                 <label for="cnpj">CNPJ:</label><br>
-                <input type="text" id="cnpj" name="cnpj" class="input-redondo" placeholder="CNPJ" maxlength="14" required>
+                <input type="text" id="cnpj" name="cnpj" class="input-redondo" placeholder="CNPJ" maxlength="14" required><br><br>
 
                 <label for="idEndereco">Endereço:</label><br>
                 <%
@@ -59,15 +59,17 @@
                 <label for="email">Email:</label><br>
                 <input type="email" id="email" name="email" class="input-redondo"
                        pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.((com|net|org|gov|edu|info|biz|co)(\\.br)?|br)$"
-                       placeholder="Email da empresa" required><br>
+                       placeholder="Email da empresa" required><br><br>
 
                 <button type="submit" class="novo">+</button>
             </form>
         </div>
 
         <br>
-        <a href="<%= request.getContextPath() %>/ServletReadEmpresa" class="hover-link">Voltar à lista</a><br>
-        <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link">Voltar ao início</a>
+        <div style="display: flex;">
+            <a href="<%=request.getContextPath()%>/ServletReadEmpresa" class="hover-link">Voltar à lista</a>
+            <a href="<%=request.getContextPath()%>/index.jsp" class="hover-link">Voltar ao início</a>
+        </div>
     </main>
 </div>
 
