@@ -7,22 +7,26 @@ public class Funcionario {
     private String nome;
     private String sobrenome;
     private String cpf;
+    private String email;
 
-    public Funcionario(Integer id, Integer idEmpresa, String funcao, String nome, String sobrenome, String cpf) {
+    public Funcionario(Integer id, Integer idEmpresa, String funcao, String nome, String sobrenome, String cpf, String email) {
         this.id = id;
         this.idEmpresa = idEmpresa;
         this.funcao = funcao;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.cpf = cpf;
+        this.email = email;
     }
 
-    public Funcionario(Integer idEmpresa, String funcao, String nome, String sobrenome, String cpf) {
+    public Funcionario(Integer idEmpresa, String funcao, String nome, String sobrenome, String cpf, String email) {
         this.idEmpresa = idEmpresa;
         this.funcao = funcao;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.cpf = cpf;
+        this.email = email;
+
     }
 
     public Integer getId() {
@@ -49,5 +53,8 @@ public class Funcionario {
         return cpf;
     }
 
+    public String getEmail(){
+        return email;
+    }
 
 }

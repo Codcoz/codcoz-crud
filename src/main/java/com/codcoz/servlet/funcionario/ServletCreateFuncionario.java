@@ -22,6 +22,7 @@ public class ServletCreateFuncionario extends HttpServlet {
         String nome         = request.getParameter("nome");
         String sobrenome    = request.getParameter("sobrenome");
         String cpf          = request.getParameter("cpf");
+        String email        = request.getParameter("email");
 
         // Flags de erro
         boolean temErro = false;
@@ -50,7 +51,12 @@ public class ServletCreateFuncionario extends HttpServlet {
             temErro = true;
         }
         if (cpf == null || cpf.trim().isEmpty()) {
-            request.setAttribute("erroCpf", "Cpf e obrigatorio");
+            request.setAttribute("erroCpf", "Cpf é obrigatório.");
+            temErro = true;
+        }
+        if (email == null || email.trim().isEmpty()) {
+            request.setAttribute("erroEmail", "E-mail é obrigatório.");
+            temErro = true;
         }
 
         // Se houve erro, devolve para o formulário preservando o que o usuário digitou
@@ -60,6 +66,7 @@ public class ServletCreateFuncionario extends HttpServlet {
             request.setAttribute("nomeValue", nome);
             request.setAttribute("sobrenomeValue", sobrenome);
             request.setAttribute("cpfValue", cpf);
+            request.setAttribute("emailValue", email);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionarioJSP/createFuncionario.jsp");
             dispatcher.forward(request, response);
@@ -75,7 +82,8 @@ public class ServletCreateFuncionario extends HttpServlet {
                 funcao,
                 nome,
                 sobrenome,
-                cpfNormalizado
+                cpfNormalizado,
+                email
         );
 
         FuncionarioDAO dao = new FuncionarioDAO();

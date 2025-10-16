@@ -10,7 +10,7 @@ import java.util.List;
 public class FuncionarioDAO {
 
     public boolean create(Funcionario funcionario) {
-        String sql = "INSERT INTO funcionario (id_empresa, funcao, nome, sobrenome, cpf) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO funcionario (id_empresa, funcao, nome, sobrenome, cpf, email) VALUES (?, ?, ?, ?, ?, ?)";
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try {
@@ -21,51 +21,56 @@ public class FuncionarioDAO {
             pstmt.setString(3, funcionario.getNome());
             pstmt.setString(4, funcionario.getSobrenome());
             pstmt.setString(5, funcionario.getCpf());
-            return pstmt.executeUpdate()>0;
+            pstmt.setString(6, funcionario.getEmail());
+            return pstmt.executeUpdate() > 0;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
             return false;
-        }finally {
+        } finally {
             conexao.desconectar(conn);
         }
     }
-    public List<Funcionario> read(){
+
+    public List<Funcionario> read() {
         ArrayList<Funcionario> funcionariosList = new ArrayList<>();
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         ResultSet rs;
-        try{
+        try {
             Statement stmt = conn.createStatement();
-            rs = stmt.executeQuery("select * from funcionario ");
-            while (rs.next()){
-            Funcionario funcionario = new Funcionario(
-                    rs.getInt("id"),
-                    rs.getInt("id_empresa"),
-                    rs.getString("funcao"),
-                    rs.getString("nome"),
-                    rs.getString("sobrenome"),
-                    rs.getString("cpf")
-            );
+            rs = stmt.executeQuery("SELECT * FROM funcionario");
+            while (rs.next()) {
+                Funcionario funcionario = new Funcionario(
+                        rs.getInt("id"),
+                        rs.getInt("id_empresa"),
+                        rs.getString("funcao"),
+                        rs.getString("nome"),
+                        rs.getString("sobrenome"),
+                        rs.getString("cpf"),
+                        rs.getString("email")
+                );
                 funcionariosList.add(funcionario);
             }
-        }catch (SQLException sqle){
+        } catch (SQLException sqle) {
             sqle.printStackTrace();
-        }finally {
+        } finally {
             conexao.desconectar(conn);
         }
         return funcionariosList;
     }
-    public int update(Funcionario funcionario){
+
+    public int update(Funcionario funcionario) {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
-        String sql = "UPDATE funcionario SET id_empresa = ?, funcao = ?, nome = ?, sobrenome = ?, cpf = ? WHERE id = ?";
+        String sql = "UPDATE funcionario SET id_empresa = ?, funcao = ?, nome = ?, sobrenome = ?, cpf = ?, email = ? WHERE id = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, funcionario.getIdEmpresa());
             pstmt.setString(2, funcionario.getFuncao());
             pstmt.setString(3, funcionario.getNome());
             pstmt.setString(4, funcionario.getSobrenome());
             pstmt.setString(5, funcionario.getCpf());
-            pstmt.setInt(6, funcionario.getId());
+            pstmt.setString(6, funcionario.getEmail());
+            pstmt.setInt(7, funcionario.getId());
 
             int updated = pstmt.executeUpdate();
             if (updated > 0) {
@@ -81,21 +86,21 @@ public class FuncionarioDAO {
         }
     }
 
-    public int delete(int id){
+    public int delete(int id) {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
-        try{
+        try {
             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM funcionario WHERE id = ?");
-            pstmt.setInt(1,id);
+            pstmt.setInt(1, id);
 
-            if(pstmt.executeUpdate()>0){
-                return 1;// sucesso
+            if (pstmt.executeUpdate() > 0) {
+                return 1; // sucesso
             }
 
-        }catch (SQLException sqle){
+        } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return 0;// erro interno
-        }finally {
+            return 0; // erro interno
+        } finally {
             conexao.desconectar(conn);
         }
         return -1; // erro desconhecido
@@ -103,29 +108,23 @@ public class FuncionarioDAO {
 
     public Funcionario buscarPorId(int id) {
         Funcionario funcionario = null;
-        // Query SQL para selecionar um funcionário específico pelo seu ID
         String sql = "SELECT * FROM funcionario WHERE id = ?";
 
-        // Utiliza try-with-resources para garantir que a conexão e o statement sejam fechados
         try (Connection conn = new Conexao().conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            // Define o valor do parâmetro ID na query
             stmt.setInt(1, id);
-
-            // Executa a query e obtém o resultado
             ResultSet rs = stmt.executeQuery();
 
-            // Verifica se um registro foi encontrado
             if (rs.next()) {
-                // Cria uma instância do objeto Funcionario com os dados do banco
                 funcionario = new Funcionario(
                         rs.getInt("id"),
                         rs.getInt("id_empresa"),
                         rs.getString("funcao"),
                         rs.getString("nome"),
                         rs.getString("sobrenome"),
-                        rs.getString("cpf")
+                        rs.getString("cpf"),
+                        rs.getString("email")
                 );
             }
         } catch (SQLException e) {
@@ -133,7 +132,6 @@ public class FuncionarioDAO {
             e.printStackTrace();
         }
 
-        // Retorna o objeto funcionario encontrado, ou null se não encontrou
         return funcionario;
     }
 }
