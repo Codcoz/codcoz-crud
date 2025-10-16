@@ -38,8 +38,8 @@
                 <input type="text" id="nome" name="nome" class="input-redondo" placeholder="Nome da empresa" maxlength="150" required><br><br>
 
                 <label for="cnpj">CNPJ:</label><br>
-                <input type="text" id="cnpj" name="cnpj" class="input-redondo" placeholder="CNPJ" maxlength="14" required><br><br>
-
+                <input type="text" id="cnpj" name="cnpj" class="input-redondo" placeholder="CNPJ" maxlength="14" required>
+                <br><br>
                 <label for="idEndereco">Endereço:</label><br>
                 <%
                     List<Endereco> enderecos = new EnderecoDAO().read();
