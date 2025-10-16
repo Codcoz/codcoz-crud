@@ -48,6 +48,7 @@
                     <th>Nome</th>
                     <th>Sobrenome</th>
                     <th>CPF</th>
+                    <th>E-mail</th> <!-- ADICIONADO -->
                     <th>Empresa</th>
                     <th>Função</th>
                     <th>Update</th>
@@ -72,6 +73,7 @@
                     <td><%= funcionario.getNome() %></td>
                     <td><%= funcionario.getSobrenome() %></td>
                     <td><%= funcionario.getCpf() %></td>
+                    <td><%= funcionario.getEmail() %></td> <!-- ADICIONADO -->
                     <td><%= nomeEmpresa %></td>
                     <td><%= funcionario.getFuncao() %></td>
                     <td class="acoes">
@@ -89,7 +91,7 @@
                 <%     }
                 } else { %>
                 <tr>
-                    <td colspan="8">Nenhum funcionário encontrado.</td>
+                    <td colspan="9">Nenhum funcionário encontrado.</td> <!-- ajustado de 8 para 9 -->
                 </tr>
                 <% } %>
                 </tbody>

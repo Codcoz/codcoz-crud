@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="container">
-        <jsp:include page="./../barraLateral.jsp" />
+    <jsp:include page="./../barraLateral.jsp" />
 
     <main class="content">
         <header class="topo">
@@ -34,7 +34,11 @@
 
                 <label for="cpf">CPF:</label><br>
                 <input type="text" id="cpf" name="cpf" class="input-redondo" placeholder="CPF" maxlength="11"
-                       pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$|^\d{11}$" required><br><br>
+                       pattern="^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$|^\\d{11}$" required><br><br>
+
+                <!-- CAMPO ADICIONADO -->
+                <label for="email">E-mail:</label><br>
+                <input type="email" id="email" name="email" class="input-redondo" placeholder="E-mail" maxlength="100" required><br><br>
 
                 <label for="funcao">Função:</label><br>
                 <select id="funcao" name="funcao" class="select-redondo" required>
