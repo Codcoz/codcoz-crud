@@ -22,6 +22,7 @@ public class ServletUpdateFuncionario extends HttpServlet {
         String nome         = request.getParameter("nome");
         String sobrenome    = request.getParameter("sobrenome");
         String cpf          = request.getParameter("cpf");
+        String email        = request.getParameter("email");
 
         boolean temErro = false;
 
@@ -56,9 +57,13 @@ public class ServletUpdateFuncionario extends HttpServlet {
             request.setAttribute("erroFuncao", "Função é obrigatória.");
             temErro = true;
         }
-
         if (cpf == null || cpf.trim().isEmpty()) {
-            request.setAttribute("erroCpf", "Cpf e obrigatorio");
+            request.setAttribute("erroCpf", "Cpf é obrigatório.");
+            temErro = true;
+        }
+        if (email == null || email.trim().isEmpty()) {
+            request.setAttribute("erroEmail", "E-mail é obrigatório.");
+            temErro = true;
         }
 
         if (temErro) {
@@ -69,6 +74,7 @@ public class ServletUpdateFuncionario extends HttpServlet {
             request.setAttribute("nomeValue", nome);
             request.setAttribute("sobrenomeValue", sobrenome);
             request.setAttribute("cpfValue", cpf);
+            request.setAttribute("emailValue", email);
 
             // Volta para o formulário de atualização
             RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionarioJSP/updateFuncionario.jsp");
@@ -86,7 +92,8 @@ public class ServletUpdateFuncionario extends HttpServlet {
                 funcao,
                 nome,
                 sobrenome,
-                cpfNormalizado
+                cpfNormalizado,
+                email
         );
 
         FuncionarioDAO dao = new FuncionarioDAO();
