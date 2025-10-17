@@ -39,10 +39,6 @@
             <span class="hover-link ativo">Editar Empresa</span>
         </div>
 
-        <% String mensagem = (String) request.getAttribute("mensagem"); %>
-        <% if (mensagem != null) { %>
-        <div class="mensagem-aviso"><%= mensagem %></div>
-        <% } %>
 
         <% if (empresa != null) { %>
         <div class="actions">

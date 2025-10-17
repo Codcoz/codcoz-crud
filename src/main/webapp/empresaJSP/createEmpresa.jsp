@@ -27,10 +27,6 @@
             <span class="hover-link ativo">Nova Empresa</span>
         </div>
 
-        <% String mensagem = (String) request.getAttribute("mensagem"); %>
-        <% if (mensagem != null) { %>
-        <div class="mensagem-aviso"><%= mensagem %></div>
-        <% } %>
 
         <div class="actions">
             <form action="<%= request.getContextPath() %>/ServletCreateEmpresa" method="post" style="max-width: 500px;">
