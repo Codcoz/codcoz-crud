@@ -20,7 +20,7 @@
 
     <jsp:include page="./../barraLateral.jsp" />
 
-    <main class="content">
+    <main class="content" style="overflow: auto">
         <header class="topo">
             <h2>Lista de Alertas</h2>
             <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo">

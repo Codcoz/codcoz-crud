@@ -14,23 +14,22 @@
 </head>
 <body>
 <div class="container">
+    <jsp:include page="./../barraLateral.jsp" />
 
-        <jsp:include page="./../barraLateral.jsp" />
-
-    <main class="content">
+    <main class="content" style="overflow-y: auto;">
         <header class="topo">
             <h2>Empresa do Produto</h2>
-            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo">
+            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo" title="Logo Codcoz">
         </header>
 
         <div class="sub-header">
-            <span class="hover-link ativo">Selecionar Empresa</span>
+            <span class="hover-link ativo" title="Selecione a empresa para associar ao produto">Selecionar Empresa</span>
         </div>
 
-        <div class="actions">
-            <form action="<%= request.getContextPath() %>/produtoJSP/createProduto.jsp" method="post" style="max-width: 500px;">
+        <div class="actions" style="margin-top: 30px;">
+            <form action="<%= request.getContextPath() %>/produtoJSP/createProduto.jsp" method="post" style="max-width: 500px; width: 100%;">
                 <label for="idEmpresa">Empresa:</label><br>
-                <select name="idEmpresa" id="idEmpresa" class="select-redondo" required>
+                <select name="idEmpresa" id="idEmpresa" class="select-redondo" required title="Selecione a empresa responsável pelo produto">
                     <option value="">Selecione...</option>
                     <%
                         List<Empresa> empresas = new EmpresaDAO().read();
@@ -40,16 +39,19 @@
                     <% } %>
                 </select>
                 <br>
-                <a href="../empresaJSP/createEmpresa.jsp" class="hover-link">Criar Empresa</a>
+                <a href="../empresaJSP/createEmpresa.jsp" class="hover-link" title="Cadastrar nova empresa">Criar Empresa</a>
                 <br><br>
 
-                <button type="submit" class="novo">✔</button>
+                <button type="submit" class="novo" title="Avançar para criação do produto">+</button>
             </form>
         </div>
 
         <br>
-        <a href="<%= request.getContextPath() %>/ServletReadProduto" class="hover-link">Voltar à lista de produtos</a><br>
-        <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link">Voltar ao início</a>
+        <div style="display: flex; gap: 20px;">
+            <a href="<%= request.getContextPath() %>/ServletReadProduto" class="hover-link" title="Ver lista de produtos">Voltar à lista de produtos</a>
+            <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
+        </div>
+
     </main>
 </div>
 </body>

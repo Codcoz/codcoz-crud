@@ -18,16 +18,16 @@
 </head>
 <body>
 <div class="container">
+    <jsp:include page="./../barraLateral.jsp" />
 
-        <jsp:include page="./../barraLateral.jsp" />
-    <main class="content">
+    <main class="content" style="overflow: auto">
         <header class="topo">
             <h2>Criar Produto</h2>
-            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo">
+            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo" title="Logo Codcoz">
         </header>
 
         <div class="sub-header">
-            <span class="hover-link ativo">Novo Produto</span>
+            <span class="hover-link ativo" title="Preencha os dados para cadastrar um novo produto">Novo Produto</span>
         </div>
 
         <%
@@ -37,35 +37,35 @@
             List<NotaFiscalXml> notaFiscalXmls = new NotaFiscalXmlDAO().buscarPorEmpresa(idEmpresa);
         %>
 
-        <div class="actions">
-            <form action="<%= request.getContextPath() %>/ServletCreateProduto" method="post" style="max-width: 500px;">
+        <div class="actions" style="margin-top: 30px;">
+            <form action="<%= request.getContextPath() %>/ServletCreateProduto" method="post" style="max-width: 500px; width: 100%;">
                 <input type="hidden" name="idEmpresa" value="<%= idEmpresa %>">
                 <p><strong>Empresa do Produto:</strong> <%= empresa.getNome() %></p>
 
                 <label for="idEstoque">Estoque:</label><br>
-                <select id="idEstoque" name="idEstoque" class="select-redondo" required>
+                <select id="idEstoque" name="idEstoque" class="select-redondo" required title="Selecione o estoque onde o produto será armazenado">
                     <option value="">Selecione um estoque</option>
                     <% for (Estoque e : estoques) { %>
                     <option value="<%= e.getId() %>"><%= e.getTipoEstoque() %></option>
                     <% } %>
                 </select>
                 <br>
-                <a href="../estoqueJSP/createEstoque.jsp" class="hover-link">Criar Estoque</a>
+                <a href="../estoqueJSP/createEstoque.jsp" class="hover-link" title="Cadastrar novo estoque">Criar Estoque</a>
                 <br><br>
 
                 <label for="idNotaFiscal">Nota Fiscal XML:</label><br>
-                <select id="idNotaFiscal" name="idNotaFiscal" class="select-redondo" required>
+                <select id="idNotaFiscal" name="idNotaFiscal" class="select-redondo" required title="Selecione a nota fiscal associada ao produto">
                     <option value="">Selecione uma nota fiscal</option>
                     <% for (NotaFiscalXml n : notaFiscalXmls) { %>
                     <option value="<%= n.getId() %>"><%= n.getNumeroNota() %></option>
                     <% } %>
                 </select>
                 <br>
-                <a href="../notaFiscalXmlJSP/createNotaFiscalXml.jsp" class="hover-link">Criar Nota Fiscal XML</a>
+                <a href="../notaFiscalXmlJSP/createNotaFiscalXml.jsp" class="hover-link" title="Cadastrar nova nota fiscal">Criar Nota Fiscal XML</a>
                 <br><br>
 
                 <label for="unidadeMedida">Unidade de medida:</label><br>
-                <select id="unidadeMedida" name="unidadeMedida" class="select-redondo" required>
+                <select id="unidadeMedida" name="unidadeMedida" class="select-redondo" required title="Selecione a unidade de medida do produto">
                     <option value="">Selecione</option>
                     <option value="kg">Kg</option>
                     <option value="g">g</option>
@@ -76,24 +76,35 @@
                 </select><br><br>
 
                 <label for="nome">Nome do Produto:</label><br>
-                <input type="text" id="nome" name="nome" class="input-redondo" placeholder="Ex: Carne" required><br><br>
+                <input type="text" id="nome" name="nome" class="input-redondo"
+                       placeholder="Ex: Carne" required
+                       title="Informe o nome do produto"><br><br>
 
                 <label for="estoqueMinimo">Estoque Mínimo:</label><br>
-                <input type="number" step="1" id="estoqueMinimo" name="estoqueMinimo" class="input-redondo" placeholder="Ex: 1" required><br><br>
+                <input type="number" step="1" id="estoqueMinimo" name="estoqueMinimo" class="input-redondo"
+                       placeholder="Ex: 1" required
+                       title="Informe o estoque mínimo para alerta"><br><br>
 
                 <label for="categoria">Categoria:</label><br>
-                <input type="text" id="categoria" name="categoria" class="input-redondo" placeholder="Ex: Frios" required><br><br>
+                <input type="text" id="categoria" name="categoria" class="input-redondo"
+                       placeholder="Ex: Frios" required
+                       title="Informe a categoria do produto"><br><br>
 
                 <label for="quantidade">Quantidade:</label><br>
-                <input type="number" step="1" id="quantidade" name="quantidade" class="input-redondo" placeholder="Ex: 1" required><br><br>
+                <input type="number" step="1" id="quantidade" name="quantidade" class="input-redondo"
+                       placeholder="Ex: 1" required
+                       title="Informe a quantidade atual do produto"><br><br>
 
-                <button type="submit" class="novo">+</button>
+                <button type="submit" class="novo" title="Salvar novo produto">+</button>
             </form>
         </div>
 
         <br>
-        <a href="<%= request.getContextPath() %>/ServletReadProduto" class="hover-link">Voltar à lista de produtos</a><br>
-        <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link">Voltar ao início</a>
+        <div style="display: flex; gap: 20px;">
+            <a href="<%= request.getContextPath() %>/ServletReadProduto" class="hover-link" title="Ver lista de produtos">Voltar à lista de produtos</a>
+            <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
+        </div>
+
     </main>
 </div>
 </body>
