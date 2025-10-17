@@ -9,9 +9,7 @@
     Integer id = null;
     try {
         id = Integer.parseInt(request.getParameter("id"));
-    } catch (Exception e) {
-        // parâmetro inválido
-    }
+    } catch (Exception e) { }
 
     Funcionario funcionario = null;
     List<Empresa> empresas = new EmpresaDAO().read();
@@ -33,45 +31,47 @@
 <div class="container">
     <jsp:include page="./../barraLateral.jsp" />
 
-    <main class="content">
+    <main class="content" style="overflow: auto">
         <header class="topo">
             <h2>Atualizar Funcionário</h2>
-            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo">
+            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo" title="Logo Codcoz">
         </header>
 
         <div class="sub-header">
-            <span class="hover-link ativo">Editar Funcionário</span>
+            <span class="hover-link ativo" title="Edite os dados do funcionário selecionado">Editar Funcionário</span>
         </div>
 
         <% if (funcionario != null) { %>
-        <div class="actions">
-            <form action="<%= request.getContextPath() %>/ServletUpdateFuncionario" method="post" style="max-width: 500px;">
+        <div class="actions" style="margin-top: 30px;">
+            <form action="<%= request.getContextPath() %>/ServletUpdateFuncionario" method="post" style="max-width: 500px; width: 100%;">
                 <input type="hidden" name="id" value="<%= funcionario.getId() %>"/>
 
                 <label for="nome">Nome:</label><br>
                 <input type="text" id="nome" name="nome" class="input-redondo"
                        value="<%= funcionario.getNome() %>" maxlength="50"
-                       required placeholder="Ex: Ana"><br><br>
+                       required placeholder="Ex: Ana" title="Informe o primeiro nome do funcionário"><br><br>
 
                 <label for="sobrenome">Sobrenome:</label><br>
                 <input type="text" id="sobrenome" name="sobrenome" class="input-redondo"
                        value="<%= funcionario.getSobrenome() %>" maxlength="50"
-                       required placeholder="Ex: Silva"><br><br>
+                       required placeholder="Ex: Silva" title="Informe o sobrenome do funcionário"><br><br>
 
                 <label for="cpf">CPF:</label><br>
                 <input type="text" id="cpf" name="cpf" class="input-redondo"
                        value="<%= funcionario.getCpf() %>" maxlength="11"
+
                        pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$|^\d{11}$"
+                       required placeholder="Ex: 123.456.789-00" title="Informe o CPF do funcionário"><br><br>
+                       pattern="^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$|^\\d{11}$"
                        required placeholder="Ex: 123.456.789-00"><br><br>
 
-                <!-- CAMPO ADICIONADO -->
                 <label for="email">E-mail:</label><br>
                 <input type="email" id="email" name="email" class="input-redondo"
                        value="<%= funcionario.getEmail() %>" maxlength="100"
-                       required placeholder="Ex: nome@empresa.com.br"><br><br>
+                       required placeholder="Ex: nome@empresa.com.br" title="Informe o e-mail do funcionário"><br><br>
 
                 <label for="idEmpresa">Empresa:</label><br>
-                <select id="idEmpresa" name="idEmpresa" class="select-redondo" required>
+                <select id="idEmpresa" name="idEmpresa" class="select-redondo" required title="Selecione a empresa associada ao funcionário">
                     <option value="">Selecione uma empresa</option>
                     <% for (Empresa e : empresas) { %>
                     <option value="<%= e.getId() %>"
@@ -81,26 +81,38 @@
                     <% } %>
                 </select>
                 <br>
-                <a href="../empresaJSP/createEmpresa.jsp" class="hover-link">Criar Empresa</a>
+                <a href="../empresaJSP/createEmpresa.jsp" class="hover-link" title="Cadastrar nova empresa">Criar Empresa</a>
                 <br><br>
 
                 <label for="funcao">Função:</label><br>
-                <select id="funcao" name="funcao" class="select-redondo" required>
+                <select id="funcao" name="funcao" class="select-redondo" required title="Selecione a função do funcionário">
                     <option value="">Selecione a função</option>
                     <option value="Estoquista" <%= "Estoquista".equals(funcionario.getFuncao()) ? "selected" : "" %>>Estoquista</option>
                     <option value="Gestor" <%= "Gestor".equals(funcionario.getFuncao()) ? "selected" : "" %>>Gestor</option>
                 </select><br><br>
 
+                <button type="submit" class="novo" title="Salvar alterações">+</button>
+                <!-- ====== ADIÇÃO ESSENCIAL: STATUS ====== -->
+                <label for="status">Status:</label><br>
+                <select id="status" name="status" class="select-redondo" required>
+                    <option value="ATIVO"   <%= "ATIVO".equalsIgnoreCase(funcionario.getStatus())   ? "selected" : "" %>>ATIVO</option>
+                    <option value="INATIVO" <%= "INATIVO".equalsIgnoreCase(funcionario.getStatus()) ? "selected" : "" %>>INATIVO</option>
+                </select><br><br>
+                <!-- ====================================== -->
+
                 <button type="submit" class="novo">✔</button>
             </form>
         </div>
         <% } else { %>
-        <p style="color: red;">Funcionário não encontrado.</p>
+        <p style="color: red;" title="Erro ao carregar funcionário">Funcionário não encontrado.</p>
         <% } %>
 
         <br>
-        <a href="<%= request.getContextPath() %>/ServletReadFuncionario" class="hover-link">Voltar à lista</a><br>
-        <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link">Voltar ao início</a>
+        <div style="display: flex; gap: 20px;">
+            <a href="<%= request.getContextPath() %>/ServletReadFuncionario" class="hover-link" title="Ver lista de funcionários">Voltar à lista</a>
+            <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
+        </div>
+
     </main>
 </div>
 </body>

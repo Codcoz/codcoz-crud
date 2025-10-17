@@ -14,24 +14,25 @@
 </head>
 <body>
 <div class="container">
-        <jsp:include page="./../barraLateral.jsp" />
-    <main class="content">
+    <jsp:include page="./../barraLateral.jsp" />
+
+    <main class="content" style="overflow: auto">
         <header class="topo">
             <h2>Criar Nota Fiscal XML</h2>
-            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo">
+            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo" title="Logo Codcoz">
         </header>
 
         <div class="sub-header">
-            <span class="hover-link ativo">Nova Nota Fiscal</span>
+            <span class="hover-link ativo" title="Preencha os dados para cadastrar uma nova nota fiscal">Nova Nota Fiscal</span>
         </div>
 
-        <div class="actions">
-            <form action="<%= request.getContextPath() %>/ServletCreateNotaFiscalXml" method="post" style="max-width: 500px;">
+        <div class="actions" style="margin-top: 30px;">
+            <form action="<%= request.getContextPath() %>/ServletCreateNotaFiscalXml" method="post" style="max-width: 500px; width: 100%;">
                 <label for="idEmpresa">Empresa:</label><br>
                 <%
                     List<Empresa> empresas = new EmpresaDAO().read();
                 %>
-                <select id="idEmpresa" name="idEmpresa" class="select-redondo" required>
+                <select id="idEmpresa" name="idEmpresa" class="select-redondo" required title="Selecione a empresa emissora da nota fiscal">
                     <option value="">Selecione uma empresa</option>
                     <% for (Empresa emp : empresas) { %>
                     <option value="<%= emp.getId() %>">
@@ -40,29 +41,33 @@
                     <% } %>
                 </select>
                 <br>
-                <a href="../empresaJSP/createEmpresa.jsp" class="hover-link">Criar Empresa</a>
+                <a href="../empresaJSP/createEmpresa.jsp" class="hover-link" title="Cadastrar nova empresa">Criar Empresa</a>
                 <br><br>
 
                 <label for="dataEmissao">Data de Emissão:</label><br>
-                <input type="date" id="dataEmissao" name="dataEmissao" class="input-redondo" required><br><br>
+                <input type="date" id="dataEmissao" name="dataEmissao" class="input-redondo"
+                       required title="Informe a data de emissão da nota fiscal"><br><br>
 
                 <label for="numeroNota">Número da Nota:</label><br>
                 <input type="text" id="numeroNota" name="numeroNota" class="input-redondo"
-                       placeholder="Ex: 123456" required><br><br>
+                       placeholder="Ex: 123456" required
+                       title="Informe o número da nota fiscal"><br><br>
 
                 <label for="xmlString">Conteúdo XML:</label><br>
                 <textarea id="xmlString" name="xmlString" class="input-redondo" rows="6"
-                          placeholder="Cole o XML aqui..." required></textarea><br><br>
+                          placeholder="Cole o XML aqui..." required
+                          title="Cole o conteúdo XML da nota fiscal"></textarea><br><br>
 
-                <button type="submit" class="novo">+</button>
+                <button type="submit" class="novo" title="Salvar nova nota fiscal">+</button>
             </form>
         </div>
 
         <br>
-        <div style="display: flex">
-            <a href="<%= request.getContextPath() %>/ServletReadNotaFiscalXml" class="hover-link">Voltar à lista</a><br>
-            <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link">Voltar ao início</a>
+        <div style="display: flex; gap: 20px;">
+            <a href="<%= request.getContextPath() %>/ServletReadNotaFiscalXml" class="hover-link" title="Ver lista de notas fiscais">Voltar à lista</a>
+            <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
         </div>
+
     </main>
 </div>
 </body>
