@@ -170,11 +170,14 @@ public class NotaFiscalXmlDAO {
                 return 1; // sucesso
             }
         } catch (SQLException sqle) {
-            sqle.printStackTrace(); // Mostra erro
-            return 0; // erro interno
+            sqle.printStackTrace();
+            if (sqle.getMessage().contains("still referenced")){
+                return 0; // está vinculado a outra tabela
+            }
+            return -1; // erro interno
         } finally {
-            conexao.desconectar(conn); // Fecha a conexão
+            conexao.desconectar(conn);
         }
-        return -1; // erro desconhecido
+        return -2; // falha genérica
     }
 }

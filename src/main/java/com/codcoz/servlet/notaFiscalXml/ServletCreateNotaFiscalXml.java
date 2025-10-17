@@ -1,5 +1,6 @@
 package com.codcoz.servlet.notaFiscalXml;
 
+import com.codcoz.dao.EstoqueDAO;
 import com.codcoz.dao.NotaFiscalXmlDAO;
 import com.codcoz.model.NotaFiscalXml;
 import jakarta.servlet.*;
@@ -20,12 +21,21 @@ public class ServletCreateNotaFiscalXml extends HttpServlet {
                 request.getParameter("xmlString"),
                 request.getParameter("numeroNota")
         );
-
+        // Executa a criação via DAO e define a mensagem com base no resultado
         NotaFiscalXmlDAO dao = new NotaFiscalXmlDAO();
-        dao.create(nota);
-        List<NotaFiscalXml> lista = dao.read();
+        String mensagem;
 
+        if (dao.create(nota)) {
+            mensagem = "O estoque do tipo \"" + nota.getNumeroNota() + "\" foi criado com sucesso.";
+        } else {
+            mensagem = "A criação do estoque falhou: erro interno. Entre em contato em contato.codcoz@gmail.com";
+        }
+        request.setAttribute("mensagem",mensagem);
+        // Atualiza a lista de nota fiscal xml para exibir na JSP
+        List<NotaFiscalXml> lista = dao.read();
         request.setAttribute("listaNotas", lista);
+
+        // Encaminha para a página JSP mantendo os dados
         RequestDispatcher dispatcher = request.getRequestDispatcher("/notaFiscalXmlJSP/readNotaFiscalXml.jsp");
         dispatcher.forward(request, response);
     }
