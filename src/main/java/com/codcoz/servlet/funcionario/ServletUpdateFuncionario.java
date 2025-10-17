@@ -23,6 +23,7 @@ public class ServletUpdateFuncionario extends HttpServlet {
         String sobrenome    = request.getParameter("sobrenome");
         String cpf          = request.getParameter("cpf");
         String email        = request.getParameter("email");
+        String status       = request.getParameter("status"); // << apenas adicionado
 
         boolean temErro = false;
 
@@ -67,7 +68,7 @@ public class ServletUpdateFuncionario extends HttpServlet {
         }
 
         if (temErro) {
-            // Preserva valores para o formulário de update
+            // Preserva valores para o formulário de update (sem adicionar novos campos)
             request.setAttribute("idValue", idStr);
             request.setAttribute("idEmpresaValue", idEmpresaStr);
             request.setAttribute("funcaoValue", funcao);
@@ -76,13 +77,12 @@ public class ServletUpdateFuncionario extends HttpServlet {
             request.setAttribute("cpfValue", cpf);
             request.setAttribute("emailValue", email);
 
-            // Volta para o formulário de atualização
             RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionarioJSP/updateFuncionario.jsp");
             dispatcher.forward(request, response);
             return;
         }
 
-        // Normaliza CPF para apenas dígitos (opcional)
+        // Normaliza CPF para apenas dígitos (mantido do original)
         String cpfNormalizado = cpf.replaceAll("\\D", "");
 
         // ==== Monta objeto e executa update ====
@@ -93,15 +93,16 @@ public class ServletUpdateFuncionario extends HttpServlet {
                 nome,
                 sobrenome,
                 cpfNormalizado,
-                email
+                email,
+                status // << apenas passado ao modelo
         );
 
         FuncionarioDAO dao = new FuncionarioDAO();
-        int status = dao.update(funcionario);
+        int statusUpdate = dao.update(funcionario); // << só renomeado para não colidir com String status
 
         // ==== Mensagem conforme status ====
         String mensagem;
-        switch (status) {
+        switch (statusUpdate) {
             case 1:
                 mensagem = "A atualização de " + nome + " " + sobrenome + " foi realizada com sucesso.";
                 break;
