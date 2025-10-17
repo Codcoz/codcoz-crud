@@ -20,6 +20,7 @@ body {
     justify-content: space-between;
     padding: 15px 0;
     border-radius: 15px;
+    position: fixed;
 }
 
 .perfil {

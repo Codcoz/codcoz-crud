@@ -22,16 +22,16 @@
     <main class="content">
         <header class="topo">
             <h2>Lista de Notas Fiscais XML</h2>
-            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo">
+            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo" title="Logo Codcoz">
         </header>
 
         <div class="sub-header">
-            <span class="hover-link ativo">Notas Fiscais XML</span>
+            <span class="hover-link ativo" title="Visualizando todas as notas fiscais cadastradas">Notas Fiscais XML</span>
         </div>
 
         <div class="actions">
             <form action="<%= request.getContextPath() %>/notaFiscalXmlJSP/createNotaFiscalXml.jsp" method="post">
-                <button type="submit" class="novo">+</button>
+                <button type="submit" class="novo" title="Criar nova nota fiscal">+</button>
             </form>
         </div>
 
@@ -64,26 +64,27 @@
                             Empresa empresa = empresaDAO.buscarPorId(nota.getIdEmpresa());
                 %>
                 <tr>
-                    <td><%= nota.getId() %></td>
-                    <td><%= empresa != null ? empresa.getNome() : "Desconhecida" %></td>
-                    <td><%= nota.getDataEmissao() %></td>
-                    <td><%= nota.getNumeroNota() %></td>
+                    <td title="ID da nota fiscal"><%= nota.getId() %></td>
+                    <td title="Empresa emissora"><%= empresa != null ? empresa.getNome() : "Desconhecida" %></td>
+                    <td title="Data de emissão da nota"><%= nota.getDataEmissao() %></td>
+                    <td title="Número da nota fiscal"><%= nota.getNumeroNota() %></td>
                     <td class="acoes">
-                        <a href="<%= request.getContextPath() %>/notaFiscalXmlJSP/updateNotaFiscalXml.jsp?id=<%= nota.getId() %>">
-                            <img src="<%= request.getContextPath() %>/assets/edit_icon.png" alt="Editar">
+                        <a href="<%= request.getContextPath() %>/notaFiscalXmlJSP/updateNotaFiscalXml.jsp?id=<%= nota.getId() %>" title="Editar nota fiscal">
+                            <img src="<%= request.getContextPath() %>/assets/edit_icon.png" alt="Editar" title="Editar nota fiscal">
                         </a>
                     </td>
                     <td class="acoes">
                         <a href="<%= request.getContextPath() %>/ServletDeleteNotaFiscalXml?id=<%= nota.getId() %>"
-                           onclick="return confirm('Tem certeza que deseja excluir esta nota fiscal?');">
-                            <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir">
+                           onclick="return confirm('Tem certeza que deseja excluir esta nota fiscal?');"
+                           title="Excluir nota fiscal">
+                            <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir" title="Excluir nota fiscal">
                         </a>
                     </td>
                 </tr>
                 <%     }
                 } else { %>
                 <tr>
-                    <td colspan="6">Nenhuma nota fiscal encontrada.</td>
+                    <td colspan="6" title="Nenhuma nota fiscal foi encontrada">Nenhuma nota fiscal encontrada.</td>
                 </tr>
                 <% } %>
                 </tbody>
@@ -91,8 +92,9 @@
         </div>
 
         <br>
-        <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link">Voltar ao início</a>
+        <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
     </main>
+
 </div>
 </body>
 </html>

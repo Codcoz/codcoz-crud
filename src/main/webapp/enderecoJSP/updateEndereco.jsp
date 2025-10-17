@@ -25,38 +25,38 @@
 <body>
 <div class="container">
     <jsp:include page="./../barraLateral.jsp" />
-    <main class="content">
+    <main class="content" style="overflow: auto">
         <header class="topo">
             <h2>Atualizar Endereço</h2>
-            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo">
+            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo" title="Logo Codcoz">
         </header>
 
         <div class="sub-header">
-            <span class="hover-link ativo">Editar Endereço</span>
+            <span class="hover-link ativo" title="Edite os dados do endereço selecionado">Editar Endereço</span>
         </div>
 
         <% if (endereco != null) { %>
-        <div class="actions">
-            <form action="<%= request.getContextPath() %>/ServletUpdateEndereco" method="post" style="max-width: 500px;">
+        <div class="actions" style="margin-top: 30px;">
+            <form action="<%= request.getContextPath() %>/ServletUpdateEndereco" method="post" style="max-width: 500px; width: 100%;">
                 <input type="hidden" name="id" value="<%= endereco.getId() %>"/>
 
                 <label for="rua">Rua:</label><br>
                 <input type="text" id="rua" name="rua" class="input-redondo"
                        value="<%= endereco.getRua() %>" maxlength="100"
-                       required placeholder="Ex: Av. Paulista"><br><br>
+                       required placeholder="Ex: Av. Paulista" title="Informe o nome da rua"><br><br>
 
                 <label for="complemento">Complemento:</label><br>
                 <input type="text" id="complemento" name="complemento" class="input-redondo"
                        value="<%= endereco.getComplemento() %>" maxlength="50"
-                       placeholder="Ex: Apto 101, Fundos"><br><br>
+                       placeholder="Ex: Apto 101, Fundos" title="Informe o complemento, se houver"><br><br>
 
                 <label for="cidade">Cidade:</label><br>
                 <input type="text" id="cidade" name="cidade" class="input-redondo"
                        value="<%= endereco.getCidade() %>" maxlength="80"
-                       required placeholder="Ex: São Paulo"><br><br>
+                       required placeholder="Ex: São Paulo" title="Informe a cidade"><br><br>
 
                 <label for="estado">Estado (UF):</label><br>
-                <select id="estado" name="estado" class="select-redondo" required>
+                <select id="estado" name="estado" class="select-redondo" required title="Selecione o estado">
                     <option value="">Selecione...</option>
                     <% String[] estados = { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" };
                         for (String uf : estados) { %>
@@ -67,23 +67,26 @@
                 <label for="cep">CEP:</label><br>
                 <input type="text" id="cep" name="cep" class="input-redondo"
                        value="<%= endereco.getCep() %>" maxlength="8"
-                       pattern="^\d{5}-?\d{3}$" required placeholder="Ex: 01311000"><br><br>
+                       pattern="^\d{5}-?\d{3}$" required placeholder="Ex: 01311000" title="Informe o CEP no formato 00000-000"><br><br>
 
                 <label for="numero">Número:</label><br>
                 <input type="text" id="numero" name="numero" class="input-redondo"
                        value="<%= endereco.getNumero() %>" maxlength="10"
-                       required placeholder="Ex: 1578"><br><br>
+                       required placeholder="Ex: 1578" title="Informe o número da residência"><br><br>
 
-                <button type="submit" class="novo">✔</button>
+                <button type="submit" class="novo" title="Salvar alterações">+</button>
             </form>
         </div>
         <% } else { %>
-        <p style="color: red;">Endereço não encontrado ou ID inválido.</p>
+        <p style="color: red;" title="Erro ao carregar endereço">Endereço não encontrado ou ID inválido.</p>
         <% } %>
 
         <br>
-        <a href="<%= request.getContextPath() %>/ServletReadEndereco" class="hover-link">Voltar à lista</a><br>
-        <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link">Voltar ao início</a>
+        <div style="display: flex; gap: 20px;">
+            <a href="<%= request.getContextPath() %>/ServletReadEndereco" class="hover-link" title="Ver lista de endereços">Voltar à lista</a>
+            <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
+
+        </div>
     </main>
 </div>
 </body>
