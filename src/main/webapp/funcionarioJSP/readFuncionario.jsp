@@ -48,9 +48,10 @@
                     <th>Nome</th>
                     <th>Sobrenome</th>
                     <th>CPF</th>
-                    <th>E-mail</th> <!-- ADICIONADO -->
+                    <th>E-mail</th>
                     <th>Empresa</th>
                     <th>Função</th>
+                    <th>Status</th> <!-- ADICIONADO -->
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
@@ -73,9 +74,10 @@
                     <td><%= funcionario.getNome() %></td>
                     <td><%= funcionario.getSobrenome() %></td>
                     <td><%= funcionario.getCpf() %></td>
-                    <td><%= funcionario.getEmail() %></td> <!-- ADICIONADO -->
+                    <td><%= funcionario.getEmail() %></td>
                     <td><%= nomeEmpresa %></td>
                     <td><%= funcionario.getFuncao() %></td>
+                    <td><%= funcionario.getStatus() %></td> <!-- ADICIONADO -->
                     <td class="acoes">
                         <a href="<%= request.getContextPath() %>/funcionarioJSP/updateFuncionario.jsp?id=<%= funcionario.getId() %>">
                             <img src="<%= request.getContextPath() %>/assets/edit_icon.png" alt="Editar">
@@ -91,7 +93,7 @@
                 <%     }
                 } else { %>
                 <tr>
-                    <td colspan="9">Nenhum funcionário encontrado.</td> <!-- ajustado de 8 para 9 -->
+                    <td colspan="10">Nenhum funcionário encontrado.</td> <!-- ajustado de 9 para 10 -->
                 </tr>
                 <% } %>
                 </tbody>

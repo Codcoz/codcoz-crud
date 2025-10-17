@@ -33,10 +33,9 @@
                 <input type="text" id="sobrenome" name="sobrenome" class="input-redondo" placeholder="Sobrenome" maxlength="50" required><br><br>
 
                 <label for="cpf">CPF:</label><br>
-                <input type="text" id="cpf" name="cpf" class="input-redondo" placeholder="CPF" maxlength="11"
+                <input type="text" id="cpf" name    ="cpf" class="input-redondo" placeholder="CPF" maxlength="11"
                        pattern="^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$|^\\d{11}$" required><br><br>
 
-                <!-- CAMPO ADICIONADO -->
                 <label for="email">E-mail:</label><br>
                 <input type="email" id="email" name="email" class="input-redondo" placeholder="E-mail" maxlength="100" required><br><br>
 
@@ -46,6 +45,14 @@
                     <option value="Estoquista">Estoquista</option>
                     <option value="Gestor">Gestor</option>
                 </select><br><br>
+
+                <!-- ====== ADIÇÃO ESSENCIAL: STATUS ====== -->
+                <label for="status">Status:</label><br>
+                <select id="status" name="status" class="select-redondo" required>
+                    <option value="ATIVO" selected>ATIVO</option>
+                    <option value="INATIVO">INATIVO</option>
+                </select><br><br>
+                <!-- ===================================== -->
 
                 <label for="idEmpresa">Empresa:</label><br>
                 <%
