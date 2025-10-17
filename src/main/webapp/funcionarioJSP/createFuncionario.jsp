@@ -37,10 +37,14 @@
                        title="Informe o sobrenome do funcionário"><br><br>
 
                 <label for="cpf">CPF:</label><br>
+
                 <input type="text" id="cpf" name="cpf" class="input-redondo"
                        placeholder="CPF" maxlength="11"
                        pattern="^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$|^\\d{11}$" required
                        title="Informe o CPF no formato 000.000.000-00 ou apenas números"><br><br>
+
+                <input type="text" id="cpf" name    ="cpf" class="input-redondo" placeholder="CPF" maxlength="11"
+                       pattern="^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$|^\\d{11}$" required><br><br>
 
                 <label for="email">E-mail:</label><br>
                 <input type="email" id="email" name="email" class="input-redondo"
@@ -53,6 +57,14 @@
                     <option value="Estoquista">Estoquista</option>
                     <option value="Gestor">Gestor</option>
                 </select><br><br>
+
+                <!-- ====== ADIÇÃO ESSENCIAL: STATUS ====== -->
+                <label for="status">Status:</label><br>
+                <select id="status" name="status" class="select-redondo" required>
+                    <option value="ATIVO" selected>ATIVO</option>
+                    <option value="INATIVO">INATIVO</option>
+                </select><br><br>
+                <!-- ===================================== -->
 
                 <label for="idEmpresa">Empresa:</label><br>
                 <%

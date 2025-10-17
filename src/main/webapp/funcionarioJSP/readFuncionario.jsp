@@ -51,6 +51,7 @@
                     <th>E-mail</th>
                     <th>Empresa</th>
                     <th>Função</th>
+                    <th>Status</th> <!-- ADICIONADO -->
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
@@ -69,6 +70,7 @@
                             String nomeEmpresa = (empresa != null && empresa.getNome() != null) ? empresa.getNome() : "—";
                 %>
                 <tr>
+
                     <td title="ID do funcionário"><%= funcionario.getId() %></td>
                     <td title="Nome do funcionário"><%= funcionario.getNome() %></td>
                     <td title="Sobrenome do funcionário"><%= funcionario.getSobrenome() %></td>
@@ -76,6 +78,16 @@
                     <td title="E-mail do funcionário"><%= funcionario.getEmail() %></td>
                     <td title="Empresa associada"><%= nomeEmpresa %></td>
                     <td title="Função desempenhada"><%= funcionario.getFuncao() %></td>
+
+                    <td><%= funcionario.getId() %></td>
+                    <td><%= funcionario.getNome() %></td>
+                    <td><%= funcionario.getSobrenome() %></td>
+                    <td><%= funcionario.getCpf() %></td>
+                    <td><%= funcionario.getEmail() %></td>
+                    <td><%= nomeEmpresa %></td>
+                    <td><%= funcionario.getFuncao() %></td>
+                    <td><%= funcionario.getStatus() %></td> <!-- ADICIONADO -->
+
                     <td class="acoes">
                         <a href="<%= request.getContextPath() %>/funcionarioJSP/updateFuncionario.jsp?id=<%= funcionario.getId() %>" title="Editar funcionário">
                             <img src="<%= request.getContextPath() %>/assets/edit_icon.png" alt="Editar" title="Editar funcionário">
@@ -93,6 +105,9 @@
                 } else { %>
                 <tr>
                     <td colspan="9" title="Nenhum funcionário foi encontrado">Nenhum funcionário encontrado.</td>
+
+                    <td colspan="10">Nenhum funcionário encontrado.</td> <!-- ajustado de 9 para 10 -->
+
                 </tr>
                 <% } %>
                 </tbody>

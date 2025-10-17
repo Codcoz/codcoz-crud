@@ -10,18 +10,18 @@ import java.util.List;
 public class FuncionarioDAO {
 
     public boolean create(Funcionario funcionario) {
-        String sql = "INSERT INTO funcionario (id_empresa, funcao, nome, sobrenome, cpf, email) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO funcionario (id_empresa, funcao, nome, sobrenome, cpf, email, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
-
             pstmt.setInt(1, funcionario.getIdEmpresa());
             pstmt.setString(2, funcionario.getFuncao());
             pstmt.setString(3, funcionario.getNome());
             pstmt.setString(4, funcionario.getSobrenome());
             pstmt.setString(5, funcionario.getCpf());
             pstmt.setString(6, funcionario.getEmail());
+            pstmt.setString(7, funcionario.getStatus());
             return pstmt.executeUpdate() > 0;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
@@ -47,7 +47,8 @@ public class FuncionarioDAO {
                         rs.getString("nome"),
                         rs.getString("sobrenome"),
                         rs.getString("cpf"),
-                        rs.getString("email")
+                        rs.getString("email"),
+                        rs.getString("status")
                 );
                 funcionariosList.add(funcionario);
             }
@@ -62,7 +63,7 @@ public class FuncionarioDAO {
     public int update(Funcionario funcionario) {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
-        String sql = "UPDATE funcionario SET id_empresa = ?, funcao = ?, nome = ?, sobrenome = ?, cpf = ?, email = ? WHERE id = ?";
+        String sql = "UPDATE funcionario SET id_empresa = ?, funcao = ?, nome = ?, sobrenome = ?, cpf = ?, email = ?, status = ? WHERE id = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, funcionario.getIdEmpresa());
             pstmt.setString(2, funcionario.getFuncao());
@@ -70,13 +71,10 @@ public class FuncionarioDAO {
             pstmt.setString(4, funcionario.getSobrenome());
             pstmt.setString(5, funcionario.getCpf());
             pstmt.setString(6, funcionario.getEmail());
-            pstmt.setInt(7, funcionario.getId());
-
+            pstmt.setString(7, funcionario.getStatus());
+            pstmt.setInt(8, funcionario.getId());
             int updated = pstmt.executeUpdate();
-            if (updated > 0) {
-                System.out.println("update de funcionario com sucesso");
-                return 1;
-            }
+            if (updated > 0) return 1;
             return 0;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
@@ -92,30 +90,23 @@ public class FuncionarioDAO {
         try {
             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM funcionario WHERE id = ?");
             pstmt.setInt(1, id);
-
-            if (pstmt.executeUpdate() > 0) {
-                return 1; // sucesso
-            }
-
+            if (pstmt.executeUpdate() > 0) return 1;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return 0; // erro interno
+            return 0;
         } finally {
             conexao.desconectar(conn);
         }
-        return -1; // erro desconhecido
+        return -1;
     }
 
     public Funcionario buscarPorId(int id) {
         Funcionario funcionario = null;
         String sql = "SELECT * FROM funcionario WHERE id = ?";
-
         try (Connection conn = new Conexao().conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
-
             if (rs.next()) {
                 funcionario = new Funcionario(
                         rs.getInt("id"),
@@ -124,14 +115,13 @@ public class FuncionarioDAO {
                         rs.getString("nome"),
                         rs.getString("sobrenome"),
                         rs.getString("cpf"),
-                        rs.getString("email")
+                        rs.getString("email"),
+                        rs.getString("status")
                 );
             }
         } catch (SQLException e) {
-            System.err.println("Erro ao buscar funcionário por ID: " + e.getMessage());
             e.printStackTrace();
         }
-
         return funcionario;
     }
 }

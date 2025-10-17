@@ -9,9 +9,7 @@
     Integer id = null;
     try {
         id = Integer.parseInt(request.getParameter("id"));
-    } catch (Exception e) {
-        // parâmetro inválido
-    }
+    } catch (Exception e) { }
 
     Funcionario funcionario = null;
     List<Empresa> empresas = new EmpresaDAO().read();
@@ -61,8 +59,11 @@
                 <label for="cpf">CPF:</label><br>
                 <input type="text" id="cpf" name="cpf" class="input-redondo"
                        value="<%= funcionario.getCpf() %>" maxlength="11"
+
                        pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$|^\d{11}$"
                        required placeholder="Ex: 123.456.789-00" title="Informe o CPF do funcionário"><br><br>
+                       pattern="^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$|^\\d{11}$"
+                       required placeholder="Ex: 123.456.789-00"><br><br>
 
                 <label for="email">E-mail:</label><br>
                 <input type="email" id="email" name="email" class="input-redondo"
@@ -91,6 +92,15 @@
                 </select><br><br>
 
                 <button type="submit" class="novo" title="Salvar alterações">+</button>
+                <!-- ====== ADIÇÃO ESSENCIAL: STATUS ====== -->
+                <label for="status">Status:</label><br>
+                <select id="status" name="status" class="select-redondo" required>
+                    <option value="ATIVO"   <%= "ATIVO".equalsIgnoreCase(funcionario.getStatus())   ? "selected" : "" %>>ATIVO</option>
+                    <option value="INATIVO" <%= "INATIVO".equalsIgnoreCase(funcionario.getStatus()) ? "selected" : "" %>>INATIVO</option>
+                </select><br><br>
+                <!-- ====================================== -->
+
+                <button type="submit" class="novo">✔</button>
             </form>
         </div>
         <% } else { %>

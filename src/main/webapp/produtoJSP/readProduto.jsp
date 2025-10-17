@@ -38,9 +38,11 @@
             </form>
         </div>
 
-        <% String mensagem = (String) request.getAttribute("mensagem");
+        <%
+            String mensagem = (String) request.getAttribute("mensagem");
             if (mensagem != null) {
-                String cor = mensagem.contains("sucesso") ? "green" : "red"; %>
+                String cor = mensagem.contains("sucesso") ? "green" : "red";
+        %>
         <p style="color: <%= cor %>"><%= mensagem %></p>
         <% } %>
 
@@ -94,11 +96,17 @@
                            onclick="return confirm('Tem certeza que deseja excluir <%= produto.getNome() %>?');"
                            title="Excluir produto">
                             <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir" title="Excluir produto">
+
+                           onclick="return confirm('Tem certeza que deseja excluir <%= produto.getNome() %>?');">
+                            <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir">
+
                         </a>
                     </td>
                 </tr>
-                <%     }
-                } else { %>
+                <%
+                    }
+                } else {
+                %>
                 <tr>
                     <td colspan="11" title="Nenhum produto foi encontrado">Nenhum produto encontrado.</td>
                 </tr>
