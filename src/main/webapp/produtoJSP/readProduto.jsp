@@ -43,7 +43,7 @@
             if (mensagem != null) {
                 String cor = mensagem.contains("sucesso") ? "green" : "red";
         %>
-        <p style="color: <%= cor %>"><%= mensagem %></p>
+        <p style="color: <%= cor %>" title="Mensagem do sistema"><%= mensagem %></p>
         <% } %>
 
         <div class="tabela-container">
@@ -96,10 +96,6 @@
                            onclick="return confirm('Tem certeza que deseja excluir <%= produto.getNome() %>?');"
                            title="Excluir produto">
                             <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir" title="Excluir produto">
-
-                           onclick="return confirm('Tem certeza que deseja excluir <%= produto.getNome() %>?');">
-                            <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir">
-
                         </a>
                     </td>
                 </tr>

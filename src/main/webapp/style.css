@@ -7,13 +7,12 @@ body {
 .container {
     display: flex;
     height: 100vh;
-    overflow: hidden;
+    /* Removido overflow: hidden */
 }
 
 .sidebar {
+    height: 80vh;
     width: 230px;
-    height: 85%;
-    margin-left: 20px;
     background-color: #1a263d;
     display: flex;
     flex-direction: column;
@@ -21,6 +20,9 @@ body {
     padding: 15px 0;
     border-radius: 15px;
     position: fixed;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
 }
 
 .perfil {
@@ -92,8 +94,7 @@ body {
 
 .logout img {
     width: 16px;
-    filter: invert(27%) sepia(95%) saturate(7435%) hue-rotate(351deg)
-    brightness(90%) contrast(115%);
+    filter: invert(27%) sepia(95%) saturate(7435%) hue-rotate(351deg) brightness(90%) contrast(115%);
 }
 
 .logout:hover {
@@ -106,6 +107,7 @@ body {
     flex-direction: column;
     background-color: #fbf9fb;
     padding: 30px 40px;
+    padding-left: 270px;
     overflow: hidden;
 }
 
@@ -240,6 +242,7 @@ body {
 .tabela-container {
     flex: 1;
     overflow-y: auto;
+    max-height: 50vh;
     margin-top: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -331,15 +334,6 @@ td.acoes img:hover {
 .select-redondo:focus {
     box-shadow: 0 0 0 2px rgba(213, 190, 101, 0.4);
 }
-.tabela-container {
-    flex: 1;
-    overflow-y: auto;
-    max-height: 60vh;
-    margin-top: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: white;
-}
 
 .actions-grid {
     display: grid;
@@ -366,6 +360,4 @@ td.acoes img:hover {
 
 .botao-menu:hover {
     background-color: #d5be65;
-    color: #1a263d;
-    transform: scale(1.03);
 }
