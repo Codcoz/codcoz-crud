@@ -22,6 +22,8 @@ public class ServletUpdateFuncionario extends HttpServlet {
         String nome         = request.getParameter("nome");
         String sobrenome    = request.getParameter("sobrenome");
         String cpf          = request.getParameter("cpf");
+        String email        = request.getParameter("email");
+        String status       = request.getParameter("status"); // << apenas adicionado
 
         boolean temErro = false;
 
@@ -56,27 +58,31 @@ public class ServletUpdateFuncionario extends HttpServlet {
             request.setAttribute("erroFuncao", "Função é obrigatória.");
             temErro = true;
         }
-
         if (cpf == null || cpf.trim().isEmpty()) {
-            request.setAttribute("erroCpf", "Cpf e obrigatorio");
+            request.setAttribute("erroCpf", "Cpf é obrigatório.");
+            temErro = true;
+        }
+        if (email == null || email.trim().isEmpty()) {
+            request.setAttribute("erroEmail", "E-mail é obrigatório.");
+            temErro = true;
         }
 
         if (temErro) {
-            // Preserva valores para o formulário de update
+            // Preserva valores para o formulário de update (sem adicionar novos campos)
             request.setAttribute("idValue", idStr);
             request.setAttribute("idEmpresaValue", idEmpresaStr);
             request.setAttribute("funcaoValue", funcao);
             request.setAttribute("nomeValue", nome);
             request.setAttribute("sobrenomeValue", sobrenome);
             request.setAttribute("cpfValue", cpf);
+            request.setAttribute("emailValue", email);
 
-            // Volta para o formulário de atualização
             RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionarioJSP/updateFuncionario.jsp");
             dispatcher.forward(request, response);
             return;
         }
 
-        // Normaliza CPF para apenas dígitos (opcional)
+        // Normaliza CPF para apenas dígitos (mantido do original)
         String cpfNormalizado = cpf.replaceAll("\\D", "");
 
         // ==== Monta objeto e executa update ====
@@ -86,15 +92,17 @@ public class ServletUpdateFuncionario extends HttpServlet {
                 funcao,
                 nome,
                 sobrenome,
-                cpfNormalizado
+                cpfNormalizado,
+                email,
+                status // << apenas passado ao modelo
         );
 
         FuncionarioDAO dao = new FuncionarioDAO();
-        int status = dao.update(funcionario);
+        int statusUpdate = dao.update(funcionario); // << só renomeado para não colidir com String status
 
         // ==== Mensagem conforme status ====
         String mensagem;
-        switch (status) {
+        switch (statusUpdate) {
             case 1:
                 mensagem = "A atualização de " + nome + " " + sobrenome + " foi realizada com sucesso.";
                 break;

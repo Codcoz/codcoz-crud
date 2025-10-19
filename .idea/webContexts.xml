@@ -4,8 +4,10 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/alertaJSP/createAlerta.jsp" value="file://$PROJECT_DIR$/src/main/webapp/alertaJSP" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/alertaJSP/escolhaEmpresaDoAlerta.jsp" value="file://$PROJECT_DIR$/src/main/webapp/alertaJSP" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/alertaJSP/readAlerta.jsp" value="file://$PROJECT_DIR$/src/main/webapp/alertaJSP" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/alertaJSP/updateAlerta.jsp" value="file://$PROJECT_DIR$/src/main/webapp/alertaJSP" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/alertaJSP/updateEmpresaDoAlerta.jsp" value="file://$PROJECT_DIR$/src/main/webapp/alertaJSP" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/empresaJSP/readEmpresa.jsp" value="file://$PROJECT_DIR$/src/main/webapp/empresaJSP" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/enderecoJSP/readEndereco.jsp" value="file://$PROJECT_DIR$/src/main/webapp/enderecoJSP" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/enderecoJSP/updateEndereco.jsp" value="file://$PROJECT_DIR$/src/main/webapp/enderecoJSP" />
@@ -16,6 +18,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/notaFiscalXmlJSP/readNotaFiscalXml.jsp" value="file://$PROJECT_DIR$/src/main/webapp/notaFiscalXmlJSP" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/produto/updateProduto.jsp" value="file://$PROJECT_DIR$/src/main/webapp/produto" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/produtoJSP/createProduto.jsp" value="file://$PROJECT_DIR$/src/main/webapp/produtoJSP" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/produtoJSP/readProduto.jsp" value="file://$PROJECT_DIR$/src/main/webapp/produtoJSP" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/readEndereco.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
       </map>
     </option>

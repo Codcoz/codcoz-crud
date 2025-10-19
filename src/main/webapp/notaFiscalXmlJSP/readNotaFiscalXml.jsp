@@ -7,76 +7,94 @@
     java.util.List
 " %>
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Lista de Notas Fiscais XML</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<aside>
-    <!-- Aside para botões de navegação entre tabelas -->
-    Navegar para outras tabelas
-</aside>
+<div class="container">
 
-<h2>Lista de Notas Fiscais XML</h2>
+    <jsp:include page="./../barraLateral.jsp" />
 
-<form action="<%= request.getContextPath() %>/notaFiscalXmlJSP/createNotaFiscalXml.jsp" method="post">
-    <button type="submit">Criar Nota Fiscal XML</button>
-</form>
-<br>
+    <main class="content">
+        <header class="topo">
+            <h2>Lista de Notas Fiscais XML</h2>
+            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo" title="Logo Codcoz">
+        </header>
 
-<%
-    NotaFiscalXmlDAO notaDao = new NotaFiscalXmlDAO();
-    List<NotaFiscalXml> notas = notaDao.read();
-    EmpresaDAO empresaDAO = new EmpresaDAO();
-%>
+        <div class="sub-header">
+            <span class="hover-link ativo" title="Visualizando todas as notas fiscais cadastradas">Notas Fiscais XML</span>
+        </div>
 
-<table border="1" cellpadding="8" cellspacing="0">
-    <tr>
-        <th>ID</th>
-        <th>Empresa</th>
-        <th>Data de Emissão</th>
-        <th>Número da Nota</th>
-        <th>Update</th>
-        <th>Delete</th>
-    </tr>
-    <%
-        if (notas != null && !notas.isEmpty()) {
-            for (NotaFiscalXml nota : notas) {
-                Empresa empresa = empresaDAO.buscarPorId(nota.getIdEmpresa());
-    %>
-    <tr>
-        <td><%= nota.getId() %></td>
-        <td><%=empresa.getNome()%></td>
-        <td><%= nota.getDataEmissao() %></td>
-        <td><%= nota.getNumeroNota() %></td>
-        <td>
-            <form action="<%= request.getContextPath() %>/notaFiscalXmlJSP/updateNotaFiscalXml.jsp" method="post">
-                <input type="hidden" name="id" value="<%= nota.getId() %>"/>
-                <button type="submit">Update</button>
+        <div class="actions">
+            <form action="<%= request.getContextPath() %>/notaFiscalXmlJSP/createNotaFiscalXml.jsp" method="post">
+                <button type="submit" class="novo" title="Criar nova nota fiscal">+</button>
             </form>
-        </td>
-        <td>
-            <form action="<%= request.getContextPath() %>/ServletDeleteNotaFiscalXml" method="post">
-                <input type="hidden" name="id" value="<%= nota.getId() %>"/>
-                <button type="submit">Delete</button>
-            </form>
-        </td>
-    </tr>
-    <%
-        }
-    } else {
-    %>
-    <tr>
-        <td colspan="6">Nenhuma nota fiscal encontrada.</td>
-    </tr>
-    <%
-        }
-    %>
-</table>
+        </div>
 
-<br>
-<a href="<%= request.getContextPath() %>/index.html">Voltar ao início</a>
+        <% String mensagem = (String) request.getAttribute("mensagem");
+            if (mensagem != null) {
+                String cor = mensagem.toLowerCase().contains("sucesso") ? "green" : "red"; %>
+        <p style="color: <%= cor %>"><%= mensagem %></p>
+        <% } %>
+
+        <div class="tabela-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Empresa</th>
+                    <th>Data de Emissão</th>
+                    <th>Número da Nota</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                    NotaFiscalXmlDAO notaDao = new NotaFiscalXmlDAO();
+                    List<NotaFiscalXml> notas = notaDao.read();
+                    EmpresaDAO empresaDAO = new EmpresaDAO();
+
+                    if (notas != null && !notas.isEmpty()) {
+                        for (NotaFiscalXml nota : notas) {
+                            Empresa empresa = empresaDAO.buscarPorId(nota.getIdEmpresa());
+                %>
+                <tr>
+                    <td title="ID da nota fiscal"><%= nota.getId() %></td>
+                    <td title="Empresa emissora"><%= empresa != null ? empresa.getNome() : "Desconhecida" %></td>
+                    <td title="Data de emissão da nota"><%= nota.getDataEmissao() %></td>
+                    <td title="Número da nota fiscal"><%= nota.getNumeroNota() %></td>
+                    <td class="acoes">
+                        <a href="<%= request.getContextPath() %>/notaFiscalXmlJSP/updateNotaFiscalXml.jsp?id=<%= nota.getId() %>" title="Editar nota fiscal">
+                            <img src="<%= request.getContextPath() %>/assets/edit_icon.png" alt="Editar" title="Editar nota fiscal">
+                        </a>
+                    </td>
+                    <td class="acoes">
+                        <a href="<%= request.getContextPath() %>/ServletDeleteNotaFiscalXml?id=<%= nota.getId() %>"
+                           onclick="return confirm('Tem certeza que deseja excluir esta nota fiscal?');"
+                           title="Excluir nota fiscal">
+                            <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir" title="Excluir nota fiscal">
+                        </a>
+                    </td>
+                </tr>
+                <%     }
+                } else { %>
+                <tr>
+                    <td colspan="6" title="Nenhuma nota fiscal foi encontrada">Nenhuma nota fiscal encontrada.</td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+
+        <br>
+        <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
+    </main>
+
+</div>
 </body>
 </html>

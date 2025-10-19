@@ -25,22 +25,24 @@
     <main class="content">
         <header class="topo">
             <h2>Lista de Produtos</h2>
-            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo">
+            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo" title="Logo Codcoz">
         </header>
 
         <div class="sub-header">
-            <span class="hover-link ativo">Produtos</span>
+            <span class="hover-link ativo" title="Visualizando todos os produtos cadastrados">Produtos</span>
         </div>
 
         <div class="actions">
             <form action="<%= request.getContextPath() %>/produtoJSP/escolhaEmpresaDoProduto.jsp" method="get">
-                <button type="submit" class="novo">+</button>
+                <button type="submit" class="novo" title="Criar novo produto">+</button>
             </form>
         </div>
 
-        <% String mensagem = (String) request.getAttribute("mensagem");
+        <%
+            String mensagem = (String) request.getAttribute("mensagem");
             if (mensagem != null) {
-                String cor = mensagem.contains("sucesso") ? "green" : "red"; %>
+                String cor = mensagem.contains("sucesso") ? "green" : "red";
+        %>
         <p style="color: <%= cor %>"><%= mensagem %></p>
         <% } %>
 
@@ -75,31 +77,38 @@
                             Empresa empresa = empresaDAO.buscarPorId(produto.getIdEmpresa());
                 %>
                 <tr>
-                    <td><%= produto.getId() %></td>
-                    <td><%= produto.getNome() %></td>
-                    <td><%= produto.getCategoria() %></td>
-                    <td><%= produto.getUnidadeMedida() %></td>
-                    <td><%= produto.getEstoqueMinimo() %></td>
-                    <td><%= produto.getQuantidade() %></td>
-                    <td><%= estoque != null ? estoque.getTipoEstoque() : "N/A" %></td>
-                    <td><%= nota != null ? nota.getNumeroNota() : "N/A" %></td>
-                    <td><%= empresa != null ? empresa.getNome() : "Desconhecida" %></td>
+                    <td title="ID do produto"><%= produto.getId() %></td>
+                    <td title="Nome do produto"><%= produto.getNome() %></td>
+                    <td title="Categoria do produto"><%= produto.getCategoria() %></td>
+                    <td title="Unidade de medida"><%= produto.getUnidadeMedida() %></td>
+                    <td title="Estoque mínimo definido"><%= produto.getEstoqueMinimo() %></td>
+                    <td title="Quantidade atual"><%= produto.getQuantidade() %></td>
+                    <td title="Tipo de estoque"><%= estoque != null ? estoque.getTipoEstoque() : "N/A" %></td>
+                    <td title="Número da nota fiscal"><%= nota != null ? nota.getNumeroNota() : "N/A" %></td>
+                    <td title="Empresa associada"><%= empresa != null ? empresa.getNome() : "Desconhecida" %></td>
                     <td class="acoes">
-                        <a href="<%= request.getContextPath() %>/produtoJSP/updateEmpresaDoProduto.jsp?id=<%= produto.getId() %>">
-                            <img src="<%= request.getContextPath() %>/assets/edit_icon.png" alt="Editar">
+                        <a href="<%= request.getContextPath() %>/produtoJSP/updateEmpresaDoProduto.jsp?id=<%= produto.getId() %>" title="Editar produto">
+                            <img src="<%= request.getContextPath() %>/assets/edit_icon.png" alt="Editar" title="Editar produto">
                         </a>
                     </td>
                     <td class="acoes">
                         <a href="<%= request.getContextPath() %>/ServletDeleteProduto?id=<%= produto.getId() %>"
-                           onclick="return confirm('Tem certeza que deseja excluir <%=produto.getNome()%>?');">
+                           onclick="return confirm('Tem certeza que deseja excluir <%= produto.getNome() %>?');"
+                           title="Excluir produto">
+                            <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir" title="Excluir produto">
+
+                           onclick="return confirm('Tem certeza que deseja excluir <%= produto.getNome() %>?');">
                             <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir">
+
                         </a>
                     </td>
                 </tr>
-                <%   }
-                } else { %>
+                <%
+                    }
+                } else {
+                %>
                 <tr>
-                    <td colspan="11">Nenhum produto encontrado.</td>
+                    <td colspan="11" title="Nenhum produto foi encontrado">Nenhum produto encontrado.</td>
                 </tr>
                 <% } %>
                 </tbody>
@@ -107,8 +116,9 @@
         </div>
 
         <br>
-        <a href="<%= request.getContextPath() %>/index.html" class="hover-link">Voltar ao início</a>
+        <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
     </main>
+
 </div>
 </body>
 </html>

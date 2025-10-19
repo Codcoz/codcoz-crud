@@ -10,39 +10,56 @@
     <meta charset="UTF-8">
     <title>Editar Empresa do Produto</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<h2>Editar Empresa do Produto:</h2>
+<div class="container">
+    <jsp:include page="./../barraLateral.jsp" />
 
-<%
-    int idSelecionado = Integer.parseInt(request.getParameter("id"));
-%>
+    <main class="content" style="overflow: auto">
+        <header class="topo">
+            <h2>Editar Empresa do Produto</h2>
+            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo" title="Logo Codcoz">
+        </header>
 
-<form action="<%= request.getContextPath() %>/produtoJSP/updateProduto.jsp" method="post">
-    <input type="hidden" name="id" value="<%= request.getParameter("id") %>"/>
+        <div class="sub-header">
+            <span class="hover-link ativo" title="Selecione a empresa associada ao produto">Selecionar Empresa</span>
+        </div>
 
-    <label for="idEmpresa">Empresa:</label>
-    <select name="idEmpresa" id="idEmpresa" required>
-        <option value="">Selecione...</option>
-        <%
-            List<Empresa> empresas = new EmpresaDAO().read();
-            for (Empresa emp : empresas) {
-        %>
-        <option value="<%= emp.getId() %>" <%= emp.getId() == idSelecionado ? "selected" : "" %>>
-            <%= emp.getNome() %>
-        </option>
-        <%
-            }
-        %>
-    </select><br>
-    <a href="../empresaJSP/createEmpresa.jsp">Criar Empresa</a>
-    <br><br>
+        <div class="actions" style="margin-top: 30px;">
+            <%
+                int idSelecionado = Integer.parseInt(request.getParameter("id"));
+            %>
+            <form action="<%= request.getContextPath() %>/produtoJSP/updateProduto.jsp" method="post" style="max-width: 500px; width: 100%;">
+                <input type="hidden" name="id" value="<%= request.getParameter("id") %>"/>
 
-    <button type="submit">Confirmar</button>
-</form>
+                <label for="idEmpresa">Empresa:</label><br>
+                <select name="idEmpresa" id="idEmpresa" class="select-redondo" required title="Selecione a empresa para editar o produto">
+                    <option value="">Selecione...</option>
+                    <%
+                        List<Empresa> empresas = new EmpresaDAO().read();
+                        for (Empresa emp : empresas) {
+                    %>
+                    <option value="<%= emp.getId() %>" <%= emp.getId() == idSelecionado ? "selected" : "" %>>
+                        <%= emp.getNome() %>
+                    </option>
+                    <% } %>
+                </select>
+                <br>
+                <a href="../empresaJSP/createEmpresa.jsp" class="hover-link" title="Cadastrar nova empresa">Criar Empresa</a>
+                <br><br>
 
-<br><br>
-<a href="<%= request.getContextPath() %>/ServletReadProduto">Voltar à lista de produtos</a><br><br>
-<a href="<%= request.getContextPath() %>/index.html">Voltar ao início</a>
+                <button type="submit" class="novo" title="Salvar alterações">+</button>
+            </form>
+        </div>
+
+        <br>
+        <div style="display: flex; gap: 20px;">
+            <a href="<%= request.getContextPath() %>/ServletReadProduto" class="hover-link" title="Ver lista de produtos">Voltar à lista de produtos</a>
+            <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
+        </div>
+
+    </main>
+</div>
 </body>
 </html>

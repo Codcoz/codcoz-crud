@@ -13,18 +13,26 @@ import java.util.List;
 public class ServletCreateEmpresa extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 🔢 Normaliza o CNPJ: remove tudo que não for número
         String cnpjOriginal = request.getParameter("cnpj");
-        String cnpj = cnpjOriginal.replaceAll("\\D", ""); // Remove pontos, barras, hífens etc.
+        String cnpj = cnpjOriginal.replaceAll("\\D", "");
+
+        String email = request.getParameter("email");
+        String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.(com|net|org|gov|edu|info|biz|co)(\\.br)?$";
+
+        if (!email.matches(emailRegex)) {
+            request.setAttribute("mensagem", "Email inválido. Use um formato como nome@empresa.com.br");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/empresaJSP/createEmpresa.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
 
         Empresa empresa = new Empresa(
                 Integer.parseInt(request.getParameter("idEndereco")),
                 request.getParameter("nome"),
                 cnpj,
-                request.getParameter("email")
+                email
         );
 
-        // Executa a criação via DAO e define a mensagem com base no resultado
         EmpresaDAO dao = new EmpresaDAO();
         String mensagem;
         if (dao.create(empresa)) {
@@ -34,14 +42,10 @@ public class ServletCreateEmpresa extends HttpServlet {
         }
 
         request.setAttribute("mensagem", mensagem);
-
-        // Atualiza a lista de empresas para exibir na JSP
         List<Empresa> lista = dao.read();
         request.setAttribute("listaEmpresas", lista);
 
-        // Encaminha para a página JSP mantendo os dados
         RequestDispatcher dispatcher = request.getRequestDispatcher("/empresaJSP/readEmpresa.jsp");
         dispatcher.forward(request, response);
-
     }
 }

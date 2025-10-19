@@ -7,47 +7,37 @@ public class Funcionario {
     private String nome;
     private String sobrenome;
     private String cpf;
+    private String email;
+    private String status; // ✅ NOVO ATRIBUTO
 
-    public Funcionario(Integer id, Integer idEmpresa, String funcao, String nome, String sobrenome, String cpf) {
+    public Funcionario(Integer id, Integer idEmpresa, String funcao, String nome, String sobrenome, String cpf, String email, String status) {
         this.id = id;
         this.idEmpresa = idEmpresa;
         this.funcao = funcao;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.cpf = cpf;
+        this.email = email;
+        this.status = status;
     }
 
-    public Funcionario(Integer idEmpresa, String funcao, String nome, String sobrenome, String cpf) {
+    public Funcionario(Integer idEmpresa, String funcao, String nome, String sobrenome, String cpf, String email, String status) {
         this.idEmpresa = idEmpresa;
         this.funcao = funcao;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.cpf = cpf;
+        this.email = email;
+        this.status = status;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public Integer getIdEmpresa() {
-        return idEmpresa;
-    }
-
-    public String getFuncao() {
-        return funcao;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getSobrenome() {
-        return sobrenome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-
+    // Getters
+    public Integer getId() { return id; }
+    public Integer getIdEmpresa() { return idEmpresa; }
+    public String getFuncao() { return funcao; }
+    public String getNome() { return nome; }
+    public String getSobrenome() { return sobrenome; }
+    public String getCpf() { return cpf; }
+    public String getEmail() { return email; }
+    public String getStatus() { return status; } // ✅ NOVO GETTER
 }

@@ -10,26 +10,49 @@
     <meta charset="UTF-8">
     <title>Criar Alerta</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<h2>Empresa do alerta:</h2>
+<div class="container">
+    <jsp:include page="./../barraLateral.jsp" />
 
-<form action="<%= request.getContextPath() %>/alertaJSP/createAlerta.jsp" method="post">
-    <label for="idEmpresa">Empresa: </label>
-    <select name="idEmpresa" id="idEmpresa">
-        <option value="">Selecione...</option>
-        <%
-            List<Empresa> empresas = new EmpresaDAO().read();
-            for (Empresa empresa : empresas){
-        %>
-        <option value="<%= empresa.getId() %>"><%= empresa.getNome() %></option>
-        <%
-            }
-        %>
-    </select><br>
-    <a href="../empresaJSP/createEmpresa.jsp">Criar Empresa</a>
-    <br><br>
-    <button type="submit">Confirmar</button>
-</form>
+    <main class="content" style="overflow: auto">
+        <header class="topo">
+            <h2>Empresa do Alerta</h2>
+            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo" title="Logo Codcoz">
+        </header>
+
+        <div class="sub-header">
+            <span class="hover-link ativo" title="Selecione a empresa para associar ao alerta">Selecionar Empresa</span>
+        </div>
+
+        <div class="actions" style="margin-top: 30px;">
+            <form action="<%= request.getContextPath() %>/alertaJSP/createAlerta.jsp" method="post" style="max-width: 500px; width: 100%;">
+                <label for="idEmpresa">Empresa:</label><br>
+                <select name="idEmpresa" id="idEmpresa" class="select-redondo" required title="Selecione a empresa responsável pelo alerta">
+                    <option value="">Selecione...</option>
+                    <%
+                        List<Empresa> empresas = new EmpresaDAO().read();
+                        for (Empresa empresa : empresas){
+                    %>
+                    <option value="<%= empresa.getId() %>"><%= empresa.getNome() %></option>
+                    <% } %>
+                </select>
+                <br>
+                <a href="../empresaJSP/createEmpresa.jsp" class="hover-link" title="Cadastrar nova empresa">Criar Empresa</a>
+                <br><br>
+
+                <button type="submit" class="novo" title="Avançar para criação do alerta">+</button>
+            </form>
+        </div>
+
+        <br>
+        <div style="display: flex; gap: 20px;">
+            <a href="<%= request.getContextPath() %>/ServletReadAlerta" class="hover-link" title="Ver lista de alertas">Voltar à lista</a>
+            <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
+        </div>
+
+    </main>
+</div>
 </body>
 </html>

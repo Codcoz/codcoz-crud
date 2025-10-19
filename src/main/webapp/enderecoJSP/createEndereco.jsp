@@ -1,52 +1,73 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
     <title>Criar Endereço</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>Criar Endereço</h1>
-<form action="<%=request.getContextPath()%>/ServletCreateEndereco" method="post">
-    <label for="rua">Rua:</label>
-    <input type="text" id="rua" name="rua" placeholder="rua" max="100" required><br><br>
+<div class="container">
+    <jsp:include page="./../barraLateral.jsp" />
 
-    <label for="complemento">Complemento:</label>
-    <input type="text" id="complemento" name="complemento" placeholder="complemento" maxlength="50" required><br><br>
+    <main class="content" style="overflow: auto">
+        <header class="topo">
+            <h2>Criar Endereço</h2>
+            <img src="<%= request.getContextPath() %>/assets/codcoz_icon.png" alt="Logo" class="logo" title="Logo Codcoz">
+        </header>
 
-    <label for="cidade">Cidade:</label>
-    <input type="text" id="cidade" name="cidade" placeholder="cidade" maxlength="80" required><br><br>
+        <div class="sub-header">
+            <span class="hover-link ativo" title="Preencha os dados para cadastrar um novo endereço">Novo Endereço</span>
+        </div>
 
-    <label for="estado">Estado:</label>
-    <%
-        String[] estados = {
-                "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS",
-                "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC",
-                "SP", "SE", "TO" };
-    %>
+        <div class="actions" style="margin-top: 30px;">
+            <form action="<%=request.getContextPath()%>/ServletCreateEndereco" method="post" style="max-width: 500px; width: 100%;">
+                <label for="rua">Rua:</label><br>
+                <input type="text" id="rua" name="rua" class="input-redondo"
+                       placeholder="Nome da rua" maxlength="100" required
+                       title="Informe o nome da rua"><br><br>
 
-    <select name="estado" id="estado" required>
-        <option value="">Selecione...</option>
-        <%
-            for (int i = 0; i < estados.length; i++) {
-        %>
-        <option value="<%= estados[i] %>"><%= estados[i] %></option>
-        <%
-            }
-        %>
-    </select>
-    <br><br>
+                <label for="complemento">Complemento:</label><br>
+                <input type="text" id="complemento" name="complemento" class="input-redondo"
+                       placeholder="Complemento (opcional)" maxlength="50"
+                       title="Informe o complemento, se houver"><br><br>
 
-    <label for="cep">CEP:</label>
-    <input type="text" id="cep" name="cep" placeholder="cep" pattern="^\d{5}-?\d{3}$" maxlength="8" required><br><br>
+                <label for="cidade">Cidade:</label><br>
+                <input type="text" id="cidade" name="cidade" class="input-redondo"
+                       placeholder="Cidade" maxlength="80" required
+                       title="Informe a cidade"><br><br>
 
+                <label for="estado">Estado:</label><br>
+                <% String[] estados = { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }; %>
+                <select name="estado" id="estado" class="select-redondo" required title="Selecione o estado">
+                    <option value="">Selecione...</option>
+                    <% for (String uf : estados) { %>
+                    <option value="<%= uf %>"><%= uf %></option>
+                    <% } %>
+                </select><br><br>
 
-    <label for="numero">Número:</label>
-    <input type="text" id="numero" name="numero" placeholder="numero" maxlength="10"><br><br>
+                <label for="cep">CEP:</label><br>
+                <input type="text" id="cep" name="cep" class="input-redondo"
+                       placeholder="CEP (ex: 12345-678)" pattern="^\d{5}-?\d{3}$" maxlength="9" required
+                       title="Informe o CEP no formato 00000-000"><br><br>
 
-    <button type="submit">CRIAR</button><br><br>
+                <label for="numero">Número:</label><br>
+                <input type="text" id="numero" name="numero" class="input-redondo"
+                       placeholder="Número da residência" maxlength="10"
+                       title="Informe o número da residência"><br><br>
 
-    <a href="<%=request.getContextPath()%>/ServletReadEndereco">Voltar à lista</a><br><br>
-    <a href="<%=request.getContextPath()%>/index.html">Voltar ao início</a>
-</form>
+                <button type="submit" class="novo" title="Salvar novo endereço">+</button>
+            </form>
+        </div>
+
+        <br>
+        <div style="display: flex; gap: 20px;">
+            <a href="<%=request.getContextPath()%>/ServletReadEndereco" class="hover-link" title="Ver lista de endereços">Voltar à lista</a>
+            <a href="<%=request.getContextPath()%>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
+        </div>
+
+    </main>
+</div>
 </body>
 </html>

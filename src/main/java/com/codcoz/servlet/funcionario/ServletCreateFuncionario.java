@@ -16,17 +16,18 @@ public class ServletCreateFuncionario extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Lê parâmetros
+        // Lê parâmetros do formulário
         String idEmpresaStr = request.getParameter("idEmpresa");
         String funcao       = request.getParameter("funcao");
         String nome         = request.getParameter("nome");
         String sobrenome    = request.getParameter("sobrenome");
         String cpf          = request.getParameter("cpf");
+        String email        = request.getParameter("email");
+        String status       = request.getParameter("status");
 
-        // Flags de erro
         boolean temErro = false;
 
-        // Validação idEmpresa (numérico e positivo)
+        // Validação: idEmpresa numérico e > 0
         Integer idEmpresa = null;
         try {
             idEmpresa = Integer.valueOf(idEmpresaStr);
@@ -36,7 +37,7 @@ public class ServletCreateFuncionario extends HttpServlet {
             temErro = true;
         }
 
-        // Validação de campos obrigatórios (nome/sobrenome/função)
+        // Validações de obrigatoriedade
         if (nome == null || nome.trim().isEmpty()) {
             request.setAttribute("erroNome", "Nome é obrigatório.");
             temErro = true;
@@ -50,34 +51,48 @@ public class ServletCreateFuncionario extends HttpServlet {
             temErro = true;
         }
         if (cpf == null || cpf.trim().isEmpty()) {
-            request.setAttribute("erroCpf", "Cpf e obrigatorio");
+            request.setAttribute("erroCpf", "Cpf é obrigatório.");
+            temErro = true;
+        }
+        if (email == null || email.trim().isEmpty()) {
+            request.setAttribute("erroEmail", "E-mail é obrigatório.");
+            temErro = true;
+        }
+        if (status == null || status.trim().isEmpty()) {
+            request.setAttribute("erroStatus", "Status é obrigatório.");
+            temErro = true;
         }
 
-        // Se houve erro, devolve para o formulário preservando o que o usuário digitou
+        // Se houve erro, volta ao formulário com os valores preenchidos
         if (temErro) {
             request.setAttribute("idEmpresaValue", idEmpresaStr);
             request.setAttribute("funcaoValue", funcao);
             request.setAttribute("nomeValue", nome);
             request.setAttribute("sobrenomeValue", sobrenome);
             request.setAttribute("cpfValue", cpf);
+            request.setAttribute("emailValue", email);
+            request.setAttribute("statusValue", status);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionarioJSP/createFuncionario.jsp");
             dispatcher.forward(request, response);
             return;
         }
 
-        // Normaliza CPF para apenas dígitos (opcional)
+        // Normaliza CPF para apenas dígitos
         String cpfNormalizado = cpf.replaceAll("\\D", "");
 
-        // Cria objeto e persiste
+        // Monta o objeto de domínio
         Funcionario funcionario = new Funcionario(
                 idEmpresa,
                 funcao,
                 nome,
                 sobrenome,
-                cpfNormalizado
+                cpfNormalizado,
+                email,
+                status
         );
 
+        // Persiste e monta mensagem de retorno
         FuncionarioDAO dao = new FuncionarioDAO();
         String mensagem = dao.create(funcionario)
                 ? "A criação de " + nome + " " + sobrenome + " foi realizada com sucesso."
