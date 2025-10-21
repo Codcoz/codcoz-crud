@@ -11,94 +11,43 @@ import java.util.List;
 
 @WebServlet(name = "ServletCreateFuncionario", value = "/ServletCreateFuncionario")
 public class ServletCreateFuncionario extends HttpServlet {
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Lê parâmetros do formulário
-        String idEmpresaStr = request.getParameter("idEmpresa");
-        String funcao       = request.getParameter("funcao");
-        String nome         = request.getParameter("nome");
-        String sobrenome    = request.getParameter("sobrenome");
-        String cpf          = request.getParameter("cpf");
-        String email        = request.getParameter("email");
-        String status       = request.getParameter("status");
+        String cpfNormalizado = request.getParameter("cpf").replaceAll("\\D", "");
 
-        boolean temErro = false;
-
-        // Validação: idEmpresa numérico e > 0
-        Integer idEmpresa = null;
-        try {
-            idEmpresa = Integer.valueOf(idEmpresaStr);
-            if (idEmpresa <= 0) throw new NumberFormatException();
-        } catch (Exception e) {
-            request.setAttribute("erroIdEmpresa", "ID da empresa inválido.");
-            temErro = true;
-        }
-
-        // Validações de obrigatoriedade
-        if (nome == null || nome.trim().isEmpty()) {
-            request.setAttribute("erroNome", "Nome é obrigatório.");
-            temErro = true;
-        }
-        if (sobrenome == null || sobrenome.trim().isEmpty()) {
-            request.setAttribute("erroSobrenome", "Sobrenome é obrigatório.");
-            temErro = true;
-        }
-        if (funcao == null || funcao.trim().isEmpty()) {
-            request.setAttribute("erroFuncao", "Função é obrigatória.");
-            temErro = true;
-        }
-        if (cpf == null || cpf.trim().isEmpty()) {
-            request.setAttribute("erroCpf", "Cpf é obrigatório.");
-            temErro = true;
-        }
-        if (email == null || email.trim().isEmpty()) {
-            request.setAttribute("erroEmail", "E-mail é obrigatório.");
-            temErro = true;
-        }
-        if (status == null || status.trim().isEmpty()) {
-            request.setAttribute("erroStatus", "Status é obrigatório.");
-            temErro = true;
-        }
-
-        // Se houve erro, volta ao formulário com os valores preenchidos
-        if (temErro) {
-            request.setAttribute("idEmpresaValue", idEmpresaStr);
-            request.setAttribute("funcaoValue", funcao);
-            request.setAttribute("nomeValue", nome);
-            request.setAttribute("sobrenomeValue", sobrenome);
-            request.setAttribute("cpfValue", cpf);
-            request.setAttribute("emailValue", email);
-            request.setAttribute("statusValue", status);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionarioJSP/createFuncionario.jsp");
-            dispatcher.forward(request, response);
-            return;
-        }
-
-        // Normaliza CPF para apenas dígitos
-        String cpfNormalizado = cpf.replaceAll("\\D", "");
-
-        // Monta o objeto de domínio
         Funcionario funcionario = new Funcionario(
-                idEmpresa,
-                funcao,
-                nome,
-                sobrenome,
+                Integer.parseInt(request.getParameter("idEmpresa")),
+                request.getParameter("funcao"),
+                request.getParameter("nome"),
+                request.getParameter("sobrenome"),
                 cpfNormalizado,
-                email,
-                status
+                request.getParameter("email"),
+                request.getParameter("status")
         );
 
-        // Persiste e monta mensagem de retorno
         FuncionarioDAO dao = new FuncionarioDAO();
-        String mensagem = dao.create(funcionario)
-                ? "A criação de " + nome + " " + sobrenome + " foi realizada com sucesso."
-                : "A criação falhou: erro interno. Entre em contato em contato.codcoz@gmail.com";
+        int status = dao.create(funcionario);
 
-        // Prepara retorno para a listagem
+        String mensagem;
+        switch (status) {
+            case 1:
+                mensagem = "A criação de " + funcionario.getNome() + " foi realizada com sucesso.";
+                break;
+            case 0:
+                mensagem = "A criação de " + funcionario.getNome() + " falhou: esse CPF já está vinculado.";
+                break;
+            case -1:
+                mensagem = "A criação de " + funcionario.getNome() + " falhou: esse e-mail já está vinculado.";
+                break;
+            case -2:
+                mensagem = "A criação falhou: erro desconhecido. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
+                break;
+            default:
+                mensagem = "A1 criação falhou: erro interno. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
+        }
+
         request.setAttribute("mensagem", mensagem);
         List<Funcionario> lista = dao.read();
         request.setAttribute("listaFuncionarios", lista);
