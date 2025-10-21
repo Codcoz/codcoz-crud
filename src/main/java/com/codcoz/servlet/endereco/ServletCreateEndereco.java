@@ -36,7 +36,7 @@ public class ServletCreateEndereco extends HttpServlet {
                 numero
         );
 
-        // 🗄Executa a criação via DAO e define a mensagem com base no resultado
+        // Executa a criação via DAO e define a mensagem com base no resultado
         EnderecoDAO dao = new EnderecoDAO();
         String mensagem;
 
@@ -48,11 +48,11 @@ public class ServletCreateEndereco extends HttpServlet {
 
         request.setAttribute("mensagem", mensagem);
 
-        // 🔄 Atualiza a lista de endereços para exibir na JSP
+        //  Atualiza a lista de endereços para exibir na JSP
         List<Endereco> lista = dao.read();
         request.setAttribute("listaEnderecos", lista);
 
-        // 📄 Encaminha para a página JSP mantendo os dados
+        //  Encaminha para a página JSP mantendo os dados
         RequestDispatcher dispatcher = request.getRequestDispatcher("/enderecoJSP/readEndereco.jsp");
         dispatcher.forward(request, response);
     }
