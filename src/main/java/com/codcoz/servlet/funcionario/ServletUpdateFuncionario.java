@@ -15,109 +15,45 @@ public class ServletUpdateFuncionario extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // ==== Leitura dos parâmetros ====
-        String idStr        = request.getParameter("id");
-        String idEmpresaStr = request.getParameter("idEmpresa");
-        String funcao       = request.getParameter("funcao");
-        String nome         = request.getParameter("nome");
-        String sobrenome    = request.getParameter("sobrenome");
-        String cpf          = request.getParameter("cpf");
-        String email        = request.getParameter("email");
-        String status       = request.getParameter("status"); // << apenas adicionado
+        // Normaliza CPF usando regex: aceita "123.456.789-00" ou "12345678900"
+        String cpfOriginal = request.getParameter("cpf");
+        String cpfNormalizado = cpfOriginal.replaceAll("\\D", "");
 
-        boolean temErro = false;
-
-        // ==== Validações básicas ====
-        Integer id = null;
-        try {
-            id = Integer.valueOf(idStr);
-            if (id <= 0) throw new NumberFormatException();
-        } catch (Exception e) {
-            request.setAttribute("erroId", "ID inválido.");
-            temErro = true;
-        }
-
-        Integer idEmpresa = null;
-        try {
-            idEmpresa = Integer.valueOf(idEmpresaStr);
-            if (idEmpresa <= 0) throw new NumberFormatException();
-        } catch (Exception e) {
-            request.setAttribute("erroIdEmpresa", "ID da empresa inválido.");
-            temErro = true;
-        }
-
-        if (nome == null || nome.trim().isEmpty()) {
-            request.setAttribute("erroNome", "Nome é obrigatório.");
-            temErro = true;
-        }
-        if (sobrenome == null || sobrenome.trim().isEmpty()) {
-            request.setAttribute("erroSobrenome", "Sobrenome é obrigatório.");
-            temErro = true;
-        }
-        if (funcao == null || funcao.trim().isEmpty()) {
-            request.setAttribute("erroFuncao", "Função é obrigatória.");
-            temErro = true;
-        }
-        if (cpf == null || cpf.trim().isEmpty()) {
-            request.setAttribute("erroCpf", "Cpf é obrigatório.");
-            temErro = true;
-        }
-        if (email == null || email.trim().isEmpty()) {
-            request.setAttribute("erroEmail", "E-mail é obrigatório.");
-            temErro = true;
-        }
-
-        if (temErro) {
-            // Preserva valores para o formulário de update (sem adicionar novos campos)
-            request.setAttribute("idValue", idStr);
-            request.setAttribute("idEmpresaValue", idEmpresaStr);
-            request.setAttribute("funcaoValue", funcao);
-            request.setAttribute("nomeValue", nome);
-            request.setAttribute("sobrenomeValue", sobrenome);
-            request.setAttribute("cpfValue", cpf);
-            request.setAttribute("emailValue", email);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionarioJSP/updateFuncionario.jsp");
-            dispatcher.forward(request, response);
-            return;
-        }
-
-        // Normaliza CPF para apenas dígitos (mantido do original)
-        String cpfNormalizado = cpf.replaceAll("\\D", "");
-
-        // ==== Monta objeto e executa update ====
+        // Monta objeto
         Funcionario funcionario = new Funcionario(
-                id,
-                idEmpresa,
-                funcao,
-                nome,
-                sobrenome,
+                Integer.parseInt(request.getParameter("id")),
+                Integer.parseInt(request.getParameter("idEmpresa")),
+                request.getParameter("funcao"),
+                request.getParameter("nome"),
+                request.getParameter("sobrenome"),
                 cpfNormalizado,
-                email,
-                status // << apenas passado ao modelo
+                request.getParameter("email"),
+                request.getParameter("status")
         );
 
+        // Executa update e interpreta status
         FuncionarioDAO dao = new FuncionarioDAO();
-        int statusUpdate = dao.update(funcionario); // << só renomeado para não colidir com String status
+        int status = dao.update(funcionario);
 
-        // ==== Mensagem conforme status ====
         String mensagem;
-        switch (statusUpdate) {
+        switch (status) {
             case 1:
-                mensagem = "A atualização de " + nome + " " + sobrenome + " foi realizada com sucesso.";
+                mensagem = "A atualização de " + funcionario.getNome() + " foi realizada com sucesso.";
                 break;
             case 0:
-                mensagem = "A atualização de " + nome + " " + sobrenome + " falhou: erro interno. " +
-                        "Entre em contato pelo e-mail contato.codcoz@gmail.com.";
+                mensagem = "A atualização de " + funcionario.getNome() + " falhou: esse CPF já está vinculado.";
+                break;
+            case -1:
+                mensagem = "A atualização de " + funcionario.getNome() + " falhou: esse e-mail já está vinculado.";
+                break;
+            case -2:
+                mensagem = "A atualização falhou: erro desconhecido. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
                 break;
             default:
-                mensagem = "A atualização de " + nome + " " + sobrenome + " falhou: erro desconhecido. " +
-                        "Entre em contato pelo e-mail contato.codcoz@gmail.com.";
+                mensagem = "A atualização falhou: erro interno. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
         }
 
         request.setAttribute("mensagem", mensagem);
-
-        // ==== Recarrega listagem ====
         List<Funcionario> lista = dao.read();
         request.setAttribute("listaFuncionarios", lista);
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class FuncionarioDAO {
 
-    public boolean create(Funcionario funcionario) {
+    public int create(Funcionario funcionario) {
         String sql = "INSERT INTO funcionario (id_empresa, funcao, nome, sobrenome, cpf, email, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
@@ -22,13 +22,23 @@ public class FuncionarioDAO {
             pstmt.setString(5, funcionario.getCpf());
             pstmt.setString(6, funcionario.getEmail());
             pstmt.setString(7, funcionario.getStatus());
-            return pstmt.executeUpdate() > 0;
+            // Retorna true se ao menos uma linha foi inserida
+            if (pstmt.executeUpdate() > 0) {
+                System.out.println("Funcionarado Criado");
+                return 1; // sucesso
+            }
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return false;
+            if (sqle.getMessage().contains("funcionario_cnpj_key")) {
+                return 0; // ja existe
+            }
+            if (sqle.getMessage().contains("funcionario_email_key")) {
+                return -1; // ja existe
+            }
         } finally {
             conexao.desconectar(conn);
         }
+        return -2; // erro desconhecido
     }
 
     public List<Funcionario> read() {
