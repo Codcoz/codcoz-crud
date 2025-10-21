@@ -42,15 +42,19 @@ public class ServletUpdateEmpresa extends HttpServlet {
         String mensagem;
         switch (status) {
             case 1:
-                mensagem = "A atualização de " + empresa.getNome() + " foi realizada com sucesso.";
+                mensagem = "A atualizaçao de " + empresa.getNome() + " foi realizada com sucesso";
                 break;
             case 0:
-                mensagem = "A atualização de " + empresa.getNome() + " falhou: erro interno. " +
-                        "Entre em contato pelo e-mail contato.codcoz@gmail.com.";
+                mensagem = "A atualizaçao de " + empresa.getNome() + " falhou, esse cnpj ja foi vinculado";
+                break;
+            case -1:
+                mensagem = "A atualizaçao de " + empresa.getNome() + " falhou, esse email ja foi vinculado";
+                break;
+            case -2:
+                mensagem = "A atualizaçao falhou: erro desconhecido. Entre em contato em contato.codcoz@gmail.com";
                 break;
             default:
-                mensagem = "A atualização de " + empresa.getNome() + " falhou: erro desconhecido. " +
-                        "Entre em contato pelo e-mail contato.codcoz@gmail.com.";
+                mensagem = "A atualizaçao falhou: erro interno. Entre em contato em contato.codcoz@gmail.com";
         }
 
         request.setAttribute("mensagem", mensagem);
