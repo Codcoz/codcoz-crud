@@ -35,10 +35,22 @@ public class ServletCreateEmpresa extends HttpServlet {
 
         EmpresaDAO dao = new EmpresaDAO();
         String mensagem;
-        if (dao.create(empresa)) {
-            mensagem = "A criação de " + empresa.getNome() + " foi realizada com sucesso";
-        } else {
-            mensagem = "A criação falhou: erro interno. Entre em contato em contato.codcoz@gmail.com";
+        int status= dao.create(empresa);
+        switch (status){
+            case 1:
+                mensagem = "A criação de " + empresa.getNome() + " foi realizada com sucesso";
+                break;
+            case 0:
+                mensagem = "A criaçao de " + empresa.getNome() + " falhou, esse cnpj ja foi vinculado";
+                break;
+            case -1:
+                mensagem = "A criaçao de " + empresa.getNome() + " falhou, esse email ja foi vinculado";
+                break;
+            case -2:
+               mensagem = "A criação falhou: erro desconhecido. Entre em contato em contato.codcoz@gmail.com";
+               break;
+            default:
+                mensagem = "A criação falhou: erro interno. Entre em contato em contato.codcoz@gmail.com";
         }
 
         request.setAttribute("mensagem", mensagem);

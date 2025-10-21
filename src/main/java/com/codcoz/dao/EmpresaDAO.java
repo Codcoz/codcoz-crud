@@ -10,7 +10,7 @@ import java.util.List;
 public class EmpresaDAO {
 
     // Insere uma nova empresa no banco
-    public boolean create(Empresa empresa) {
+    public int create(Empresa empresa) {
         String sql = "INSERT INTO empresa (id_endereco, nome, cnpj, email) VALUES (?, ?, ?, ?)";
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
@@ -23,16 +23,21 @@ public class EmpresaDAO {
 
             // Retorna true se ao menos uma linha foi inserida
             if (pstmt.executeUpdate() > 0) {
-                System.out.println("Empresa criada com sucesso!");
-                return true;
+                System.out.println("create de empresa com sucesso");
+                return 1; // sucesso
             }
-            return false;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return false;
+            if (sqle.getMessage().contains("empresa_cnpj_key")) {
+                return 0; // ja existe
+            }
+            if (sqle.getMessage().contains("empresa_email_key")) {
+                return -1; // ja existe
+            }
         } finally {
-            conexao.desconectar(conn); // garante fechamento da conexão
+            conexao.desconectar(conn);
         }
+        return -2; // erro desconhecido
     }
 
     // Retorna todas as empresas cadastradas
@@ -107,11 +112,16 @@ public class EmpresaDAO {
             }
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return 0; // erro interno
+            if (sqle.getMessage().contains("empresa_cnpj_key")) {
+                return 0; // ja existe
+            }
+            if (sqle.getMessage().contains("empresa_email_key")) {
+                return -1; // ja existe
+            }
         } finally {
             conexao.desconectar(conn);
         }
-        return -1; // erro desconhecido
+        return -2; // erro desconhecido
     }
 
     // Exclui uma empresa pelo ID
@@ -123,14 +133,17 @@ public class EmpresaDAO {
             pstmt.setInt(1, id);
 
             if (pstmt.executeUpdate() > 0) {
-                return 1; // sucesso
+                return 1;
             }
+            return 0;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return 0; // erro interno
+            if (sqle.getMessage().contains("still referenced")) {
+                return 0; // está vinculado a outra tabela
+            }
+            return -1;
         } finally {
             conexao.desconectar(conn);
         }
-        return -1; // erro desconhecido
     }
 }
