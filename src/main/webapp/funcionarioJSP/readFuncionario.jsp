@@ -78,7 +78,7 @@
                     <td title="E-mail do funcionário"><%= funcionario.getEmail() %></td>
                     <td title="Empresa associada"><%= nomeEmpresa %></td>
                     <td title="Função desempenhada"><%= funcionario.getFuncao() %></td>
-                    <td title="Status do funcionário"><%= funcionario.getStatus() %></td>
+                    <td title="Status do funcionário" style="color: <%=funcionario.getStatus().equals("Ativo")?"green":"red"%>"><%= funcionario.getStatus() %></td>
                     <td class="acoes">
                         <a href="<%= request.getContextPath() %>/funcionarioJSP/updateFuncionario.jsp?id=<%= funcionario.getId() %>" title="Editar funcionário">
                             <img src="<%= request.getContextPath() %>/assets/edit_icon.png" alt="Editar" title="Editar funcionário">
