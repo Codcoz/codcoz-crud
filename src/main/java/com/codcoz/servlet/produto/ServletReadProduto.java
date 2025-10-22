@@ -7,6 +7,8 @@ import com.codcoz.model.Produto;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import jakarta.ws.rs.core.Request;
+import jakarta.ws.rs.core.Response;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,8 +22,13 @@ public class ServletReadProduto extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Recupera a lista de produtos do banco de dados
         ProdutoDAO dao = new ProdutoDAO();
-        List<Produto> lista = dao.read();
-
+        List<Produto> lista;
+        String idBuscarPorEmpresa = request.getParameter("buscarPorEmpresa");
+        if (idBuscarPorEmpresa!=null){
+             lista = dao.buscarPorEmpresa(Integer.parseInt(idBuscarPorEmpresa));
+        }else {
+             lista = dao.read();
+        }
         // Adiciona a lista como atributo da requisição
         request.setAttribute("listaProdutos", lista);
 
