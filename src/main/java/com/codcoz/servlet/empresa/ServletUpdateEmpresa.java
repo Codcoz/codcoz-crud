@@ -23,18 +23,7 @@ public class ServletUpdateEmpresa extends HttpServlet {
         // Normaliza o CNPJ removendo caracteres não numéricos
         String cnpjOriginal = request.getParameter("cnpj");
         String cnpj = cnpjOriginal.replaceAll("\\D", "");
-
-        // Valida o formato do e-mail usando expressão regular
         String email = request.getParameter("email");
-        String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.(com|net|org|gov|edu|info|biz|co)(\\.br)?$";
-
-        // Se o e-mail for inválido, retorna para a página de edição com mensagem de erro
-        if (!email.matches(emailRegex)) {
-            request.setAttribute("mensagem", "Email inválido. Use um formato como nome@empresa.com.br");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/empresaJSP/updateEmpresa.jsp");
-            dispatcher.forward(request, response);
-            return;
-        }
 
         // Cria o objeto Empresa com os dados recebidos do formulário
         Empresa empresa = new Empresa(

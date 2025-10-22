@@ -177,12 +177,22 @@ body {
     background-color: #d5be65;
     color: #1a263d;
 }
+/*antigo*/
+/*.tabela-container {*/
+/*    flex: 1;*/
+/*    overflow-x: auto;*/
+/*    overflow-y: auto;*/
+/*    max-height: 50vh;*/
+/*    margin-top: 20px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 8px;*/
+/*    background-color: white;*/
+/*}*/
 
 .tabela-container {
     flex: 1;
-    overflow-x: auto;
     overflow-y: auto;
-    max-height: 50vh;
+    max-height: 60vh;
     margin-top: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
