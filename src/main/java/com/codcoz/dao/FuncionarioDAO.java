@@ -29,7 +29,7 @@ public class FuncionarioDAO {
             }
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            if (sqle.getMessage().contains("funcionario_cnpj_key")) {
+            if (sqle.getMessage().contains("funcionario_cpf_key")) {
                 return 0; // ja existe
             }
             if (sqle.getMessage().contains("funcionario_email_key")) {
