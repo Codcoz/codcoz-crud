@@ -33,9 +33,19 @@
             <span class="hover-link ativo" title="Visualizando todos os produtos cadastrados">Produtos</span>
         </div>
 
-        <div class="actions">
+        <div style="display: flex"; class="actions">
             <form action="<%= request.getContextPath() %>/produtoJSP/escolhaEmpresaDoProduto.jsp" method="get">
                 <button type="submit" class="novo" title="Criar novo produto">+</button>
+            </form>
+            <form style="display: flex" action="ServletReadProduto">
+                <select class="select-redondo" name="buscarPorEmpresa" id="buscarPorEmpresa">
+                    <option selected disabled value="">Selecione uma empresa</option>
+                    <%List<Empresa> empresas = new EmpresaDAO().read();
+                        for (Empresa empresa: empresas) {%>
+                    <option value="<%=empresa.getId()%>"><%=empresa.getNome()%></option>
+                    <%}%>
+                </select>
+                <button type="submit">Filtrar</button>
             </form>
         </div>
 
