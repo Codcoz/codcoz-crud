@@ -22,6 +22,7 @@
     <title>Atualizar Estoque</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/icone.png">
 </head>
 <body>
 <div class="container">
