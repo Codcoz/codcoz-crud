@@ -15,6 +15,7 @@ import java.util.List;
 public class ServletCreateNotaFiscalXml extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Cria um objeto Nota fiscal xml com os dados recebidos do formulário
         NotaFiscalXml nota = new NotaFiscalXml(
                 Integer.parseInt(request.getParameter("idEmpresa")),
                 Date.valueOf(request.getParameter("dataEmissao")),
