@@ -58,8 +58,9 @@
 
                 <label for="status">Status:</label><br>
                 <select id="status" name="status" class="select-redondo" required>
-                    <option value="ATIVO" selected>ATIVO</option>
-                    <option value="INATIVO">INATIVO</option>
+                    <option value="" disabled selected>Selecione o status</option>
+                    <option value="Ativo" selected>Ativo</option>
+                    <option value="Inativo">Inativo</option>
                 </select><br><br>
 
                 <label for="idEmpresa">Empresa:</label><br>
