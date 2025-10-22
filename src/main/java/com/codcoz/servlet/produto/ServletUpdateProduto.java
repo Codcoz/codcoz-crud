@@ -1,5 +1,7 @@
+// Define o pacote da servlet responsável por atualizar dados de produto
 package com.codcoz.servlet.produto;
 
+// Importa classes para acesso a dados e manipulação de requisições
 import com.codcoz.dao.ProdutoDAO;
 import com.codcoz.model.Produto;
 import jakarta.servlet.*;
@@ -9,10 +11,14 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
+// Define a servlet e mapeia sua URL
 @WebServlet(name = "ServletUpdateProduto", value = "/ServletUpdateProduto")
 public class ServletUpdateProduto extends HttpServlet {
+
+    // Método que trata requisições POST para atualizar um produto
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Cria o objeto Produto com os dados recebidos do formulário
         Produto produto = new Produto(
                 Integer.parseInt(request.getParameter("id")),
                 Integer.parseInt(request.getParameter("idEstoque")),
@@ -25,8 +31,11 @@ public class ServletUpdateProduto extends HttpServlet {
                 Integer.parseInt(request.getParameter("quantidade"))
         );
 
+        // Executa a atualização via DAO
         ProdutoDAO dao = new ProdutoDAO();
         int status = dao.update(produto);
+
+        // Define a mensagem com base no resultado da operação
         String mensagem;
         switch (status) {
             case 1:
@@ -40,10 +49,13 @@ public class ServletUpdateProduto extends HttpServlet {
                 break;
         }
 
+        // Adiciona a mensagem e a lista atualizada de produtos à requisição
         request.setAttribute("mensagem", mensagem);
         List<Produto> lista = dao.read();
 
         request.setAttribute("listaProdutos", lista);
+
+        // Encaminha para a página JSP que exibe os produtos
         RequestDispatcher dispatcher = request.getRequestDispatcher("/produtoJSP/readProduto.jsp");
         dispatcher.forward(request, response);
     }

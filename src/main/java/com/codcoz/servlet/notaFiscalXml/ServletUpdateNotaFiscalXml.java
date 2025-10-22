@@ -34,6 +34,7 @@ public class ServletUpdateNotaFiscalXml extends HttpServlet {
             mensagem = "A atualização da nota \"" + nota.getNumeroNota() + "\" falhou: erro interno. "
                     + "Entre em contato em contato.codcoz@gmail.com";
         }
+        // Adiciona a lista como atributo da requisição
         request.setAttribute("mensagem", mensagem);
 
         List<NotaFiscalXml> lista = dao.read();

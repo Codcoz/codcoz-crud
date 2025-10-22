@@ -1,5 +1,7 @@
+// Define o pacote da classe DAO responsável pelas operações com a entidade Produto
 package com.codcoz.dao;
 
+// Importa classes necessárias para manipulação de dados e conexão com o banco
 import com.codcoz.model.Produto;
 import com.codcoz.conexao.Conexao;
 
@@ -9,6 +11,7 @@ import java.util.List;
 
 public class ProdutoDAO {
 
+    // Método para criar um novo produto no banco de dados
     public boolean create(Produto produto) {
         String sql = "INSERT INTO Produto (id_estoque, id_nota_fiscal, nome, categoria, unidade_medida, quantidade, estoque_minimo) VALUES (?, ?, ?, ?, ?, ?, ?)";
         Conexao conexao = new Conexao();
@@ -36,6 +39,7 @@ public class ProdutoDAO {
         }
     }
 
+    // Método para listar todos os produtos
     public List<Produto> read() {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
@@ -67,6 +71,7 @@ public class ProdutoDAO {
         return produtoList;
     }
 
+    // Método para buscar um produto pelo ID
     public Produto buscarPorId(int id) {
         Produto produto = null;
         String sql = "SELECT p.id, p.id_estoque, p.id_nota_fiscal, e.id AS id_empresa, p.unidade_medida, p.nome, p.estoque_minimo, p.categoria, p.quantidade FROM produto p LEFT JOIN nota_fiscal_xml nf ON p.id_nota_fiscal = nf.id LEFT JOIN empresa e ON nf.id_empresa = e.id WHERE p.id = ?";
@@ -94,6 +99,8 @@ public class ProdutoDAO {
         }
         return produto;
     }
+
+    // Método para buscar produtos vinculados a uma empresa específica
     public List<Produto> buscarPorEmpresa(int idEmpresa) {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
@@ -130,6 +137,8 @@ public class ProdutoDAO {
         }
         return produtoList;
     }
+
+    // Método para atualizar os dados de um produto
     public int update(Produto produto) {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
@@ -156,6 +165,7 @@ public class ProdutoDAO {
         }
     }
 
+    // Método para excluir um produto pelo ID
     public int delete(int id) {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
