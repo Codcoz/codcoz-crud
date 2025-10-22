@@ -52,8 +52,8 @@
                     <th>Data de Criação</th>
                     <th>Status</th>
                     <th>Tipo de Alerta</th>
-                    <th>Update</th>
-                    <th>Delete</th>
+                    <th>Editar</th>
+                    <th>Deletar</th>
                 </tr>
                 </thead>
                 <tbody>

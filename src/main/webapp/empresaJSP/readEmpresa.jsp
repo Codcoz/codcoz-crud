@@ -12,17 +12,6 @@
     <title>Lista de Empresas</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        .tabela-container {
-            flex: 1;
-            overflow-y: auto;
-            max-height: 60vh;
-            margin-top: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            background-color: white;
-        }
-    </style>
 </head>
 <body>
 <div class="container">

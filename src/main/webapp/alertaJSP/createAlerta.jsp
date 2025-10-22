@@ -67,7 +67,7 @@
                        maxlength="50" placeholder="Ex: Estoque baixo" required
                        title="Informe o tipo de alerta (ex: Estoque baixo)"><br><br>
 
-                <button type="submit" class="novo" title="Salvar novo alerta">+</button>
+                <button type="submit" class="novo" title="Salvar novo alerta" aria-label="Salvar alerta">+</button>
             </form>
         </div>
 
