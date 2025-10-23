@@ -3,6 +3,7 @@ package com.codcoz.servlet.funcionario;
 
 // Importa classes para acesso a dados e manipulação de requisições
 import com.codcoz.dao.FuncionarioDAO;
+import com.codcoz.model.Estoque;
 import com.codcoz.model.Funcionario;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -22,8 +23,13 @@ public class ServletReadFuncionario extends HttpServlet {
 
         // Recupera a lista de funcionários do banco de dados
         FuncionarioDAO dao = new FuncionarioDAO();
-        List<Funcionario> lista = dao.read();
-
+        List<Funcionario> lista;
+        String idBuscarPorEmpresa = request.getParameter("buscarPorEmpresa");
+        if (idBuscarPorEmpresa!=null){
+            lista = dao.buscarPorEmpresa(Integer.parseInt(idBuscarPorEmpresa));
+        }else {
+            lista = dao.read();
+        }
         // Adiciona a lista como atributo da requisição
         request.setAttribute("listaFuncionarios", lista);
 

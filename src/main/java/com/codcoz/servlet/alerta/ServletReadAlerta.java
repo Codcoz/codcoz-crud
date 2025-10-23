@@ -2,6 +2,7 @@ package com.codcoz.servlet.alerta;
 
 import com.codcoz.dao.AlertaDAO;
 import com.codcoz.model.Alerta;
+import com.codcoz.model.Estoque;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -14,9 +15,14 @@ public class ServletReadAlerta extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     // Chama o DAO
-        AlertaDAO alertaDAO= new AlertaDAO();
-        List<Alerta> lista = alertaDAO.read();
-
+        AlertaDAO dao= new AlertaDAO();
+        List<Alerta> lista;
+        String idBuscarPorEmpresa = request.getParameter("buscarPorEmpresa");
+        if (idBuscarPorEmpresa!=null){
+            lista = dao.buscarPorEmpresa(Integer.parseInt(idBuscarPorEmpresa));
+        }else {
+            lista = dao.read();
+        }
         // Define a lista como atributo da request
         request.setAttribute("listaAlertas", lista);
 
