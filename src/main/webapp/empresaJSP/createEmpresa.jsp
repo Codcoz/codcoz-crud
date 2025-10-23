@@ -42,6 +42,7 @@
                 <!-- Campo CNPJ -->
                 <label for="cnpj">CNPJ:</label><br>
                 <input type="text" id="cnpj" name="cnpj" class="input-redondo"
+                       pattern="^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$|^\d{14}$"
                        placeholder="CNPJ" maxlength="14" required
                        title="Informe o CNPJ da empresa"><br><br>
 
@@ -67,7 +68,7 @@
                 <!-- Campo Email -->
                 <label for="email">Email:</label><br>
                 <input type="email" id="email" name="email" class="input-redondo"
-                       pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.((com|net|org|gov|edu|info|biz|co)(\\.br)?|br)$"
+                       pattern="^[A-Za-z0-9._%+-]+@(gmail\.com|net\.com|outlook\.com|hotmail\.com|yahoo\.com|icloud\.com|uol\.com\.br|terra\.com\.br|bol\.com\.br)$"
                        placeholder="Email da empresa" required
                        title="Informe o e-mail da empresa"><br><br>
 

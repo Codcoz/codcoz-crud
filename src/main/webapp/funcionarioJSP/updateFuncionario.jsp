@@ -67,7 +67,7 @@
                 <label for="cpf">CPF:</label><br>
                 <input type="text" id="cpf" name="cpf" class="input-redondo"
                        value="<%= funcionario.getCpf() %>" maxlength="11"
-                       pattern="^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$|^\\d{11}$"
+                       pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$|^\d{11}$"
                        required placeholder="Ex: 123.456.789-00" title="Informe o CPF do funcionário"><br><br>
 
                 <!-- Campo E-mail -->
