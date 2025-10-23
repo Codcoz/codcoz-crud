@@ -1,31 +1,35 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<%@ page import="
-    com.codcoz.model.Produto,
-    com.codcoz.dao.EstoqueDAO,
-    com.codcoz.dao.NotaFiscalXmlDAO,
-    com.codcoz.dao.EmpresaDAO,
-    com.codcoz.model.Estoque,
-    com.codcoz.model.NotaFiscalXml,
-    com.codcoz.model.Empresa,
-    java.util.List
-" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Produtos</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/icone.png">
+    <title>Login - CodCoz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/icone.png">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-<div class="container">
+<body class="login-page">
+<div class="login-container">
+    <div class="login-left">
+        <div class="login-logo">
+            <img src="assets/codcoz.png" alt="CodCoz">
+        </div>
+        <div class="login-subtitle" style="color: white;">Login área administrador</div>
+    </div>
 
-    <jsp:include page="./barraLateral.jsp" />
+    <div class="login-divider"></div>
 
-    <main class="content">
+    <div class="login-right">
+        <form action="menu.jsp" method="post" style="width: 100%; max-width: 300px; display: flex; flex-direction: column; gap: 6px; margin-top: 20px;">
+            <label for="email" class="label-login">Email:</label>
+            <input type="email" id="email" name="email" class="input-redondo" placeholder="Digite seu email" required>
 
-    </main>
+            <label for="senha" class="label-login">Senha:</label>
+            <input type="password" id="senha" name="senha" class="input-redondo" placeholder="Digite sua senha" required>
+
+            <button type="submit" class="botao-menu">Entrar</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>

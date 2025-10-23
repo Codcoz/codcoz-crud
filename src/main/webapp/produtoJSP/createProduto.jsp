@@ -13,12 +13,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Criar Produto</title>
+    <!-- Estilos e fontes -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/icone.png">
 </head>
 <body>
 <div class="container">
+    <!-- Inclui a barra lateral -->
     <jsp:include page="./../barraLateral.jsp" />
 
     <main class="content" style="overflow: auto">
@@ -32,6 +34,7 @@
         </div>
 
         <%
+            // Recupera dados da empresa e listas de estoques e notas fiscais associadas
             int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
             Empresa empresa = new EmpresaDAO().buscarPorId(idEmpresa);
             List<Estoque> estoques = new EstoqueDAO().buscarPorEmpresa(idEmpresa);
@@ -39,10 +42,12 @@
         %>
 
         <div class="actions" style="margin-top: 30px;">
+            <!-- Formulário para criação de produto -->
             <form action="<%= request.getContextPath() %>/ServletCreateProduto" method="post" style="max-width: 500px; width: 100%;">
                 <input type="hidden" name="idEmpresa" value="<%= idEmpresa %>">
                 <p><strong>Empresa do Produto:</strong> <%= empresa.getNome() %></p>
 
+                <!-- Campo Estoque -->
                 <label for="idEstoque">Estoque:</label><br>
                 <select id="idEstoque" name="idEstoque" class="select-redondo" required title="Selecione o estoque onde o produto será armazenado">
                     <option value="">Selecione um estoque</option>
@@ -54,6 +59,7 @@
                 <a href="../estoqueJSP/createEstoque.jsp" class="hover-link" title="Cadastrar novo estoque">Criar Estoque</a>
                 <br><br>
 
+                <!-- Campo Nota Fiscal XML -->
                 <label for="idNotaFiscal">Nota Fiscal XML:</label><br>
                 <select id="idNotaFiscal" name="idNotaFiscal" class="select-redondo" required title="Selecione a nota fiscal associada ao produto">
                     <option value="">Selecione uma nota fiscal</option>
@@ -65,6 +71,7 @@
                 <a href="../notaFiscalXmlJSP/createNotaFiscalXml.jsp" class="hover-link" title="Cadastrar nova nota fiscal">Criar Nota Fiscal XML</a>
                 <br><br>
 
+                <!-- Campo Unidade de Medida -->
                 <label for="unidadeMedida">Unidade de medida:</label><br>
                 <select id="unidadeMedida" name="unidadeMedida" class="select-redondo" required title="Selecione a unidade de medida do produto">
                     <option value="">Selecione</option>
@@ -76,31 +83,42 @@
                     <option value="caixa">Caixa</option>
                 </select><br><br>
 
+                <!-- Campo Nome do Produto -->
                 <label for="nome">Nome do Produto:</label><br>
                 <input type="text" id="nome" name="nome" class="input-redondo"
                        placeholder="Ex: Carne" required
                        title="Informe o nome do produto"><br><br>
 
+                <label for="codigoEan">Codigo Ean:</label><br>
+                <input type="number" step="1" id="codigoEan" name="codigoEan" class="input-redondo"
+                       placeholder="Ex: 12345678" required
+                       title="Informe o codigo ean para produto"><br><br>
+
+                <!-- Campo Estoque Mínimo -->
                 <label for="estoqueMinimo">Estoque Mínimo:</label><br>
                 <input type="number" step="1" id="estoqueMinimo" name="estoqueMinimo" class="input-redondo"
                        placeholder="Ex: 1" required
-                       title="Informe o estoque mínimo para alerta"><br><br>
+                       title="Informe o estoque mínimo para produto"><br><br>
 
+                <!-- Campo Categoria -->
                 <label for="categoria">Categoria:</label><br>
                 <input type="text" id="categoria" name="categoria" class="input-redondo"
                        placeholder="Ex: Frios" required
                        title="Informe a categoria do produto"><br><br>
 
+                <!-- Campo Quantidade -->
                 <label for="quantidade">Quantidade:</label><br>
                 <input type="number" step="1" id="quantidade" name="quantidade" class="input-redondo"
                        placeholder="Ex: 1" required
                        title="Informe a quantidade atual do produto"><br><br>
 
+                <!-- Botão de envio -->
                 <button type="submit" class="novo" title="Salvar novo produto">+</button>
             </form>
         </div>
 
         <br>
+        <!-- Navegação -->
         <div style="display: flex; gap: 20px;">
             <a href="<%= request.getContextPath() %>/ServletReadProduto" class="hover-link" title="Ver lista de produtos">Voltar à lista de produtos</a>
             <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>

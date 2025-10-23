@@ -13,7 +13,7 @@ public class ProdutoDAO {
 
     // Método para criar um novo produto no banco de dados
     public boolean create(Produto produto) {
-        String sql = "INSERT INTO Produto (id_estoque, id_nota_fiscal, nome, categoria, unidade_medida, quantidade, estoque_minimo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Produto (id_estoque, id_nota_fiscal, nome, categoria, unidade_medida,codigo_ean, quantidade, estoque_minimo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try {
@@ -23,8 +23,9 @@ public class ProdutoDAO {
             pstmt.setString(3, produto.getNome());
             pstmt.setString(4, produto.getCategoria());
             pstmt.setString(5, produto.getUnidadeMedida());
-            pstmt.setInt(6, produto.getQuantidade());
-            pstmt.setDouble(7, produto.getEstoqueMinimo());
+            pstmt.setInt(6,produto.getCodigoEan());
+            pstmt.setInt(7, produto.getQuantidade());
+            pstmt.setDouble(8, produto.getEstoqueMinimo());
 
             if (pstmt.executeUpdate() > 0) {
                 System.out.println("Produto criado com sucesso");
@@ -45,7 +46,7 @@ public class ProdutoDAO {
         Connection conn = conexao.conectar();
         ArrayList<Produto> produtoList = new ArrayList<>();
         ResultSet rs;
-        String sql = "SELECT p.id, p.id_estoque, p.id_nota_fiscal, e.id AS id_empresa, p.unidade_medida, p.nome, p.estoque_minimo, p.categoria, p.quantidade FROM produto p LEFT JOIN nota_fiscal_xml nf ON p.id_nota_fiscal = nf.id LEFT JOIN empresa e ON nf.id_empresa = e.id ORDER BY p.id";
+        String sql = "SELECT p.id, p.id_estoque, p.id_nota_fiscal, e.id AS id_empresa, p.unidade_medida, p.codigo_ean, p.nome, p.estoque_minimo, p.categoria, p.quantidade FROM produto p LEFT JOIN nota_fiscal_xml nf ON p.id_nota_fiscal = nf.id LEFT JOIN empresa e ON nf.id_empresa = e.id ORDER BY p.id";
         try {
             Statement stmt = conn.createStatement();
             rs = stmt.executeQuery(sql);
@@ -56,6 +57,7 @@ public class ProdutoDAO {
                         rs.getInt("id_nota_fiscal"),
                         rs.getInt("id_empresa"),
                         rs.getString("unidade_medida"),
+                        rs.getInt("codigo_ean"),
                         rs.getDouble("estoque_minimo"),
                         rs.getString("nome"),
                         rs.getString("categoria"),
@@ -74,7 +76,7 @@ public class ProdutoDAO {
     // Método para buscar um produto pelo ID
     public Produto buscarPorId(int id) {
         Produto produto = null;
-        String sql = "SELECT p.id, p.id_estoque, p.id_nota_fiscal, e.id AS id_empresa, p.unidade_medida, p.nome, p.estoque_minimo, p.categoria, p.quantidade FROM produto p LEFT JOIN nota_fiscal_xml nf ON p.id_nota_fiscal = nf.id LEFT JOIN empresa e ON nf.id_empresa = e.id WHERE p.id = ?";
+        String sql = "SELECT p.id, p.id_estoque, p.id_nota_fiscal, e.id AS id_empresa, p.unidade_medida, p.codigo_ean, p.nome, p.estoque_minimo, p.categoria, p.quantidade FROM produto p LEFT JOIN nota_fiscal_xml nf ON p.id_nota_fiscal = nf.id LEFT JOIN empresa e ON nf.id_empresa = e.id WHERE p.id = ?";
         try (Connection conn = new Conexao().conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -88,6 +90,7 @@ public class ProdutoDAO {
                         rs.getInt("id_nota_fiscal"),
                         rs.getInt("id_empresa"),
                         rs.getString("unidade_medida"),
+                        rs.getInt("codigo_ean"),
                         rs.getDouble("estoque_minimo"),
                         rs.getString("nome"),
                         rs.getString("categoria"),
@@ -106,7 +109,7 @@ public class ProdutoDAO {
         Connection conn = conexao.conectar();
         ArrayList<Produto> produtoList = new ArrayList<>();
         ResultSet rs;
-        String sql = "SELECT p.id, p.id_estoque, p.id_nota_fiscal, e.id AS id_empresa, p.unidade_medida, p.nome, p.estoque_minimo, p.categoria, p.quantidade " +
+        String sql = "SELECT p.id, p.id_estoque, p.id_nota_fiscal, e.id AS id_empresa, p.unidade_medida, p.codigo_ean, p.nome, p.estoque_minimo, p.categoria, p.quantidade " +
                 "FROM produto p " +
                 "LEFT JOIN nota_fiscal_xml nf ON p.id_nota_fiscal = nf.id " +
                 "LEFT JOIN empresa e ON nf.id_empresa = e.id " +
@@ -123,6 +126,7 @@ public class ProdutoDAO {
                         rs.getInt("id_nota_fiscal"),
                         rs.getInt("id_empresa"),
                         rs.getString("unidade_medida"),
+                        rs.getInt("codigo_ean"),
                         rs.getDouble("estoque_minimo"),
                         rs.getString("nome"),
                         rs.getString("categoria"),
@@ -143,15 +147,16 @@ public class ProdutoDAO {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
         try {
-            PreparedStatement pstmt = conn.prepareStatement("UPDATE produto SET id_estoque = ?, id_nota_fiscal = ?, unidade_medida = ?, nome = ?, estoque_minimo = ?, categoria = ?, quantidade = ? WHERE id = ?");
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE produto SET id_estoque = ?, id_nota_fiscal = ?, unidade_medida = ?, codigo_ean = ?, nome = ?, estoque_minimo = ?, categoria = ?, quantidade = ? WHERE id = ?");
             pstmt.setInt(1, produto.getIdEstoque());
             pstmt.setInt(2, produto.getIdNotaFiscal());
             pstmt.setString(3, produto.getUnidadeMedida());
-            pstmt.setString(4, produto.getNome());
-            pstmt.setDouble(5, produto.getEstoqueMinimo());
-            pstmt.setString(6, produto.getCategoria());
-            pstmt.setInt(7, produto.getQuantidade());
-            pstmt.setInt(8, produto.getId());
+            pstmt.setInt(4, produto.getCodigoEan());
+            pstmt.setString(5, produto.getNome());
+            pstmt.setDouble(6, produto.getEstoqueMinimo());
+            pstmt.setString(7, produto.getCategoria());
+            pstmt.setInt(8, produto.getQuantidade());
+            pstmt.setInt(9, produto.getId());
             if (pstmt.executeUpdate() > 0) {
                 System.out.println("Produto atualizado com sucesso");
                 return 1;
