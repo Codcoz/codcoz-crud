@@ -111,7 +111,7 @@
         <br>
         <div style="display: flex; gap: 20px;">
             <a href="<%= request.getContextPath() %>/ServletReadFuncionario" class="hover-link" title="Ver lista de funcionários">Voltar à lista</a>
-            <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
+            <a href="<%= request.getContextPath() %>/menu.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
         </div>
 
     </main>

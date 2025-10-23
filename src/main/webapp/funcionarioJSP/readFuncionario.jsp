@@ -103,7 +103,7 @@
         </div>
 
         <br>
-        <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
+        <a href="<%= request.getContextPath() %>/menu.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
 
     </main>
 </div>
