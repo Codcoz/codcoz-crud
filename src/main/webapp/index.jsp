@@ -20,12 +20,13 @@
     <div class="login-divider"></div>
 
     <div class="login-right">
-        <form action="menu.jsp" method="post" style="width: 100%; max-width: 300px; display: flex; flex-direction: column; gap: 6px; margin-top: 20px;">
+        <form action="<%= request.getContextPath() %>/ServletLogin" method="post" style="width: 100%; max-width: 300px; display: flex; flex-direction: column; gap: 6px; margin-top: 20px;">
             <label for="email" class="label-login">Email:</label>
             <input type="email" id="email" name="email" class="input-redondo" placeholder="Digite seu email" required>
 
             <label for="senha" class="label-login">Senha:</label>
-            <input type="password" id="senha" name="senha" class="input-redondo" placeholder="Digite sua senha" required>
+            <input type="password" id="senha" name="senha" class="input-redondo" style="margin-bottom: 5px" placeholder="Digite sua senha" required>
+            <p style="color: red; text-align: left";><%=request.getAttribute("mensagemErro")!=null ? request.getAttribute("mensagemErro") : ""%></p>
 
             <button type="submit" class="botao-menu">Entrar</button>
         </form>

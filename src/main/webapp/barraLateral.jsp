@@ -10,7 +10,7 @@
 <aside class="sidebar">
     <div class="perfil">
         <img src="<%= request.getContextPath() %>/assets/user_icon.png" alt="Perfil" class="perfil-img">
-        <p class="perfil-nome">adm</p>
+        <p class="perfil-nome"><%=request.getSession().getAttribute("nomeAdm")%></p>
     </div>
 
         <nav class="menu">

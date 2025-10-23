@@ -192,7 +192,7 @@ body {
 .tabela-container {
     flex: 1;
     overflow-y: auto;
-    max-height: 60vh;
+    max-height: 50vh;
     margin-top: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -297,10 +297,9 @@ td.acoes img:hover {
 }
 
 .botao-menu {
-    margin-top: 10px;
     width: 120px;
-    padding: 8px 16px;
-    font-size: 14px;
+    padding: 10px 20px;
+    font-size: 15px;
     font-weight: 500;
     font-family: 'Poppins', sans-serif;
     background-color: transparent;
@@ -375,6 +374,33 @@ td.acoes img:hover {
     font-size: 14px;
 }
 
-
+.filtro{
+    right: 50px;
+    position: absolute;
+}
+.filtro button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1a263d;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 20px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100px;
+    margin-left: 10px;
 }
 
+.filtro button:hover {
+    background-color: #d5be65;
+    color: #1a263d;
+}
+.filtro label {
+    margin-right: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
