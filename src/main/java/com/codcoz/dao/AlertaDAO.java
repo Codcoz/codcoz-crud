@@ -3,6 +3,7 @@ package com.codcoz.dao;
 import com.codcoz.model.Alerta;
 import com.codcoz.conexao.Conexao;
 import com.codcoz.model.Empresa;
+import com.codcoz.model.Produto;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -64,6 +65,40 @@ public class AlertaDAO {
         return listaAlertas;
         }
 
+    public List<Alerta> buscarPorEmpresa(int idEmpresa) {
+        Conexao conexao = new Conexao();
+        Connection conn = conexao.conectar();
+        ArrayList<Alerta> alertaList = new ArrayList<>();
+        ResultSet rs;
+        String sql = "SELECT a.id, e.id AS id_empresa, a.id_produto, a.data_criacao, a.status, a.tipo_alerta " +
+                "FROM alerta a " +
+                "JOIN produto p ON a.id_produto = p.id " +
+                "JOIN nota_fiscal_xml nf ON p.id_nota_fiscal = nf.id " +
+                "JOIN empresa e ON nf.id_empresa = e.id " +
+                "WHERE e.id = ? "+
+                "ORDER BY a.id";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, idEmpresa);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Alerta alerta = new Alerta(
+                        rs.getInt("id"),
+                        rs.getInt("id_empresa"),
+                        rs.getInt("id_produto"),
+                        rs.getDate("data_criacao"),
+                        rs.getString("status"),
+                        rs.getString("tipo_alerta")
+                );
+                alertaList.add(alerta);
+            }
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        } finally {
+            conexao.desconectar(conn);
+        }
+        return alertaList;
+    }
     public Alerta buscarPorId(int id) {
         Alerta alerta = null;
         String sql = "SELECT a.id, e.id AS id_empresa, a.id_produto, a.data_criacao, a.status, a.tipo_alerta " +
@@ -81,6 +116,7 @@ public class AlertaDAO {
             if (rs.next()) {
                 alerta = new Alerta(
                         rs.getInt("id"),
+                        rs.getInt("id_empresa"),
                         rs.getInt("id_produto"),
                         rs.getDate("data_criacao"),
                         rs.getString("status"),

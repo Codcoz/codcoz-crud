@@ -30,9 +30,19 @@
             <span class="hover-link ativo" title="Visualizando todas as notas fiscais cadastradas">Notas Fiscais XML</span>
         </div>
 
-        <div class="actions">
+        <div style="display: flex"; class="actions">
             <form action="<%= request.getContextPath() %>/notaFiscalXmlJSP/createNotaFiscalXml.jsp" method="post">
                 <button type="submit" class="novo" title="Criar nova nota fiscal">+</button>
+            </form>
+            <form style="display: flex" action="ServletReadNotaFiscalXml">
+                <select class="select-redondo" name="buscarPorEmpresa" id="buscarPorEmpresa">
+                    <option selected disabled value="">Selecione uma empresa</option>
+                    <%List<Empresa> empresas = new EmpresaDAO().read();
+                        for (Empresa empresa: empresas) {%>
+                    <option value="<%=empresa.getId()%>"><%=empresa.getNome()%></option>
+                    <%}%>
+                </select>
+                <button type="submit">Filtrar</button>
             </form>
         </div>
 

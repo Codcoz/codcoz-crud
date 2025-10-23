@@ -6,6 +6,7 @@ import com.codcoz.dao.EstoqueDAO;
 // Importa o modelo Estoque que representa os dados da entidade
 import com.codcoz.model.Estoque;
 // Importa as classes necessárias para trabalhar com servlets
+import com.codcoz.model.Produto;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -25,9 +26,13 @@ public class ServletReadEstoque extends HttpServlet {
         // Instancia o DAO para acessar os dados de estoque
         EstoqueDAO dao = new EstoqueDAO();
 
-        // Recupera a lista de estoques do banco de dados
-        List<Estoque> lista = dao.read();
-
+        List<Estoque> lista;
+        String idBuscarPorEmpresa = request.getParameter("buscarPorEmpresa");
+        if (idBuscarPorEmpresa!=null){
+            lista = dao.buscarPorEmpresa(Integer.parseInt(idBuscarPorEmpresa));
+        }else {
+            lista = dao.read();
+        }
         // Adiciona a lista como atributo da requisição para ser acessada na JSP
         request.setAttribute("listaEstoques", lista);
 
