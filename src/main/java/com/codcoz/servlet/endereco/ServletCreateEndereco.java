@@ -15,25 +15,16 @@ public class ServletCreateEndereco extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Coleta os parâmetros do formulário
-        String rua         = request.getParameter("rua");
-        String complemento = request.getParameter("complemento");
-        String cidade      = request.getParameter("cidade");
-        String estado      = request.getParameter("estado");
-        String cepOriginal = request.getParameter("cep");
-        String numero      = request.getParameter("numero");
-
         // Normaliza o CEP: remove tudo que não for número
-        String cep = cepOriginal != null ? cepOriginal.replaceAll("\\D", "") : "";
+        String cep = request.getParameter("cep").replaceAll("\\D", "");
 
-        // Cria o objeto Endereco
         Endereco endereco = new Endereco(
-                rua,
-                complemento,
-                cidade,
-                estado,
-                cep,
-                numero
+                request.getParameter("rua"),
+                request.getParameter("complemento"),
+                request.getParameter("cidade"),
+                request.getParameter("estado"),
+                request.getParameter("cep"),
+                request.getParameter("numero")
         );
 
         // Executa a criação via DAO e define a mensagem com base no resultado

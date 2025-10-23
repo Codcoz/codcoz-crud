@@ -10,24 +10,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Empresas</title>
+    <!-- Estilos e fontes -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/icone.png">
-    <style>
-        .tabela-container {
-            flex: 1;
-            overflow-y: auto;
-            max-height: 60vh;
-            margin-top: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            background-color: white;
-        }
-    </style>
 </head>
 <body>
 <div class="container">
 
+    <!-- Inclui a barra lateral -->
     <jsp:include page="./../barraLateral.jsp" />
 
     <main class="content">
@@ -41,11 +31,13 @@
         </div>
 
         <div class="actions">
+            <!-- Botão para cadastrar nova empresa -->
             <form action="<%= request.getContextPath() %>/empresaJSP/createEmpresa.jsp" method="get">
                 <button type="submit" class="novo" title="Cadastrar nova empresa">+</button>
             </form>
         </div>
 
+        <!-- Exibe mensagem de sucesso ou erro, se houver -->
         <% String mensagem = (String) request.getAttribute("mensagem");
             if (mensagem != null) {
                 String cor = mensagem.contains("sucesso") ? "green" : "red"; %>
@@ -67,6 +59,7 @@
                 </thead>
                 <tbody>
                 <%
+                    // Recupera lista de empresas e seus respectivos endereços
                     List<Empresa> lista = (List<Empresa>) request.getAttribute("listaEmpresas");
                     EnderecoDAO enderecoDAO = new EnderecoDAO();
 
@@ -84,11 +77,13 @@
                         <%= endereco.getEstado() %>
                     </td>
                     <td title="E-mail da empresa"><%= empresa.getEmail() %></td>
+                    <!-- Link para editar empresa -->
                     <td class="acoes">
                         <a href="<%= request.getContextPath() %>/empresaJSP/updateEmpresa.jsp?id=<%= empresa.getId() %>" title="Editar empresa">
                             <img src="<%= request.getContextPath() %>/assets/edit_icon.png" alt="Editar" title="Editar empresa">
                         </a>
                     </td>
+                    <!-- Link para excluir empresa com confirmação -->
                     <td class="acoes">
                         <a href="<%= request.getContextPath() %>/ServletDeleteEmpresa?id=<%= empresa.getId() %>"
                            onclick="return confirm('Tem certeza que deseja excluir <%= empresa.getNome() %>?');"
@@ -99,6 +94,7 @@
                 </tr>
                 <%     }
                 } else { %>
+                <!-- Caso não haja empresas cadastradas -->
                 <tr>
                     <td colspan="7" title="Nenhuma empresa foi encontrada">Nenhuma empresa encontrada.</td>
                 </tr>
@@ -108,7 +104,8 @@
         </div>
 
         <br>
-        <a href="<%= request.getContextPath() %>/menu.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
+        <!-- Link para voltar à página inicial -->
+        <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
 
     </main>
 

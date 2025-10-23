@@ -22,24 +22,11 @@ public class ServletCreateEmpresa extends HttpServlet {
         String cnpjOriginal = request.getParameter("cnpj");
         String cnpj = cnpjOriginal.replaceAll("\\D", "");
 
-        // Valida o formato do e-mail usando expressão regular
-        String email = request.getParameter("email");
-        String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.(com|net|org|gov|edu|info|biz|co)(\\.br)?$";
-
-        // Se o e-mail for inválido, retorna para a página de criação com mensagem de erro
-        if (!email.matches(emailRegex)) {
-            request.setAttribute("mensagem", "Email inválido. Use um formato como nome@empresa.com.br");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/empresaJSP/createEmpresa.jsp");
-            dispatcher.forward(request, response);
-            return;
-        }
-
-        // Cria o objeto Empresa com os dados recebidos do formulário
         Empresa empresa = new Empresa(
                 Integer.parseInt(request.getParameter("idEndereco")),
                 request.getParameter("nome"),
                 cnpj,
-                email
+                request.getParameter("email")
         );
 
         // Executa a criação via DAO

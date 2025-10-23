@@ -77,9 +77,9 @@ public class NotaFiscalXmlDAO {
     public List<NotaFiscalXml> buscarPorEmpresa(int idEmpresa) {
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
-        ArrayList<NotaFiscalXml> listnotaFiscalXml = new ArrayList<>();
+        ArrayList<NotaFiscalXml> listNotaFiscalXml = new ArrayList<>();
         ResultSet rs;
-        String sql = "SELECT * FROM nota_fiscal_xml WHERE id_empresa = ?";
+        String sql = "SELECT * FROM nota_fiscal_xml WHERE id_empresa = ? ";
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,idEmpresa);
@@ -92,18 +92,18 @@ public class NotaFiscalXmlDAO {
                         rs.getString("xml_string"),
                         rs.getString("numero_nota")
                 );
-                listnotaFiscalXml.add(notaFiscalXml);
+                listNotaFiscalXml.add(notaFiscalXml);
             }
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }
         conexao.desconectar(conn);
-        return listnotaFiscalXml;
+        return listNotaFiscalXml;
     }
     public NotaFiscalXml buscarPorId(int id) {
         NotaFiscalXml nota = null; // Inicializa o objeto como nulo
         try (Connection conn = new Conexao().conectar(); // Conecta ao banco (try-with-resources fecha automaticamente)
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM nota_fiscal_xml WHERE id = ?")) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM nota_fiscal_xml WHERE id = ? ")) {
 
             stmt.setInt(1, id); // Define o valor do parâmetro ID
             ResultSet rs = stmt.executeQuery(); // Executa a consulta

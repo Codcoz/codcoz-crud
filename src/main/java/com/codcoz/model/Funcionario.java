@@ -8,7 +8,7 @@ public class Funcionario {
     private String sobrenome;
     private String cpf;
     private String email;
-    private String status; // ✅ NOVO ATRIBUTO
+    private String status; //
 
     public Funcionario(Integer id, Integer idEmpresa, String funcao, String nome, String sobrenome, String cpf, String email, String status) {
         this.id = id;
@@ -39,5 +39,5 @@ public class Funcionario {
     public String getSobrenome() { return sobrenome; }
     public String getCpf() { return cpf; }
     public String getEmail() { return email; }
-    public String getStatus() { return status; } // ✅ NOVO GETTER
+    public String getStatus() { return status; }
 }
