@@ -7,12 +7,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Criar Funcionário</title>
+    <!-- Estilos e fontes -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/icone.png">
 </head>
 <body>
 <div class="container">
+    <!-- Inclui a barra lateral -->
     <jsp:include page="./../barraLateral.jsp" />
 
     <main class="content" style="overflow: auto">
@@ -26,17 +28,21 @@
         </div>
 
         <div class="actions" style="margin-top: 30px;">
+            <!-- Formulário para criação de funcionário -->
             <form action="<%= request.getContextPath() %>/ServletCreateFuncionario" method="post" style="max-width: 500px; width: 100%;">
+                <!-- Campo Nome -->
                 <label for="nome">Nome:</label><br>
                 <input type="text" id="nome" name="nome" class="input-redondo"
                        placeholder="Nome" maxlength="50" required
                        title="Informe o primeiro nome do funcionário"><br><br>
 
+                <!-- Campo Sobrenome -->
                 <label for="sobrenome">Sobrenome:</label><br>
                 <input type="text" id="sobrenome" name="sobrenome" class="input-redondo"
                        placeholder="Sobrenome" maxlength="50" required
                        title="Informe o sobrenome do funcionário"><br><br>
 
+                <!-- Campo CPF -->
                 <label for="cpf">CPF:</label><br>
                 <input type="text" id="cpf" name="cpf" class="input-redondo"
                        placeholder="000.000.000-00 ou 00000000000"
@@ -45,11 +51,13 @@
                        required
                        title="Informe o CPF no formato 000.000.000-00 ou apenas números"><br><br>
 
+                <!-- Campo E-mail -->
                 <label for="email">E-mail:</label><br>
                 <input type="email" id="email" name="email" class="input-redondo"
                        placeholder="E-mail" maxlength="100" required
                        title="Informe o e-mail do funcionário"><br><br>
 
+                <!-- Campo Função -->
                 <label for="funcao">Função:</label><br>
                 <select id="funcao" name="funcao" class="select-redondo" required title="Selecione a função do funcionário">
                     <option value="" disabled selected>Selecione a função</option>
@@ -57,14 +65,18 @@
                     <option value="Gestor">Gestor</option>
                 </select><br><br>
 
+                <!-- Campo Status -->
                 <label for="status">Status:</label><br>
                 <select id="status" name="status" class="select-redondo" required>
-                    <option value="ATIVO" selected>ATIVO</option>
-                    <option value="INATIVO">INATIVO</option>
+                    <option value="" disabled selected>Selecione o status</option>
+                    <option value="Ativo" selected>Ativo</option>
+                    <option value="Inativo">Inativo</option>
                 </select><br><br>
 
+                <!-- Campo Empresa -->
                 <label for="idEmpresa">Empresa:</label><br>
                 <%
+                    // Carrega lista de empresas para o select
                     List<Empresa> empresas = new EmpresaDAO().read();
                 %>
                 <select id="idEmpresa" name="idEmpresa" class="select-redondo" required title="Selecione a empresa associada ao funcionário">
@@ -76,14 +88,17 @@
                     <% } %>
                 </select>
                 <br>
+                <!-- Link para cadastrar nova empresa -->
                 <a href="../empresaJSP/createEmpresa.jsp" class="hover-link" title="Cadastrar nova empresa">Criar Empresa</a>
                 <br><br>
 
+                <!-- Botão de envio -->
                 <button type="submit" class="novo" title="Salvar novo funcionário">+</button>
             </form>
         </div>
 
         <br>
+        <!-- Navegação -->
         <div style="display: flex; gap: 20px;">
             <a href="<%= request.getContextPath() %>/ServletReadFuncionario" class="hover-link" title="Ver lista de funcionários">Voltar à lista</a>
             <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>

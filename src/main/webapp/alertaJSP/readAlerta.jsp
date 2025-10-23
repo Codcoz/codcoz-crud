@@ -12,6 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Alertas</title>
+    <!-- Estilos e fontes -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/icone.png">
@@ -19,6 +20,7 @@
 <body>
 <div class="container">
 
+    <!-- Inclui a barra lateral -->
     <jsp:include page="./../barraLateral.jsp" />
 
     <main class="content" style="overflow: auto">
@@ -32,11 +34,24 @@
         </div>
 
         <div class="actions">
+            <!-- Botão para criar novo alerta -->
             <form action="<%= request.getContextPath() %>/alertaJSP/escolhaEmpresaDoAlerta.jsp" method="get">
                 <button type="submit" class="novo">+</button>
             </form>
+            <!-- Filtro por empresa -->
+            <form style="display: flex" action="ServletReadAlerta">
+                <select class="select-redondo" name="buscarPorEmpresa" id="buscarPorEmpresa">
+                    <option selected disabled value="">Selecione uma empresa</option>
+                    <%List<Empresa> empresas = new EmpresaDAO().read();
+                        for (Empresa empresa: empresas) {%>
+                    <option value="<%=empresa.getId()%>"><%=empresa.getNome()%></option>
+                    <%}%>
+                </select>
+                <button type="submit">Filtrar</button>
+            </form>
         </div>
 
+        <!-- Exibe mensagem de retorno, com cor baseada no conteúdo -->
         <% String mensagem = (String) request.getAttribute("mensagem");
             if (mensagem != null) {
                 String cor = mensagem.toLowerCase().contains("sucesso") ? "green" : "red"; %>
@@ -53,12 +68,13 @@
                     <th>Data de Criação</th>
                     <th>Status</th>
                     <th>Tipo de Alerta</th>
-                    <th>Update</th>
-                    <th>Delete</th>
+                    <th>Editar</th>
+                    <th>Deletar</th>
                 </tr>
                 </thead>
                 <tbody>
                 <%
+                    // Recupera a lista de alertas e os dados relacionados
                     List<Alerta> lista = (List<Alerta>) request.getAttribute("listaAlertas");
                     ProdutoDAO produtoDAO = new ProdutoDAO();
                     EmpresaDAO empresaDAO = new EmpresaDAO();
@@ -80,11 +96,13 @@
                         <%= alerta.getStatus() %>
                     </td>
                     <td><%= alerta.getTipoAlerta() %></td>
+                    <!-- Link para editar alerta -->
                     <td class="acoes">
                         <a href="<%= request.getContextPath() %>/alertaJSP/updateEmpresaDoAlerta.jsp?id=<%= alerta.getId() %>">
                             <img src="<%= request.getContextPath() %>/assets/edit_icon.png" alt="Editar">
                         </a>
                     </td>
+                    <!-- Link para deletar alerta com confirmação -->
                     <td class="acoes">
                         <a href="<%= request.getContextPath() %>/ServletDeleteAlerta?id=<%= alerta.getId() %>"
                            onclick="return confirm('Tem certeza que deseja excluir este alerta?');">
@@ -94,6 +112,7 @@
                 </tr>
                 <%     }
                 } else { %>
+                <!-- Caso não haja alertas -->
                 <tr>
                     <td colspan="8">Nenhum alerta encontrado.</td>
                 </tr>
@@ -103,7 +122,8 @@
         </div>
 
         <br>
-        <a href="<%= request.getContextPath() %>/menu.jsp" class="hover-link">Voltar ao início</a>
+        <!-- Link para voltar à página inicial -->
+        <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link">Voltar ao início</a>
     </main>
 </div>
 </body>

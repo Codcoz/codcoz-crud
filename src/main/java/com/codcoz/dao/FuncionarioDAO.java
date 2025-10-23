@@ -2,6 +2,7 @@ package com.codcoz.dao;
 
 import com.codcoz.conexao.Conexao;
 import com.codcoz.model.Funcionario;
+import com.codcoz.model.NotaFiscalXml;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class FuncionarioDAO {
             }
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            if (sqle.getMessage().contains("funcionario_cnpj_key")) {
+            if (sqle.getMessage().contains("funcionario_cpf_key")) {
                 return 0; // ja existe
             }
             if (sqle.getMessage().contains("funcionario_email_key")) {
@@ -109,7 +110,36 @@ public class FuncionarioDAO {
         }
         return -1;
     }
-
+    public List<Funcionario> buscarPorEmpresa(int idEmpresa) {
+        Conexao conexao = new Conexao();
+        Connection conn = conexao.conectar();
+        ArrayList<Funcionario> listFuncionario = new ArrayList<>();
+        ResultSet rs;
+        String sql = "SELECT * FROM funcionario WHERE id_empresa = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,idEmpresa);
+            System.out.println(pstmt);
+            rs= pstmt.executeQuery();
+            while (rs.next()) {
+                Funcionario funcionario = new Funcionario(
+                        rs.getInt("id"),
+                        rs.getInt("id_empresa"),
+                        rs.getString("funcao"),
+                        rs.getString("nome"),
+                        rs.getString("sobrenome"),
+                        rs.getString("cpf"),
+                        rs.getString("email"),
+                        rs.getString("status")
+                );
+                listFuncionario.add(funcionario);
+            }
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+        conexao.desconectar(conn);
+        return listFuncionario;
+    }
     public Funcionario buscarPorId(int id) {
         Funcionario funcionario = null;
         String sql = "SELECT * FROM funcionario WHERE id = ?";

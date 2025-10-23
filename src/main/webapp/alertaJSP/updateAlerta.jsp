@@ -9,6 +9,7 @@
     com.codcoz.dao.ProdutoDAO
 " %>
 <%
+    // Recupera o alerta pelo ID recebido como parâmetro
     int id = Integer.parseInt(request.getParameter("id"));
     Alerta alerta = new AlertaDAO().buscarPorId(id);
 %>
@@ -17,12 +18,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Atualizar Alerta</title>
+    <!-- Estilos e fontes -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/icone.png">
 </head>
 <body>
 <div class="container">
+    <!-- Inclui a barra lateral -->
     <jsp:include page="./../barraLateral.jsp" />
 
     <main class="content" style="overflow: auto">
@@ -37,11 +40,13 @@
 
         <% if (alerta != null) { %>
         <div class="actions" style="margin-top: 30px;">
+            <!-- Formulário para atualizar alerta -->
             <form action="<%= request.getContextPath() %>/ServletUpdateAlerta" method="post" style="max-width: 500px; width: 100%;">
                 <input type="hidden" name="id" value="<%= id %>"/>
                 <input type="hidden" name="idEmpresa" value="<%= request.getParameter("idEmpresa") %>"/>
 
                 <%
+                    // Recupera empresa e produtos vinculados para preencher o formulário
                     int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
                     Empresa empresa = new EmpresaDAO().buscarPorId(idEmpresa);
                     List<Produto> produtos = new ProdutoDAO().buscarPorEmpresa(idEmpresa);
@@ -49,6 +54,7 @@
 
                 <p><strong>Empresa do Alerta:</strong> <%= empresa.getNome() %></p>
 
+                <!-- Campo de seleção de produto -->
                 <label for="idProduto">Produto:</label><br>
                 <select id="idProduto" name="idProduto" class="select-redondo" required title="Selecione o produto relacionado ao alerta">
                     <option value="">Selecione um produto</option>
@@ -62,11 +68,13 @@
                 <a href="../produtoJSP/escolhaEmpresaDoProduto.jsp" class="hover-link" title="Cadastrar novo produto">Criar Produto</a>
                 <br><br>
 
+                <!-- Campo de data de criação -->
                 <label for="dataCriacao">Data de Criação:</label><br>
                 <input type="date" id="dataCriacao" name="dataCriacao" class="input-redondo"
                        value="<%= alerta.getDataCriacao().toString() %>" required
                        title="Informe a data de criação do alerta"><br><br>
 
+                <!-- Campo de status -->
                 <label for="status">Status:</label><br>
                 <select id="status" name="status" class="select-redondo" required title="Selecione o status atual do alerta">
                     <option value="">Selecione o status</option>
@@ -75,20 +83,24 @@
                     <option value="Ignorado" <%= "Ignorado".equals(alerta.getStatus()) ? "selected" : "" %>>Ignorado</option>
                 </select><br><br>
 
+                <!-- Campo de tipo de alerta -->
                 <label for="tipoAlerta">Tipo de Alerta:</label><br>
                 <input type="text" id="tipoAlerta" name="tipoAlerta" class="input-redondo"
                        value="<%= alerta.getTipoAlerta() %>" maxlength="50" required
                        placeholder="Ex: Estoque baixo"
                        title="Informe o tipo de alerta (ex: Estoque baixo)"><br><br>
 
+                <!-- Botão para salvar alterações -->
                 <button type="submit" class="novo" title="Salvar alterações">+</button>
             </form>
         </div>
         <% } else { %>
+        <!-- Mensagem de erro caso o alerta não seja encontrado -->
         <p style="color: red;" title="Erro ao carregar alerta">Alerta não encontrado.</p>
         <% } %>
 
         <br>
+        <!-- Navegação -->
         <div style="display: flex; gap: 20px;">
             <a href="<%= request.getContextPath() %>/ServletReadAlerta" class="hover-link" title="Ver lista de alertas">Voltar à lista</a>
             <a href="<%= request.getContextPath() %>/menu.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
