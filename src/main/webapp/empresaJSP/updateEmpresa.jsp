@@ -6,6 +6,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
+    // Recupera a empresa pelo ID recebido como parâmetro
     Integer id = Integer.parseInt(request.getParameter("id"));
     Empresa empresa = null;
     List<Endereco> enderecos = new EnderecoDAO().read();
@@ -21,12 +22,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Atualizar Empresa</title>
+    <!-- Estilos e fontes -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/icone.png">
 </head>
 <body>
 <div class="container">
+    <!-- Inclui a barra lateral -->
     <jsp:include page="./../barraLateral.jsp" />
 
     <main class="content" style="overflow: auto">
@@ -39,23 +42,26 @@
             <span class="hover-link ativo" title="Edite os dados da empresa selecionada">Editar Empresa</span>
         </div>
 
-
         <% if (empresa != null) { %>
         <div class="actions" style="margin-top: 30px;">
+            <!-- Formulário para atualizar empresa -->
             <form action="<%=request.getContextPath()%>/ServletUpdateEmpresa" method="post" style="max-width: 500px; width: 100%;">
                 <input type="hidden" name="id" value="<%= empresa.getId() %>"/>
 
+                <!-- Campo nome -->
                 <label for="nome">Nome:</label><br>
                 <input type="text" id="nome" name="nome" class="input-redondo"
                        value="<%= empresa.getNome() %>" maxlength="150" required
                        placeholder="Ex: Codcoz Ltda" title="Informe o nome da empresa"><br><br>
 
+                <!-- Campo CNPJ -->
                 <label for="cnpj">CNPJ:</label><br>
                 <input type="text" id="cnpj" name="cnpj" class="input-redondo"
                        value="<%= empresa.getCnpj() %>" maxlength="14"
                        pattern="^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$|^\d{14}$" required
                        placeholder="Ex: 12.345.678/0001-90" title="Informe o CNPJ da empresa"><br><br>
 
+                <!-- Campo Endereço -->
                 <label for="idEndereco">Endereço:</label><br>
                 <select id="idEndereco" name="idEndereco" class="select-redondo" required title="Selecione o endereço da empresa">
                     <option value="">Selecione um endereço</option>
@@ -66,9 +72,11 @@
                     <% } %>
                 </select>
                 <br>
+                <!-- Link para cadastrar novo endereço -->
                 <a href="../enderecoJSP/createEndereco.jsp" class="hover-link" title="Cadastrar novo endereço">Criar Endereço</a>
                 <br><br>
 
+                <!-- Campo Email -->
                 <label for="email">Email:</label><br>
                 <input type="email" id="email" name="email" class="input-redondo"
                        value="<%= empresa.getEmail() %>"
@@ -76,14 +84,17 @@
                        required placeholder="Ex: contato@empresa.com.br"
                        title="Informe o e-mail da empresa"><br><br>
 
+                <!-- Botão para salvar alterações -->
                 <button type="submit" class="novo" title="Salvar alterações">+</button>
             </form>
         </div>
         <% } else { %>
+        <!-- Mensagem de erro caso a empresa não seja encontrada -->
         <p style="color: red;" title="Erro ao carregar empresa">Empresa não encontrada.</p>
         <% } %>
 
         <br>
+        <!-- Navegação -->
         <div style="display: flex; gap: 20px;">
             <a href="<%=request.getContextPath()%>/ServletReadEmpresa" class="hover-link" title="Ver lista de empresas">Voltar à lista</a>
             <a href="<%=request.getContextPath()%>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>

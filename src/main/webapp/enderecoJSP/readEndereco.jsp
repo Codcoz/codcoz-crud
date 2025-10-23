@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Endereços</title>
+    <!-- Estilos e fontes -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/icone.png">
@@ -12,6 +13,7 @@
 <body>
 <div class="container">
 
+    <!-- Inclui a barra lateral -->
     <jsp:include page="./../barraLateral.jsp" />
 
     <main class="content">
@@ -25,11 +27,13 @@
         </div>
 
         <div class="actions">
+            <!-- Botão para cadastrar novo endereço -->
             <form action="<%= request.getContextPath() %>/enderecoJSP/createEndereco.jsp" method="get">
                 <button type="submit" class="novo" title="Cadastrar novo endereço">+</button>
             </form>
         </div>
 
+        <!-- Exibe mensagem de retorno, se houver -->
         <% String mensagem = (String) request.getAttribute("mensagem");
             if (mensagem != null) {
                 String cor = mensagem.toLowerCase().contains("sucesso") ? "green" : "red"; %>
@@ -53,6 +57,7 @@
                 </thead>
                 <tbody>
                 <%
+                    // Recupera lista de endereços e exibe na tabela
                     List<Endereco> lista = (List<Endereco>) request.getAttribute("listaEnderecos");
                     if (lista != null && !lista.isEmpty()) {
                         for (Endereco endereco : lista) {
@@ -65,11 +70,13 @@
                     <td title="Estado"><%= endereco.getEstado() %></td>
                     <td title="CEP"><%= endereco.getCep() %></td>
                     <td title="Número da residência"><%= endereco.getNumero() %></td>
+                    <!-- Link para editar endereço -->
                     <td class="acoes">
                         <a href="<%= request.getContextPath() %>/enderecoJSP/updateEndereco.jsp?id=<%= endereco.getId() %>" title="Editar endereço">
                             <img src="<%= request.getContextPath() %>/assets/edit_icon.png" alt="Editar" title="Editar endereço">
                         </a>
                     </td>
+                    <!-- Link para excluir endereço com confirmação -->
                     <td class="acoes">
                         <a href="<%= request.getContextPath() %>/ServletDeleteEndereco?id=<%= endereco.getId() %>"
                            onclick="return confirm('Tem certeza que deseja excluir este endereço?');"
@@ -80,6 +87,7 @@
                 </tr>
                 <%     }
                 } else { %>
+                <!-- Caso não haja endereços cadastrados -->
                 <tr>
                     <td colspan="9" title="Nenhum endereço foi encontrado">Nenhum endereço encontrado.</td>
                 </tr>
@@ -89,6 +97,7 @@
         </div>
 
         <br>
+        <!-- Link para voltar à página inicial -->
         <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
 
     </main>
