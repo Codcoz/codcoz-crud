@@ -70,6 +70,7 @@
                     <th>Nome</th>
                     <th>Categoria</th>
                     <th>Unidade</th>
+                    <th>Codigo Ean</th>
                     <th>Estoque Mínimo</th>
                     <th>Quantidade</th>
                     <th>Estoque</th>
@@ -98,6 +99,7 @@
                     <td title="Nome do produto"><%= produto.getNome() %></td>
                     <td title="Categoria do produto"><%= produto.getCategoria() %></td>
                     <td title="Unidade de medida"><%= produto.getUnidadeMedida() %></td>
+                    <td title="Codigo Ean"><%= produto.getCodigoEan() %></td>
                     <td title="Estoque mínimo definido"><%= produto.getEstoqueMinimo() %></td>
                     <td title="Quantidade atual"><%= produto.getQuantidade() %></td>
                     <td title="Tipo de estoque"><%= estoque != null ? estoque.getTipoEstoque() : "N/A" %></td>

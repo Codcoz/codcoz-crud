@@ -89,11 +89,16 @@
                        placeholder="Ex: Carne" required
                        title="Informe o nome do produto"><br><br>
 
+                <label for="codigoEan">Codigo Ean:</label><br>
+                <input type="number" step="1" id="codigoEan" name="codigoEan" class="input-redondo"
+                       placeholder="Ex: 12345678" required
+                       title="Informe o codigo ean para produto"><br><br>
+
                 <!-- Campo Estoque Mínimo -->
                 <label for="estoqueMinimo">Estoque Mínimo:</label><br>
                 <input type="number" step="1" id="estoqueMinimo" name="estoqueMinimo" class="input-redondo"
                        placeholder="Ex: 1" required
-                       title="Informe o estoque mínimo para alerta"><br><br>
+                       title="Informe o estoque mínimo para produto"><br><br>
 
                 <!-- Campo Categoria -->
                 <label for="categoria">Categoria:</label><br>

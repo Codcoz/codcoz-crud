@@ -106,6 +106,11 @@
                     <option value="caixa" <%= "caixa".equals(produto.getUnidadeMedida()) ? "selected" : "" %>>Caixa</option>
                 </select><br><br>
 
+                <label for="codigoEan">Codigo Ean:</label><br>
+                <input type="number" id="codigoEan" name="codigoEan" class="input-redondo"
+                       value="<%= produto.getCodigoEan() %>" required
+                       title="Informe o codigo ean para o produto"><br><br>
+
                 <!-- Campo Nome -->
                 <label for="nome">Nome do Produto:</label><br>
                 <input type="text" id="nome" name="nome" class="input-redondo"
