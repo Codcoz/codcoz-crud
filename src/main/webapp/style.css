@@ -358,9 +358,12 @@ td.acoes img:hover {
     border: 1px solid #d5be65;
     border-radius: 20px;
     cursor: pointer;
-    align-self: flex-end;
     transition: background-color 0.3s ease, color 0.3s ease;
+    margin-right: auto;
 }
+
+
+
 
 .botao-menu:hover {
     background-color: #d5be65;

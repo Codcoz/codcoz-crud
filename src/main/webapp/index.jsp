@@ -20,7 +20,7 @@
     <div class="login-divider"></div>
 
     <div class="login-right">
-        <form action="menu.jsp" method="post" style="width: 100%; max-width: 300px; display: flex; flex-direction: column; gap: 6px;">
+        <form action="menu.jsp" method="post" style="width: 100%; max-width: 300px; display: flex; flex-direction: column; gap: 6px; margin-top: 20px;">
             <label for="email" class="label-login">Email:</label>
             <input type="email" id="email" name="email" class="input-redondo" placeholder="Digite seu email" required>
 
