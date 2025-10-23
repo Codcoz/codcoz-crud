@@ -30,8 +30,10 @@ public class ServletReadEstoque extends HttpServlet {
         String idBuscarPorEmpresa = request.getParameter("buscarPorEmpresa");
         if (idBuscarPorEmpresa!=null){
             lista = dao.buscarPorEmpresa(Integer.parseInt(idBuscarPorEmpresa));
+            request.setAttribute("filtro", idBuscarPorEmpresa );
         }else {
             lista = dao.read();
+            request.setAttribute("filtro", null );
         }
         // Adiciona a lista como atributo da requisição para ser acessada na JSP
         request.setAttribute("listaEstoques", lista);

@@ -10,7 +10,6 @@ import java.util.List;
 // Classe responsável por fazer operações no banco de dados relacionadas à tabela "nota_fiscal_xml"
 public class NotaFiscalXmlDAO {
 
-    // Método para inserir uma nova nota fiscal XML no banco
     public boolean create(NotaFiscalXml notaFiscalXml) {
         // Comando SQL de inserção
         String sql = "INSERT INTO nota_fiscal_xml (id_empresa, data_emissao, xml_string, numero_nota) VALUES (?, ?, ?, ?)";
@@ -40,7 +39,6 @@ public class NotaFiscalXmlDAO {
         }
     }
 
-    // Método que retorna todas as notas fiscais XML cadastradas no banco
     public List<NotaFiscalXml> read() {
         ArrayList<NotaFiscalXml> listNotaFiscalXml = new ArrayList<>(); // Lista que armazenará os resultados
         Conexao conexao = new Conexao(); // Cria uma conexão
@@ -89,8 +87,8 @@ public class NotaFiscalXmlDAO {
                         rs.getInt("id"),
                         rs.getInt("id_empresa"),
                         rs.getDate("data_emissao"),
-                        rs.getString("xml_string"),
-                        rs.getString("numero_nota")
+                        rs.getString("numero_nota"),
+                        rs.getString("xml_string")
                 );
                 listNotaFiscalXml.add(notaFiscalXml);
             }

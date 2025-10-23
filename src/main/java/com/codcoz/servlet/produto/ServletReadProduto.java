@@ -26,8 +26,10 @@ public class ServletReadProduto extends HttpServlet {
         String idBuscarPorEmpresa = request.getParameter("buscarPorEmpresa");
         if (idBuscarPorEmpresa!=null){
              lista = dao.buscarPorEmpresa(Integer.parseInt(idBuscarPorEmpresa));
+            request.setAttribute("filtro", idBuscarPorEmpresa );
         }else {
-             lista = dao.read();
+            lista = dao.read();
+            request.setAttribute("filtro", null );
         }
         // Adiciona a lista como atributo da requisição
         request.setAttribute("listaProdutos", lista);

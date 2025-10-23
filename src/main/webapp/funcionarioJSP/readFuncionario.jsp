@@ -35,7 +35,7 @@
             </form>
             <form style="display: flex" action="ServletReadFuncionario">
                 <select class="select-redondo" name="buscarPorEmpresa" id="buscarPorEmpresa">
-                    <option selected disabled value="">Selecione uma empresa</option>
+                    <option selected disabled value=""><%=request.getAttribute("filtro")!=null ? request.getAttribute("filtro"):"Selecione uma empresa"%></option>
                     <%List<Empresa> empresas = new EmpresaDAO().read();
                         for (Empresa empresa: empresas) {%>
                     <option value="<%=empresa.getId()%>"><%=empresa.getNome()%></option>
