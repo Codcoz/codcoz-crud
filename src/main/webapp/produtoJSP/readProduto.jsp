@@ -41,7 +41,8 @@
                 <button type="submit" class="novo" title="Criar novo produto">+</button>
             </form>
             <!-- Filtro por empresa -->
-            <form style="display: flex" action="ServletReadProduto">
+            <form style="display: flex" action="ServletReadProduto" class="filtro">
+                <label for="buscarPorEmpresa">Filtro: </label>
                 <select class="select-redondo" name="buscarPorEmpresa" id="buscarPorEmpresa">
                     <option selected disabled value=""><%=request.getAttribute("filtro")!=null ? request.getAttribute("filtro"):"Selecione uma empresa"%></option>
                     <%List<Empresa> empresas = new EmpresaDAO().read();
