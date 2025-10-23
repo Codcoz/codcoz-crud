@@ -234,7 +234,7 @@ tr:hover td {
 }
 
 td.acoes img {
-    width: 50px;
+    width: 20px;
     cursor: pointer;
     transition: 0.2s ease-in-out;
 }

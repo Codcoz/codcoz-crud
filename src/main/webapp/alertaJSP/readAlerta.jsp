@@ -41,7 +41,7 @@
             <!-- Filtro por empresa -->
             <form style="display: flex" action="ServletReadAlerta">
                 <select class="select-redondo" name="buscarPorEmpresa" id="buscarPorEmpresa">
-                    <option selected disabled value="">Selecione uma empresa</option>
+                    <option selected disabled value=""><%=request.getAttribute("filtro")!=null ? request.getAttribute("filtro"):"Selecione uma empresa"%></option>
                     <%List<Empresa> empresas = new EmpresaDAO().read();
                         for (Empresa empresa: empresas) {%>
                     <option value="<%=empresa.getId()%>"><%=empresa.getNome()%></option>
@@ -82,15 +82,12 @@
                     if (lista != null && !lista.isEmpty()) {
                         for (Alerta alerta : lista) {
                             Produto produto = produtoDAO.buscarPorId(alerta.getIdProduto());
-                            Empresa empresa = null;
-                            if (produto != null) {
-                                empresa = empresaDAO.buscarPorId(produto.getIdEmpresa());
-                            }
+                            Empresa empresa = produto != null ? empresaDAO.buscarPorId(produto.getIdEmpresa()) : null;
                 %>
                 <tr>
                     <td><%= alerta.getId() %></td>
-                    <td><%= empresa != null ? empresa.getNome() : "Desconhecida" %></td>
-                    <td><%= produto != null ? produto.getNome() : "Desconhecido" %></td>
+                    <td><%= empresa != null ? empresa.getNome() : "Empresa não encontrada" %></td>
+                    <td><%= produto != null ? produto.getNome() : "Produto não encontrado" %></td>
                     <td><%= alerta.getDataCriacao() %></td>
                     <td style="color: <%= alerta.getStatus().equalsIgnoreCase("pendente") ? "red" : "green" %>;">
                         <%= alerta.getStatus() %>

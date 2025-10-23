@@ -20,8 +20,10 @@ public class ServletReadAlerta extends HttpServlet {
         String idBuscarPorEmpresa = request.getParameter("buscarPorEmpresa");
         if (idBuscarPorEmpresa!=null){
             lista = dao.buscarPorEmpresa(Integer.parseInt(idBuscarPorEmpresa));
+            request.setAttribute("filtro", idBuscarPorEmpresa );
         }else {
             lista = dao.read();
+            request.setAttribute("filtro", null );
         }
         // Define a lista como atributo da request
         request.setAttribute("listaAlertas", lista);

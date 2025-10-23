@@ -40,7 +40,7 @@
             <!-- Filtro por empresa -->
             <form style="display: flex" action="ServletReadNotaFiscalXml">
                 <select class="select-redondo" name="buscarPorEmpresa" id="buscarPorEmpresa">
-                    <option selected disabled value="">Selecione uma empresa</option>
+                    <option selected disabled value=""><%=request.getAttribute("filtro")!=null ? request.getAttribute("filtro"):"Selecione uma empresa"%></option>
                     <%List<Empresa> empresas = new EmpresaDAO().read();
                         for (Empresa empresa: empresas) {%>
                     <option value="<%=empresa.getId()%>"><%=empresa.getNome()%></option>
@@ -71,9 +71,7 @@
                 </thead>
                 <tbody>
                 <%
-                    // Recupera lista de notas fiscais e exibe na tabela
-                    NotaFiscalXmlDAO notaDao = new NotaFiscalXmlDAO();
-                    List<NotaFiscalXml> notas = notaDao.read();
+                    List<NotaFiscalXml> notas = (List<NotaFiscalXml>) request.getAttribute("listaNotas");
                     EmpresaDAO empresaDAO = new EmpresaDAO();
 
                     if (notas != null && !notas.isEmpty()) {
@@ -82,7 +80,7 @@
                 %>
                 <tr>
                     <td title="ID da nota fiscal"><%= nota.getId() %></td>
-                    <td title="Empresa emissora"><%= empresa != null ? empresa.getNome() : "Desconhecida" %></td>
+                    <td title="Empresa emissora"><%=empresa.getNome()%></td>
                     <td title="Data de emissão da nota"><%= nota.getDataEmissao() %></td>
                     <td title="Número da nota fiscal"><%= nota.getNumeroNota() %></td>
                     <!-- Link para editar nota fiscal -->
