@@ -14,6 +14,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Produtos</title>
+    <!-- Estilos e fontes -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/icone.png">
@@ -21,6 +22,7 @@
 <body>
 <div class="container">
 
+    <!-- Inclui a barra lateral -->
     <jsp:include page="./../barraLateral.jsp" />
 
     <main class="content">
@@ -33,10 +35,12 @@
             <span class="hover-link ativo" title="Visualizando todos os produtos cadastrados">Produtos</span>
         </div>
 
-        <div style="display: flex"; class="actions">
+        <div style="display: flex" class="actions">
+            <!-- Botão para iniciar criação de produto -->
             <form action="<%= request.getContextPath() %>/produtoJSP/escolhaEmpresaDoProduto.jsp" method="get">
                 <button type="submit" class="novo" title="Criar novo produto">+</button>
             </form>
+            <!-- Filtro por empresa -->
             <form style="display: flex" action="ServletReadProduto">
                 <select class="select-redondo" name="buscarPorEmpresa" id="buscarPorEmpresa">
                     <option selected disabled value=""><%=request.getAttribute("filtro")!=null ? request.getAttribute("filtro"):"Selecione uma empresa"%></option>
@@ -49,6 +53,7 @@
             </form>
         </div>
 
+        <!-- Exibe mensagem de retorno, se houver -->
         <%
             String mensagem = (String) request.getAttribute("mensagem");
             if (mensagem != null) {
@@ -65,6 +70,7 @@
                     <th>Nome</th>
                     <th>Categoria</th>
                     <th>Unidade</th>
+                    <th>Codigo Ean</th>
                     <th>Estoque Mínimo</th>
                     <th>Quantidade</th>
                     <th>Estoque</th>
@@ -76,6 +82,7 @@
                 </thead>
                 <tbody>
                 <%
+                    // Recupera lista de produtos e exibe na tabela
                     List<Produto> lista = (List<Produto>) request.getAttribute("listaProdutos");
                     EstoqueDAO estoqueDAO = new EstoqueDAO();
                     NotaFiscalXmlDAO notaDAO = new NotaFiscalXmlDAO();
@@ -92,16 +99,19 @@
                     <td title="Nome do produto"><%= produto.getNome() %></td>
                     <td title="Categoria do produto"><%= produto.getCategoria() %></td>
                     <td title="Unidade de medida"><%= produto.getUnidadeMedida() %></td>
+                    <td title="Codigo Ean"><%= produto.getCodigoEan() %></td>
                     <td title="Estoque mínimo definido"><%= produto.getEstoqueMinimo() %></td>
                     <td title="Quantidade atual"><%= produto.getQuantidade() %></td>
                     <td title="Tipo de estoque"><%= estoque != null ? estoque.getTipoEstoque() : "N/A" %></td>
                     <td title="Número da nota fiscal"><%= nota != null ? nota.getNumeroNota() : "N/A" %></td>
                     <td title="Empresa associada"><%= empresa != null ? empresa.getNome() : "Desconhecida" %></td>
+                    <!-- Link para editar produto -->
                     <td class="acoes">
                         <a href="<%= request.getContextPath() %>/produtoJSP/updateEmpresaDoProduto.jsp?id=<%= produto.getId() %>" title="Editar produto">
                             <img src="<%= request.getContextPath() %>/assets/edit_icon.png" alt="Editar" title="Editar produto">
                         </a>
                     </td>
+                    <!-- Link para excluir produto com confirmação -->
                     <td class="acoes">
                         <a href="<%= request.getContextPath() %>/ServletDeleteProduto?id=<%= produto.getId() %>"
                            onclick="return confirm('Tem certeza que deseja excluir <%= produto.getNome() %>?');"
@@ -114,6 +124,7 @@
                     }
                 } else {
                 %>
+                <!-- Caso não haja produtos cadastrados -->
                 <tr>
                     <td colspan="11" title="Nenhum produto foi encontrado">Nenhum produto encontrado.</td>
                 </tr>
@@ -123,6 +134,7 @@
         </div>
 
         <br>
+        <!-- Link para voltar à página inicial -->
         <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
     </main>
 

@@ -11,6 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Notas Fiscais XML</title>
+    <!-- Estilos e fontes -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/icone.png">
@@ -18,6 +19,7 @@
 <body>
 <div class="container">
 
+    <!-- Inclui a barra lateral -->
     <jsp:include page="./../barraLateral.jsp" />
 
     <main class="content">
@@ -30,10 +32,12 @@
             <span class="hover-link ativo" title="Visualizando todas as notas fiscais cadastradas">Notas Fiscais XML</span>
         </div>
 
-        <div style="display: flex"; class="actions">
+        <div style="display: flex" class="actions">
+            <!-- Botão para criar nova nota fiscal -->
             <form action="<%= request.getContextPath() %>/notaFiscalXmlJSP/createNotaFiscalXml.jsp" method="post">
                 <button type="submit" class="novo" title="Criar nova nota fiscal">+</button>
             </form>
+            <!-- Filtro por empresa -->
             <form style="display: flex" action="ServletReadNotaFiscalXml">
                 <select class="select-redondo" name="buscarPorEmpresa" id="buscarPorEmpresa">
                     <option selected disabled value=""><%=request.getAttribute("filtro")!=null ? request.getAttribute("filtro"):"Selecione uma empresa"%></option>
@@ -46,6 +50,7 @@
             </form>
         </div>
 
+        <!-- Exibe mensagem de retorno, se houver -->
         <% String mensagem = (String) request.getAttribute("mensagem");
             if (mensagem != null) {
                 String cor = mensagem.toLowerCase().contains("sucesso") ? "green" : "red"; %>
@@ -78,11 +83,13 @@
                     <td title="Empresa emissora"><%=empresa.getNome()%></td>
                     <td title="Data de emissão da nota"><%= nota.getDataEmissao() %></td>
                     <td title="Número da nota fiscal"><%= nota.getNumeroNota() %></td>
+                    <!-- Link para editar nota fiscal -->
                     <td class="acoes">
                         <a href="<%= request.getContextPath() %>/notaFiscalXmlJSP/updateNotaFiscalXml.jsp?id=<%= nota.getId() %>" title="Editar nota fiscal">
                             <img src="<%= request.getContextPath() %>/assets/edit_icon.png" alt="Editar" title="Editar nota fiscal">
                         </a>
                     </td>
+                    <!-- Link para excluir nota fiscal com confirmação -->
                     <td class="acoes">
                         <a href="<%= request.getContextPath() %>/ServletDeleteNotaFiscalXml?id=<%= nota.getId() %>"
                            onclick="return confirm('Tem certeza que deseja excluir esta nota fiscal?');"
@@ -93,6 +100,7 @@
                 </tr>
                 <%     }
                 } else { %>
+                <!-- Caso não haja notas fiscais cadastradas -->
                 <tr>
                     <td colspan="6" title="Nenhuma nota fiscal foi encontrada">Nenhuma nota fiscal encontrada.</td>
                 </tr>
@@ -102,6 +110,7 @@
         </div>
 
         <br>
+        <!-- Link para voltar à página inicial -->
         <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
     </main>
 

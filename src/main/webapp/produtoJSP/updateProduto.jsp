@@ -11,6 +11,7 @@
     java.util.List
 " %>
 <%
+    // Recupera o produto pelo ID recebido como parâmetro
     Integer id = null;
     try {
         id = Integer.parseInt(request.getParameter("id"));
@@ -35,12 +36,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Atualizar Produto</title>
+    <!-- Estilos e fontes -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/icone.png">
 </head>
 <body>
 <div class="container">
+    <!-- Inclui a barra lateral -->
     <jsp:include page="./../barraLateral.jsp" />
 
     <main class="content" style="overflow: auto">
@@ -55,12 +58,15 @@
 
         <% if (produto != null) { %>
         <div class="actions" style="margin-top: 30px;">
+            <!-- Formulário para atualizar produto -->
             <form action="<%= request.getContextPath() %>/ServletUpdateProduto" method="post" style="max-width: 500px; width: 100%;">
                 <input type="hidden" name="id" value="<%= produto.getId() %>"/>
                 <input type="hidden" name="idEmpresa" value="<%= produto.getIdEmpresa() %>"/>
 
+                <!-- Exibe nome da empresa associada -->
                 <p><strong>Empresa:</strong> <%= empresa.getNome() %></p>
 
+                <!-- Campo Estoque -->
                 <label for="idEstoque">Estoque:</label><br>
                 <select id="idEstoque" name="idEstoque" class="select-redondo" required title="Selecione o estoque associado ao produto">
                     <option value="">Selecione um estoque</option>
@@ -74,6 +80,7 @@
                 <a href="../estoqueJSP/createEstoque.jsp" class="hover-link" title="Cadastrar novo estoque">Criar Estoque</a>
                 <br><br>
 
+                <!-- Campo Nota Fiscal XML -->
                 <label for="idNotaFiscal">Nota Fiscal XML:</label><br>
                 <select id="idNotaFiscal" name="idNotaFiscal" class="select-redondo" required title="Selecione a nota fiscal associada ao produto">
                     <option value="">Selecione uma nota fiscal</option>
@@ -87,6 +94,7 @@
                 <a href="../notaFiscalXmlJSP/createNotaFiscalXml.jsp" class="hover-link" title="Cadastrar nova nota fiscal">Criar Nota Fiscal XML</a>
                 <br><br>
 
+                <!-- Campo Unidade de Medida -->
                 <label for="unidadeMedida">Unidade de Medida:</label><br>
                 <select id="unidadeMedida" name="unidadeMedida" class="select-redondo" required title="Selecione a unidade de medida">
                     <option value="">Selecione</option>
@@ -98,34 +106,46 @@
                     <option value="caixa" <%= "caixa".equals(produto.getUnidadeMedida()) ? "selected" : "" %>>Caixa</option>
                 </select><br><br>
 
+                <label for="codigoEan">Codigo Ean:</label><br>
+                <input type="number" id="codigoEan" name="codigoEan" class="input-redondo"
+                       value="<%= produto.getCodigoEan() %>" required
+                       title="Informe o codigo ean para o produto"><br><br>
+
+                <!-- Campo Nome -->
                 <label for="nome">Nome do Produto:</label><br>
                 <input type="text" id="nome" name="nome" class="input-redondo"
                        value="<%= produto.getNome() %>" required
                        placeholder="Ex: Arroz Integral" title="Informe o nome do produto"><br><br>
 
+                <!-- Campo Estoque Mínimo -->
                 <label for="estoqueMinimo">Estoque Mínimo:</label><br>
                 <input type="number" id="estoqueMinimo" name="estoqueMinimo" class="input-redondo"
                        value="<%= produto.getEstoqueMinimo() %>" required
                        title="Informe o estoque mínimo para o produto"><br><br>
 
+                <!-- Campo Categoria -->
                 <label for="categoria">Categoria:</label><br>
                 <input type="text" id="categoria" name="categoria" class="input-redondo"
                        value="<%= produto.getCategoria() %>" required
                        title="Informe a categoria do produto"><br><br>
 
+                <!-- Campo Quantidade -->
                 <label for="quantidade">Quantidade:</label><br>
                 <input type="number" id="quantidade" name="quantidade" class="input-redondo"
                        value="<%= produto.getQuantidade() %>" required
                        title="Informe a quantidade atual do produto"><br><br>
 
+                <!-- Botão para salvar alterações -->
                 <button type="submit" class="novo" title="Salvar alterações">✔</button>
             </form>
         </div>
         <% } else { %>
+        <!-- Mensagem de erro caso o produto não seja encontrado -->
         <p style="color: red;" title="Erro ao carregar produto">Produto não encontrado ou ID inválido.</p>
         <% } %>
 
         <br>
+        <!-- Navegação -->
         <div style="display: flex; gap: 20px;">
             <a href="<%= request.getContextPath() %>/ServletReadProduto" class="hover-link" title="Ver lista de produtos">Voltar à lista</a>
             <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
