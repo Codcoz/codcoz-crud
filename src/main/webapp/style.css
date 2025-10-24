@@ -248,9 +248,9 @@ td.acoes img:hover {
     max-width: 350px;
     height: 40px;
     padding: 0 15px;
-    border: 1px solid rgba(189, 189, 189, 0.73);
+    border: 1px solid rgba(109, 109, 109, 0.89);
     border-radius: 20px;
-    background-color: transparent;
+    background-color:#f0f0f0;
     font-size: 14px;
     color: rgba(189, 189, 189, 0.76);
     outline: none;
@@ -263,6 +263,20 @@ td.acoes img:hover {
     text-align: left;
 }
 
+.input-login {
+    width: 100%;
+    max-width: 350px;
+    height: 40px;
+    padding: 0 15px;
+    border: 1px solid rgba(189, 189, 189, 0.73);
+    border-radius: 20px;
+    background-color:transparent;
+    font-size: 14px;
+    color: rgba(189, 189, 189, 0.76);
+    outline: none;
+    text-align: left;
+    transition: box-shadow 0.3s ease;
+}
 
 
 .input-redondo:focus {
