@@ -34,20 +34,22 @@ public class ServletUpdateProduto extends HttpServlet {
 
         // Executa a atualização via DAO
         ProdutoDAO dao = new ProdutoDAO();
-        int status = dao.update(produto);
+        int status = dao.create(produto);
 
-        // Define a mensagem com base no resultado da operação
+        // Define a mensagem de retorno com base no status da operação
         String mensagem;
         switch (status) {
             case 1:
                 mensagem = "A atualização de " + produto.getNome() + " foi realizada com sucesso.";
                 break;
             case 0:
-                mensagem = "A atualização de " + produto.getNome() + " falhou: erro interno. Entre em contato pelo e-mail contato.codcoz@gmail.com";
+                mensagem = "A atualização de " + produto.getNome() + " falhou: esse codigo ean já está vinculado.";
+                break;
+            case -1:
+                mensagem = "A atualização falhou: erro desconhecido. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
                 break;
             default:
-                mensagem = "A atualização de " + produto.getNome() + " falhou: erro desconhecido. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
-                break;
+                mensagem = "A atualização falhou: erro interno. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
         }
 
         // Adiciona a mensagem e a lista atualizada de produtos à requisição

@@ -84,15 +84,22 @@ public class FuncionarioDAO {
             pstmt.setString(6, funcionario.getEmail());
             pstmt.setString(7, funcionario.getStatus());
             pstmt.setInt(8, funcionario.getId());
-            int updated = pstmt.executeUpdate();
-            if (updated > 0) return 1;
-            return 0;
+            if (pstmt.executeUpdate() > 0) {
+                System.out.println("Funcionarado Criado");
+                return 1; // sucesso
+            }
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return -1;
+            if (sqle.getMessage().contains("funcionario_cpf_key")) {
+                return 0; // ja existe
+            }
+            if (sqle.getMessage().contains("funcionario_email_key")) {
+                return -1; // ja existe
+            }
         } finally {
             conexao.desconectar(conn);
         }
+        return -2; // erro desconhecido
     }
 
     public int delete(int id) {
