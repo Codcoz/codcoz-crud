@@ -33,13 +33,24 @@ public class ServletCreateProduto extends HttpServlet {
 
         // Executa a criação via DAO
         ProdutoDAO dao = new ProdutoDAO();
-        String mensagem;
-        if (dao.create(produto)) {
-            mensagem = "A criação de " + produto.getNome() + " foi realizada com sucesso";
-        } else {
-            mensagem = "A criação falhou: erro interno. Entre em contato em contato.codcoz@gmail.com";
-        }
+        int status = dao.create(produto);
 
+        // Define a mensagem de retorno com base no status da operação
+        String mensagem;
+        switch (status) {
+            case 1:
+                mensagem = "A criação de " + produto.getNome() + " foi realizada com sucesso.";
+                break;
+            case 0:
+                mensagem = "A criação de " + produto.getNome() + " falhou: esse codigo ean já está vinculado.";
+                break;
+            case -1:
+                mensagem = "A criação falhou: erro desconhecido. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
+                break;
+            default:
+                mensagem = "A criação falhou: erro interno. Entre em contato pelo e-mail contato.codcoz@gmail.com.";
+                break;
+        }
         // Adiciona a mensagem e a lista atualizada de produtos à requisição
         request.setAttribute("mensagem", mensagem);
         List<Produto> lista = dao.read();

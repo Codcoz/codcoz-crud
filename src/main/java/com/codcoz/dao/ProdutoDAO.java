@@ -12,7 +12,7 @@ import java.util.List;
 public class ProdutoDAO {
 
     // Método para criar um novo produto no banco de dados
-    public boolean create(Produto produto) {
+    public int create(Produto produto) {
         String sql = "INSERT INTO Produto (id_estoque, id_nota_fiscal, nome, categoria, unidade_medida,codigo_ean, quantidade, estoque_minimo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         Conexao conexao = new Conexao();
         Connection conn = conexao.conectar();
@@ -28,16 +28,18 @@ public class ProdutoDAO {
             pstmt.setDouble(8, produto.getEstoqueMinimo());
 
             if (pstmt.executeUpdate() > 0) {
-                System.out.println("Produto criado com sucesso");
-                return true;
+                System.out.println("Produto Criado");
+                return 1; // sucesso
             }
-            return false;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return false;
+            if (sqle.getMessage().contains("unq_codigo_ean")) {
+                return 0; // ja existe
+            }
         } finally {
             conexao.desconectar(conn);
         }
+        return -1; // erro desconhecido
     }
 
     // Método para listar todos os produtos
@@ -158,16 +160,18 @@ public class ProdutoDAO {
             pstmt.setInt(8, produto.getQuantidade());
             pstmt.setInt(9, produto.getId());
             if (pstmt.executeUpdate() > 0) {
-                System.out.println("Produto atualizado com sucesso");
-                return 1;
+                System.out.println("Produto Atualizado");
+                return 1; // sucesso
             }
-            return 0;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return -1;
+            if (sqle.getMessage().contains("unq_codigo_ean")) {
+                return 0; // ja existe
+            }
         } finally {
             conexao.desconectar(conn);
         }
+        return -1; // erro desconhecido
     }
 
     // Método para excluir um produto pelo ID
