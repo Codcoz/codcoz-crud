@@ -248,11 +248,11 @@ td.acoes img:hover {
     max-width: 350px;
     height: 40px;
     padding: 0 15px;
-    border: 1px solid #ffffff;
+    border: 1px solid rgba(189, 189, 189, 0.73);
     border-radius: 20px;
     background-color: transparent;
     font-size: 14px;
-    color: white;
+    color: rgba(189, 189, 189, 0.76);
     outline: none;
     text-align: left;
     transition: box-shadow 0.3s ease;
