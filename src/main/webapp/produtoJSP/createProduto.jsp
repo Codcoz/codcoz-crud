@@ -91,7 +91,8 @@
 
                 <label for="codigoEan">Codigo Ean:</label><br>
                 <input type="number" step="1" id="codigoEan" name="codigoEan" class="input-redondo"
-                       placeholder="Ex: 12345678" required
+                       placeholder="Ex: 12345678" maxlength="13" required
+                       pattern="^.{8}$|^.{13}$"
                        title="Informe o codigo ean para produto"><br><br>
 
                 <!-- Campo Estoque Mínimo -->

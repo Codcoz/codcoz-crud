@@ -108,7 +108,8 @@
 
                 <label for="codigoEan">Codigo Ean:</label><br>
                 <input type="number" id="codigoEan" name="codigoEan" class="input-redondo"
-                       value="<%= produto.getCodigoEan() %>" required
+                       value="<%= produto.getCodigoEan() %>" maxlength="13" required
+                       pattern="^.{8}$|^.{13}$"
                        title="Informe o codigo ean para o produto"><br><br>
 
                 <!-- Campo Nome -->
