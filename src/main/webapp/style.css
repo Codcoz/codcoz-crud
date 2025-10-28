@@ -10,18 +10,15 @@ body {
 }
 
 .sidebar {
-    height: 80vh;
+    height: 100vh;
     width: 230px;
     background-color: #1a263d;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 15px 0;
-    border-radius: 15px;
     position: fixed;
-    top: 50%;
-    left: 20px;
-    transform: translateY(-50%);
+    border-radius: 0 25px 25px 0;
 }
 
 .perfil {
