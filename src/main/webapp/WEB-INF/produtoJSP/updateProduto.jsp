@@ -106,11 +106,18 @@
                     <option value="caixa" <%= "caixa".equals(produto.getUnidadeMedida()) ? "selected" : "" %>>Caixa</option>
                 </select><br><br>
 
-                <label for="codigoEan">Codigo Ean:</label><br>
-                <input type="number" id="codigoEan" name="codigoEan" class="input-redondo"
-                       value="<%= produto.getCodigoEan() %>" maxlength="13" required
-                       pattern="^.{8}$|^.{13}$"
-                       title="Informe o codigo ean para o produto"><br><br>
+                <label for="codigoEan">Código EAN:</label><br>
+                <input
+                        type="text"
+                        id="codigoEan"
+                        name="codigoEan"
+                        class="input-redondo"
+                        placeholder="Ex: 12345678"
+                        maxlength="13"
+                        pattern="^\d{8}$|^\d{13}$"
+                        title="Informe um código EAN com exatamente 8 ou 13 dígitos numéricos"
+                        required
+                ><br><br>
 
                 <!-- Campo Nome -->
                 <label for="nome">Nome do Produto:</label><br>
