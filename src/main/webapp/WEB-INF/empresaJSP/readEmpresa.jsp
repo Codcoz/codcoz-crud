@@ -86,7 +86,7 @@
                     </td>
                     <!-- Link para excluir empresa com confirmação -->
                     <td class="acoes">
-                        <a href="<%= request.getContextPath() %>/ServletDeleteEmpresa?id=<%= empresa.getId() %>"
+                        <a href="<%= request.getContextPath() %>/ServletDeleteEmpresa?id=<%= empresa.getId() %>" method="post"
                            onclick="return confirm('Tem certeza que deseja excluir <%= empresa.getNome() %>?');"
                            title="Excluir empresa">
                             <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir" title="Excluir empresa">

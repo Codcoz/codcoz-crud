@@ -80,7 +80,7 @@
                     </td>
                     <!-- Link para excluir endereço com confirmação -->
                     <td class="acoes">
-                        <a href="<%= request.getContextPath() %>/ServletDeleteEndereco?id=<%= endereco.getId() %>"
+                        <a href="<%= request.getContextPath() %>/ServletDeleteEndereco?id=<%= endereco.getId() %>" method="post"
                            onclick="return confirm('Tem certeza que deseja excluir este endereço?');"
                            title="Excluir endereço">
                             <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir" title="Excluir endereço">
