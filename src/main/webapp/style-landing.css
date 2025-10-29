@@ -1,0 +1,350 @@
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+    html {
+        scroll-behavior: smooth;
+    }
+        
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background-color: #0a0f1e;
+        color: #fff;
+    }
+
+
+    header {
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+        top: 0;
+        height: 80px; 
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(255, 255, 255, 0.08);
+    }
+    .logo img {
+        padding-left: 80px; 
+        height: 30px;
+        width: auto;
+    }
+
+    .menu {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        padding-right: 80px;
+    }
+
+    .menu a {
+        color: #eaeaea;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 400;
+        transition: color 0.2s ease;
+    }
+
+    .menu a:hover {
+        color: #e8c85d;
+    }
+    .primeiro {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 100px 10%;
+        background: 
+        linear-gradient(rgba(27, 29, 37, 0), rgb(10, 15, 30, 0)),
+        url("assets-landing/logo/fundo.png") center/cover no-repeat;
+    }
+
+    .primeiro-text {
+        max-width: 550px;
+    }
+
+    .primeiro-text h1 {
+        font-size: 3rem;
+        font-weight: 600; 
+        line-height: 1.3; 
+        margin-bottom: 40px;
+        color: #ffffff; 
+    }
+
+
+    .primeiro-buttons {
+        display: flex;
+        gap: 20px;
+    }
+
+
+    .botao1 {
+        padding: 14px 28px;
+        border-radius: 20px;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 16px;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        background-color: #e8c85d;
+        color: #1a1a1a;
+    }
+
+    .botao1:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(232, 200, 93, 0.4);
+    }
+
+    .botao2 {
+        padding: 14px 28px;
+        border-radius: 20px;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 16px;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        color: #e8c85d;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .botao2:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(232, 200, 93, 0.4);
+    }
+
+    .celulares{
+        margin-top: 60px;
+    }
+    .hero-image img {
+        width: 400px;
+    }
+
+    .sobre-codcoz {
+        background-color: rgba(213, 190, 101, 0.9);
+        color: black;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .sobre-codcoz h2,
+    .sobre-codcoz p {
+        max-width: 1000px;
+        padding-left: 20%;
+    }
+
+
+    .mais-aproveitamento {
+        position: relative;
+        background: 
+        linear-gradient(rgba(27, 29, 37, 0.1), rgb(10, 15, 30, 0)),
+        url("assets-landing/logo/fundo2.png") center/cover no-repeat;
+        color: #e8c85d;
+        padding: 220px 0;   
+        overflow: hidden; /* evita que o pseudo-elemento ultrapasse */
+    }
+
+    .mais-aproveitamento::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px; 
+        background: linear-gradient(to bottom, rgba(10, 15, 30, 0) 0%, #0a0f1e 100%);
+    }
+
+    .mais-aproveitamento h1 {
+        font-size: 4.0rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 40px;
+        margin-top: 40px;
+        max-width: 800px;
+        padding-left: 20%;
+    }
+
+    .cards{
+        display: inline-block;
+        background-color: #e8c85d;
+        color: #000000;
+        font-weight: 700;
+        padding: 10px 30px;
+        margin-left: 20%;
+        width: 400px;
+        font-size: 1.2rem;
+        border-radius: 20px;
+    }
+
+    .cards p {
+        margin: 0;
+    }
+
+    .vantagens-codcoz {
+        background-color: #0a0f1e;
+        color: #e8c85d;
+        text-align: center;
+        padding: 80px 0;
+    }
+
+    .vantagens-codcoz h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 40px;
+    }
+
+    .vantagens {
+        display: flex;
+        justify-content: center;
+        gap: 40px; 
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+ .vantagens article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* centraliza verticalmente */
+    background-color: rgb(21, 32, 52);
+    border-radius: 20px;
+    width: 220px;
+    height: 220px; /* define altura igual pra todos */
+    padding: 30px 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+
+    .vantagens article:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(00, 0, 0, 1);
+
+    }
+
+    .vantagens img {
+        height: 100px;
+        max-width: 100px;
+        margin-bottom: 20px;
+        display: block;      
+        margin: 0 auto 15px; 
+    }
+
+    .vantagens p {
+        color: #e8c85d;
+        font-weight: 600;
+        width: 120px;
+        margin: 0;
+        text-align: center; 
+    }
+
+    .divisor2{
+        margin: 100px 150px;
+        background-color: rgba(21, 32, 53, 1);
+        border: none;             
+        height: 5px;              
+    }
+    .nossa-historia {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 60px;
+        padding: 100px 10%;
+        background-color: #0a0f1e;
+        color: #e8c85d;
+    }
+
+    .historia-texto {
+        max-width: 900px;
+    }
+
+    .historia-texto h2 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #e8c85d;
+        margin-bottom: 20px;
+    }
+
+    .historia-texto p {
+        color: #ffffff;
+        line-height: 1.6;
+        font-size: 1rem;
+    }
+
+    .historia-imagem img {
+        max-width: 400px;
+        border-radius: 20px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .footer {
+        background-color: #d4bc66;
+        color: #0a0f1e;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 40px 10%;
+        flex-wrap: wrap;
+    }
+
+    .footer-esquerda {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .footer-esquerda img {
+        width: 160px;
+    }
+
+    .footer-esquerda .slogan {
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .footer-direita {
+        display: flex;
+        gap: 30px;
+    }
+
+    .linha-vertical {
+        width: 1px;
+        background-color: rgba(0, 0, 0, 0.4);
+        height: 90px;
+    }
+
+    .contatos h3 {
+        margin: 0 0 10px;
+        font-weight: 700;
+        font-size: 0.95rem;
+    }
+
+    .contatos p {
+        margin: 4px 0;
+        font-size: 0.9rem;
+    }
+    .contatos a {
+        text-decoration: none;
+        color: #0a0f1e;
+    }
+
+    .contatos a:hover {
+        text-decoration: underline;
+    }
+
+    .equipe{
+        text-align: center;
+        color: rgba(213, 190, 101, 1);
+    } 
+    .equipe-imagem{
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        border-radius: 20px;
+    }
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+    .Meu-grupinho{
+        width: 40%;
+        border-radius: 20px;
+    }
+
