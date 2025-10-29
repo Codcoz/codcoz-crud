@@ -87,13 +87,14 @@
                 <label for="nome">Nome do Produto:</label><br>
                 <input type="text" id="nome" name="nome" class="input-redondo"
                        placeholder="Ex: Carne" required
-                       title="Informe o nome do produto"><br><br>
+                       title="Informe o nome do produto">
+                <br><br>
 
                 <label for="codigoEan">Codigo Ean:</label><br>
                 <input type="number" step="1" id="codigoEan" name="codigoEan" class="input-redondo"
-                       placeholder="Ex: 12345678" maxlength="13" required
+                       placeholder="Ex: 12345678" maxlength="13"
                        pattern="^.{8}$|^.{13}$"
-                       title="Informe o codigo ean para produto"><br><br>
+                       title="Informe o código ean para produto"><br><br>
 
                 <!-- Campo Estoque Mínimo -->
                 <label for="estoqueMinimo">Estoque Mínimo:</label><br>

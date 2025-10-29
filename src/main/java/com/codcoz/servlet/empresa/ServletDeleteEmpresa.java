@@ -12,7 +12,7 @@ import com.codcoz.model.Empresa;
 @WebServlet(name = "ServletDeleteEmpresa", value = "/ServletDeleteEmpresa")
 public class ServletDeleteEmpresa extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Obtém o ID da empresa a ser excluída
         int id = Integer.parseInt(request.getParameter("id"));
 
