@@ -333,7 +333,7 @@ td.acoes img:hover {
 
 
 .login-page {
-    background-image: url('assets/cozinha.jpg');
+    background: url('assets/cozinha.jpg') ;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
