@@ -12,7 +12,7 @@
 <div class="login-container">
     <div class="login-left">
         <div class="login-logo">
-            <img src="assets/codcoz.png" alt="CodCoz">
+            <img src="WEB-INF/assets/icone.png" alt="CodCoz">
         </div>
         <div class="login-subtitle" style="color: white;">Login área administrador</div>
     </div>
