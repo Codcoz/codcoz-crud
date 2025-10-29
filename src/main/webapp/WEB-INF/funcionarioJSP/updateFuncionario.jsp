@@ -100,12 +100,13 @@
                     <option value="Gestor" <%= "Gestor".equals(funcionario.getFuncao()) ? "selected" : "" %>>Gestor</option>
                 </select><br><br>
 
-                <button type="submit" class="novo" title="Salvar alterações">+</button>
                 <!-- ====== ADIÇÃO ESSENCIAL: STATUS ====== -->
+
                 <label for="status">Status:</label><br>
                 <select id="status" name="status" class="select-redondo" required>
-                    <option value="ATIVO"   <%= "ATIVO".equalsIgnoreCase(funcionario.getStatus())   ? "selected" : "" %>>ATIVO</option>
-                    <option value="INATIVO" <%= "INATIVO".equalsIgnoreCase(funcionario.getStatus()) ? "selected" : "" %>>INATIVO</option>
+                    <option value="Ativo"   <%= "Ativo".equalsIgnoreCase(funcionario.getStatus())   ? "selected" : "" %>>Ativo</option>
+                    <option value="Inativo" <%= "Intativo".equalsIgnoreCase(funcionario.getStatus()) ? "selected" : "" %>>Intativo</option>
+                    <option value="Férias" <%= "Férias".equalsIgnoreCase(funcionario.getStatus()) ? "selected" : "" %>>Férias</option>
                 </select><br><br>
 
                 <button type="submit" class="novo">✔</button>
