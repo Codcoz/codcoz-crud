@@ -25,7 +25,7 @@ public class ServletUpdateProduto extends HttpServlet {
                 Integer.parseInt(request.getParameter("idNotaFiscal")),
                 Integer.parseInt(request.getParameter("idEmpresa")),
                 request.getParameter("unidadeMedida"),
-                Integer.parseInt(request.getParameter("codigoEan")),
+                request.getParameter("codigoEan"),
                 Double.parseDouble(request.getParameter("estoqueMinimo")),
                 request.getParameter("nome"),
                 request.getParameter("categoria"),
