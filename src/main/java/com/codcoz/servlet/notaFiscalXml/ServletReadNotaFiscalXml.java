@@ -34,8 +34,17 @@ public class ServletReadNotaFiscalXml extends HttpServlet {
         // Adiciona a lista como atributo da requisição
         request.setAttribute("listaNotas", lista);
 
-        // Encaminha a requisição para a página JSP que exibirá os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/notaFiscalXmlJSP/readNotaFiscalXml.jsp");
+        // Verifica se há uma view específica solicitada
+        String view = request.getParameter("view");
+        String destino;
+        if ("create".equals(view)) {
+            destino = "/WEB-INF/notaFiscalXmlJSP/createNotaFiscalXml.jsp";
+        } else if ("update".equals(view)) {
+            destino = "/WEB-INF/notaFiscalXmlJSP/updateNotaFiscalXml.jsp";
+        } else {
+            destino = "/WEB-INF/notaFiscalXmlJSP/readNotaFiscalXml.jsp";
+        }
+        RequestDispatcher dispatcher = request.getRequestDispatcher(destino);
         dispatcher.forward(request, response);
     }
 }

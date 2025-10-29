@@ -19,9 +19,19 @@ public class ServletReadEndereco extends HttpServlet {
 
         // Define a lista como atributo da request
         request.setAttribute("listaEnderecos", lista);
+        // Verifica se há uma view específica solicitada
+        String view = request.getParameter("view");
+        String destino;
 
-        // Encaminha para a página JSP mantendo os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/enderecoJSP/readEndereco.jsp");
+        if ("create".equals(view)) {
+            destino = "/WEB-INF/enderecoJSP/createEndereco.jsp";
+        } else if ("update".equals(view)) {
+            destino = "/WEB-INF/enderecoJSP/updateEndereco.jsp";
+        } else {
+            destino = "/WEB-INF/enderecoJSP/readEndereco.jsp";
+        }
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher(destino);
         dispatcher.forward(request, response);
     }
 }

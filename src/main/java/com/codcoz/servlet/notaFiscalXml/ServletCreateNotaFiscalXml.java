@@ -37,7 +37,7 @@ public class ServletCreateNotaFiscalXml extends HttpServlet {
         request.setAttribute("listaNotas", lista);
 
         // Encaminha para a página JSP mantendo os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/notaFiscalXmlJSP/readNotaFiscalXml.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/notaFiscalXmlJSP/readNotaFiscalXml.jsp");
         dispatcher.forward(request, response);
     }
 }

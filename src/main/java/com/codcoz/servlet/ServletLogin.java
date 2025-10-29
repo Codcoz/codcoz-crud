@@ -1,5 +1,6 @@
 package com.codcoz.servlet;
 
+import com.codcoz.dao.EnderecoDAO;
 import com.codcoz.dao.LoginDAO;
 import com.codcoz.model.Usuario;
 import jakarta.servlet.RequestDispatcher;
@@ -29,7 +30,8 @@ import java.util.Optional;
             }else {
                 HttpSession httpSession = request.getSession();
                 httpSession.setAttribute("nomeAdm",usuario.get().getNome());
-                redirect = "menu.jsp";
+                request.setAttribute("listaEnderecos", new EnderecoDAO().read());
+                redirect = "WEB-INF/enderecoJSP/readEndereco.jsp";
             }
             // Encaminha para a página JSP que exibe os produtos
             request.setAttribute("mensagemErro", mensagemErro);

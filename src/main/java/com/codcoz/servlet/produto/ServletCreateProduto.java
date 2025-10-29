@@ -58,7 +58,7 @@ public class ServletCreateProduto extends HttpServlet {
         request.setAttribute("listaProdutos", lista);
 
         // Encaminha para a página JSP que exibe os produtos
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/produtoJSP/readProduto.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/produtoJSP/readProduto.jsp");
         dispatcher.forward(request, response);
     }
 }

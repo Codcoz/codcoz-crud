@@ -57,7 +57,7 @@ public class ServletUpdateFuncionario extends HttpServlet {
         List<Funcionario> lista = dao.read();
         request.setAttribute("listaFuncionarios", lista);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionarioJSP/readFuncionario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/funcionarioJSP/readFuncionario.jsp");
         dispatcher.forward(request, response);
     }
 }

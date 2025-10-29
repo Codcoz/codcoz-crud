@@ -38,7 +38,7 @@ public class ServletDeleteEstoque extends HttpServlet {
         request.setAttribute("listaEstoques", lista);
 
 // Encaminha a requisição para a página JSP que exibe a lista de estoques
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/estoqueJSP/readEstoque.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/estoqueJSP/readEstoque.jsp");
         dispatcher.forward(request, response);
     }
 }
