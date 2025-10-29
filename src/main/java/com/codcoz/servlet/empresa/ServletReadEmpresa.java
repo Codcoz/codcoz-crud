@@ -20,8 +20,19 @@ public class ServletReadEmpresa extends HttpServlet {
         // Define a lista como atributo da request
         request.setAttribute("listaEmpresas", lista);
 
-        // Encaminha para a página JSP mantendo os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/empresaJSP/readEmpresa.jsp");
+        // Verifica se há uma view específica solicitada
+        String view = request.getParameter("view");
+        String destino;
+
+        if ("create".equals(view)) {
+            destino = "/WEB-INF/empresaJSP/createEmpresa.jsp";
+        } else if ("update".equals(view)) {
+            destino = "/WEB-INF/empresaJSP/updateEmpresa.jsp";
+        } else {
+            destino = "/WEB-INF/empresaJSP/readEmpresa.jsp";
+        }
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher(destino);
         dispatcher.forward(request, response);
     }
 }

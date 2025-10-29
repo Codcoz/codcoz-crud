@@ -43,7 +43,7 @@ public class ServletDeleteProduto extends HttpServlet {
         List<Produto> lista = dao.read();
 
         request.setAttribute("listaProdutos", lista);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/produtoJSP/readProduto.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/produtoJSP/readProduto.jsp");
         dispatcher.forward(request, response);
     }
 }

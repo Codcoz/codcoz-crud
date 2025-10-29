@@ -27,9 +27,24 @@ public class ServletReadAlerta extends HttpServlet {
         }
         // Define a lista como atributo da request
         request.setAttribute("listaAlertas", lista);
+        // Verifica se há uma view específica solicitada
+        String view = request.getParameter("view");
+        String destino;
 
-        // Encaminha para a página JSP mantendo os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/alertaJSP/readAlerta.jsp");
+        if ("escolhaEmpresaCreate".equals(view)) {
+            destino = "/WEB-INF/alertaJSP/escolhaEmpresaDoAlerta.jsp";
+        } else if ("escolhaEmpresaUpdate".equals(view)) {
+            destino = "/WEB-INF/alertaJSP/updateEmpresaDoAlerta.jsp";
+        } else if ("create".equals(view)) {
+            destino = "/WEB-INF/alertaJSP/createAlerta.jsp";
+        }else if ("update".equals(view)) {
+            destino = "/WEB-INF/alertaJSP/updateAlerta.jsp";
+        }
+        else {
+            destino = "/WEB-INF/alertaJSP/readAlerta.jsp";
+        }
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher(destino);
         dispatcher.forward(request, response);
     }
 }

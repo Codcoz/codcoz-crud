@@ -3,6 +3,7 @@
   <component name="WebContextManager">
     <option name="state">
       <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/alertaJSP/readAlerta.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/alertaJSP" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/alertaJSP/createAlerta.jsp" value="file://$PROJECT_DIR$/src/main/webapp/alertaJSP" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/alertaJSP/escolhaEmpresaDoAlerta.jsp" value="file://$PROJECT_DIR$/src/main/webapp/alertaJSP" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/alertaJSP/readAlerta.jsp" value="file://$PROJECT_DIR$/src/main/webapp/alertaJSP" />

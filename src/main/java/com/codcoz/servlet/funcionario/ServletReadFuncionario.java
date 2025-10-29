@@ -34,9 +34,18 @@ public class ServletReadFuncionario extends HttpServlet {
         }
         // Adiciona a lista como atributo da requisição
         request.setAttribute("listaFuncionarios", lista);
+// Verifica se há uma view específica solicitada
+        String view = request.getParameter("view");
+        String destino;
 
-        // Encaminha a requisição para a página JSP que exibirá os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionarioJSP/readFuncionario.jsp");
+        if ("create".equals(view)) {
+            destino = "/WEB-INF/funcionarioJSP/createFuncionario.jsp";
+        } else if ("update".equals(view)) {
+            destino = "/WEB-INF/funcionarioJSP/updateFuncionario.jsp";
+        } else {
+            destino = "/WEB-INF/funcionarioJSP/readFuncionario.jsp";
+        }
+        RequestDispatcher dispatcher = request.getRequestDispatcher(destino);
         dispatcher.forward(request, response);
     }
 }

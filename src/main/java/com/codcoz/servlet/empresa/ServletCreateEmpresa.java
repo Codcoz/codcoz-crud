@@ -58,7 +58,7 @@ public class ServletCreateEmpresa extends HttpServlet {
         request.setAttribute("listaEmpresas", lista);
 
         // Encaminha para a página JSP que exibe as empresas
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/empresaJSP/readEmpresa.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/empresaJSP/readEmpresa.jsp");
         dispatcher.forward(request, response);
     }
 }

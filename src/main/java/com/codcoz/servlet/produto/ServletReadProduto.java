@@ -33,9 +33,23 @@ public class ServletReadProduto extends HttpServlet {
         }
         // Adiciona a lista como atributo da requisição
         request.setAttribute("listaProdutos", lista);
+// Verifica se há uma view específica solicitada
+        String view = request.getParameter("view");
+        String destino;
 
-        // Encaminha a requisição para a página JSP que exibirá os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/produtoJSP/readProduto.jsp");
+        if ("escolhaEmpresaCreate".equals(view)) {
+            destino = "/WEB-INF/produtoJSP/escolhaEmpresaDoProduto.jsp";
+        } else if ("escolhaEmpresaUpdate".equals(view)) {
+            destino = "/WEB-INF/produtoJSP/updateEmpresaDoProduto.jsp";
+        } else if ("create".equals(view)) {
+            destino = "/WEB-INF/produtoJSP/createProduto.jsp";
+        }else if ("update".equals(view)) {
+            destino = "/WEB-INF/produtoJSP/updateProduto.jsp";
+        } else {
+            destino = "/WEB-INF/produtoJSP/readProduto.jsp";
+        }
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher(destino);
         dispatcher.forward(request, response);
     }
 }

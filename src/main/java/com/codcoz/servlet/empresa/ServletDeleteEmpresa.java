@@ -47,7 +47,6 @@ public class ServletDeleteEmpresa extends HttpServlet {
         request.setAttribute("listaEmpresas", lista);
 
         // Encaminha para a página JSP mantendo os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/empresaJSP/readEmpresa.jsp");
-        dispatcher.forward(request, response);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/empresaJSP/readEmpresa.jsp");        dispatcher.forward(request, response);
     }
 }

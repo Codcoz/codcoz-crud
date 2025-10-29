@@ -40,7 +40,7 @@ public class ServletCreateEstoque extends HttpServlet {
         request.setAttribute("listaEstoques", lista);
 
         // Encaminha para a página JSP mantendo os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/estoqueJSP/readEstoque.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/estoqueJSP/readEstoque.jsp");
         dispatcher.forward(request, response);
     }
 }

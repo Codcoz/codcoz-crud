@@ -40,7 +40,7 @@ public class ServletCreateAlerta extends HttpServlet {
         request.setAttribute("listaAlertas", lista);
 
         // Encaminha para a página de listagem
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/alertaJSP/readAlerta.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/alertaJSP/readAlerta.jsp");
         dispatcher.forward(request, response);
     }
 }

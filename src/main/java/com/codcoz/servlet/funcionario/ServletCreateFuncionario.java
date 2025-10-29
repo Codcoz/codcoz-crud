@@ -64,7 +64,7 @@ public class ServletCreateFuncionario extends HttpServlet {
         request.setAttribute("listaFuncionarios", lista);
 
         // Encaminha para a página JSP que exibe os funcionários
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionarioJSP/readFuncionario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/funcionarioJSP/readFuncionario.jsp");
         dispatcher.forward(request, response);
     }
 }

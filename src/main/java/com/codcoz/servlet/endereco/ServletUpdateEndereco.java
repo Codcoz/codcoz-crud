@@ -70,7 +70,7 @@ public class ServletUpdateEndereco extends HttpServlet {
             request.setAttribute("cepValue", cep);
             request.setAttribute("numeroValue", numero);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/enderecoJSP/updateEndereco.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/enderecoJSP/updateEndereco.jsp");
             dispatcher.forward(request, response);
             return;
         }
@@ -122,14 +122,14 @@ public class ServletUpdateEndereco extends HttpServlet {
             List<Endereco> lista = dao.read();
             request.setAttribute("listaEnderecos", lista);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/enderecoJSP/readEndereco.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/enderecoJSP/readEndereco.jsp");
             dispatcher.forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();
 
             request.setAttribute("mensagem", "Erro interno ao atualizar o endereço. Tente novamente mais tarde.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/enderecoJSP/updateEndereco.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/enderecoJSP/updateEndereco.jsp");
             dispatcher.forward(request, response);
         }
     }

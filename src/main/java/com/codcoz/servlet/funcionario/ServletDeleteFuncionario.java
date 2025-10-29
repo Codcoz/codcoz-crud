@@ -54,7 +54,7 @@ public class ServletDeleteFuncionario extends HttpServlet {
         request.setAttribute("listaFuncionarios", lista);
 
         // Forward para a listagem
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionarioJSP/readFuncionario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/funcionarioJSP/readFuncionario.jsp");
         dispatcher.forward(request, response);
     }
 }
