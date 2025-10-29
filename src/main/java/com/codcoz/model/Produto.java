@@ -6,14 +6,14 @@ public class Produto {
     private Integer idNotaFiscal;
     private Integer idEmpresa;
     private String unidadeMedida;
-    private Integer codigoEan;
+    private String codigoEan;
     private Double estoqueMinimo;
     private String nome;
     private String categoria;
     private Integer quantidade;
 
     public Produto(Integer id, Integer idEstoque, Integer idNotaFiscal, Integer idEmpresa,
-                   String unidadeMedida, Integer codigoEan, Double estoqueMinimo, String nome,
+                   String unidadeMedida, String codigoEan, Double estoqueMinimo, String nome,
                    String categoria, Integer quantidade) {
         this.id = id;
         this.idEstoque = idEstoque;
@@ -28,7 +28,7 @@ public class Produto {
     }
 
     public Produto(Integer idEstoque, Integer idNotaFiscal, Integer idEmpresa,
-                   String unidadeMedida,Integer codigoEan, Double estoqueMinimo, String nome,
+                   String unidadeMedida,String codigoEan, Double estoqueMinimo, String nome,
                    String categoria, Integer quantidade) {
         this.idEstoque = idEstoque;
         this.idNotaFiscal = idNotaFiscal;
@@ -60,7 +60,7 @@ public class Produto {
     public String getUnidadeMedida() {
         return unidadeMedida;
     }
-    public Integer getCodigoEan(){return codigoEan;}
+    public String getCodigoEan(){return codigoEan;}
 
     public Double getEstoqueMinimo() {
         return estoqueMinimo;

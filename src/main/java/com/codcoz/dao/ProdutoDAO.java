@@ -23,7 +23,7 @@ public class ProdutoDAO {
             pstmt.setString(3, produto.getNome());
             pstmt.setString(4, produto.getCategoria());
             pstmt.setString(5, produto.getUnidadeMedida());
-            pstmt.setInt(6,produto.getCodigoEan());
+            pstmt.setString(6,produto.getCodigoEan());
             pstmt.setInt(7, produto.getQuantidade());
             pstmt.setDouble(8, produto.getEstoqueMinimo());
 
@@ -59,7 +59,7 @@ public class ProdutoDAO {
                         rs.getInt("id_nota_fiscal"),
                         rs.getInt("id_empresa"),
                         rs.getString("unidade_medida"),
-                        rs.getInt("codigo_ean"),
+                        rs.getString("codigo_ean"),
                         rs.getDouble("estoque_minimo"),
                         rs.getString("nome"),
                         rs.getString("categoria"),
@@ -92,7 +92,7 @@ public class ProdutoDAO {
                         rs.getInt("id_nota_fiscal"),
                         rs.getInt("id_empresa"),
                         rs.getString("unidade_medida"),
-                        rs.getInt("codigo_ean"),
+                        rs.getString("codigo_ean"),
                         rs.getDouble("estoque_minimo"),
                         rs.getString("nome"),
                         rs.getString("categoria"),
@@ -128,7 +128,7 @@ public class ProdutoDAO {
                         rs.getInt("id_nota_fiscal"),
                         rs.getInt("id_empresa"),
                         rs.getString("unidade_medida"),
-                        rs.getInt("codigo_ean"),
+                        rs.getString("codigo_ean"),
                         rs.getDouble("estoque_minimo"),
                         rs.getString("nome"),
                         rs.getString("categoria"),
@@ -153,7 +153,7 @@ public class ProdutoDAO {
             pstmt.setInt(1, produto.getIdEstoque());
             pstmt.setInt(2, produto.getIdNotaFiscal());
             pstmt.setString(3, produto.getUnidadeMedida());
-            pstmt.setInt(4, produto.getCodigoEan());
+            pstmt.setString(4, produto.getCodigoEan());
             pstmt.setString(5, produto.getNome());
             pstmt.setDouble(6, produto.getEstoqueMinimo());
             pstmt.setString(7, produto.getCategoria());
