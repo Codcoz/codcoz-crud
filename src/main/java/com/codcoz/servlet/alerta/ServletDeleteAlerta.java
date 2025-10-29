@@ -12,7 +12,7 @@ import java.util.List;
 @WebServlet(name = "ServletDeleteAlerta", value = "/ServletDeleteAlerta")
 public class ServletDeleteAlerta extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         AlertaDAO dao = new AlertaDAO();
         String alerta = dao.buscarPorId(id).getTipoAlerta();

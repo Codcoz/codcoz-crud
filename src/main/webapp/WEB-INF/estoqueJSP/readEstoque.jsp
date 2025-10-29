@@ -108,7 +108,7 @@
                     </td>
                     <!-- Link para excluir estoque com confirmação -->
                     <td class="acoes">
-                        <a href="<%= request.getContextPath() %>/ServletDeleteEstoque?id=<%= estoque.getId() %>"
+                        <a href="<%= request.getContextPath() %>/ServletDeleteEstoque?id=<%= estoque.getId() %>" method="post"
                            onclick="return confirm('Tem certeza que deseja excluir este estoque?');"
                            title="Excluir estoque">
                             <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir" title="Excluir estoque">

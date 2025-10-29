@@ -16,7 +16,7 @@
     <!-- Estilos e fontes -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/icone.png">
+    <link rel="icon" type="image/png" href="<%=request.getContextPath() %>/assets/codcoz_icon.png">
 </head>
 <body>
 <div class="container">
@@ -87,13 +87,21 @@
                 <label for="nome">Nome do Produto:</label><br>
                 <input type="text" id="nome" name="nome" class="input-redondo"
                        placeholder="Ex: Carne" required
-                       title="Informe o nome do produto"><br><br>
+                       title="Informe o nome do produto">
+                <br><br>
 
-                <label for="codigoEan">Codigo Ean:</label><br>
-                <input type="number" step="1" id="codigoEan" name="codigoEan" class="input-redondo"
-                       placeholder="Ex: 12345678" maxlength="13" required
-                       pattern="^.{8}$|^.{13}$"
-                       title="Informe o codigo ean para produto"><br><br>
+                <label for="codigoEan">Código EAN:</label><br>
+                <input
+                        type="text"
+                        id="codigoEan"
+                        name="codigoEan"
+                        class="input-redondo"
+                        placeholder="Ex: 12345678"
+                        maxlength="13"
+                        pattern="^\d{8}$|^\d{13}$"
+                        title="Informe um código EAN com exatamente 8 ou 13 dígitos numéricos"
+                        required
+                ><br><br>
 
                 <!-- Campo Estoque Mínimo -->
                 <label for="estoqueMinimo">Estoque Mínimo:</label><br>
