@@ -103,7 +103,7 @@
                     </td>
                     <!-- Link para deletar alerta com confirmação -->
                     <td class="acoes">
-                        <a href="<%= request.getContextPath() %>/ServletDeleteAlerta?id=<%= alerta.getId() %> " method="post"
+                        <a href="<%= request.getContextPath() %>/ServletDeleteAlerta?id=<%= alerta.getId() %> "
                            onclick="return confirm('Tem certeza que deseja excluir este alerta?');">
                             <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir">
                         </a>

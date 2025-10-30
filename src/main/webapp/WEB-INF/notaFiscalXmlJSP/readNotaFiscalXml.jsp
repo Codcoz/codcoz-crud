@@ -93,7 +93,7 @@
                     </td>
                     <!-- Link para excluir nota fiscal com confirmação -->
                     <td class="acoes">
-                        <a href="<%= request.getContextPath() %>/ServletDeleteNotaFiscalXml?id=<%= nota.getId() %>" method="post"
+                        <a href="<%= request.getContextPath() %>/ServletDeleteNotaFiscalXml?id=<%= nota.getId() %>"
                            onclick="return confirm('Tem certeza que deseja excluir esta nota fiscal?');"
                            title="Excluir nota fiscal">
                             <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir" title="Excluir nota fiscal">

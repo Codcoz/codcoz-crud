@@ -105,7 +105,7 @@
                     </td>
                     <!-- Link para excluir funcionário com confirmação -->
                     <td class="acoes">
-                        <a href="<%= request.getContextPath() %>/ServletDeleteFuncionario?id=<%= funcionario.getId() %>" method="post"
+                        <a href="<%= request.getContextPath() %>/ServletDeleteFuncionario?id=<%= funcionario.getId() %>"
                            onclick="return confirm('Tem certeza que deseja excluir este funcionário?');"
                            title="Excluir funcionário">
                             <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir" title="Excluir funcionário">

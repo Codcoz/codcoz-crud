@@ -115,7 +115,7 @@
                     </td>
                     <!-- Link para excluir produto com confirmação -->
                     <td class="acoes">
-                        <a href="<%= request.getContextPath() %>/ServletDeleteProduto?id=<%= produto.getId() %>" method="post"
+                        <a href="<%= request.getContextPath() %>/ServletDeleteProduto?id=<%= produto.getId() %>"
                            onclick="return confirm('Tem certeza que deseja excluir <%= produto.getNome() %>?');"
                            title="Excluir produto">
                             <img src="<%= request.getContextPath() %>/assets/delete_icon.png" alt="Excluir" title="Excluir produto">

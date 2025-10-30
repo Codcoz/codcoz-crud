@@ -15,7 +15,7 @@ import java.util.List;
 @WebServlet(name = "ServletDeleteNotaFiscalXml", value = "/ServletDeleteNotaFiscalXml")
 public class ServletDeleteNotaFiscalXml extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Coleta o parâmetro do ID
         int id = Integer.parseInt(request.getParameter("id"));
 
