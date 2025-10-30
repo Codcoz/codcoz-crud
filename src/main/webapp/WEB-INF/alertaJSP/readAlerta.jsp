@@ -122,7 +122,7 @@
 
         <br>
         <!-- Link para voltar à página inicial -->
-        <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link">Voltar ao início</a>
+        <a href="<%= request.getContextPath() %>/login.jsp" class="hover-link">Voltar ao início</a>
     </main>
 </div>
 </body>
