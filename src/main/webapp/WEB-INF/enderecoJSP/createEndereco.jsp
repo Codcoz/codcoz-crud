@@ -7,9 +7,7 @@
     <!-- Estilos e fontes -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-<%--    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/icone.png">--%>
-    <link rel="icon" type="image/png" href="../../assets/icone.png">
-
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/icone.png">
 </head>
 <body>
 <div class="container">
@@ -78,7 +76,7 @@
         <!-- Navegação -->
         <div style="display: flex; gap: 20px;">
             <a href="<%=request.getContextPath()%>/ServletReadEndereco" class="hover-link" title="Ver lista de endereços">Voltar à lista</a>
-            <a href="<%=request.getContextPath()%>/WEB-INF/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
+            <a href="<%=request.getContextPath()%>/login.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
         </div>
 
     </main>

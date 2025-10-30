@@ -137,7 +137,7 @@
 
         <br>
         <!-- Link para voltar à página inicial -->
-        <a href="<%= request.getContextPath() %>/WEB-INF/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
+        <a href="<%= request.getContextPath() %>/login.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
     </main>
 
 </div>
