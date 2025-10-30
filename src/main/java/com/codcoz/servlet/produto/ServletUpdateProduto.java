@@ -34,7 +34,7 @@ public class ServletUpdateProduto extends HttpServlet {
 
         // Executa a atualização via DAO
         ProdutoDAO dao = new ProdutoDAO();
-        int status = dao.create(produto);
+        int status = dao.update(produto);
 
         // Define a mensagem de retorno com base no status da operação
         String mensagem;
