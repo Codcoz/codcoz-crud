@@ -53,9 +53,14 @@
 
                 <!-- Campo E-mail -->
                 <label for="email">E-mail:</label><br>
-                <input type="email" id="email" name="email" class="input-redondo"
-                       placeholder="E-mail" maxlength="100" required
-                       title="Informe o e-mail do funcionário"><br><br>
+                <input type="text" id="email" name="email" class="input-redondo"
+                       placeholder="Ex: nome@empresa.com.br"
+                       maxlength="100"
+                       required
+                       pattern="^[A-Za-z0-9._%+-]+@(gmail\.com|net\.com|outlook\.com|hotmail\.com|yahoo\.com|icloud\.com|uol\.com\.br|terra\.com\.br|bol\.com\.br)$"
+                       title="É preciso que o formato corresponda ao exigido. Informe o e-mail do funcionário com domínio permitido: gmail.com, outlook.com, uol.com.br, etc."><br><br>
+
+
 
                 <!-- Campo Função -->
                 <label for="funcao">Função:</label><br>
