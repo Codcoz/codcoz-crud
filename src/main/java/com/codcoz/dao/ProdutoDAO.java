@@ -165,7 +165,7 @@ public class ProdutoDAO {
             }
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            if (sqle.getMessage().contains("unq_codigo_ean")) {
+            if (sqle.getMessage().contains("produto_codigo_ean_key")) {
                 return 0; // ja existe
             }
         } finally {

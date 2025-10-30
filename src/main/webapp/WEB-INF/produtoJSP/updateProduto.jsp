@@ -77,7 +77,7 @@
                     <% } %>
                 </select>
                 <br>
-                <a href="../../estoqueJSP/createEstoque.jsp" class="hover-link" title="Cadastrar novo estoque">Criar Estoque</a>
+                <a href="ServletReadEstoque?view=create" class="hover-link" title="Cadastrar novo estoque">Criar Estoque</a>
                 <br><br>
 
                 <!-- Campo Nota Fiscal XML -->
@@ -91,7 +91,7 @@
                     <% } %>
                 </select>
                 <br>
-                <a href="../../notaFiscalXmlJSP/createNotaFiscalXml.jsp" class="hover-link" title="Cadastrar nova nota fiscal">Criar Nota Fiscal XML</a>
+                <a href="ServletReadNotaFiscalXml?view=create" class="hover-link" title="Cadastrar nova nota fiscal">Criar Nota Fiscal XML</a>
                 <br><br>
 
                 <!-- Campo Unidade de Medida -->
@@ -108,9 +108,11 @@
 
                 <label for="codigoEan">Código EAN:</label><br>
                 <input
+
                         type="text"
                         id="codigoEan"
                         name="codigoEan"
+                        value="<%=produto.getCodigoEan()%>" required
                         class="input-redondo"
                         placeholder="Ex: 12345678"
                         maxlength="13"
