@@ -20,7 +20,7 @@ import java.util.Optional;
         protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             LoginDAO loginDAO = new LoginDAO();
             String mensagemErro = null;
-            String redirect = "index.jsp";
+            String redirect = "login.jsp";
             String email = request.getParameter("email");
             Optional<Usuario> usuario = loginDAO.userExists(email);
             if (usuario.isEmpty()){

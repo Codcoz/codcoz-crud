@@ -58,7 +58,7 @@
         <!-- Navegação -->
         <div style="display: flex; gap: 20px;">
             <a href="<%= request.getContextPath() %>/ServletReadProduto" class="hover-link" title="Ver lista de produtos">Voltar à lista de produtos</a>
-            <a href="<%= request.getContextPath() %>/index.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
+            <a href="<%= request.getContextPath() %>/login.jsp" class="hover-link" title="Voltar à página inicial">Voltar ao início</a>
         </div>
 
     </main>
