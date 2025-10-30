@@ -78,7 +78,7 @@
 
                 <!-- Campo Email -->
                 <label for="email">Email:</label><br>
-                <input type="email" id="email" name="email" class="input-redondo"
+                <input type="text" id="email" name="email" class="input-redondo"
                        value="<%= empresa.getEmail() %>"
                        pattern="^[A-Za-z0-9._%+-]+@(gmail\.com|net\.com|outlook\.com|hotmail\.com|yahoo\.com|icloud\.com|uol\.com\.br|terra\.com\.br|bol\.com\.br)$"
                        required placeholder="Ex: contato@empresa.com.br"

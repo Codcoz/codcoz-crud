@@ -67,8 +67,8 @@
 
                 <!-- Campo Email -->
                 <label for="email">Email:</label><br>
-                <input type="email" id="email" name="email" class="input-redondo"
-                       pattern="^[A-Za-z0-9._%+-]+@(gmail\.com|net\.com|outlook\.com|hotmail\.com|yahoo\.com|icloud\.com|uol\.com\.br|terra\.com\.br|bol\.com\.br)$"
+                <input type="text" id="email" name="email" class="input-redondo"
+                       pattern="^[A-Za-z0-9._%+-]+@(gmail\.com|net\.com|outlook\.com|hotmail\.com|yahoo\.com|icloud\.com|uol\.com\.br|\.br|z\.br)$"
                        placeholder="Email da empresa" required
                        title="Informe o e-mail da empresa"><br><br>
 
