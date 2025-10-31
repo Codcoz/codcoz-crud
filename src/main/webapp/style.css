@@ -242,7 +242,7 @@ td.acoes img:hover {
     border-radius: 20px;
     background-color:#f0f0f0;
     font-size: 14px;
-    color: rgba(189, 189, 189, 0.76);
+    color: #333;
     outline: none;
     text-align: left;
     transition: box-shadow 0.3s ease;
