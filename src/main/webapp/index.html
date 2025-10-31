@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,118 +8,172 @@
     <link rel="stylesheet" href="style-landing.css">
     <title>CodCoz</title>
 </head>
+
 <body>
 
-<header>
-    <div class="logo">
-        <img src="assets-landing/logo/logoEscritaAmarelo.png" alt="Logo da CodCoz">
-    </div>
-    <nav class="menu">
-        <a href="#historia">Historia</a>
-        <a href="#nos">Nos</a>
-        <a href="#contato">Contato</a>
-        <div>
-            <a href="login.jsp">Área restrita</a>
-            <img style="width: 10px" src="assets-landing/logo/cadeado.png">
+    <header>
+        <div class="logo">
+            <img src="assets-landing/logo/logoEscritaAmarelo.png" alt="Logo da CodCoz">
         </div>
-    </nav>
-</header>
+        <nav class="menu">
+            <a href="#historia">Historia</a>
+            <a href="#nos">Sobre Nós</a>
+            <a href="#contato">Contato</a>
+            <div>
+                <a href="login.jsp">Área restrita</a>
+                <img width="10" src="assets-landing/logo/cadeado.png">
+            </div>
+        </nav>
+    </header>
 
-<main>
-    <section class="primeiro">
-        <div class="primeiro-text">
-            <h1>Gestão inteligente e sustentável para seu estoque</h1>
-            <div class="primeiro-buttons">
-                <a href="#sobre" class="botao1">Conheça o CodCoz</a>
-                <a href="#vantagens" class="botao2">Vantagens</a>
+    <main>
+        <section class="primeiro">
+            <div class="primeiro-text">
+                <h1>Gestão inteligente e sustentável para seu estoque</h1>
+                <div class="primeiro-buttons">
+                    <a href="#sobre" class="botao1">Conheça o CodCoz</a>
+                    <a href="#vantagens" class="botao2">Vantagens</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="assets-landing/logo/celulares.png" alt="Aplicativo CodCoz exibido em smartphones"
+                    class="celulares">
+            </div>
+        </section>
+
+        <section id="sobre" class="sobre-codcoz">
+            <h2 style="font-weight: 600;">Por que nasceu o CodCoz?</h2>
+            <p>
+                Muitas cozinhas industriais ainda usam métodos manuais ou planilhas para controlar os insumos.
+                Isso pode causar erros humanos como a quebra de estoque, que é diferenças entre o que está registrado no
+                sistema de gestão
+                e o que realmente existe na cozinha. Por isso, CodCoz traz <a href="#tecnologias">tecnologias</a> pensadas
+                para resolver esses problemas.
+            </p>
+        </section>
+
+        <section class="mais-aproveitamento">
+            <h1>Mais aproveitamento na sua cozinha</h1>
+            <div class="cards">
+                <p>Trazendo segurança com dados reais</p>
+            </div>
+        </section>
+
+
+        <section id="vantagens" class="vantagens-codcoz">
+            <h1>Vantagens CodCoz</h1>
+            <div class="vantagens">
+                <article>
+                    <img src="assets-landing/vantagens/primeiro.png" alt="Entrada de insumos automatizada">
+                    <p>Entrada de insumos automatizada</p>
+                </article>
+                <article>
+                    <img src="assets-landing/vantagens/segundo.png" alt="Baixa de insumos automatizada">
+                    <p>Baixa de insumos automatizada</p>
+                </article>
+                <article>
+                    <img src="assets-landing/vantagens/terceiro.png" alt="Relatórios gerados na hora">
+                    <p>Relatórios gerados na hora</p>
+                </article>
+                <article>
+                    <img src="assets-landing/vantagens/quarto.png" alt="Relação do cardápio com o estoque">
+                    <p>Relação do cardápio com o estoque</p>
+                </article>
+        </section>
+        <section id="tecnologias">
+            <p>
+                CodCoz conta com um scanner de código de barras, ou seja, basta fazer a entrada do produto com uma 
+                <b>nota fiscal</b>, fazer a baixa com scanner, e pronto! O sistema de gestão já é atualizado e os 
+                relatórios gerados.
+                <br><br>
+                O sistema também conta com a funcionalidade de relação do cardápio com o estoque, ou seja, ao cadastrar o
+                cardápio semanal, o sistema já calcula a quantidade necessária de cada insumo para aquela semana, 
+                facilitando o planejamento das compras e evitando desperdícios.
+            </p>
+        </section>
+        <section class="container-funcionalidades">
+            <div class="container-celulares">
+                <div class="celular" id="cell1">
+                    <img width="250px" src="assets-landing/vantagens/cell1.png" alt="">
+                </div>
+                <div class="celular" id="cell2">
+                    <img width="250px" src="assets-landing/vantagens/cell1.png" alt="">
+                </div>
+                <div class="celular" id="cell3">
+                    <img width="250px" src="assets-landing/vantagens/cell1.png" alt="">
+                </div>
+                    
+                <article id="default">
+                    <h1>Descubra nossas Telas</h1>
+                    <p>Passe o cursor por alguma das telas para descobrir sua funcionalidade!</p>
+                </article>
+                <article id="desc1">
+                    <h1>cell1</h1>
+                    <p>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat quia nisi molestiae unde
+                        assumenda ab. Nobis, tempora eos. Adipisci qui autem iste nihil maiores quam tenetur
+                        deleniti quos. Vitae, atque.
+                    </p>
+                </article>
+                <article id="desc2">
+                    <h1>cell2</h1>
+                    <p>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat quia nisi molestiae unde
+                        assumenda ab. Nobis, tempora eos. Adipisci qui autem iste nihil maiores quam tenetur
+                        deleniti quos. Vitae, atque.
+                    </p>
+                </article>
+                <article id="desc3">
+                    <h1>cell3</h1>
+                    <p>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat quia nisi molestiae unde
+                        assumenda ab. Nobis, tempora eos. Adipisci qui autem iste nihil maiores quam tenetur
+                        deleniti quos. Vitae, atque.
+                    </p>
+                </article>
+        </section>
+
+
+        <section id="historia" class="nossa-historia">
+            <div class="historia-texto">
+                <h2>Nossa história</h2>
+                <p>
+                    O projeto nasceu a partir de uma iniciativa dos alunos do primeiro ano da Germinare do Instituto
+                    J&F,
+                    que, ao visitarem a cozinha da instituição, identificaram desafios e necessidades do dia a dia.
+                    A partir dessa experiência, surgiu a proposta de uma solução capaz de atender não apenas à realidade
+                    da escola, mas também de ser aplicada em cozinhas industriais. Com a ideia estruturada, os alunos do
+                    segundo ano passaram a colaborar no processo, contribuindo para o desenvolvimento do aplicativo.
+                </p>
+            </div>
+        </section>
+
+
+
+        <section id="nos">
+            <h2 class="equipe">Nossa equipe</h2>
+            <figure class="equipe-imagem">
+                <img class="grupo" src="assets-landing/grupo/O-codcoz.jpeg" alt="A equipe inteira da CodCoz reunida">
+            </figure>
+        </section>
+    </main>
+
+    <footer id="contato" class="footer">
+        <div class="footer-esquerda">
+            <img src="assets-landing/logo/logoEscrita.png" alt="Logo CodCoz">
+            <p class="slogan">Seu estoque digno de um chefe!</p>
+        </div>
+        <div class="footer-direita">
+            <div class="linha-vertical"></div>
+            <div class="contatos">
+                <h3>CONTATOS</h3>
+                <p><a href="mailto:contato.codcoz@gmail.com">contato.codcoz@gmail.com</a></p>
+                <p>@codcoz</p>
+                <p class="copyright">© 2025 CodCoz. Todos os direitos reservados.</p>
             </div>
         </div>
-        <div class="hero-image">
-            <img src="assets-landing/logo/celulares.png" alt="Aplicativo CodCoz exibido em smartphones" class="celulares">
-        </div>
-    </section>
-
-    <section id="sobre" class="sobre-codcoz">
-        <h2 style="font-weight: 600;">Por que nasceu o CodCoz?</h2>
-        <p>
-            Muitas cozinhas industriais ainda usam métodos manuais ou planilhas para controlar os insumos.
-            Isso pode causar erros humanos como a quebra de estoque, que é diferenças entre o que está registrado no sistema de gestão
-            e o que realmente existe na cozinha.
-        </p>
-    </section>
-
-    <section class="mais-aproveitamento">
-        <h1>Mais aproveitamento na sua cozinha</h1>
-        <div class="cards">
-            <p>Trazendo segurança com dados reais</p>
-        </div>
-    </section>
-
-    <hr class="divisor2">
-
-    <section id="vantagens" class="vantagens-codcoz">
-        <h1>Vantagens CodCoz</h1>
-        <div class="vantagens">
-            <article>
-                <img src="assets-landing/vantagens/primeiro.png" alt="Entrada de insumos automatizada">
-                <p>Entrada de insumos automatizada</p>
-            </article>
-            <article>
-                <img src="assets-landing/vantagens/segundo.png" alt="Baixa de insumos automatizada">
-                <p>Baixa de insumos automatizada</p>
-            </article>
-            <article>
-                <img src="assets-landing/vantagens/terceiro.png" alt="Relatórios gerados na hora">
-                <p>Relatórios gerados na hora</p>
-            </article>
-            <article>
-                <img src="assets-landing/vantagens/quarto.png" alt="Relação do cardápio com o estoque">
-                <p>Relação do cardápio com o estoque</p>
-            </article>
-        </div>
-    </section>
-
-    <hr class="divisor2">
-
-    <section id="historia" class="nossa-historia">
-        <div class="historia-texto">
-            <h2>Nossa história</h2>
-            <p>
-                O projeto nasceu a partir de uma iniciativa dos alunos do primeiro ano da Germinare do Instituto J&F,
-                que, ao visitarem a cozinha da instituição, identificaram desafios e necessidades do dia a dia.
-                A partir dessa experiência, surgiu a proposta de uma solução capaz de atender não apenas à realidade
-                da escola, mas também de ser aplicada em cozinhas industriais. Com a ideia estruturada, os alunos do
-                segundo ano passaram a colaborar no processo, contribuindo para o desenvolvimento do aplicativo.
-            </p>
-        </div>
-    </section>
-
-    <hr class="divisor2">
-
-
-    <section id="nos">
-        <h2 class="equipe">Nossa equipe</h2>
-        <figure class="equipe-imagem">
-            <img class="grupo" src="assets-landing/grupo/O-codcoz.jpeg" alt="A equipe inteira da CodCoz reunida">
-        </figure>
-    </section>
-</main>
-
-<footer id="contato" class="footer">
-    <div class="footer-esquerda">
-        <img src="assets-landing/logo/logoEscrita.png" alt="Logo CodCoz">
-        <p class="slogan">Seu estoque digno de um chefe!</p>
-    </div>
-    <div class="footer-direita">
-        <div class="linha-vertical"></div>
-        <div class="contatos">
-            <h3>CONTATOS</h3>
-            <p><a href="mailto:contato.codcoz@gmail.com">contato.codcoz@gmail.com</a></p>
-            <p>@codcoz</p>
-            <p class="copyright">© 2025 CodCoz. Todos os direitos reservados.</p>
-        </div>
-    </div>
-</footer>
+    </footer>
 
 </body>
+
 </html>
