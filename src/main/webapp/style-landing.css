@@ -278,9 +278,10 @@ header {
 
 .celular{
     transition: transform 0.2s ease;
-    width: 200px; 
-    height: 400px;
     position: absolute;
+}
+.celular img{
+    width: 180px;
 }
 
 #cell1{
@@ -315,12 +316,6 @@ header {
     color: #eaeaea;
 }
 
-.divisor2{
-    margin: 100px 150px;
-    background-color: rgba(21, 32, 53, 1);
-    border: none;
-    height: 5px;
-}
 .nossa-historia {
     display: flex;
     align-items: center;
@@ -411,7 +406,7 @@ header {
 }
 
 .equipe{
-    margin-left: 290px;
+    margin-left: 20vw;
     margin-bottom: 80px;
     font-size: 2.5rem;
     font-weight: 600;
