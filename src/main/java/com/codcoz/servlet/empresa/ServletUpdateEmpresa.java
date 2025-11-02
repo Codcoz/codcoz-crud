@@ -23,7 +23,7 @@ public class ServletUpdateEmpresa extends HttpServlet {
         // Normaliza o CNPJ removendo caracteres não numéricos
         String cnpjOriginal = request.getParameter("cnpj");
         String cnpj = cnpjOriginal.replaceAll("\\D", "");
-        String email = request.getParameter("email");
+
 
         // Cria o objeto Empresa com os dados recebidos do formulário
         Empresa empresa = new Empresa(
@@ -31,7 +31,7 @@ public class ServletUpdateEmpresa extends HttpServlet {
                 Integer.parseInt(request.getParameter("idEndereco")),
                 request.getParameter("nome"),
                 cnpj,
-                email
+                request.getParameter("email")
         );
 
         // Executa a atualização via DAO
