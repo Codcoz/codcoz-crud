@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="login-page">
+<a href="index.html" class="voltar-index">&lt;</a>
 <div class="login-container">
     <div class="login-left">
         <div class="login-logo">
