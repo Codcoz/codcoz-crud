@@ -429,4 +429,26 @@ header {
     border: #d4bc66 2px solid;
     padding: 20px;
 }
+.botao-circular {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 70px;
+    height: 70px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
 
+.botao-circular:hover {
+    transform: scale(1.1);
+}
+
+.botao-circular img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+}
