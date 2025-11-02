@@ -15,122 +15,51 @@ public class ServletUpdateEndereco extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // ==== Leitura dos parâmetros ====
-        String idStr        = request.getParameter("id");
-        String rua          = request.getParameter("rua");
-        String complemento  = request.getParameter("complemento");
-        String cidade       = request.getParameter("cidade");
-        String estado       = request.getParameter("estado");
-        String cep          = request.getParameter("cep");
-        String numero       = request.getParameter("numero");
+        // Normaliza o CEP: remove tudo que não for número
+        String cep = request.getParameter("cep").replaceAll("\\D", "");
 
-        boolean temErro = false;
+        // Valida o ID
         Integer id = null;
-
-        // ==== Validações básicas ====
         try {
-            id = Integer.valueOf(idStr);
+            id = Integer.valueOf(request.getParameter("id"));
             if (id <= 0) throw new NumberFormatException();
         } catch (Exception e) {
-            request.setAttribute("erroId", "ID inválido.");
-            temErro = true;
-        }
-
-        if (rua == null || rua.trim().isEmpty()) {
-            request.setAttribute("erroRua", "Rua é obrigatória.");
-            temErro = true;
-        }
-        if (cidade == null || cidade.trim().isEmpty()) {
-            request.setAttribute("erroCidade", "Cidade é obrigatória.");
-            temErro = true;
-        }
-        if (estado == null || estado.trim().isEmpty()) {
-            request.setAttribute("erroEstado", "Estado é obrigatório.");
-            temErro = true;
-        }
-        if (cep == null || cep.trim().isEmpty()) {
-            request.setAttribute("erroCep", "Cep e obrigatorio");
-        }
-        if (numero == null || numero.trim().isEmpty()) {
-            request.setAttribute("erroNumero", "Número é obrigatório.");
-            temErro = true;
-        }
-        if (complemento == null || complemento.trim().isEmpty()) {
-            request.setAttribute("erroComplemento","Complemento e Obrigatorio");
-            temErro = true;
-        }
-
-        if (temErro) {
-            // Preserva valores para o formulário de update
-            request.setAttribute("idValue", idStr);
-            request.setAttribute("ruaValue", rua);
-            request.setAttribute("complementoValue", complemento);
-            request.setAttribute("cidadeValue", cidade);
-            request.setAttribute("estadoValue", estado);
-            request.setAttribute("cepValue", cep);
-            request.setAttribute("numeroValue", numero);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/enderecoJSP/updateEndereco.jsp");
+            request.setAttribute("mensagem", "ID inválido para atualização.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/enderecoJSP/updateEndereco.jsp");
             dispatcher.forward(request, response);
             return;
         }
 
-        // ==== Normalização ====
-        String cepNormalizado = cep.replaceAll("\\D", "");
-
-        // ==== Monta objeto ====
+        // Monta o objeto Endereco
         Endereco endereco = new Endereco(
                 id,
-                rua,
-                complemento,
-                cidade,
-                estado,
-                cepNormalizado,
-                numero
+                request.getParameter("rua"),
+                request.getParameter("complemento"),
+                request.getParameter("cidade"),
+                request.getParameter("estado"),
+                cep,
+                request.getParameter("numero")
         );
 
-        try {
-            // ==== Executa update ====
-            EnderecoDAO dao = new EnderecoDAO();
-            int status = dao.update(endereco);
+        // Executa a atualização via DAO e define a mensagem com base no resultado
+        EnderecoDAO dao = new EnderecoDAO();
+        String mensagem;
 
-            // ==== Mensagem conforme status ====
-            String resumo = String.format("(%s) %s, rua %s, nº %s — %s",
-                    endereco.getCep(),
-                    endereco.getCidade(),
-                    endereco.getRua(),
-                    endereco.getNumero(),
-                    endereco.getEstado());
-
-            String mensagem;
-            switch (status) {
-                case 1:
-                    mensagem = "A atualização do endereço " + resumo + " foi realizada com sucesso.";
-                    break;
-                case 0:
-                    mensagem = "A atualização do endereço " + resumo + " falhou: erro interno. " +
-                            "Entre em contato pelo e-mail contato.codcoz@gmail.com.";
-                    break;
-                default:
-                    mensagem = "A atualização do endereço " + resumo + " falhou: erro desconhecido. " +
-                            "Entre em contato pelo e-mail contato.codcoz@gmail.com.";
-            }
-
-            request.setAttribute("mensagem", mensagem);
-
-            // ==== Recarrega listagem ====
-            List<Endereco> lista = dao.read();
-            request.setAttribute("listaEnderecos", lista);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/enderecoJSP/readEndereco.jsp");
-            dispatcher.forward(request, response);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            request.setAttribute("mensagem", "Erro interno ao atualizar o endereço. Tente novamente mais tarde.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/enderecoJSP/updateEndereco.jsp");
-            dispatcher.forward(request, response);
+        int status = dao.update(endereco);
+        if (status == 1) {
+            mensagem = "A atualização do endereço foi realizada com sucesso.";
+        } else {
+            mensagem = "A atualização do endereço falhou: erro interno. Entre em contato em contato.codcoz@gmail.com";
         }
+
+        request.setAttribute("mensagem", mensagem);
+
+        // Atualiza a lista de endereços para exibir na JSP
+        List<Endereco> lista = dao.read();
+        request.setAttribute("listaEnderecos", lista);
+
+        // Encaminha para a página JSP mantendo os dados
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/enderecoJSP/readEndereco.jsp");
+        dispatcher.forward(request, response);
     }
 }
