@@ -20,7 +20,7 @@ public class ServletUpdateEmpresa extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Normaliza o CNPJ removendo caracteres não numéricos
+        // Normaliza o CNPJ removendo caracteres não numéricos usando REGEX
         String cnpjOriginal = request.getParameter("cnpj");
         String cnpj = cnpjOriginal.replaceAll("\\D", "");
 

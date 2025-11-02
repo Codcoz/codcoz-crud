@@ -15,7 +15,7 @@ public class ServletCreateEndereco extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Normaliza o CEP: remove tudo que não for número
+        // Normaliza o CEP: remove tudo que não for número Usando REGEX
         String cep = request.getParameter("cep").replaceAll("\\D", "");
 
         Endereco endereco = new Endereco(

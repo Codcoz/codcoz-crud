@@ -15,7 +15,7 @@ public class ServletUpdateEndereco extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Normaliza o CEP: remove tudo que não for número
+        // Normaliza o CEP: remove tudo que não for número usando REGEX
         String cep = request.getParameter("cep").replaceAll("\\D", "");
 
         // Valida o ID

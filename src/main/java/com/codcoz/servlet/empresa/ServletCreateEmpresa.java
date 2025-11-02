@@ -18,7 +18,7 @@ public class ServletCreateEmpresa extends HttpServlet {
     // Método que trata requisições POST para criar uma empresa
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Remove caracteres não numéricos do CNPJ
+        // Remove caracteres não numéricos do CNPJ usando REGEX
         String cnpjOriginal = request.getParameter("cnpj");
         String cnpj = cnpjOriginal.replaceAll("\\D", "");
 

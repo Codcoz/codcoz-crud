@@ -21,7 +21,7 @@ public class ServletCreateFuncionario extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Remove caracteres não numéricos do CPF
+        // Remove caracteres não numéricos do CPF usando REGEX
         String cpfNormalizado = request.getParameter("cpf").replaceAll("\\D", "");
 
         // Cria um objeto Funcionario com os dados recebidos do formulário
